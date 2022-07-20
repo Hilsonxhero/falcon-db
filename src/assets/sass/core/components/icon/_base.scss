@@ -1,0 +1,14 @@
+.hx-icon {
+  margin-bottom: .1rem;
+  cursor: pointer;
+
+  &__right {
+    margin-left: 8px;
+    margin-right: -4px;
+  }
+
+  &__left {
+    margin-right: 8px;
+    margin-left: -4px;
+  }
+}

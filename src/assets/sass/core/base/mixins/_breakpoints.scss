@@ -1,0 +1,95 @@
+@mixin media-breakpoint($size) {
+    @if $size==sm {
+        @media (max-width: 640px) {
+            @content;
+        }
+    }
+
+    @else if $size==md {
+        @media (min-width: 768px) {
+            @content;
+        }
+    }
+
+    @else if $size==lg {
+        @media (min-width: 1024px) {
+            @content;
+        }
+    }
+
+    @else if $size==xl {
+        @media (min-width: 1280px) {
+            @content;
+        }
+    }
+
+    @else if $size==xxl {
+        @media (min-width: 1536px) {
+            @content;
+        }
+    }
+}
+
+@mixin media-breakpoint-down($size) {
+    @if $size==sm {
+        @media (max-width: 640px) {
+            @content;
+        }
+    }
+
+    @else if $size==md {
+        @media (max-width: 768px) {
+            @content;
+        }
+    }
+
+    @else if $size==lg {
+        @media (max-width: 1024px) {
+            @content;
+        }
+    }
+
+    @else if $size==xl {
+        @media (max-width: 1280px) {
+            @content;
+        }
+    }
+
+    @else if $size==xxl {
+        @media (max-width: 1536px) {
+            @content;
+        }
+    }
+}
+
+@mixin media-breakpoint-up($size) {
+    @if $size==sm {
+        @media (min-width: 640px) {
+            @content;
+        }
+    }
+
+    @else if $size==md {
+        @media (min-width: 768px) {
+            @content;
+        }
+    }
+
+    @else if $size==lg {
+        @media (min-width: 1024px) {
+            @content;
+        }
+    }
+
+    @else if $size==xl {
+        @media (min-width: 1280px) {
+            @content;
+        }
+    }
+
+    @else if $size==xxl {
+        @media (min-width: 1536px) {
+            @content;
+        }
+    }
+}

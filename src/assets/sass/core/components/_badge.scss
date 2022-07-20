@@ -1,0 +1,438 @@
+.hx-badge {
+    height: 1.75rem;
+    align-items: center;
+    border-radius: 0.375rem;
+    display: flex;
+    flex: 0 0 auto;
+    font-weight: 500;
+    justify-content: center;
+    outline: 0;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition-duration: .28s;
+    transition-property: box-shadow, transform, opacity;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    color: #fff;
+    // @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
+    // @include transition($btn-transition);
+
+
+
+    &__round {
+        border-radius: 50%;
+    }
+
+    &__outlined {
+        border: thin solid !important;
+    }
+
+    &::before {
+        background-color: currentColor;
+        border-radius: inherit;
+        bottom: 0;
+        color: inherit;
+        content: "";
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: opacity .2s cubic-bezier(.4, 0, .6, 1);
+    }
+
+
+
+    &:hover {
+        color: $body-color;
+        text-decoration: if($link-hover-decoration==underline, none, null);
+
+        &::before {
+            opacity: 0.10;
+        }
+    }
+
+    .btn-check:focus+&,
+    &:focus {
+        outline: 0;
+        box-shadow: $btn-focus-box-shadow;
+    }
+
+    .btn-check:checked+&,
+    .btn-check:active+&,
+    &:active,
+    &.active {
+        // @include box-shadow($btn-active-box-shadow);
+
+        &:focus {
+            // @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
+        }
+    }
+
+    &:disabled,
+    &.disabled,
+    fieldset:disabled & {
+        pointer-events: none;
+        opacity: $btn-disabled-opacity;
+        // @include box-shadow(none);
+    }
+
+    outline: none !important;
+
+    // Reset focus shadow
+    &:not(.hx-badge__shadow):not(.shadow):not(.shadow-sm):not(.shadow-lg) {
+        box-shadow: none !important;
+    }
+
+    // Remove border
+    &:not(.hx-badge__outline):not(.hx-badge__dashed):not(.border-hover):not(.border-active):not(.hx-badge__flush):not(.hx-badge__icon) {
+        border: 0;
+        padding: calc(#{$btn-padding-y} + #{$btn-border-width}) calc(#{$btn-padding-x} + #{$btn-border-width});
+
+        &.hx-badge__lg {
+            padding: calc(#{$btn-padding-y-lg} + #{$btn-border-width}) calc(#{$btn-padding-x-lg} + #{$btn-border-width});
+        }
+
+        &.hx-badge__sm {
+            padding: calc(#{$btn-padding-y-sm} + #{$btn-border-width}) calc(#{$btn-padding-x-sm} + #{$btn-border-width});
+        }
+    }
+
+    // Link
+    &.hx-badge__link {
+        border: 0;
+        border-radius: 0;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        text-decoration: none;
+        font-weight: $btn-font-weight;
+    }
+
+    // Outline dashed
+    &.hx-badge__outline-dashed {
+        border: 1px dashed $border-dashed-color;
+    }
+
+    // Flush
+    &.hx-badge__flush {
+        @include button-reset();
+    }
+
+    // Flex
+    &.hx-badge__flex {
+        display: inline-flex;
+        align-items: center;
+    }
+}
+
+// Icons
+.hx-badge {
+
+    // Svg icon
+    .svg-icon {
+        flex-shrink: 0;
+        line-height: 0;
+        margin-right: 0.5rem;
+    }
+
+    // Icon only button
+    &.hx-badge__icon {
+        height: 36px;
+        width: 36px;
+
+        &__content {
+            svg {
+                color: rgba(0, 0, 0, .54) !important;
+                fill: currentColor !important;
+
+            }
+        }
+
+        // Remove border
+        &:not(.hx-badge__outline):not(.hx-badge__dashed):not(.border-hover):not(.border-active):not(.hx-badge__flush) {
+            border: 0;
+        }
+
+        // Sizes
+        &.hx-badge__sm {
+            height: $input-height-sm;
+            width: $input-height-sm;
+        }
+
+        &.hx-badge__lg {
+            height: $input-height-lg;
+            width: $input-height-lg;
+        }
+
+        &.hx-badge__circle {
+            border-radius: 50%;
+        }
+
+        i,
+        .svg-icon {
+            padding: 0;
+            margin: 0;
+            line-height: 1;
+        }
+    }
+}
+
+
+
+//
+// Buttons Theme
+//
+
+// Theme colors
+@each $name,
+$value in $theme-colors {
+
+    // Base
+    .hx-badge.hx-badge__#{$name} {
+        $color: theme-inverse-color($name);
+        $icon-color: theme-inverse-color($name);
+        $border-color: $value;
+        $bg-color: $value;
+        $color-active: theme-inverse-color($name);
+        $icon-color-active: theme-inverse-color($name);
+        $border-color-active: theme-active-color($name);
+        $bg-color-active: theme-active-color($name);
+        @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+    }
+
+    .hx-badge.hx-badge__#{$name}-text {
+        $color: theme-inverse-color($name);
+        $icon-color: theme-inverse-color($name);
+        $border-color: $value;
+        $bg-color: $value;
+        $color-active: theme-inverse-color($name);
+        $icon-color-active: theme-inverse-color($name);
+        $border-color-active: theme-active-color($name);
+        $bg-color-active: theme-active-color($name);
+        @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+    }
+
+    // Light
+    @if (theme-light-color($name)) {
+        .hx-badge.hx-badge__light-#{$name} {
+            $color: $value;
+            $icon-color: $value;
+            $border-color: theme-light-color($name);
+            $bg-color: theme-light-color($name);
+
+            $color-active: theme-inverse-color($name);
+            $icon-color-active: theme-inverse-color($name);
+            $border-color-active: $value;
+            $bg-color-active: $value;
+
+            @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+        }
+    }
+
+    @if ($btn-extended-variants==true or $name==primary or $name==light) {
+        .hx-badge.hx-badge__bg-#{$name} {
+            $color: null;
+            $icon-color: null;
+            $border-color: $value;
+            $bg-color: $value;
+
+            $color-active: null;
+            $icon-color-active: null;
+            $border-color-active: null;
+            $bg-color-active: null;
+
+            @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+        }
+
+        .hx-badge.hx-badge__active-#{$name} {
+            $color: null;
+            $icon-color: null;
+            $border-color: null;
+            $bg-color: null;
+
+            $color-active: theme-inverse-color($name);
+            $icon-color-active: theme-inverse-color($name);
+            $border-color-active: $value;
+            $bg-color-active: $value;
+
+            @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+        }
+
+        @if (theme-light-color($name)) {
+            .hx-badge.hx-badge__active-light-#{$name} {
+                $color: null;
+                $icon-color: null;
+                $border-color: null;
+                $bg-color: null;
+
+                $color-active: $value;
+                $icon-color-active: $value;
+                $border-color-active: theme-light-color($name);
+                $bg-color-active: theme-light-color($name);
+
+                @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+
+                // Don't change the border color for outline style
+                &.hx-badge__outline:not(.hx-badge__outline-default) {
+                    border-color: $value !important;
+                }
+            }
+        }
+    }
+}
+
+// Theme text colors
+@each $name,
+$value in $theme-text-colors {
+    @if ($btn-extended-variants==true or $name==primary or $name==muted) {
+
+        // Text and icon colors
+        .hx-badge.hx-badge__color-#{$name} {
+            $color: $value;
+            $icon-color: $value;
+            $bg-color: null;
+            $border-color: $value;
+            $color-active: null;
+            $icon-color-active: null;
+            $border-color-active: null;
+            $bg-color-active: null;
+
+            @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+        }
+
+        // Text and icon colors active state
+        .hx-badge.hx-badge__active-color-#{$name} {
+            $color: null;
+            $icon-color: null;
+            $border-color: null;
+            $bg-color: null;
+
+            $color-active: $value;
+            $icon-color-active: $value;
+            $border-color-active: null;
+            $bg-color-active: null;
+
+            @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+        }
+
+        // Icon colors 
+        .hx-badge.hx-badge__icon-#{$name} {
+            $color: null;
+            $icon-color: $value;
+            $bg-color: null;
+            $border-color: null;
+
+            $color-active: null;
+            $icon-color-active: null;
+            $border-color-active: null;
+            $bg-color-active: null;
+
+            @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+        }
+
+        // Icon colors active state
+        .hx-badge.hx-badge__active-icon-#{$name} {
+            $color: null;
+            $icon-color: null;
+            $bg-color: null;
+            $border-color: null;
+
+            $color-active: null;
+            $icon-color-active: $value;
+            $border-color-active: null;
+            $bg-color-active: null;
+
+            @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+        }
+
+        // Text colors
+        .hx-badge.hx-badge__text-#{$name} {
+            $color: $value;
+            $icon-color: null;
+            $bg-color: null;
+            $border-color: null;
+
+            $color-active: null;
+            $icon-color-active: null;
+            $border-color-active: null;
+            $bg-color-active: null;
+
+            @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+        }
+
+        // Text colors active state
+        .hx-badge.hx-badge__active-text-#{$name} {
+            $color: null;
+            $icon-color: null;
+            $bg-color: null;
+            $border-color: null;
+
+            $color-active: $value;
+            $icon-color-active: null;
+            $border-color-active: null;
+            $bg-color-active: null;
+
+            @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+        }
+    }
+}
+
+// Social colors
+@each $name,
+$value in $social-colors {
+
+    // Base
+    .hx-badge.hx-badge__#{$name} {
+        $color: get($value, inverse);
+        $icon-color: get($value, inverse);
+        $border-color: get($value, base);
+        $bg-color: get($value, base);
+
+        $color-active: null;
+        $icon-color-active: null;
+        $border-color-active: get($value, active);
+        $bg-color-active: get($value, active);
+
+        @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+    }
+
+    // Light
+    .hx-badge.hx-badge__light-#{$name} {
+        $color: get($value, base);
+        $icon-color: get($value, base);
+        $bg-color: get($value, light);
+        $border-color: get($value, light);
+
+        $color-active: get($value, inverse);
+        $icon-color-active: get($value, inverse);
+        $bg-color-active: get($value, base);
+        $border-color-active: get($value, base);
+
+        @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+    }
+}
+
+// Outline dashed style
+.hx-badge.hx-badge__outline.hx-badge__outline-dashed.hx-badge__outline-default {
+    border-width: 1px;
+    border-style: dashed;
+
+    $color: $light-inverse;
+    $icon-color: $light-inverse;
+    $border-color: $gray-300;
+    $bg-color: null;
+
+    $color-active: $primary;
+    $icon-color-active: $primary;
+    $border-color-active: $primary;
+    $bg-color-active: $primary-light;
+
+    @include button-custom-variant($color, $icon-color, $border-color, $bg-color, $color-active, $icon-color-active, $border-color-active, $bg-color-active);
+}

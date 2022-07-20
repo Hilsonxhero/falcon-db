@@ -1,0 +1,165 @@
+@font-face {
+    font-family: YekanBakh;
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url('@/assets/fonts/YekanBakh/YekanBakh-Regular.woff2') format("woff2"), url('@/assets/fonts/YekanBakh/YekanBakh-Regular.ttf') format("truetype")
+}
+
+@font-face {
+    font-family: YekanBakh;
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('@/assets/fonts/YekanBakh/YekanBakh-Medium.woff2') format("woff2"), url('@/assets/fonts/YekanBakh/YekanBakh-Medium.ttf') format("truetype")
+}
+
+.shadow-design-base {
+    --tw-shadow: 0px 2px 14px #0000001a;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.rounded-inherit {
+    border-radius: inherit;
+}
+
+
+body,
+html {
+    user-select: none !important;
+}
+
+body * {
+    font-family: inherit;
+}
+
+.fade-in-linear-enter-active,
+.fade-in-linear-leave-active {
+    transition: getCssVar('transition-fade', 'linear');
+}
+
+.fade-in-linear-enter-from,
+.fade-in-linear-leave-to {
+    opacity: 0;
+}
+
+.collapse-transition-fade-in-linear-enter-active,
+.collapse-transition-fade-in-linear-leave-active {
+    transition: getCssVar('transition-fade', 'linear');
+}
+
+.collapse-transition-fade-in-linear-enter-from,
+.collapse-transition-fade-in-linear-leave-to {
+    opacity: 0;
+}
+
+.collapse-transition-fade-in-enter-active,
+.collapse-transition-fade-in-leave-active {
+    transition: all getCssVar('transition-duration') cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.collapse-transition-fade-in-enter-from,
+.collapse-transition-fade-in-leave-active {
+    opacity: 0;
+}
+
+.collapse-transition-zoom-in-center-enter-active,
+.collapse-transition-zoom-in-center-leave-active {
+    transition: all getCssVar('transition-duration') cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.collapse-transition-zoom-in-center-enter-from,
+.collapse-transition-zoom-in-center-leave-active {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.collapse-transition-zoom-in-top-enter-active,
+.collapse-transition-zoom-in-top-leave-active {
+    opacity: 1;
+    transform: scaleY(1);
+    transition: getCssVar('transition-md-fade');
+    transform-origin: center top;
+
+    &[data-popper-placement^='top'] {
+        transform-origin: center bottom;
+    }
+}
+
+.collapse-transition-zoom-in-top-enter-from,
+.collapse-transition-zoom-in-top-leave-active {
+    opacity: 0;
+    transform: scaleY(0);
+}
+
+.collapse-transition-zoom-in-bottom-enter-active,
+.collapse-transition-zoom-in-bottom-leave-active {
+    opacity: 1;
+    transform: scaleY(1);
+    transition: getCssVar('transition-md-fade');
+    transform-origin: center bottom;
+}
+
+.collapse-transition-zoom-in-bottom-enter-from,
+.collapse-transition-zoom-in-bottom-leave-active {
+    opacity: 0;
+    transform: scaleY(0);
+}
+
+.collapse-transition-zoom-in-left-enter-active,
+.collapse-transition-zoom-in-left-leave-active {
+    opacity: 1;
+    transform: scale(1, 1);
+    transition: getCssVar('transition-md-fade');
+    transform-origin: top left;
+}
+
+.collapse-transition-zoom-in-left-enter-from,
+.collapse-transition-zoom-in-left-leave-active {
+    opacity: 0;
+    transform: scale(0.45, 0.45);
+}
+
+.collapse-transition {
+    transition: getCssVar('transition-duration') height ease-in-out,
+        getCssVar('transition-duration') padding-top ease-in-out,
+        getCssVar('transition-duration') padding-bottom ease-in-out;
+}
+
+.collapse-transition-collapse-transition-leave-active,
+.collapse-transition-collapse-transition-enter-active {
+    transition: getCssVar('transition-duration') max-height ease-in-out,
+        getCssVar('transition-duration') padding-top ease-in-out,
+        getCssVar('transition-duration') padding-bottom ease-in-out;
+}
+
+.horizontal-collapse-transition {
+    transition: getCssVar('transition-duration') width ease-in-out,
+        getCssVar('transition-duration') padding-left ease-in-out,
+        getCssVar('transition-duration') padding-right ease-in-out;
+}
+
+.collapse-transition-list-enter-active,
+.collapse-transition-list-leave-active {
+    transition: all 1s;
+}
+
+.collapse-transition-list-enter-from,
+.collapse-transition-list-leave-to {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+.collapse-transition-list-leave-active {
+    position: absolute !important;
+}
+
+.collapse-transition-opacity-transition {
+    transition: opacity getCssVar('transition-duration') cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+
+
+.hx-card {
+    box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.02);
+}
