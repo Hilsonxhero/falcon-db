@@ -1,4 +1,4 @@
-import type { AppContext, Plugin,PropType } from 'vue'
+import type { AppContext, Plugin, PropType } from 'vue'
 
 export type SFCWithInstall<T> = T & Plugin
 
@@ -17,4 +17,4 @@ export type Nullable<T> = T | null
 
 export type Arrayable<T> = T | T[]
 export type Awaitable<T> = Promise<T> | T
-export const definePropType = <T>(val: any): PropType<T> => val
+// export const definePropType = <T>(val: any): PropType<T> => val
