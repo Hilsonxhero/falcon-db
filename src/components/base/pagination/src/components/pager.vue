@@ -17,7 +17,7 @@
     >
       1
     </li>
-    <li
+    <!-- <li
       v-if="showPrevMore"
       :class="[
         'more',
@@ -31,7 +31,6 @@
       @focus="onFocus(true)"
       @blur="quickPrevFocus = false"
     >
-      <!-- <d-arrow-left v-if="quickPrevHover || quickPrevFocus" /> -->
       <hx-icon
         icon="arrow-right"
         class="w-6 h-6"
@@ -43,7 +42,7 @@
         class="w-6 h-6 text-gray-400"
         v-else
       ></hx-icon>
-    </li>
+    </li> -->
     <li
       v-for="pager in pagers"
       :key="pager"
@@ -57,7 +56,7 @@
     >
       {{ pager }}
     </li>
-    <li
+    <!-- <li
       v-if="showNextMore"
       :class="[
         'more',
@@ -82,7 +81,7 @@
         class="w-6 h-6 text-gray-400"
         v-else
       ></hx-icon>
-    </li>
+    </li> -->
     <li
       v-if="pageCount > 1"
       :class="[

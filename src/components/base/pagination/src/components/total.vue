@@ -1,9 +1,20 @@
 <template>
-  <div>
-    <h1>www</h1>
-  </div>
+  <span :class="ns.e('total')" :disabled="disabled">
+    {{
+      t("el.pagination.total", {
+        total,
+      })
+    }}
+  </span>
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+import { useLocale, useNamespace } from "@/core/hooks";
+import { usePagination } from "../usePagination";
+import { paginationTotalProps } from "./total";
+const { t } = useLocale();
+const ns = useNamespace("pagination");
+const { disabled } = usePagination();
 
-<style scoped></style>
+defineProps(paginationTotalProps);
+</script>

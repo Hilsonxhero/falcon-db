@@ -1,32 +1,95 @@
 <template>
   <section class="mb-6">
-    <div class="hx-card p-3">
+    <div class="hx-card p-6">
+      <div class="hx-card__header border-0">
+        <!--begin::Card title-->
+        <div class="hx-card__title">
+          <!--begin::Search-->
+          <div class="flex items-center position-relative my-1">
+            <hx-input
+              v-model="search"
+              @input="searchItems()"
+              placeholder="Search Customers"
+            ></hx-input>
+          </div>
+          <!--end::Search-->
+        </div>
+        <!--begin::Card title-->
+        <!--begin::Card toolbar-->
+        <div class="card-toolbar">
+          <!--begin::Toolbar-->
+          <!-- <div
+            v-if="checkedCustomers.length === 0"
+            class="d-flex justify-content-end"
+          ></div>
+
+          <div
+            v-else
+            class="d-flex justify-content-end align-items-center"
+            data-kt-customer-table-toolbar="selected"
+          >
+            <div class="fw-bolder me-5">
+              <span class="me-2">{{ checkedCustomers.length }}</span
+              >Selected
+            </div>
+            <button type="button" class="btn btn-danger">
+              Delete Selected
+            </button>
+          </div> -->
+
+          <!-- <div class="d-flex justify-content-end align-items-center d-none">
+            <div class="fw-bolder me-5"><span class="me-2"></span>Selected</div>
+            <button type="button" class="btn btn-danger">
+              Delete Selected
+            </button>
+          </div> -->
+          <!--end::Group actions-->
+        </div>
+        <!--end::Card toolbar-->
+      </div>
       <HxDataTable
+        :table-data="tableData"
         :table-header="tableHeader"
-        :table-data="tableData4"
-        :rows-per-page="5"
-        :enable-items-per-page-dropdown="false"
+        :enable-items-per-page-dropdown="true"
       >
-        <template v-slot:cell-order="{ row: invoice }">
-          {{ invoice.order }}
+        <template v-slot:cell-checkbox="{ row: customer }">
+          <div
+            class="form-check form-check-sm form-check-custom form-check-solid"
+          >
+            <input
+              class="form-check-input"
+              type="checkbox"
+              :value="customer.id"
+              v-model="checkedCustomers"
+            />
+          </div>
         </template>
-        <template v-slot:cell-amount="{ row: invoice }">
-          <span :class="`text-${invoice.color}`">
-            {{ invoice.amount }}
-          </span>
+        <template v-slot:cell-name="{ row: customer }">
+          {{ customer.name }}
         </template>
-        <template v-slot:cell-status="{ row: invoice }">
-          <span :class="`badge badge-light-${invoice.status.state}`">{{
-            invoice.status.label
-          }}</span>
+        <template v-slot:cell-email="{ row: customer }">
+          <a href="#" class="text-gray-600 text-hover-primary mb-1">
+            {{ customer.email }}
+          </a>
         </template>
-        <template v-slot:cell-date="{ row: invoice }">
-          {{ invoice.date }}
+        <template v-slot:cell-company="{ row: customer }">
+          {{ customer.company }}
         </template>
-        <template v-slot:cell-invoice>
-          <button class="btn btn-sm btn-light btn-active-light-primary">
-            Download
-          </button>
+        <template v-slot:cell-paymentMethod="{ row: customer }">
+          <img :src="customer.payment.icon" class="w-35px me-3" alt="" />{{
+            customer.payment.ccnumber
+          }}
+        </template>
+        <template v-slot:cell-date="{ row: customer }">
+          {{ customer.date }}
+        </template>
+        <template v-slot:cell-actions="{ row: customer }">
+          <a href="#" class="btn btn-sm btn-light btn-active-light-primary"
+            >Actions
+            <span class="svg-icon svg-icon-5 m-0">
+              <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+            </span>
+          </a>
         </template>
       </HxDataTable>
     </div>
@@ -100,195 +163,60 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import HxChart from "@/components/common/widgets/charts/Chart.vue";
-
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
+import VueMultiselect from "vue-multiselect";
+import customers from "@/core/data/customers";
+import { ICustomer } from "@/core/data/customers";
+
+const selected = ref(null);
+const options = ref(["list", "of", "options"]);
+
+onMounted(() => {
+  initCustomers.value.splice(0, tableData.value.length, ...tableData.value);
+});
+
+const checkedCustomers = ref([]);
 
 const tableHeader = ref([
   {
-    name: "Order id",
-    key: "order",
+    key: "checkbox",
+    sortable: false,
+  },
+  {
+    name: "Customer Name",
+    key: "name",
     sortable: true,
   },
   {
-    name: "Amount",
-    key: "amount",
+    name: "Email",
+    key: "email",
     sortable: true,
   },
   {
-    name: "Status",
-    key: "status",
-    sortingField: "status.label",
+    name: "Company",
+    key: "company",
     sortable: true,
   },
   {
-    name: "Date",
+    name: "Payment Method",
+    key: "paymentMethod",
+    sortingField: "payment.label",
+    sortable: true,
+  },
+  {
+    name: "Created Date",
     key: "date",
     sortable: true,
   },
   {
-    name: "Invoice",
-    key: "invoice",
-    sortable: false,
+    name: "Actions",
+    key: "actions",
   },
 ]);
-const tableData4 = ref([
-  {
-    date: "Nov 01, 2020",
-    order: "102445788",
-    details: "Darknight transparency  36 Icons Pack",
-    color: "success",
-    amount: "$38.00",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Oct 24, 2020",
-    order: "423445721",
-    details: "Seller Fee",
-    color: "danger",
-    amount: "$-2.60",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Nov 01, 2020",
-    order: "102445788",
-    details: "Darknight transparency  36 Icons Pack",
-    color: "success",
-    amount: "$38.00",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Oct 24, 2020",
-    order: "423445721",
-    details: "Seller Fee",
-    color: "danger",
-    amount: "$-2.60",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Feb 09, 2020",
-    order: "426445943",
-    details: "Visual Design Illustration",
-    color: "success",
-    amount: "$31.00",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Nov 01, 2020",
-    order: "984445943",
-    details: "Abstract Vusial Pack",
-    color: "success",
-    amount: "$52.00",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Jan 04, 2020",
-    order: "324442313",
-    details: "Seller Fee",
-    color: "danger",
-    amount: "$-0.80",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Oct 08, 2020",
-    order: "312445984",
-    details: "Cartoon Mobile Emoji Phone Pack",
-    color: "success",
-    amount: "$76.00",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Oct 08, 2020",
-    order: "312445984",
-    details: "Cartoon Mobile Emoji Phone Pack",
-    color: "success",
-    amount: "$76.00",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Feb 09, 2020",
-    order: "426445943",
-    details: "Visual Design Illustration",
-    color: "success",
-    amount: "$31.00",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Nov 01, 2020",
-    order: "984445943",
-    details: "Abstract Vusial Pack",
-    color: "success",
-    amount: "$52.00",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Jan 04, 2020",
-    order: "324442313",
-    details: "Seller Fee",
-    color: "danger",
-    amount: "$-0.80",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Oct 08, 2020",
-    order: "312445984",
-    details: "Cartoon Mobile Emoji Phone Pack",
-    color: "success",
-    amount: "$76.00",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-  {
-    date: "Oct 08, 2020",
-    order: "312445984",
-    details: "Cartoon Mobile Emoji Phone Pack",
-    color: "success",
-    amount: "$76.00",
-    status: {
-      label: "Pending",
-      state: "warning",
-    },
-  },
-]);
+const tableData = ref<Array<ICustomer>>(customers);
+const initCustomers = ref<Array<ICustomer>>([]);
 
 const labelColor = "#222";
 const borderColor = "#e2e8f9";
@@ -565,6 +493,30 @@ const area_series = [
     data: [60, 60, 40, 40, 30, 30],
   },
 ];
-</script>
 
+const search = ref<string>("");
+const searchItems = () => {
+  tableData.value.splice(0, tableData.value.length, ...initCustomers.value);
+  if (search.value !== "") {
+    let results: Array<ICustomer> = [];
+    for (let j = 0; j < tableData.value.length; j++) {
+      if (searchingFunc(tableData.value[j], search.value)) {
+        results.push(tableData.value[j]);
+      }
+    }
+    tableData.value.splice(0, tableData.value.length, ...results);
+  }
+};
+
+const searchingFunc = (obj: any, value: any): boolean => {
+  for (let key in obj) {
+    if (!Number.isInteger(obj[key]) && !(typeof obj[key] === "object")) {
+      if (obj[key].indexOf(value) != -1) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+</script>
 <style></style>

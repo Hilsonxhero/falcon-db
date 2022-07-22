@@ -15,6 +15,7 @@ import { HxCollapseItem } from "@/components/base/collapse";
 import { HxCollapseTransition } from "@/components/base/collapse-transition";
 import { HxSlider } from "@/components/base/slider";
 import { HxPagination } from "@/components/base/pagination";
+import { HxSelect } from "@/components/base/select";
 export default [
   HxModal,
   HxButton,
@@ -32,5 +33,6 @@ export default [
   HxCollapseTransition,
   HxCheckbox,
   HxSlider,
-  HxPagination
+  HxPagination,
+  // HxSelect
 ];

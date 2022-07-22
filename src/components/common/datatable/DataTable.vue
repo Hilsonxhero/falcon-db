@@ -90,7 +90,7 @@
           class="dataTables_length"
           id="kt_customers_table_length"
         >
-          <label
+          <!-- <label
             ><select
               name="kt_customers_table_length"
               class="form-select form-select-sm form-select-solid"
@@ -101,7 +101,20 @@
               <option value="50">50</option>
               <option value="100">100</option>
             </select></label
+          > -->
+
+          <VueMultiselect
+            v-model="selected"
+            class="max-w-[10rem]"
+            @select="setItemsPerPage"
+            :options="PerPageOptions"
+            placeholder="انتخاب کنید"
+            deselectLabel=""
+            selectLabel=""
+            selectedLabel="انتخاب شده"
           >
+            <template #noResult> نتیجه ای یافت نشد </template>
+          </VueMultiselect>
         </div>
       </div>
       <div class="w-full flex items-center justify-center md:justify-start">
@@ -109,7 +122,7 @@
           v-model:current-page="pagination.page"
           @current-change="currentPageChange"
           :page-size="pagination.rowsPerPage"
-          layout="prev, pager, next"
+          layout="prev, pager, next,total"
           :total="pagination.total"
           :hide-on-single-page="true"
           background
@@ -130,6 +143,7 @@ import {
   getCurrentInstance,
 } from "vue";
 import arraySort from "array-sort";
+import VueMultiselect from "vue-multiselect";
 
 interface IPagination {
   page: number;
@@ -169,6 +183,9 @@ const pagination = ref<IPagination>({
   total: props.total,
   rowsPerPage: props.rowsPerPage,
 });
+
+const PerPageOptions = ref<number[]>([10, 25, 50, 100]);
+const selected = ref<number | null>(null);
 
 const vnodeProps = getCurrentInstance()?.vnode.props || {};
 
@@ -231,11 +248,11 @@ const sort = (columnName: any, sortable: any) => {
   currentSort.value = columnName + order.value;
 };
 
-const setItemsPerPage = (event: any) => {
+const setItemsPerPage = (value: any, id: any) => {
   if ("onItemsPerPageChange" in vnodeProps) {
-    emit("items-per-page-change", parseInt(event.target.value));
+    emit("items-per-page-change", value);
   } else {
-    pagination.value.rowsPerPage = parseInt(event.target.value);
+    pagination.value.rowsPerPage = value;
   }
 };
 </script>
