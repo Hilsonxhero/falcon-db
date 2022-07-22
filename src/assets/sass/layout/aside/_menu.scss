@@ -59,5 +59,20 @@
         .menu-title {
             font-weight: 500;
         }
+
+        .menu-item {
+            .menu-section {
+                color: #4c4e6f !important;
+            }
+
+            //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
+            @include menu-link-default-state($gray-700, #494b74, #9899ac, #9899ac, null);
+            @include menu-link-hover-state($dark, $primary, $primary, $dark, rgba(189, 197, 209, .2));
+            @include menu-link-here-state($dark, $primary, $primary, $dark, rgba(189, 197, 209, .2));
+            @include menu-link-show-state($dark, $primary, $primary, $dark, rgba(189, 197, 209, .2));
+            @include menu-link-active-state($dark, $primary, $primary, $dark, rgba(189, 197, 209, .2));
+        }
     }
+
+
 }

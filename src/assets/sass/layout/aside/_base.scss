@@ -6,7 +6,11 @@
 .aside {
     display: flex;
     flex-direction: column;
-    box-shadow: get($aside-config, box-shadow);
+    // box-shadow: get($aside-config, box-shadow);
+    border-style: solid;
+    border-width: 0 0 0 .0625rem;
+    border-color: rgba(231, 234, 243, .7);
+
     padding: 0;
     transition: transform 0.3s ease-in-out !important;
 
