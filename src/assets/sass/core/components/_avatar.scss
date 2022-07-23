@@ -1,0 +1,23 @@
+.hx-avatar {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden;
+    color: #ffffff;
+    background: #c0c4cc;
+    width: 40px;
+    height: 40px;
+    font-size: 13px;
+    cursor: pointer;
+
+    &--circle {
+        border-radius: 50%;
+    }
+
+    &--square {
+        border-radius: 4px;
+    }
+}

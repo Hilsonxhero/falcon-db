@@ -12,7 +12,13 @@
         </div>
         <!--end::Aside mobile toggle-->
       </div>
-      <div>ss</div>
+      <div>
+        <hx-avatar
+          src="/media/faces/1.jpg"
+          fit="cover"
+          shape="circle"
+        ></hx-avatar>
+      </div>
     </div>
   </div>
 </template>
