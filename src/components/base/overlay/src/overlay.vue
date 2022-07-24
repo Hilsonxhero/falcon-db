@@ -1,8 +1,7 @@
 <template>
   <teleport to="body" v-if="active">
-    <div
-      class="hx-overlay h-screen w-screen bg-gray-400 fixed inset-0 z-[12] hidden is-active"
-    ></div>
+    <div :tabindex="-1"
+      class="hx-overlay h-screen w-screen bg-gray-400 fixed inset-0 z-[12] lg:z-[12] hidden is-active"></div>
   </teleport>
 </template>
 

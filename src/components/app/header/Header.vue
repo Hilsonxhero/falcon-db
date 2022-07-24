@@ -13,11 +13,23 @@
         <!--end::Aside mobile toggle-->
       </div>
       <div>
-        <hx-avatar
-          src="/media/faces/1.jpg"
-          fit="cover"
-          shape="circle"
-        ></hx-avatar>
+        <hx-dropdown>
+          <hx-avatar src="/media/faces/2.jpg" fit="cover" shape="circle"></hx-avatar>
+
+          <template #dropdown>
+
+            <li class="" v-for="(item, index) in 5" :key="index">say hello</li>
+
+          </template>
+        </hx-dropdown>
+
+        <!-- 
+        <hx-avatar src="/media/faces/2.jpg" fit="cover" shape="circle" @click="ww"></hx-avatar>
+
+
+        <hx-modal :show="show" title="فیلترها" @close="handleFilterModal">
+          <h1>www</h1>
+        </hx-modal> -->
       </div>
     </div>
   </div>
@@ -28,12 +40,30 @@ import { ref } from "vue";
 
 const active = ref(false);
 
+const show = ref(false);
+
 const emits = defineEmits(["show-nav"]);
+
+
+
+
+const ww = () => {
+  console.log("ww");
+  show.value = !show.value
+};
+
+
 
 const handleShowNav = () => {
   active.value = true;
   emits("show-nav", active.value);
 };
+
+const handleFilterModal = () => {
+  show.value = !show.value;
+};
+
+
 
 // const hide = () => {
 //   active.value = false;
@@ -41,4 +71,5 @@ const handleShowNav = () => {
 // };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

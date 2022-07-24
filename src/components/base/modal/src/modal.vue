@@ -51,12 +51,7 @@
     </transition> -->
 
     <div class="modal__container" v-show="showModal">
-      <div
-        class="modal__content flex flex-col p-5"
-        :class="[fs && 'modal__fs']"
-        role="dialog"
-        ref="modal"
-      >
+      <div class="modal__content flex flex-col p-5" :class="[fs && 'modal__fs']" role="dialog" ref="modal">
         <div class="flex items-center justify-between">
           <template v-if="!$slots.header">
             <div>
@@ -66,7 +61,7 @@
               <hx-icon icon="close" class="w-6 h-6"></hx-icon>
             </hx-button>
           </template>
-          
+
           <template v-else>
             <slot name="header" :close="closeModal"></slot>
           </template>
@@ -112,6 +107,8 @@ const closeModal = () => {
 };
 
 onClickOutside(modal, () => {
+  console.log("here onClickOutside");
+
   if (showModal.value === true) {
     closeModal();
   }

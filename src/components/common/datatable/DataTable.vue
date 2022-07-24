@@ -1,43 +1,29 @@
 <template>
   <div class="dataTables_wrapper dt-bootstrap4 no-footer">
-    <div class="table-responsive">
-      <table
-        :class="[loading && 'overlay overlay-block']"
-        class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer"
-        id="kt_customers_table"
-        role="grid"
-      >
+    <div class="table-responsive overflow-x-auto">
+      <table :class="[loading && 'overlay overlay-block']"
+        class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_customers_table" role="grid">
         <!--begin::Table head-->
         <thead>
           <!--begin::Table row-->
-          <tr
-            class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0"
-            role="row"
-          >
+          <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
             <template v-for="(cell, i) in tableHeader" :key="i">
-              <th
-                @click="
-                  sort(
-                    cell.sortingField ? cell.sortingField : cell.key,
-                    cell.sortable
-                  )
-                "
-                :class="[
-                  cell.name && 'min-w-125px',
-                  cell.sortable !== false && 'sorting',
-                  tableHeader.length - 1 === i && 'text-start',
-                  currentSort ===
-                    `${cell.sortingField ? cell.sortingField : cell.key}desc` &&
-                    'sorting_desc',
-                  currentSort ===
-                    `${cell.sortingField ? cell.sortingField : cell.key}asc` &&
-                    'sorting_asc',
-                ]"
-                tabindex="0"
-                rowspan="1"
-                colspan="1"
-                style="cursor: pointer"
-              >
+              <th @click="
+                sort(
+                  cell.sortingField ? cell.sortingField : cell.key,
+                  cell.sortable
+                )
+              " :class="[
+  cell.name && 'min-w-125px',
+  cell.sortable !== false && 'sorting',
+  tableHeader.length - 1 === i && 'text-start',
+  currentSort ===
+  `${cell.sortingField ? cell.sortingField : cell.key}desc` &&
+  'sorting_desc',
+  currentSort ===
+  `${cell.sortingField ? cell.sortingField : cell.key}asc` &&
+  'sorting_asc',
+]" tabindex="0" rowspan="1" colspan="1" style="cursor: pointer">
                 {{ cell.name }}
               </th>
             </template>
@@ -69,10 +55,7 @@
             </tr>
           </template>
         </tbody>
-        <div
-          v-if="loading"
-          class="overlay-layer card-rounded bg-dark bg-opacity-5"
-        >
+        <div v-if="loading" class="overlay-layer card-rounded bg-dark bg-opacity-5">
           <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
@@ -82,14 +65,8 @@
     </div>
 
     <div class="row">
-      <div
-        class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"
-      >
-        <div
-          v-if="enableItemsPerPageDropdown"
-          class="dataTables_length"
-          id="kt_customers_table_length"
-        >
+      <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
+        <div v-if="enableItemsPerPageDropdown" class="dataTables_length" id="kt_customers_table_length">
           <!-- <label
             ><select
               name="kt_customers_table_length"
@@ -103,30 +80,16 @@
             </select></label
           > -->
 
-          <VueMultiselect
-            v-model="selected"
-            class="max-w-[10rem]"
-            @select="setItemsPerPage"
-            :options="PerPageOptions"
-            placeholder="انتخاب کنید"
-            deselectLabel=""
-            selectLabel=""
-            selectedLabel="انتخاب شده"
-          >
+          <VueMultiselect v-model="selected" class="max-w-[10rem]" @select="setItemsPerPage" :options="PerPageOptions"
+            placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده">
             <template #noResult> نتیجه ای یافت نشد </template>
           </VueMultiselect>
         </div>
       </div>
       <div class="w-full flex items-center justify-center md:justify-start">
-        <hx-pagination
-          v-model:current-page="pagination.page"
-          @current-change="currentPageChange"
-          :page-size="pagination.rowsPerPage"
-          layout="prev, pager, next,total"
-          :total="pagination.total"
-          :hide-on-single-page="true"
-          background
-        >
+        <hx-pagination v-model:current-page="pagination.page" @current-change="currentPageChange"
+          :page-size="pagination.rowsPerPage" layout="prev, pager, next,total" :total="pagination.total"
+          :hide-on-single-page="true" background>
         </hx-pagination>
       </div>
     </div>
@@ -267,10 +230,11 @@ table.dataTable {
   border-spacing: 0;
 }
 
-table.dataTable > thead {
+table.dataTable>thead {
   th.sorting {
     position: relative;
   }
+
   .sorting:after {
     position: absolute;
   }
