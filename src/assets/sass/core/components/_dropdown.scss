@@ -10,8 +10,16 @@
         // border: .0625rem solid rgba(231, 234, 243, .7);
         // padding: 1rem 1rem;
 
+        border-radius: .475rem;
+        background-color: #fff;
+        box-shadow: 0 0 50px 0 rgba(82, 63, 105, .15);
+    }
 
 
+    &-item {
 
+        &:hover {
+            background-color: $gray-200;
+        }
     }
 }

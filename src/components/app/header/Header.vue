@@ -15,11 +15,10 @@
       <div>
         <hx-dropdown>
           <hx-avatar src="/media/faces/2.jpg" fit="cover" shape="circle"></hx-avatar>
-
           <template #dropdown>
-
-            <li class="" v-for="(item, index) in 5" :key="index">say hello</li>
-
+            <hx-dropdown-item v-for="(item, index) in 5" :key="index">
+              آیتم شماره 1
+            </hx-dropdown-item>
           </template>
         </hx-dropdown>
 

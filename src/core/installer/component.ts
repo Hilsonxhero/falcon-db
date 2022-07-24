@@ -17,8 +17,8 @@ import { HxSlider } from "@/components/base/slider";
 import { HxPagination } from "@/components/base/pagination";
 import { HxSelect } from "@/components/base/select";
 import { HxAvatar } from "@/components/base/avatar";
-import { HxDropdown } from "@/components/base/dropdown";
-import { HxDropdownMenu } from "@/components/base/dropdown";
+import { HxDropdown, HxDropdownMenu, HxDropdownItem } from "@/components/base/dropdown";
+
 export default [
   HxModal,
   HxButton,
@@ -39,6 +39,7 @@ export default [
   HxPagination,
   HxAvatar,
   HxDropdown,
-  HxDropdownMenu
+  HxDropdownMenu,
+  HxDropdownItem
   // HxSelect
 ];

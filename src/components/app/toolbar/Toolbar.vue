@@ -1,16 +1,17 @@
 <template>
   <div class="toolbar">
     <div class="container flex items-center justify-between">
-      <div>
-        <hx-button icon variant="gray">
-          <hx-icon icon="user-circle" class="w-6 h-6 text-gray-500"></hx-icon>
-        </hx-button>
+      <div class="py-3">
+        <ul>
+          <li>داشبورد</li>
+        </ul>
       </div>
-      <div>ss</div>
+      <div></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts"></script>
 
-<style scoped></style>
+<style scoped>
+</style>

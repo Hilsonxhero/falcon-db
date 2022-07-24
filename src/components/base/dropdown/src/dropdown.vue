@@ -8,8 +8,7 @@
 
     <transition name="fade">
       <ul v-if="visiable" ref="dropdownRef" v-click-outside="hideDropDown"
-        class="absolute normal-case font-normal xs:left-0 left-0 bg-white shadow-design-base overflow-hidden rounded-lg w-48 border mt-2 py-2 px-3 lg:z-[130]"
-        :class="[
+        class="absolute normal-case font-normal xs:left-0 left-0 overflow-hidden  w-48 border mt-2  lg:z-[130]" :class="[
           dropdownKls,
           visiable && 'active'
         ]">
@@ -102,14 +101,8 @@ const dropdownKls = computed(() => {
   return [ns.b("menu"), ns.bm("menu", size?.value)];
 });
 
-
-
 const visiable = ref(false)
-
-
 const handleVisibilty = () => {
-  console.log("dsfgds");
-
   visiable.value = !visiable.value
 }
 
@@ -120,18 +113,8 @@ const hideDropDown = () => {
 // provide('elDropdown', visiable)
 
 
-const { onClickOutside } = useClickOutside();
 
 
-
-// onClickOutside(dropdownRef, async () => {
-//   // await nextTick()
-//   if (visiable.value === true) {
-//     console.log("here clickoutside");
-//     visiable.value = false;
-
-//   }
-// });
 </script>
 
 <style scoped>

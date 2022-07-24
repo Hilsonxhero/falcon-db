@@ -286,39 +286,38 @@ div.dataTables_wrapper {
 }
 
 // Responsive
-table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control,
-table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
-    $icon-size: 1.35rem;
+// table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control,
+// table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control {
+//     $icon-size: 1.35rem;
+//     &:before {
+//         top: 50%;
+//         left: 0;
+//         height: $icon-size;
+//         width: $icon-size;
+//         line-height: $icon-size;
+//         margin-top: -(divide($icon-size, 2));
+//         margin-right: divide($icon-size, 2);
+//         display: inline-block;
+//         position: relative;
+//         font-size: 1.05rem;
+//         border: 0;
+//         box-shadow: none;
+//         text-align: center;
+//         text-indent: 0 !important;
+//         content: "+";
+//         color: $gray-700;
+//         font-family: $font-family-sans-serif;
+//         background-color: $gray-300;
+//         border-radius: 1rem;
+//     }
+// }
 
-    &:before {
-        top: 50%;
-        left: 0;
-        height: $icon-size;
-        width: $icon-size;
-        line-height: $icon-size;
-        margin-top: -(divide($icon-size, 2));
-        margin-right: divide($icon-size, 2);
-        display: inline-block;
-        position: relative;
-        font-size: 1.05rem;
-        border: 0;
-        box-shadow: none;
-        text-align: center;
-        text-indent: 0 !important;
-        content: "+";
-        color: $gray-700;
-        font-family: $font-family-sans-serif;
-        background-color: $gray-300;
-        border-radius: 1rem;
-    }
-}
-
-table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before,
-table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
-    content: "-";
-    background-color: $primary;
-    color: $primary-inverse;
-}
+// table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before,
+// table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
+//     content: "-";
+//     background-color: $primary;
+//     color: $primary-inverse;
+// }
 
 table.dataTable>tbody>tr.child span.dtr-title {
     display: inline-block;
