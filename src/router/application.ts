@@ -9,5 +9,12 @@ export default {
       component: () =>
         import(/* webpackChunkName: "home" */ "@/views/app/dashboard.vue"),
     },
+
+    {
+      path: "/categories",
+      name: "categories index",
+      component: () =>
+        import(/* webpackChunkName: "categories" */ "@/views/app/categories/index.vue"),
+    },
   ],
 };

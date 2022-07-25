@@ -8,7 +8,7 @@
 
     <transition name="fade">
       <ul v-if="visiable" ref="dropdownRef" v-click-outside="hideDropDown"
-        class="absolute normal-case font-normal xs:left-0 left-0 overflow-hidden  w-48 border mt-2  lg:z-[130]" :class="[
+        class="absolute normal-case font-normal xs:left-0 left-0 overflow-hidden  w-48  mt-2  lg:z-[130]" :class="[
           dropdownKls,
           visiable && 'active'
         ]">

@@ -1,16 +1,12 @@
 <template>
   <section class="mb-6">
-    <div class="hx-card p-6">
+    <div class="hx-card">
       <div class="hx-card__header border-0">
         <!--begin::Card title-->
         <div class="hx-card__title">
           <!--begin::Search-->
           <div class="flex items-center position-relative my-1">
-            <hx-input
-              v-model="search"
-              @input="searchItems()"
-              placeholder="Search Customers"
-            ></hx-input>
+            <hx-input v-model="search" @input="searchItems()" placeholder="Search Customers"></hx-input>
           </div>
           <!--end::Search-->
         </div>
@@ -47,21 +43,10 @@
         </div>
         <!--end::Card toolbar-->
       </div>
-      <HxDataTable
-        :table-data="tableData"
-        :table-header="tableHeader"
-        :enable-items-per-page-dropdown="true"
-      >
+      <HxDataTable :table-data="tableData" :table-header="tableHeader" :enable-items-per-page-dropdown="true">
         <template v-slot:cell-checkbox="{ row: customer }">
-          <div
-            class="form-check form-check-sm form-check-custom form-check-solid"
-          >
-            <input
-              class="form-check-input"
-              type="checkbox"
-              :value="customer.id"
-              v-model="checkedCustomers"
-            />
+          <div class="form-check form-check-sm form-check-custom form-check-solid">
+            <input class="form-check-input" type="checkbox" :value="customer.id" v-model="checkedCustomers" />
           </div>
         </template>
         <template v-slot:cell-name="{ row: customer }">
@@ -77,15 +62,14 @@
         </template>
         <template v-slot:cell-paymentMethod="{ row: customer }">
           <img :src="customer.payment.icon" class="w-35px me-3" alt="" />{{
-            customer.payment.ccnumber
+              customer.payment.ccnumber
           }}
         </template>
         <template v-slot:cell-date="{ row: customer }">
           {{ customer.date }}
         </template>
         <template v-slot:cell-actions="{ row: customer }">
-          <a href="#" class="btn btn-sm btn-light btn-active-light-primary"
-            >Actions
+          <a href="#" class="btn btn-sm btn-light btn-active-light-primary">Actions
             <span class="svg-icon svg-icon-5 m-0">
               <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
             </span>
@@ -95,15 +79,11 @@
     </div>
   </section>
   <div class="w-full grid grid-cols-12 gap-2">
-    <div
-      class="hx-card bg-white rounded-xl col-span-12 md:col-span-6 xl:col-span-6"
-    >
+    <div class="hx-card bg-white rounded-xl col-span-12 md:col-span-6 xl:col-span-6">
       <!--begin::Body-->
       <div class="card-body p-0 flex justify-between flex-col">
         <!--begin::Hidden-->
-        <div
-          class="flex justify-between items-center flex-wrap flex-grow px-9 pt-9 pb-3"
-        >
+        <div class="flex justify-between items-center flex-wrap flex-grow px-9 pt-9 pb-3">
           <div class="flex flex-col">
             <span class="text-gray-800 block">فروش</span>
 
@@ -118,25 +98,16 @@
 
         <!--begin::Chart-->
 
-        <HxChart
-          :options="area_options"
-          :height="300"
-          :series="area_series"
-          type="area"
-        />
+        <HxChart :options="area_options" :height="300" :series="area_series" type="area" />
         <!--end::Chart-->
       </div>
     </div>
 
-    <div
-      class="hx-card bg-white rounded-xl col-span-12 md:col-span-6 xl:col-span-6"
-    >
+    <div class="hx-card bg-white rounded-xl col-span-12 md:col-span-6 xl:col-span-6">
       <!--begin::Body-->
       <div class="card-body p-0 flex justify-between flex-col overflow-hidden">
         <!--begin::Hidden-->
-        <div
-          class="flex justify-between items-center flex-wrap flex-grow px-9 pt-9 pb-3"
-        >
+        <div class="flex justify-between items-center flex-wrap flex-grow px-9 pt-9 pb-3">
           <div class="flex flex-col">
             <span class="text-gray-800 block">فروش</span>
 
@@ -150,12 +121,7 @@
         <!--end::Hidden-->
 
         <!--begin::Chart-->
-        <HxChart
-          :options="chartOptions"
-          :height="250"
-          :series="series"
-          type="bar"
-        />
+        <HxChart :options="chartOptions" :height="250" :series="series" type="bar" />
         <!--end::Chart-->
       </div>
     </div>
@@ -519,4 +485,5 @@ const searchingFunc = (obj: any, value: any): boolean => {
   return false;
 };
 </script>
-<style></style>
+<style>
+</style>

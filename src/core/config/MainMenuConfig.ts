@@ -3,7 +3,7 @@ const DocMenuConfig = [
     pages: [
       {
         heading: "داشبورد",
-        route: "/dashboard",
+        route: "dashboard",
         svgIcon: "user-circle",
       },
 
@@ -21,33 +21,33 @@ const DocMenuConfig = [
         sub: [
           {
             heading: "دسته بندی ها",
-            route: "categories",
+            route: "categories index",
           },
           {
             heading: "برندها",
-            route: "brands",
+            route: "",
           },
           {
             heading: "مشخصه و ویژگی ها",
-            route: "attributes",
+            route: "",
           },
           {
             heading: "تخفیف ها",
-            route: "discounts",
+            route: "",
           },
           {
             heading: "محصولات",
-            route: "products",
+            route: "",
           },
 
           {
             heading: "محصولات شگفت انگیز",
-            route: "incredible-offers",
+            route: "",
           },
 
           {
             heading: "موجودی ها",
-            route: "stocks",
+            route: "",
           },
 
         ],
@@ -60,12 +60,12 @@ const DocMenuConfig = [
         sub: [
           {
             heading: "سفارش ها",
-            route: "orders",
+            route: "",
           },
 
           {
             heading: "فاکتور",
-            route: "invoices",
+            route: "",
           },
         ],
       },
@@ -78,7 +78,7 @@ const DocMenuConfig = [
         sub: [
           {
             heading: "گزارش و آمار",
-            route: "stats",
+            route: "",
           },
         ],
       },
@@ -89,16 +89,16 @@ const DocMenuConfig = [
 
   {
     heading: "کاربران",
-    route: "/users",
+    route: "",
     pages: [
       {
         sectionTitle: " کاربران",
-        route: "users",
+        route: "",
         svgIcon: "group",
         sub: [
           {
             heading: "لیست کاربران",
-            route: "users",
+            route: "",
           },
 
         ],
@@ -106,17 +106,17 @@ const DocMenuConfig = [
 
       {
         sectionTitle: " نقش های کاربری",
-        route: "permissions",
+        route: "",
         svgIcon: "shield-quarter",
 
         sub: [
           {
             heading: "لیست مجوزها",
-            route: "permissions",
+            route: "",
           },
           {
             heading: "لیست نقش های کاربری",
-            route: "roles",
+            route: "",
           },
 
         ],
@@ -131,12 +131,12 @@ const DocMenuConfig = [
     pages: [
       {
         sectionTitle: "ماژول ها",
-        route: "modules",
+        route: "",
         svgIcon: "selection",
         sub: [
           {
             heading: "لیست ماژول ها",
-            route: "modules",
+            route: "",
           },
 
         ],
@@ -149,25 +149,25 @@ const DocMenuConfig = [
         sub: [
           {
             heading: "قالب و لوگو",
-            route: "themes",
+            route: "",
           },
           {
             heading: "ساختار ایمیل",
-            route: "mail_theme",
+            route: "",
           },
 
           {
             heading: "تنظیمات تصاویر",
-            route: "mail-theme",
+            route: "",
           },
 
           {
             heading: "موقعیت ها",
-            route: "locations",
+            route: "",
           },
           {
             heading: "صفحه ها",
-            route: "pages",
+            route: "",
           },
 
         ],
@@ -184,16 +184,16 @@ const DocMenuConfig = [
     pages: [
       {
         sectionTitle: "ارسال",
-        route: "shipments",
+        route: "",
         svgIcon: "car",
         sub: [
           {
             heading: "روش های ارسال",
-            route: "shipments",
+            route: "",
           },
           {
             heading: "تنظیمات",
-            route: "shipment-setting",
+            route: "",
           },
         ],
       },
@@ -201,21 +201,21 @@ const DocMenuConfig = [
   },
   {
     heading: "پرداخت",
-    route: "payments",
+    route: "",
     pages: [
       {
         sectionTitle: "  پرداخت",
-        route: "payments",
+        route: "",
         svgIcon: "card",
 
         sub: [
           {
             heading: "روش های پرداخت",
-            route: "payment-methods",
+            route: "",
           },
           {
             heading: "تنظیمات",
-            route: "payment-setting",
+            route: "",
           },
         ],
       },
@@ -227,20 +227,20 @@ const DocMenuConfig = [
     pages: [
       {
         sectionTitle: "  بازاریابی",
-        route: "marketing",
+        route: "",
         svgIcon: "party",
         sub: [
           {
             heading: "Google",
-            route: "google-marketing",
+            route: "",
           },
           {
             heading: "Whatsapp",
-            route: "whatsapp-marketing",
+            route: "",
           },
           {
             heading: "Telegram",
-            route: "telegram-marketing",
+            route: "",
           },
         ],
       },

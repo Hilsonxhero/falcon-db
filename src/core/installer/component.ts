@@ -18,7 +18,8 @@ import { HxPagination } from "@/components/base/pagination";
 import { HxSelect } from "@/components/base/select";
 import { HxAvatar } from "@/components/base/avatar";
 import { HxDropdown, HxDropdownMenu, HxDropdownItem } from "@/components/base/dropdown";
-
+import { HxConfigProvider } from "@/components/base/config-provider";
+// import { HxBackDrop } from "@/components/base/backdrop";
 export default [
   HxModal,
   HxButton,
@@ -40,6 +41,7 @@ export default [
   HxAvatar,
   HxDropdown,
   HxDropdownMenu,
-  HxDropdownItem
+  HxDropdownItem,
+  HxConfigProvider
   // HxSelect
 ];

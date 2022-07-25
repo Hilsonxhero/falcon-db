@@ -166,7 +166,12 @@ body * {
     background-color: #fff;
     border-radius: 0.75rem;
     border: .0625rem solid rgba(231, 234, 243, .7);
-    padding: 1.3125rem 1.3125rem;
+    // padding: 1.3125rem 1.3125rem;
+
+    &__header {
+        padding: 1rem;
+
+    }
 }
 
 .apexcharts-tooltip.apexcharts-theme-light {
