@@ -16,5 +16,12 @@ export default {
       component: () =>
         import(/* webpackChunkName: "categories" */ "@/views/app/categories/index.vue"),
     },
+
+    {
+      path: "/categories/create",
+      name: "categories create",
+      component: () =>
+        import("@/views/app/categories/create.vue"),
+    },
   ],
 };

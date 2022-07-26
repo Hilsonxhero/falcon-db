@@ -1,6 +1,6 @@
 <template>
   <div class="mb-2">
-    <label class="mb-2 block" for="">{{ label }}</label>
+    <label class="mb-2 block text-sm text-gray-600" for="">{{ label }}</label>
     <slot></slot>
   </div>
 </template>
@@ -11,4 +11,5 @@ const props = defineProps({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

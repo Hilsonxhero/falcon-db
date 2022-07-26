@@ -3,12 +3,17 @@
         <div class="hx-card p-0">
             <div class="hx-card__header border-0">
                 <!--begin::Card title-->
-                <div class="hx-card__title">
+                <div class="hx-card__title flex items-center justify-between">
                     <!--begin::Search-->
                     <div class="flex items-center position-relative my-1">
                         <hx-input v-model="search" @input="searchItems()" placeholder="جستجوی دسته بندی"></hx-input>
                     </div>
                     <!--end::Search-->
+                    <div>
+                        <hx-button :to="{ name: 'categories create' }">
+                            دسته بندی جدید
+                        </hx-button>
+                    </div>
                 </div>
                 <!--begin::Card title-->
                 <!--begin::Card toolbar-->
@@ -17,11 +22,11 @@
                 </div>
                 <!--end::Card toolbar-->
             </div>
-            <HxDataTable :table-data="tableData" :table-header="tableHeader" :enable-items-per-page-dropdown="false">
+            <HxDataTable :loading="loading" :table-data="tableData" :table-header="tableHeader"
+                :enable-items-per-page-dropdown="false">
                 <template v-slot:cell-checkbox="{ row: category }">
                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" :value="category.id"
-                            v-model="checkedCustomers" />
+                        <input class="form-check-input" type="checkbox" :value="category.id" v-model="checkedData" />
                     </div>
                 </template>
                 <template v-slot:cell-title="{ row: category }">
@@ -63,14 +68,16 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
-
 import { HxMessageBox } from '@/components/base/message-box'
+import ApiService from '@/core/services/ApiService'
 
 onMounted(() => {
     initData.value.splice(0, tableData.value.length, ...tableData.value);
 });
 
-const checkedItems = ref([]);
+const checkedData = ref([]);
+
+const loading = ref(false)
 
 const tableHeader = ref([
     {
@@ -90,7 +97,7 @@ const tableHeader = ref([
     {
         name: "دسته پدر",
         key: "parent",
-        sortable: true,
+        sortable: false,
     },
     {
         name: "وضعیت",
@@ -103,8 +110,8 @@ const tableHeader = ref([
     },
 ]);
 const categories = ref([
-    { id: Math.floor(Math.random() * 99999) + 1, title: "کالای دیجیتال", slug: 'dsfgdfg', parent: '-', status: 1 },
-    { id: Math.floor(Math.random() * 99999) + 1, title: 'لوازم خانگی', slug: 'wwww', parent: '-', status: 2 }
+    { id: Math.floor(Math.random() * 99999) + 1, title: "کالای دیجیتال", slug: 'سیب', parent: '-', status: 1 },
+    { id: Math.floor(Math.random() * 99999) + 1, title: 'لوازم خانگی', slug: 'للیس', parent: '-', status: 2 }
 ])
 
 const tableData = ref<Array<any>>(categories.value);
@@ -136,9 +143,22 @@ const searchingFunc = (obj: any, value: any): boolean => {
 };
 
 
+// const fetchData = async () => {
+//     try {
+//         loading.value = true
+//         const { data } = await ApiService.get('posts')
+//         console.log("data", data);
+//         loading.value = false
+//     } catch (e) {
+//         loading.value = false
+//     }
+// }
+
+// fetchData()
+
 
 const handleDelete = () => {
-    // console.log(HxMessageBox);
+    console.log(HxMessageBox.confirm);
     HxMessageBox.confirm(
         'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت ',
         'Warning',

@@ -1,8 +1,8 @@
 import { App } from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
-import JwtService from "@/core/services/JwtService";
 import { AxiosResponse, AxiosRequestConfig } from "axios";
+import router from "@/router";
 
 /**
  * @description service to call HTTP request via Axios
@@ -19,16 +19,33 @@ class ApiService {
     public static init(app: App<Element>) {
         ApiService.vueInstance = app;
         ApiService.vueInstance.use(VueAxios, axios);
-        ApiService.vueInstance.axios.defaults.baseURL = "http://heroshop.local";
+        ApiService.vueInstance.axios.defaults.baseURL = process.env.API_URL
+        // ApiService.vueInstance.axios.defaults.params = {
+        //     'api_key': process.env.API_KEY
+        // }
+
+
+        ApiService.vueInstance.axios.interceptors.response.use(
+            response => {
+                return response;
+            },
+            error => {
+                if (error.response.status == 404) {
+                    console.log("dfgf");
+                    router.push({ name: "not-found" });
+                }
+
+                return Promise.reject(error);
+            }
+        );
+
     }
 
     /**
      * @description set the default HTTP request headers
      */
     public static setHeader(): void {
-        ApiService.vueInstance.axios.defaults.headers.common[
-            "Authorization"
-        ] = `Token ${JwtService.getToken()}`;
+
     }
 
     /**
@@ -57,7 +74,7 @@ class ApiService {
         slug = "" as string
     ): Promise<AxiosResponse> {
         return ApiService.vueInstance.axios
-            .get(`${resource}/${slug}`)
+            .get(`${resource}`)
             .catch((error) => {
                 throw new Error(`ApiService ${error}`);
             });
@@ -111,7 +128,7 @@ class ApiService {
      */
     public static delete(resource: string): Promise<AxiosResponse> {
         return ApiService.vueInstance.axios.delete(resource).catch((error) => {
-            throw new Error(`[RWV] ApiService ${error}`);
+            throw new Error(`ApiService ${error}`);
         });
     }
 }

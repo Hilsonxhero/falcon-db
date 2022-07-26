@@ -2,8 +2,9 @@ import MessageBox from './src/messageBox'
 
 import type { App } from 'vue'
 import type { SFCWithInstall } from '@/core/utils'
-
 const _MessageBox = MessageBox as SFCWithInstall<typeof MessageBox>
+
+
 
 _MessageBox.install = (app: App) => {
     _MessageBox._context = app._context

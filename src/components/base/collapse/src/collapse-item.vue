@@ -1,53 +1,30 @@
 <template>
-  <div
-    :class="[
-      ns.b('item'),
-      ns.is('active', isActive),
-      ns.is('disabled', disabled),
-    ]"
-  >
-    <div
-      role="tab"
-      :aria-expanded="isActive"
-      :aria-controls="ns.b(`content-${id}`)"
-      :aria-describedby="ns.b(`content-${id}`)"
-    >
-      <div
-        :id="ns.b(`head-${id}`)"
-        :class="[
-          ns.be('item', 'header'),
-          ns.is('active', isActive),
-          { focusing: focusing && !disabled },
-        ]"
-        role="button"
-        :tabindex="disabled ? -1 : 0"
-        @click="handleHeaderClick"
-        @keypress.space.enter.stop.prevent="handleEnterClick"
-        @focus="handleFocus"
-        @blur="focusing = false"
-      >
+  <div :class="[
+    ns.b('item'),
+    ns.is('active', isActive),
+    ns.is('disabled', disabled),
+  ]">
+    <div role="tab" :aria-expanded="isActive" :aria-controls="ns.b(`content-${id}`)"
+      :aria-describedby="ns.b(`content-${id}`)">
+      <div :id="ns.b(`head-${id}`)" :class="[
+        ns.be('item', 'header'),
+        ns.is('active', isActive),
+        { focusing: focusing && !disabled },
+      ]" role="button" :tabindex="disabled ? -1 : 0" @click="handleHeaderClick"
+        @keypress.space.enter.stop.prevent="handleEnterClick" @focus="handleFocus" @blur="focusing = false">
         <slot name="title">{{ title }}</slot>
 
         <!-- <icon :class="[ns.be('item', 'arrow'), ns.is('active', isActive)]">
           <arrow-right />
         </icon> -->
 
-        <hx-icon
-          icon="arrow-left"
-          class="w-6 h-6 left-[10px] absolute text-gray-400"
-          :class="[ns.be('item', 'arrow'), ns.is('active', isActive)]"
-        ></hx-icon>
+        <hx-icon icon="arrow-left" class="w-6 h-6 left-[10px] absolute text-gray-400"
+          :class="[ns.be('item', 'arrow'), ns.is('active', isActive)]"></hx-icon>
       </div>
     </div>
     <hx-collapse-transition>
-      <div
-        v-show="isActive"
-        :id="ns.b(`content-${id}`)"
-        :class="ns.be('item', 'wrap')"
-        role="tabpanel"
-        :aria-hidden="!isActive"
-        :aria-labelledby="ns.b(`head-${id}`)"
-      >
+      <div v-show="isActive" :id="ns.b(`content-${id}`)" :class="ns.be('item', 'wrap')" role="tabpanel"
+        :aria-hidden="!isActive" :aria-labelledby="ns.b(`head-${id}`)">
         <div :class="ns.be('item', 'content')">
           <slot />
         </div>
@@ -128,11 +105,13 @@ defineExpose({
   transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out,
     0.3s padding-bottom ease-in-out;
 }
+
 .collapse-transition-leave-active,
 .collapse-transition-enter-active {
   transition: 0.3s max-height ease-in-out, 0.3s padding-top ease-in-out,
     0.3s padding-bottom ease-in-out;
 }
+
 .horizontal-collapse-transition {
   transition: 0.3s width ease-in-out, 0.3s padding-left ease-in-out,
     0.3s padding-right ease-in-out;

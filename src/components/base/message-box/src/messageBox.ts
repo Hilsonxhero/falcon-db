@@ -10,7 +10,7 @@ import {
 } from '@/core/utils'
 import MessageBoxConstructor from './dialog.vue'
 
-import { useTeleport } from '@/core/hooks/use-teleport'
+
 
 import type { AppContext, ComponentPublicInstance, VNode } from 'vue'
 import type {
@@ -39,8 +39,6 @@ const initInstance = (
   container: HTMLElement,
   appContext: AppContext | null = null
 ) => {
-  console.log("appContext", appContext);
-
   const vnode = h(MessageBoxConstructor, props)
   vnode.appContext = appContext
   render(vnode, container)
@@ -54,8 +52,8 @@ const genContainer = () => {
 
 const showMessage = (options: any, appContext?: AppContext | null) => {
   const container = genContainer()
+
   options.onVanish = () => {
-    console.log("onVanish close");
     render(null, container)
     messageInstance.delete(vm)
 
@@ -74,16 +72,10 @@ const showMessage = (options: any, appContext?: AppContext | null) => {
       if (action === 'cancel' || action === 'close') {
         if (options.distinguishCancelAndClose && action !== 'cancel') {
           currentMsg.reject('close')
-          console.log("here dialog close");
-
         } else {
           currentMsg.reject('cancel')
-          console.log("here dialog cancel");
-
-
         }
       } else {
-        console.log("here dialog anyway");
         currentMsg.resolve(resolve)
       }
     }
@@ -100,10 +92,6 @@ const showMessage = (options: any, appContext?: AppContext | null) => {
       doClose: () => void
     } & MessageBoxState
   >
-
-  console.log("vm", vm);
-
-
   for (const prop in options) {
     if (hasOwn(options, prop) && !hasOwn(vm.$props, prop)) {
       vm[prop as string] = options[prop]
@@ -138,8 +126,6 @@ function MessageBox(
   options: ElMessageBoxOptions | string | VNode,
   appContext: AppContext | null = null
 ): Promise<{ value: string; action: Action } | Action> {
-
-
   if (!isClient) return Promise.reject()
   let callback
   if (isString(options) || isVNode(options)) {
@@ -174,6 +160,7 @@ const MESSAGE_BOX_DEFAULT_OPTS: Record<
 
 MESSAGE_BOX_VARIANTS.forEach((boxType) => {
   MessageBox[boxType] = messageBoxFactory(boxType)
+  // console.log("MessageBox[boxType]", MessageBox);
 })
 
 function messageBoxFactory(boxType: typeof MESSAGE_BOX_VARIANTS[number]) {

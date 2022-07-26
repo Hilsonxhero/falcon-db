@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, watch, ref, provide } from "vue";
+import { watch, ref, provide } from "vue";
 import { definePropType, isNumber, isString, mutable } from "@/core/utils";
 import { ensureArray } from "@/core/utils";
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from "@/core/constants";
@@ -40,7 +40,7 @@ const handleItemClick = (name: CollapseActiveName) => {
   if (props.accordion) {
     setActiveNames([
       (activeNames.value[0] || activeNames.value[0] === 0) &&
-      activeNames.value[0] === name
+        activeNames.value[0] === name
         ? ""
         : name,
     ]);
@@ -75,4 +75,5 @@ defineExpose({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

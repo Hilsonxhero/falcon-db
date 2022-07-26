@@ -1,14 +1,10 @@
 <template>
-  <HXLoader v-if="loaderEnabled" :logo="loaderLogo"></HXLoader>
+  <!-- <HXLoader v-if="loaderEnabled" :logo="loaderLogo"></HXLoader> -->
 
   <!-- begin:: Body -->
   <div class="page flex flex-row flex-column-fluid">
     <!-- begin:: Aside Left -->
-    <HXAside
-      v-if="asideEnabled"
-      :lightLogo="themeLightLogo"
-      :darkLogo="themeDarkLogo"
-    ></HXAside>
+    <HXAside v-if="asideEnabled" :lightLogo="themeLightLogo" :darkLogo="themeDarkLogo"></HXAside>
     <!-- end:: Aside Left -->
 
     <div class="flex flex-col flex-row-fluid wrapper">
@@ -17,21 +13,15 @@
       <!-- begin:: Content -->
       <div class="content flex flex-col flex-column-fluid">
         <!-- begin:: Content Head -->
-        <HXToolbar
-          v-if="subheaderDisplay"
-          :breadcrumbs="[]"
-          title="pageTitle"
-        />
+        <HXToolbar v-if="subheaderDisplay" :breadcrumbs="[]" title="pageTitle" />
         <!-- end:: Content Head -->
 
         <!-- begin:: Content Body -->
         <div class="post flex flex-column-fluid">
-          <div
-            :class="{
-              'container-fluid': contentWidthFluid,
-              'container w-full': !contentWidthFluid,
-            }"
-          >
+          <div :class="{
+            'container-fluid': contentWidthFluid,
+            'container w-full': !contentWidthFluid,
+          }">
             <router-view />
           </div>
         </div>
@@ -85,4 +75,5 @@ provide("show", active);
 // HtmlClass.init();
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

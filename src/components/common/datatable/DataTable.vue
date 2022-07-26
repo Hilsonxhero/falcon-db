@@ -1,7 +1,7 @@
 <template>
   <div class="dataTables_wrapper dt-bootstrap4 no-footer">
     <div class="table-responsive overflow-x-auto">
-      <table :class="[loading && 'overlay overlay-block']"
+      <table :class="[loading && 'overlay overlay-block']" v-if="!loading"
         class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_customers_table" role="grid">
         <!--begin::Table head-->
         <thead>
@@ -30,8 +30,7 @@
           </tr>
           <!--end::Table row-->
         </thead>
-        <!--end::Table head-->
-        <!--begin::Table body-->
+
         <tbody class="fw-bold text-gray-600">
           <template v-if="getItems.length">
             <template v-for="(item, i) in getItems" :key="i">
@@ -55,13 +54,14 @@
             </tr>
           </template>
         </tbody>
-        <div v-if="loading" class="overlay-layer card-rounded bg-dark bg-opacity-5">
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
+
         <!--end::Table body-->
       </table>
+      <div v-else class="overlay-layer card-rounded bg-dark bg-opacity-5">
+        <div class="spinner-border text-primary text-center" role="status">
+          <span class="visually-hidden text-center">در حال بارگیری ..</span>
+        </div>
+      </div>
     </div>
 
     <div class="row p-3">
