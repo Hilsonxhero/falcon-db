@@ -43,7 +43,7 @@
                 <div class="hx-card__header">
                     <h4 class="text-gray-600 text-xl">تصویر</h4>
                 </div>
-                <div class="hx-card__body">
+                <div class="hx-card__body ">
                     <hx-upload></hx-upload>
                 </div>
 

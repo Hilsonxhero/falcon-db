@@ -10,7 +10,10 @@
                     </div>
                     <!--end::Search-->
                     <div>
-                        <hx-button :to="{ name: 'categories create' }">
+                        <!-- <hx-button :to="{ name: 'categories create' }">
+                            دسته بندی جدید
+                        </hx-button> -->
+                        <hx-button @click="open1">
                             دسته بندی جدید
                         </hx-button>
                     </div>
@@ -70,6 +73,7 @@ import { ref, onMounted } from "vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
 import { HxMessageBox } from '@/components/base/message-box'
 import ApiService from '@/core/services/ApiService'
+import { HxNotification } from '@/components/base/notification'
 
 onMounted(() => {
     initData.value.splice(0, tableData.value.length, ...tableData.value);
@@ -141,6 +145,23 @@ const searchingFunc = (obj: any, value: any): boolean => {
     }
     return false;
 };
+
+
+const open1 = () => {
+    // HxNotification({
+    //     title: 'Title',
+    //     message: 'This is a message that does not automatically close',
+    //     type: 'success',
+    // })
+
+    HxNotification.success({
+        title: 'Info',
+        message: 'This is a message without close button',
+        showClose: true,
+        duration: 4000,
+        position: 'bottom-right',
+    })
+}
 
 
 // const fetchData = async () => {
