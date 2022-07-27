@@ -31,6 +31,24 @@
         margin: 0;
     }
 
+    &__icon {}
+
+    &__success {
+        color: $success;
+    }
+
+    &__error {
+        color: $danger;
+    }
+
+    &__info {
+        color: $primary;
+    }
+
+    &__warning {
+        color: $warning;
+    }
+
     &__content {
         font-size: 14px;
         line-height: 24px;
@@ -41,7 +59,7 @@
 
     &__closeBtn {
         position: absolute;
-        top: 18px;
+        top: 10px;
         left: 15px;
         cursor: pointer;
         color: $gray-700;

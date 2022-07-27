@@ -2,9 +2,9 @@
   <transition :name="ns.b('fade')" @before-leave="onClose" @after-leave="$emit('destroy')">
     <div v-show="visible" :id="id" :class="[ns.b(), customClass, horizontalClass]" :style="positionStyle" role="alert"
       @mouseenter="clearTimer" @mouseleave="startTimer" @click="onClick">
-      <!-- <el-icon v-if="iconComponent" :class="[ns.e('icon'), typeClass]">
-        <component :is="iconComponent" />
-      </el-icon> -->
+      <hx-icon class="w-7 h-7" :class="[ns.e('icon'), typeClass]" :icon="type">
+
+      </hx-icon>
       <div :class="ns.e('group')">
         <h2 :class="ns.e('title')" v-text="title" />
         <div v-show="message" :class="ns.e('content')" :style="!!title ? undefined : { margin: 0 }">
@@ -51,14 +51,14 @@ export default defineComponent({
     let timer: (() => void) | undefined = undefined
 
     const typeClass = computed(() => {
-      // const type = props.type
-      // return type && TypeComponentsMap[props.type] ? ns.m(type) : ''
+      const type = props.type
+      return type ? ns.e(type) : ''
       return ''
     })
 
-    // const iconComponent = computed(() => {
-    //   return TypeComponentsMap[props.type] || props.icon || ''
-    // })
+    const iconComponent = computed(() => {
+      return props.type || props.icon || ''
+    })
 
     const horizontalClass = computed(() =>
       props.position.endsWith('right') ? 'right' : 'left'

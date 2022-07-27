@@ -148,15 +148,9 @@ const searchingFunc = (obj: any, value: any): boolean => {
 
 
 const open1 = () => {
-    // HxNotification({
-    //     title: 'Title',
-    //     message: 'This is a message that does not automatically close',
-    //     type: 'success',
-    // })
-
     HxNotification.success({
         title: 'Info',
-        message: 'This is a message without close button',
+        message: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم ',
         showClose: true,
         duration: 4000,
         position: 'bottom-right',
