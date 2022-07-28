@@ -43,7 +43,8 @@
         </div>
         <!--end::Card toolbar-->
       </div>
-      <HxDataTable :table-data="tableData" :table-header="tableHeader" :enable-items-per-page-dropdown="true">
+      <HxDataTable :rows-per-page="5" :table-data="tableData" :table-header="tableHeader"
+        :enable-items-per-page-dropdown="false">
         <template v-slot:cell-checkbox="{ row: customer }">
           <div class="form-check form-check-sm form-check-custom form-check-solid">
             <input class="form-check-input" type="checkbox" :value="customer.id" v-model="checkedCustomers" />

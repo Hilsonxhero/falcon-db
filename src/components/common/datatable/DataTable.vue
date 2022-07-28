@@ -24,7 +24,12 @@
   `${cell.sortingField ? cell.sortingField : cell.key}asc` &&
   'sorting_asc',
 ]" tabindex="0" rowspan="1" colspan="1" style="cursor: pointer">
-                {{ cell.name }}
+                <div class="flex items-center space-x-1 space-x-reverse">
+                  <span>{{ cell.name }}</span>
+                  <span v-if="cell.sortable">
+                    <hx-icon icon="sort" class="w-6 h-6 text-gray-500"></hx-icon>
+                  </span>
+                </div>
               </th>
             </template>
           </tr>
@@ -32,6 +37,7 @@
         </thead>
 
         <tbody class="fw-bold text-gray-600">
+          <!-- v-if="getItems.length" -->
           <template v-if="getItems.length">
             <template v-for="(item, i) in getItems" :key="i">
               <tr class="odd">
@@ -121,7 +127,7 @@ interface IHeaderConfiguration {
   sortable?: boolean;
 }
 
-const emit = defineEmits(["current-change", "sort", "items-per-page-change"]);
+const emit = defineEmits(["www", "sort", "items-per-page-change"]);
 const props = defineProps({
   tableHeader: {
     type: Array as () => Array<IHeaderConfiguration>,
@@ -142,9 +148,9 @@ const currentSort = ref<string>("");
 const order = ref(props.order);
 const label = ref(props.sortLabel);
 const pagination = ref<IPagination>({
-  page: 1,
+  page: props.currentPage ? props.currentPage : 2,
   total: props.total,
-  rowsPerPage: props.rowsPerPage,
+  rowsPerPage: props.rowsPerPage ? props.rowsPerPage : 15,
 });
 
 const PerPageOptions = ref<number[]>([10, 25, 50, 100]);
@@ -152,38 +158,71 @@ const selected = ref<number | null>(null);
 
 const vnodeProps = getCurrentInstance()?.vnode.props || {};
 
-watch(data.value, () => {
+watch(() => props.tableData, () => {
   if ("onCurrentChange" in vnodeProps) {
     currentSort.value = label.value + order.value;
   } else {
-    pagination.value.total = data.value.length;
+    // pagination.value.total = data.value.length;
+    pagination.value.total = props.total ? props.total : props.tableData.length;
   }
 });
 
 onMounted(() => {
   currentSort.value = label.value + order.value;
-  pagination.value.total = props.total ? props.total : data.value.length;
-  pagination.value.rowsPerPage = props.rowsPerPage;
+  pagination.value.total = props.total ? props.total : props.tableData.length;
+  pagination.value.rowsPerPage = props.rowsPerPage ? props.rowsPerPage : 15;
+  pagination.value.page = props.currentPage ? props.currentPage : 2;
 });
 
-const getItems = computed(() => {
-  if ("onCurrentChange" in vnodeProps) {
-    return data.value;
-  } else {
-    const clone = JSON.parse(JSON.stringify(data.value));
-    const startFrom =
-      pagination.value.page * pagination.value.rowsPerPage -
-      pagination.value.rowsPerPage;
-    return clone.splice(startFrom, pagination.value.rowsPerPage);
+// const getItems = computed(() => {
+//   if ("onCurrentChange" in vnodeProps) {
+//     return data.value;
+//   } else {
+//     const clone = JSON.parse(JSON.stringify(data.value));
+//     console.log("clone", data.value);
+
+//     const startFrom =
+//       pagination.value.page * pagination.value.rowsPerPage -
+//       pagination.value.rowsPerPage;
+//     return clone.splice(startFrom, pagination.value.rowsPerPage);
+//   }
+// });
+
+const getItems = computed({
+  get: () => {
+    if (pagination.value.page == 1) {
+      const clone = JSON.parse(JSON.stringify(props.tableData));
+      const startFrom =
+        pagination.value.page * pagination.value.rowsPerPage -
+        pagination.value.rowsPerPage;
+      return clone.splice(startFrom, pagination.value.rowsPerPage);
+    } else {
+      return props.tableData
+    }
+  },
+  set: (val) => {
+    console.log("here");
+
+    const clone = JSON.parse(JSON.stringify(val));
+    // return props.tableData
+    // const startFrom =
+    //   pagination.value.page * pagination.value.rowsPerPage -
+    //   pagination.value.rowsPerPage;
+    // return clone.splice(startFrom, pagination.value.rowsPerPage);
   }
-});
+  // data.value = val
+})
 
 const currentPageChange = (val: any) => {
-  if ("onCurrentChange" in vnodeProps) {
-    emit("current-change", val);
-  } else {
-    pagination.value.page = val;
-  }
+
+  console.log("val", val);
+  pagination.value.page = val;
+  emit("www", val);
+  // if ("onCurrentChange" in vnodeProps) {
+
+  // } else {
+  //   pagination.value.page = val;
+  // }
 };
 
 const sort = (columnName: any, sortable: any) => {
@@ -202,10 +241,10 @@ const sort = (columnName: any, sortable: any) => {
   } else {
     if (order.value === "asc") {
       order.value = "desc";
-      arraySort(data.value, columnName, { reverse: false });
+      arraySort(props.tableData, columnName, { reverse: false });
     } else {
       order.value = "asc";
-      arraySort(data.value, columnName, { reverse: true });
+      arraySort(props.tableData, columnName, { reverse: true });
     }
   }
   currentSort.value = columnName + order.value;

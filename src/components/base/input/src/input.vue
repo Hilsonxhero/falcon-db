@@ -1,13 +1,7 @@
 <template>
   <div class="h-12 rounded-xl overflow-hidden relative">
-    <input
-      class="form-input rounded-inherit border-2 border-transparent focus:bg-white focus:border-blue-500"
-      :type="type"
-      @input="input"
-      :disabled="disabled"
-      :value="modelValue"
-      :placeholder="placeholder"
-    />
+    <input class="form-input rounded-inherit border-2 border-transparent focus:bg-white focus:border-blue-500"
+      :type="type" @input="input" :disabled="disabled" :value="modelValue" :placeholder="placeholder" />
   </div>
 </template>
 
@@ -30,7 +24,6 @@ const props = defineProps({
 const emits = defineEmits(["update:modelValue"]);
 
 const input = (e: any) => {
-  console.log("e.target?.value", e.target?.value);
   emits("update:modelValue", e.target?.value);
 };
 </script>
