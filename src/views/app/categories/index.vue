@@ -34,16 +34,28 @@
                         <input class="form-check-input" type="checkbox" :value="category.id" v-model="checkedData" />
                     </div>
                 </template>
+                <!-- <template v-slot:cell-thumb="{ row: category }">
+                    <img class="w-14 h-14 object-cover rounded-lg" :src="category?.media?.thumb" alt="">
+                </template> -->
                 <template v-slot:cell-title="{ row: category }">
-                    {{ category?.title }}
+                    <div class="flex  space-x-2 space-x-reverse">
+                        <img class="w-14 h-14 object-cover rounded-lg" :src="category?.media?.thumb" alt="">
+                        <div class="flex flex-col space-y-1">
+                            <span class="">{{ category?.title }}</span>
+                            <span class="text-sm text-gray-400 max-w-[90%] overflow-hidden">{{ category.short_review
+                            }}</span>
+                        </div>
+                    </div>
+
+
                 </template>
-                <template v-slot:cell-slug="{ row: category }">
+                <template v-slot:cell-title_en="{ row: category }">
                     <a href="#" class="text-gray-600 text-hover-primary mb-1">
-                        {{ category?.slug }}
+                        {{ category?.title_en }}
                     </a>
                 </template>
                 <template v-slot:cell-parent="{ row: category }">
-                    {{ category?.parent ? category?.parent : 'اصلی' }}
+                    {{ category.parent ? category.parent.title : 'اصلی' }}
                 </template>
                 <template v-slot:cell-status="{ row: category }">
 
@@ -59,7 +71,7 @@
                     <hx-button variant="gray" size="sm" icon>
                         <hx-icon icon="edit-alt"></hx-icon>
                     </hx-button>
-                    <hx-button variant="gray" size="sm" icon @click="handleDelete">
+                    <hx-button variant="gray" size="sm" icon @click="handleDelete(category)">
                         <hx-icon icon="trash"></hx-icon>
                     </hx-button>
 
@@ -74,6 +86,7 @@
 import { ref, onMounted, watch } from "vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
 import { HxMessageBox } from '@/components/base/message-box'
+import { HxNotification } from '@/components/base/notification'
 import ApiService from '@/core/services/ApiService'
 import { useRoute, useRouter } from "vue-router";
 
@@ -91,14 +104,16 @@ const pagination = ref({
     current_page: null
 })
 
-
-
-
 const tableHeader = ref([
     {
         key: "checkbox",
         sortable: false,
     },
+    // {
+    //     name: "تصویر",
+    //     key: "thumb",
+    //     sortable: false,
+    // },
     {
         name: "عنوان",
         key: "title",
@@ -106,7 +121,7 @@ const tableHeader = ref([
     },
     {
         name: "عنوان لاتین",
-        key: "slug",
+        key: "title_en",
         sortable: true,
     },
     {
@@ -155,12 +170,6 @@ const currentPageChnage = (val: any) => {
     // fetchData()
 }
 
-
-// const categories = ref([
-//     { id: Math.floor(Math.random() * 99999) + 1, title: "کالای دیجیتال", slug: 'سیب', parent: '-', status: 1 },
-//     { id: Math.floor(Math.random() * 99999) + 1, title: 'لوازم خانگی', slug: 'للیس', parent: '-', status: 2 }
-// ])
-
 const tableData = ref<Array<any>>([]);
 const initData = ref<Array<any>>([]);
 
@@ -196,30 +205,42 @@ const searchingFunc = (obj: any, value: any): boolean => {
 onMounted(() => {
     let page = route.query.page
     pagination.value.current_page = page ? Number(page) : 1
-    // fetchData()
-    // initData.value.splice(0, tableData.value.length, ...tableData.value);
 });
 
 
 
 
-const handleDelete = () => {
-    console.log(HxMessageBox.confirm);
+const handleDelete = (item: any) => {
+    console.log("item", item);
+
     HxMessageBox.confirm(
-        'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت ',
-        'Warning',
+        `آیا از حذف دسته بندی ${item.title} اطمینان دارید ؟!`,
+        'پیام تایید',
         {
-            confirmButtonText: 'باشه',
+            confirmButtonText: 'تایید',
             cancelButtonText: 'لغو',
             type: 'warning',
         }
     )
-        .then(() => {
-            console.log("here then");
+        .then(async () => {
+            try {
+                const { data } = await ApiService.delete(`categories/${item.id}`)
 
+                fetchData()
+
+                HxNotification.success({
+                    title: 'عملیات موفقیت آمیز',
+                    message: 'دسته بندی موردنظر حذف شد',
+                    showClose: true,
+                    duration: 4000,
+                    position: 'bottom-right',
+                })
+            } catch (e) {
+
+            }
         })
         .catch(() => {
-            console.log("here catch");
+
         })
 
 }

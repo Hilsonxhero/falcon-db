@@ -1,6 +1,6 @@
 <template>
     <div class="grid grid-cols-9 gap-6">
-        <div class="col-span-7">
+        <div class="col-span-12">
 
             <div class="hx-card">
                 <div class="hx-card__header">
@@ -8,13 +8,23 @@
                 </div>
                 <div class="hx-card__body">
                     <div class="grid grid-cols-12 gap-4">
-                        <div class="col-span-6">
+                        <div class="col-span-4">
                             <hx-form-group>
                                 <hx-input v-model="form.title" placeholder="عنوان"></hx-input>
                             </hx-form-group>
-                            <hx-form-group>
-                                <!-- <hx-input v-model="form.parent" placeholder="دسته پدر"></hx-input> -->
 
+                        </div>
+
+                        <div class="col-span-4">
+                            <hx-form-group>
+                                <hx-input v-model="form.title_en" placeholder="عنوان انگلیسی"></hx-input>
+                            </hx-form-group>
+
+                        </div>
+
+                        <div class="col-span-4">
+
+                            <hx-form-group>
                                 <VueMultiselect v-model="form.parent" class="" label="title" :options="categories"
                                     placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده"
                                     value-field="id" track-by="id">
@@ -22,11 +32,9 @@
                                 </VueMultiselect>
                             </hx-form-group>
                         </div>
-                        <!-- <div class="col-span-6">
 
-                        </div> -->
 
-                        <div class="col-span-6">
+                        <div class="col-span-12">
                             <hx-form-group>
                                 <hx-textarea v-model="form.description" placeholder="توضیحات"></hx-textarea>
                             </hx-form-group>
@@ -44,13 +52,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-2 space-y-4">
+        <div class="col-span-12 space-y-4">
             <div class="hx-card">
                 <div class="hx-card__header">
                     <h4 class="text-gray-600 text-xl">تصویر</h4>
                 </div>
                 <div class="hx-card__body ">
-                    <hx-upload></hx-upload>
+                    <hx-upload :max="1" v-model="form.image"></hx-upload>
                 </div>
 
             </div>
@@ -84,9 +92,11 @@ const router = useRouter()
 
 const form = ref({
     title: '',
-    parent: '',
+    title_en: '',
+    parent: null,
     description: '',
     status: true,
+    image: []
 })
 
 const fetchData = async () => {
@@ -100,8 +110,17 @@ const fetchData = async () => {
 }
 
 const handleCreate = async () => {
+
+    let formData = new FormData()
+    formData.append('title', form.value.title)
+    formData.append('title_en', form.value.title_en)
+    formData.append('description', form.value.description)
+    formData.append('parent', form.value.parent?.id ?? "")
+    formData.append('status', form.value.status)
+    formData.append('image', form.value.image)
+
     try {
-        const { data } = await ApiService.post('categories', form.value)
+        const { data } = await ApiService.post('categories', formData)
         HxNotification.success({
             title: 'success',
             message: 'عملیات موفقیت آمیز',

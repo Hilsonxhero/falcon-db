@@ -33,6 +33,10 @@
 
     >tbody {
         vertical-align: inherit;
+
+        tr td {
+            vertical-align: middle;
+        }
     }
 
     >thead {

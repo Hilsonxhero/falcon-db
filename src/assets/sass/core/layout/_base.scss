@@ -43,125 +43,6 @@ body * {
     opacity: 0;
 }
 
-.collapse-transition-fade-in-linear-enter-active,
-.collapse-transition-fade-in-linear-leave-active {
-    transition: getCssVar('transition-fade', 'linear');
-}
-
-.collapse-transition-fade-in-linear-enter-from,
-.collapse-transition-fade-in-linear-leave-to {
-    opacity: 0;
-}
-
-.collapse-transition-fade-in-enter-active,
-.collapse-transition-fade-in-leave-active {
-    transition: all getCssVar('transition-duration') cubic-bezier(0.55, 0, 0.1, 1);
-}
-
-.collapse-transition-fade-in-enter-from,
-.collapse-transition-fade-in-leave-active {
-    opacity: 0;
-}
-
-.collapse-transition-zoom-in-center-enter-active,
-.collapse-transition-zoom-in-center-leave-active {
-    transition: all getCssVar('transition-duration') cubic-bezier(0.55, 0, 0.1, 1);
-}
-
-.collapse-transition-zoom-in-center-enter-from,
-.collapse-transition-zoom-in-center-leave-active {
-    opacity: 0;
-    transform: scaleX(0);
-}
-
-.collapse-transition-zoom-in-top-enter-active,
-.collapse-transition-zoom-in-top-leave-active {
-    opacity: 1;
-    transform: scaleY(1);
-    transition: getCssVar('transition-md-fade');
-    transform-origin: center top;
-
-    &[data-popper-placement^='top'] {
-        transform-origin: center bottom;
-    }
-}
-
-.collapse-transition-zoom-in-top-enter-from,
-.collapse-transition-zoom-in-top-leave-active {
-    opacity: 0;
-    transform: scaleY(0);
-}
-
-.collapse-transition-zoom-in-bottom-enter-active,
-.collapse-transition-zoom-in-bottom-leave-active {
-    opacity: 1;
-    transform: scaleY(1);
-    transition: getCssVar('transition-md-fade');
-    transform-origin: center bottom;
-}
-
-.collapse-transition-zoom-in-bottom-enter-from,
-.collapse-transition-zoom-in-bottom-leave-active {
-    opacity: 0;
-    transform: scaleY(0);
-}
-
-.collapse-transition-zoom-in-left-enter-active,
-.collapse-transition-zoom-in-left-leave-active {
-    opacity: 1;
-    transform: scale(1, 1);
-    transition: getCssVar('transition-md-fade');
-    transform-origin: top left;
-}
-
-.collapse-transition-zoom-in-left-enter-from,
-.collapse-transition-zoom-in-left-leave-active {
-    opacity: 0;
-    transform: scale(0.45, 0.45);
-}
-
-.collapse-transition {
-    transition: getCssVar('transition-duration') height ease-in-out,
-        getCssVar('transition-duration') padding-top ease-in-out,
-        getCssVar('transition-duration') padding-bottom ease-in-out;
-}
-
-.collapse-transition-collapse-transition-leave-active,
-.collapse-transition-collapse-transition-enter-active {
-    transition: getCssVar('transition-duration') max-height ease-in-out,
-        getCssVar('transition-duration') padding-top ease-in-out,
-        getCssVar('transition-duration') padding-bottom ease-in-out;
-}
-
-.horizontal-collapse-transition {
-    transition: getCssVar('transition-duration') width ease-in-out,
-        getCssVar('transition-duration') padding-left ease-in-out,
-        getCssVar('transition-duration') padding-right ease-in-out;
-}
-
-.collapse-transition-list-enter-active,
-.collapse-transition-list-leave-active {
-    transition: all 1s;
-}
-
-.collapse-transition-list-enter-from,
-.collapse-transition-list-leave-to {
-    opacity: 0;
-    transform: translateY(-30px);
-}
-
-.collapse-transition-list-leave-active {
-    position: absolute !important;
-}
-
-.collapse-transition-opacity-transition {
-    transition: opacity getCssVar('transition-duration') cubic-bezier(0.55, 0, 0.1, 1);
-}
-
-
-
-
-
 .apexcharts-tooltip.apexcharts-theme-light {
     border-radius: 0.475rem;
     box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
@@ -203,14 +84,26 @@ body * {
 }
 
 .multiselect__tags {
-    border-radius: .475rem !important;
-    // border: unset !important;
+    border-radius: 0.75rem !important;
+    border: unset !important;
+    background: rgb(243 244 246 / 1) !important;
+    min-height: 3rem !important;
+}
+
+.multiselect__input,
+.multiselect__single {
+    background: rgb(243 244 246 / 1) !important;
+
+}
+
+.multiselect__single {
+    line-height: 29px !important;
 }
 
 .multiselect__select::before {
     position: relative;
     right: 0;
-    top: 65%;
+    top: 80%;
     color: #adadad !important;
     margin-top: 0 !important;
     border-style: unset !important;
@@ -219,6 +112,11 @@ body * {
     border-color: unset !important;
     ;
     content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+.multiselect {
+    min-height: 3rem !important;
+    height: 4px !important;
 }
 
 .multiselect__select {
