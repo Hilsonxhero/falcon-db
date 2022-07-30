@@ -100,6 +100,11 @@ body * {
     line-height: 29px !important;
 }
 
+.invalid-feedback {
+    color: $danger;
+    padding-top: .4rem;
+}
+
 .multiselect__select::before {
     position: relative;
     right: 0;

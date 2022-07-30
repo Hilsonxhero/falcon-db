@@ -38,17 +38,20 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useNamespace } from "@/core/hooks";
 import { addUnit, isNumber, isString } from "@/core/utils";
 import { avatarEmits, avatarProps } from "./upload";
-
+import useBase64 from "@/core/hooks/use-base64";
 import type { CSSProperties } from "vue";
 
 const props = defineProps({
   max: {
     type: Number,
     default: 1
+  },
+  src: {
+    type: String,
   }
 });
 
@@ -60,6 +63,7 @@ const uploadRef = ref(null)
 const files = ref([
 
 ])
+const data = ref(null)
 const file = ref(null)
 const fileURL = ref(null)
 const fileName = ref(null)
@@ -73,26 +77,25 @@ const fileName = ref(null)
 //   return classList;
 // });
 
-const filePreviewURL = computed(() => {
-  return fileURL.value ? fileURL.value : '/media/svg/files/blank-image.svg'
-});
 
 
 const handleObjectURL = (event: any) => {
   let item = {
-    file: [],
+    file: '',
     name: '',
     url: ''
   }
   const file = [];
-  item.file = event.target.files[0];
+  // item.file = event.target.files[0];
+  item.file = useBase64(event)
+  data.value = useBase64(event);
   item.name = event.target.files[0].name
   item.url = URL.createObjectURL(event.target.files[0])
   if (files.value.length >= props.max) return false
   files.value.push(item)
   item = {}
   emit('fileChange', true)
-  props.max === 1 ? emit("update:modelValue", files.value[0].file) : emit("update:modelValue", files.value)
+  props.max === 1 ? emit("update:modelValue", data.value) : emit("update:modelValue", files.value)
 }
 
 const handleDeleteFile = (index) => {
@@ -100,11 +103,17 @@ const handleDeleteFile = (index) => {
 }
 
 
-// need reset hasLoadError to false if src changed
+
 // watch(
-//   () => props.src,
-//   () => (hasLoadError.value = false)
+//   () => props.value,
+//   () => files.value.push({ name: '', url: value, file: [] })
 // );
+
+onMounted(() => {
+  if (props.src) files.value.push({ url: props.src })
+
+
+})
 
 
 </script>

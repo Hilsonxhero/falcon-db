@@ -34,9 +34,7 @@
                         <input class="form-check-input" type="checkbox" :value="category.id" v-model="checkedData" />
                     </div>
                 </template>
-                <!-- <template v-slot:cell-thumb="{ row: category }">
-                    <img class="w-14 h-14 object-cover rounded-lg" :src="category?.media?.thumb" alt="">
-                </template> -->
+
                 <template v-slot:cell-title="{ row: category }">
                     <div class="flex  space-x-2 space-x-reverse">
                         <img class="w-14 h-14 object-cover rounded-lg" :src="category?.media?.thumb" alt="">
@@ -68,7 +66,8 @@
                 </template>
 
                 <template v-slot:cell-actions="{ row: category }">
-                    <hx-button variant="gray" size="sm" icon>
+                    <hx-button variant="gray" size="sm" icon
+                        :to="{ name: 'categories edit', params: { id: category.id } }">
                         <hx-icon icon="edit-alt"></hx-icon>
                     </hx-button>
                     <hx-button variant="gray" size="sm" icon @click="handleDelete(category)">

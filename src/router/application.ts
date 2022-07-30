@@ -23,5 +23,11 @@ export default {
       component: () =>
         import("@/views/app/categories/create.vue"),
     },
+    {
+      path: "/categories/edit/:id",
+      name: "categories edit",
+      component: () =>
+        import("@/views/app/categories/edit.vue"),
+    },
   ],
 };
