@@ -42,10 +42,10 @@ const onUpdated = function (el: HTMLElement, binding: DirectiveBinding, vnode: a
 };
 
 
-const ClickOutside = {
+const ClickOutSide = {
     mounted: onMounted,
     updated: onUpdated,
     unmounted: onUnmounted
 };
 
-export default ClickOutside
+export default ClickOutSide

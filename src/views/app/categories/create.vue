@@ -18,7 +18,6 @@
                                 <hx-form-group>
                                     <Field mode="passive" name="title" v-slot="{ field }" rules="required"
                                         label="عنوان">
-                                        <!-- <input v-bind="field" class="form-input" type="text" v-model="form.title"> -->
                                         <hx-input v-bind="field" v-model="form.title" placeholder="عنوان"></hx-input>
                                     </Field>
 
@@ -177,7 +176,7 @@ const handleCreate = async (values, { resetForm }) => {
 fetchData()
 
 onMounted(() => {
-    form.value.title = "dsfgdgdfg"
+
 })
 
 

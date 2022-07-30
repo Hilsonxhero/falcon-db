@@ -124,7 +124,7 @@ import { ErrorMessage, Field, Form } from "vee-validate";
 const categories = ref<any>([])
 const id = ref<any>(null)
 
-const formRef = ref(null)
+const formRef = ref<any>(null)
 
 const router = useRouter()
 const route = useRoute()
@@ -155,7 +155,7 @@ const fetchCategory = async () => {
     try {
         const { data } = await ApiService.get(`categories/${id.value}`)
         form.value = data.data
-        // formRef.value.setFieldValue('title', form.value.title)
+
         formRef.value.setValues({
             ...data.data
         })
@@ -167,15 +167,6 @@ const fetchCategory = async () => {
 }
 
 const handleUpdate = async (values, { resetForm }) => {
-
-    // let formData = new FormData()
-    // formData.append('title', form.value.title)
-    // formData.append('title_en', form.value.title_en)
-    // formData.append('description', form.value.description)
-    // formData.append('parent', form.value.parent?.id ?? "")
-    // formData.append('status', form.value.status)
-    // formData.append('image', form.value.image)
-
     const formData = {
         title: form.value.title,
         title_en: form.value.title_en,
@@ -199,8 +190,6 @@ const handleUpdate = async (values, { resetForm }) => {
 
     }
 }
-
-
 
 
 onMounted(() => {

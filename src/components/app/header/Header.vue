@@ -26,8 +26,8 @@
         <hx-avatar src="/media/faces/2.jpg" fit="cover" shape="circle" @click="ww"></hx-avatar>
 
 
-        <hx-modal :show="show" title="فیلترها" @close="handleFilterModal">
-          <h1>www</h1>
+        <hx-modal :show="show" title="حساب کاربری" @close="handleFilterModal">
+
         </hx-modal>
       </div>
     </div>

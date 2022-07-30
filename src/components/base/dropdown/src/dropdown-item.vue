@@ -1,5 +1,5 @@
 <template>
-    <li class="py-2 px-3 transition-all duration-150 ease-out" :class="[dropdownCls]">
+    <li class="py-2 px-3 transition-all duration-150 ease-out rounded-md" :class="[dropdownCls]">
         <span class="text-gray-600">
             <slot />
         </span>

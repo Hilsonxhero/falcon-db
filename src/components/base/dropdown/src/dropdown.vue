@@ -7,8 +7,8 @@
 
 
     <transition name="fade">
-      <ul v-if="visiable" ref="dropdownRef" v-click-outside="hideDropDown"
-        class="absolute normal-case font-normal xs:left-0 left-0 overflow-hidden  w-48  mt-2  lg:z-[130]" :class="[
+      <ul v-if="visiable" ref="dropdownRef" v-click-outside-directive="hideDropDown"
+        class="absolute normal-case font-normal xs:left-0 left-0 overflow-hidden  w-48  mt-2 p-3  lg:z-[130]" :class="[
           dropdownKls,
           visiable && 'active'
         ]">
@@ -24,13 +24,14 @@
 </template>
 
 <script setup lang="ts">
-import { provide, ref, computed, nextTick, onMounted } from "vue";
-import { useId, useLocale, useNamespace, useSize } from "@/core/hooks";
+import { ref, computed } from "vue";
+import { useLocale, useNamespace, } from "@/core/hooks";
 import type { ButtonType } from "@/core/components/button";
 import { definePropType } from "@/core/utils";
-import useClickOutside from "@/core/hooks/useClickOutside";
 import { useDropdown } from "./useDropdown";
-import { ClickOutside } from '@/core/directives'
+import { ClickOutSide as vClickOutsideDirective } from '@/core/directives'
+
+
 const props = defineProps({
   type: {
     type: definePropType<ButtonType>(String),
@@ -86,9 +87,6 @@ const props = defineProps({
   // },
 } as const);
 
-
-
-
 const { _elDropdownSize } = useDropdown();
 const size = _elDropdownSize.value;
 
@@ -109,13 +107,9 @@ const handleVisibilty = () => {
 const hideDropDown = () => {
   visiable.value = false
 }
-
-// provide('elDropdown', visiable)
-
-
-
-
 </script>
+
+
 
 <style scoped>
 .translate-fade-down-enter-active,

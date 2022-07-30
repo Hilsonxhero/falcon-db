@@ -13,9 +13,6 @@ import i18n from "@/core/plugins/i18n";
 
 const app = createApp(App);
 
-
-
-
 ApiService.init(app);
 installer.install(app);
 initInlineSvg(app);
