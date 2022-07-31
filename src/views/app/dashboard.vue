@@ -50,7 +50,8 @@
           <!--end::Hidden-->
 
           <!--begin::Chart-->
-          <HxChart :options="chartOptionsHorizontal" :height="300" :series="seriesHorizontal" type="bar" />
+          <HxChartBar :horizontal="true" :categories="[' کالای دیجیتال', 'لوزام خانگی', 'لوزام جانبی خودرو', 'پوشاک', 'بهداشت و درمان'
+          , 'مواد خوراکی']" :series="[{ name: 'Net Profit', data: [50, 60, 70, 200, 60, 50] }]" />
           <!--end::Chart-->
         </div>
       </div>
@@ -70,7 +71,8 @@
           <!--end::Hidden-->
 
           <!--begin::Chart-->
-          <HxChart :options="chartOptionsPie" :height="300" :series="seriesPie" type="donut" />
+          <HxChartDonut :labels="['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد']" :series="[44, 55, 41, 17, 15]"
+            color="primary" :height="300" />
           <!--end::Chart-->
         </div>
       </div>
@@ -99,8 +101,13 @@
           <!--end::Hidden-->
 
           <!--begin::Chart-->
-
-          <HxChart :options="area_options" :height="300" :series="area_series" type="area" />
+          <HxAreaChart :height="300" :categories="[' Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']" :series="[{
+            name: 'Net Profit', data: [30, 30, 50, 50, 35, 35],
+          }, {
+            name: 'Revenue', data: [55, 20, 20, 20, 70, 70],
+          }, {
+            name: 'Expenses', data: [60, 60, 40, 40, 30, 30],
+          },]" />
           <!--end::Chart-->
         </div>
       </div>
@@ -123,7 +130,8 @@
           <!--end::Hidden-->
 
           <!--begin::Chart-->
-          <HxChart :options="chartOptions" :height="250" :series="series" type="bar" />
+          <HxChartBar :height="250" :categories="[' فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور']"
+            :series="[{ name: 'Net Profit', data: [50, 60, 70, 200, 60, 50] }, { name: 'Revenue', data: [12, 40, 120, 80, 30, 20], }]" />
           <!--end::Chart-->
         </div>
       </div>
@@ -221,15 +229,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import HxChart from "@/components/common/widgets/charts/Chart.vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
 import customers from "@/core/data/customers";
 import { ICustomer } from "@/core/data/customers";
 import StaticArea from "@/components/common/widgets/statistics/Area.vue";
 import StaticCard from "@/components/common/widgets/statistics/Card.vue";
-
-const selected = ref(null);
-
+import HxChartDonut from "@/components/common/widgets/charts/Donut.vue";
+import HxChartBar from "@/components/common/widgets/charts/Bar.vue";
+import HxAreaChart from "@/components/common/widgets/charts/Area.vue";
 
 onMounted(() => {
   initCustomers.value.splice(0, tableData.value.length, ...tableData.value);
@@ -274,441 +281,11 @@ const tableHeader = ref([
   },
 ]);
 const tableData = ref<Array<ICustomer>>(customers);
+
 const initCustomers = ref<Array<ICustomer>>([]);
 
-const labelColor = "#222";
-const borderColor = "#e2e8f9";
-const secondaryColor = "#e2e8f9";
-const baseColor = "#1da1f2";
-
-const chartOptions = {
-  chart: {
-    fontFamily: "inherit",
-    type: "bar",
-    // height: "10",
-    toolbar: {
-      show: false,
-    },
-    sparkline: {
-      enabled: false,
-    },
-  },
-  plotOptions: {
-    radialBar: {
-      horizontal: false,
-      borderRadius: 50,
-    },
-    bar: {
-      borderRadius: 5,
-      horizontal: false,
-    },
-  },
-  legend: {
-    show: false,
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  stroke: {
-    show: true,
-    width: 2,
-    colors: ["transparent"],
-  },
-  xaxis: {
-    // categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-    categories: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور"],
-
-    axisBorder: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-    labels: {
-      style: {
-        colors: labelColor,
-        fontSize: "12px",
-      },
-    },
-  },
-  yaxis: {
-    y: 0,
-    offsetX: 0,
-    offsetY: 0,
-    labels: {
-      style: {
-        colors: labelColor,
-        fontSize: "12px",
-      },
-    },
-  },
-  fill: {
-    type: "solid",
-  },
-  states: {
-    normal: {
-      filter: {
-        type: "none",
-        value: 0,
-      },
-    },
-    hover: {
-      filter: {
-        type: "none",
-        value: 0,
-      },
-    },
-    active: {
-      allowMultipleDataPointsSelection: false,
-      filter: {
-        type: "none",
-        value: 0,
-      },
-    },
-  },
-  tooltip: {
-    style: {
-      fontSize: "12px",
-    },
-    y: {
-      formatter: function (val: any) {
-        return "تومان" + val + " revenue";
-      },
-    },
-  },
-  colors: [baseColor, secondaryColor],
-  grid: {
-    show: false,
-    padding: {
-      top: 0,
-      left: 20,
-      right: 0,
-      bottom: 0,
-    },
-
-    borderColor: borderColor,
-    strokeDashArray: 4,
-    yaxis: {
-      lines: {
-        show: true,
-      },
-    },
-  },
-};
-
-const chartOptionsHorizontal = {
-  chart: {
-    fontFamily: "inherit",
-    type: "bar",
-    // height: "10",
-    toolbar: {
-      show: false,
-    },
-    sparkline: {
-      enabled: false,
-    },
-  },
-  plotOptions: {
-    radialBar: {
-      horizontal: true,
-      borderRadius: 50,
-    },
-    bar: {
-      borderRadius: 5,
-      horizontal: true,
-    },
-  },
-  legend: {
-    show: false,
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  stroke: {
-    show: true,
-    width: 2,
-    colors: ["transparent"],
-  },
-  xaxis: {
-    // categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-    categories: ["کالای دیجیتال", "لوزام خانگی", "لوزام جانبی خودرو", "پوشاک", "بهداشت و درمان", "مواد خوراکی"],
-
-    axisBorder: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-    labels: {
-      style: {
-        colors: labelColor,
-        fontSize: "12px",
-      },
-    },
-  },
-  yaxis: {
-    y: 0,
-    offsetX: 0,
-    offsetY: 0,
-    labels: {
-      style: {
-        colors: labelColor,
-        fontSize: "12px",
-      },
-    },
-  },
-  fill: {
-    type: "solid",
-  },
-  states: {
-    normal: {
-      filter: {
-        type: "none",
-        value: 0,
-      },
-    },
-    hover: {
-      filter: {
-        type: "none",
-        value: 0,
-      },
-    },
-    active: {
-      allowMultipleDataPointsSelection: false,
-      filter: {
-        type: "none",
-        value: 0,
-      },
-    },
-  },
-  tooltip: {
-    style: {
-      fontSize: "12px",
-    },
-    y: {
-      formatter: function (val: any) {
-        return "تومان" + val + " revenue";
-      },
-    },
-  },
-  colors: [baseColor, secondaryColor],
-  grid: {
-    show: false,
-    padding: {
-      top: 0,
-      left: 20,
-      right: 0,
-      bottom: 0,
-    },
-
-    borderColor: borderColor,
-    strokeDashArray: 4,
-    yaxis: {
-      lines: {
-        show: true,
-      },
-    },
-  },
-};
-
-
-
-const chartOptionsPie = {
-  chart: {
-    fontFamily: "inherit",
-    type: "bar",
-    // height: "10",
-    toolbar: {
-      show: false,
-    },
-    sparkline: {
-      enabled: false,
-    },
-  },
-  responsive: [{
-    breakpoint: 480,
-    options: {
-      chart: {
-        width: 200
-      },
-      legend: {
-        position: 'bottom'
-      }
-    }
-  }],
-  labels: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد"],
-}
-
-
-const seriesPie = [44, 55, 41, 17, 15]
-
-const area_options = {
-  chart: {
-    fontFamily: "inherit",
-    type: "area",
-    toolbar: {
-      show: false,
-    },
-    zoom: {
-      enabled: false,
-    },
-    sparkline: {
-      enabled: true,
-    },
-  },
-  plotOptions: {},
-  legend: {
-    show: false,
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  fill: {
-    type: "solid",
-    opacity: 1,
-  },
-  stroke: {
-    curve: "smooth",
-    show: true,
-    width: 2,
-    colors: ["#FFC700", "#50CD89", "#009EF7"],
-  },
-  xaxis: {
-    x: 0,
-    offsetX: 0,
-    offsetY: 0,
-    padding: {
-      left: 0,
-      right: 0,
-      top: 0,
-    },
-    categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-    axisBorder: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-    labels: {
-      show: false,
-      style: {
-        colors: "#e2e8f9",
-        fontSize: "12px",
-      },
-    },
-    crosshairs: {
-      show: false,
-      position: "front",
-      stroke: {
-        color: "#e2e8f9",
-        width: 1,
-        dashArray: 3,
-      },
-    },
-    tooltip: {
-      enabled: false,
-    },
-  },
-  yaxis: {
-    y: 0,
-    offsetX: 0,
-    offsetY: 0,
-    padding: {
-      left: 0,
-      right: 0,
-    },
-    labels: {
-      show: false,
-      style: {
-        colors: "#e2e8f9",
-        fontSize: "12px",
-      },
-    },
-  },
-  states: {
-    normal: {
-      filter: {
-        type: "none",
-        value: 0,
-      },
-    },
-    hover: {
-      filter: {
-        type: "none",
-        value: 0,
-      },
-    },
-    active: {
-      allowMultipleDataPointsSelection: false,
-      filter: {
-        type: "none",
-        value: 0,
-      },
-    },
-  },
-  tooltip: {
-    style: {
-      fontSize: "12px",
-    },
-    y: {
-      formatter: function (val: any) {
-        return "$" + val + " thousands";
-      },
-    },
-  },
-  colors: ["#FFF8DD", "#E8FFF3", "#F1FAFF"],
-  grid: {
-    borderColor: borderColor,
-    strokeDashArray: 4,
-    padding: {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-    },
-  },
-  markers: {
-    colors: ["#FFF8DD", "#E8FFF3", "#F1FAFF"],
-    strokeColor: ["#FFC700", "#50CD89", "#009EF7"],
-    strokeWidth: 3,
-  },
-};
-const series = [
-  {
-    name: "Net Profit",
-    data: [50, 60, 70, 200, 60, 50],
-  },
-  {
-    name: "Revenue",
-    data: [12, 40, 120, 80, 30, 20],
-  },
-];
-
-const seriesHorizontal = [
-  {
-    name: "Net Profit",
-    data: [50, 60, 70, 200, 60, 50],
-  },
-
-];
-
-
-const area_series = [
-  {
-    name: "Net Profit",
-    data: [30, 30, 50, 50, 35, 35],
-  },
-  {
-    name: "Revenue",
-    data: [55, 20, 20, 20, 70, 70],
-  },
-  {
-    name: "Expenses",
-    data: [60, 60, 40, 40, 30, 30],
-  },
-];
-
 const search = ref<string>("");
+
 const searchItems = () => {
   tableData.value.splice(0, tableData.value.length, ...initCustomers.value);
   if (search.value !== "") {
