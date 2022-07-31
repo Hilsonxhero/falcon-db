@@ -88,11 +88,14 @@ body * {
     border: unset !important;
     background: rgb(243 244 246 / 1) !important;
     min-height: 3rem !important;
+    padding-right: 1rem !important;
 }
 
 .multiselect__input,
 .multiselect__single {
     background: rgb(243 244 246 / 1) !important;
+    line-height: 35px !important;
+    ;
 
 }
 
@@ -104,6 +107,13 @@ body * {
     color: $danger;
     padding-top: .4rem;
 }
+
+.multiselect__placeholder {
+    padding-top: .4rem !important;
+}
+
+.invalid__placeholder {}
+
 
 .multiselect__select::before {
     position: relative;
@@ -125,6 +135,7 @@ body * {
 }
 
 .multiselect__select {
+    left: 10px !important;
     // top: 50% !important;
     transform: rotate(0deg) !important;
     width: 28px !important;
@@ -160,4 +171,27 @@ body * {
     background: #f3f3f3;
     color: #35495e;
     font-weight: 700;
+}
+
+
+
+@each $name,
+$value in $theme-colors {
+    .hx-bg__#{$name} {
+        background-color: $value !important;
+        background: $value !important;
+    }
+
+    .hx-bg__#{$name}--light {
+        background-color: $value;
+    }
+}
+
+
+.apexcharts-yaxis-texts-g.apexcharts-xaxis-inversed-texts-g .apexcharts-yaxis-label {
+    transform: translateX(-75px);
+}
+
+.apexcharts-legend-marker+.apexcharts-legend-text {
+    margin-right: .7rem;
 }

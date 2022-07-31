@@ -52,7 +52,7 @@
               </tr>
             </template>
           </template>
-          <template>
+          <template v-else>
             <tr class="odd">
               <td colspan="7" class="dataTables_empty">
                 {{ emptyTableText }}
@@ -63,7 +63,7 @@
 
         <!--end::Table body-->
       </table>
-      <div v-else class="overlay-layer card-rounded bg-dark bg-opacity-5">
+      <div v-if="loading" class="overlay-layer card-rounded bg-dark bg-opacity-5">
         <div class="spinner-border text-primary text-center" role="status">
           <span class="visually-hidden text-center">در حال بارگیری ..</span>
         </div>
@@ -134,7 +134,7 @@ const props = defineProps({
     required: true,
   },
   tableData: { type: Array, required: true },
-  emptyTableText: { type: String, default: "No data found" },
+  emptyTableText: { type: String, default: "داده ای یافت نشد" },
   loading: { type: Boolean, default: false },
   currentPage: { type: Number, default: 1 },
   enableItemsPerPageDropdown: { type: Boolean, default: true },

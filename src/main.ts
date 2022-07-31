@@ -1,6 +1,5 @@
 import { createApp } from "vue";
 import router from "./router";
-// import "./style.css";
 import '@/assets/css/tailwind.css'
 import App from "./App.vue";
 
@@ -21,11 +20,5 @@ initVeeValidate(app)
 
 app.use(router);
 app.use(i18n);
-
-
-
-
-
-
 
 app.mount("#app");

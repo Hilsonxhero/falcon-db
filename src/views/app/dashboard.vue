@@ -1,12 +1,150 @@
 <template>
-  <section class="mb-6">
-    <div class="hx-card">
+
+  <section class="my-4">
+
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 md:col-span-6 lg:col-span-4" v-for="(item, index) in 3">
+        <StaticArea description="  لورم ایپسوم متن ساختگی با تولید" title="فروش هفتگی" :change="150" color="succcess"
+          :height="100" />
+      </div>
+    </div>
+
+  </section>
+
+  <section class="my-4">
+
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 md:col-span-6 lg:col-span-4" v-for="(item, index) in 3">
+        <StaticCard icon="ecc" description="  لورم ایپسوم متن ساختگی با تولید" title="فروش هفتگی" :change="150"
+          color="dark" :height="100" />
+      </div>
+    </div>
+
+  </section>
+
+  <section class="my-4">
+
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 md:col-span-6 lg:col-span-3" v-for="(item, index) in 4">
+        <StaticCard icon="static" description="  لورم ایپسوم متن ساختگی با تولید" title="12000000" color="primary" />
+      </div>
+    </div>
+
+  </section>
+
+  <section class="my-4">
+
+    <div class="w-full grid grid-cols-12 gap-6">
+      <div class="hx-card bg-white rounded-xl col-span-12 md:col-span-6 xl:col-span-6">
+        <!--begin::Body-->
+        <div class="hx-card__body flex justify-between flex-col overflow-hidden">
+          <!--begin::Hidden-->
+          <div class="flex justify-between items-center flex-wrap flex-grow px-9 pt-9 pb-3">
+            <div class="flex flex-col">
+              <span class="text-gray-800 block">دسته بندی های پرفروش</span>
+
+              <span class="text-gray-400 fw-bold">8 فرودین تا 18 آذر</span>
+            </div>
+
+          </div>
+          <!--end::Hidden-->
+
+          <!--begin::Chart-->
+          <HxChart :options="chartOptionsHorizontal" :height="300" :series="seriesHorizontal" type="bar" />
+          <!--end::Chart-->
+        </div>
+      </div>
+
+      <div class="hx-card bg-white rounded-xl col-span-12 md:col-span-6 xl:col-span-6">
+        <!--begin::Body-->
+        <div class="hx-card__body flex justify-between flex-col overflow-hidden">
+          <!--begin::Hidden-->
+          <div class="flex justify-between items-center flex-wrap flex-grow px-9 pt-9 pb-3">
+            <div class="flex flex-col">
+              <span class="text-gray-800 block">دسته بندی های پرفروش</span>
+
+              <span class="text-gray-400 fw-bold">8 فرودین تا 18 آذر</span>
+            </div>
+
+          </div>
+          <!--end::Hidden-->
+
+          <!--begin::Chart-->
+          <HxChart :options="chartOptionsPie" :height="300" :series="seriesPie" type="donut" />
+          <!--end::Chart-->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="my-4">
+
+
+    <div class="w-full grid grid-cols-12 gap-6">
+      <div class="hx-card bg-white rounded-xl col-span-12 md:col-span-6 xl:col-span-6">
+        <!--begin::Body-->
+        <div class="card-body p-0 flex justify-between flex-col">
+          <!--begin::Hidden-->
+          <div class="flex justify-between items-center flex-wrap flex-grow px-9 pt-9 pb-3">
+            <div class="flex flex-col">
+              <span class="text-gray-800 block">فروش</span>
+
+              <span class="text-gray-400 fw-bold">8 فرودین تا 18 آذر</span>
+            </div>
+            <div>
+              <span class="text-blue-500 mx-1">120000000</span>
+              <span class="text-blue-500">تومان</span>
+            </div>
+          </div>
+          <!--end::Hidden-->
+
+          <!--begin::Chart-->
+
+          <HxChart :options="area_options" :height="300" :series="area_series" type="area" />
+          <!--end::Chart-->
+        </div>
+      </div>
+
+      <div class="hx-card bg-white rounded-xl col-span-12 md:col-span-6 xl:col-span-6">
+        <!--begin::Body-->
+        <div class="card-body p-0 flex justify-between flex-col overflow-hidden">
+          <!--begin::Hidden-->
+          <div class="flex justify-between items-center flex-wrap flex-grow px-9 pt-9 pb-3">
+            <div class="flex flex-col">
+              <span class="text-gray-800 block">فروش</span>
+
+              <span class="text-gray-400 fw-bold">8 فرودین تا 18 آذر</span>
+            </div>
+            <div>
+              <span class="text-blue-500 mx-1">120000000</span>
+              <span class="text-blue-500">تومان</span>
+            </div>
+          </div>
+          <!--end::Hidden-->
+
+          <!--begin::Chart-->
+          <HxChart :options="chartOptions" :height="250" :series="series" type="bar" />
+          <!--end::Chart-->
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+
+
+
+  <section class="my-4">
+    <div class=" hx-card">
       <div class="hx-card__header border-0">
         <!--begin::Card title-->
-        <div class="hx-card__title">
+        <div class="hx-card__title flex items-center justify-between">
           <!--begin::Search-->
+          <div>
+            <h4>آخرین سفارشات</h4>
+          </div>
           <div class="flex items-center position-relative my-1">
-            <hx-input v-model="search" @input="searchItems()" placeholder="Search Customers"></hx-input>
+            <hx-input v-model="search" @input="searchItems()" placeholder="جستجو  در سفارشات"></hx-input>
           </div>
           <!--end::Search-->
         </div>
@@ -79,66 +217,19 @@
       </HxDataTable>
     </div>
   </section>
-  <div class="w-full grid grid-cols-12 gap-2">
-    <div class="hx-card bg-white rounded-xl col-span-12 md:col-span-6 xl:col-span-6">
-      <!--begin::Body-->
-      <div class="card-body p-0 flex justify-between flex-col">
-        <!--begin::Hidden-->
-        <div class="flex justify-between items-center flex-wrap flex-grow px-9 pt-9 pb-3">
-          <div class="flex flex-col">
-            <span class="text-gray-800 block">فروش</span>
-
-            <span class="text-gray-400 fw-bold">8 فرودین تا 18 آذر</span>
-          </div>
-          <div>
-            <span class="text-blue-500 mx-1">120000000</span>
-            <span class="text-blue-500">تومان</span>
-          </div>
-        </div>
-        <!--end::Hidden-->
-
-        <!--begin::Chart-->
-
-        <HxChart :options="area_options" :height="300" :series="area_series" type="area" />
-        <!--end::Chart-->
-      </div>
-    </div>
-
-    <div class="hx-card bg-white rounded-xl col-span-12 md:col-span-6 xl:col-span-6">
-      <!--begin::Body-->
-      <div class="card-body p-0 flex justify-between flex-col overflow-hidden">
-        <!--begin::Hidden-->
-        <div class="flex justify-between items-center flex-wrap flex-grow px-9 pt-9 pb-3">
-          <div class="flex flex-col">
-            <span class="text-gray-800 block">فروش</span>
-
-            <span class="text-gray-400 fw-bold">8 فرودین تا 18 آذر</span>
-          </div>
-          <div>
-            <span class="text-blue-500 mx-1">120000000</span>
-            <span class="text-blue-500">تومان</span>
-          </div>
-        </div>
-        <!--end::Hidden-->
-
-        <!--begin::Chart-->
-        <HxChart :options="chartOptions" :height="250" :series="series" type="bar" />
-        <!--end::Chart-->
-      </div>
-    </div>
-  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import HxChart from "@/components/common/widgets/charts/Chart.vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
-import VueMultiselect from "vue-multiselect";
 import customers from "@/core/data/customers";
 import { ICustomer } from "@/core/data/customers";
+import StaticArea from "@/components/common/widgets/statistics/Area.vue";
+import StaticCard from "@/components/common/widgets/statistics/Card.vue";
 
 const selected = ref(null);
-const options = ref(["list", "of", "options"]);
+
 
 onMounted(() => {
   initCustomers.value.splice(0, tableData.value.length, ...tableData.value);
@@ -305,6 +396,152 @@ const chartOptions = {
   },
 };
 
+const chartOptionsHorizontal = {
+  chart: {
+    fontFamily: "inherit",
+    type: "bar",
+    // height: "10",
+    toolbar: {
+      show: false,
+    },
+    sparkline: {
+      enabled: false,
+    },
+  },
+  plotOptions: {
+    radialBar: {
+      horizontal: true,
+      borderRadius: 50,
+    },
+    bar: {
+      borderRadius: 5,
+      horizontal: true,
+    },
+  },
+  legend: {
+    show: false,
+  },
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    show: true,
+    width: 2,
+    colors: ["transparent"],
+  },
+  xaxis: {
+    // categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+    categories: ["کالای دیجیتال", "لوزام خانگی", "لوزام جانبی خودرو", "پوشاک", "بهداشت و درمان", "مواد خوراکی"],
+
+    axisBorder: {
+      show: false,
+    },
+    axisTicks: {
+      show: false,
+    },
+    labels: {
+      style: {
+        colors: labelColor,
+        fontSize: "12px",
+      },
+    },
+  },
+  yaxis: {
+    y: 0,
+    offsetX: 0,
+    offsetY: 0,
+    labels: {
+      style: {
+        colors: labelColor,
+        fontSize: "12px",
+      },
+    },
+  },
+  fill: {
+    type: "solid",
+  },
+  states: {
+    normal: {
+      filter: {
+        type: "none",
+        value: 0,
+      },
+    },
+    hover: {
+      filter: {
+        type: "none",
+        value: 0,
+      },
+    },
+    active: {
+      allowMultipleDataPointsSelection: false,
+      filter: {
+        type: "none",
+        value: 0,
+      },
+    },
+  },
+  tooltip: {
+    style: {
+      fontSize: "12px",
+    },
+    y: {
+      formatter: function (val: any) {
+        return "تومان" + val + " revenue";
+      },
+    },
+  },
+  colors: [baseColor, secondaryColor],
+  grid: {
+    show: false,
+    padding: {
+      top: 0,
+      left: 20,
+      right: 0,
+      bottom: 0,
+    },
+
+    borderColor: borderColor,
+    strokeDashArray: 4,
+    yaxis: {
+      lines: {
+        show: true,
+      },
+    },
+  },
+};
+
+
+
+const chartOptionsPie = {
+  chart: {
+    fontFamily: "inherit",
+    type: "bar",
+    // height: "10",
+    toolbar: {
+      show: false,
+    },
+    sparkline: {
+      enabled: false,
+    },
+  },
+  responsive: [{
+    breakpoint: 480,
+    options: {
+      chart: {
+        width: 200
+      },
+      legend: {
+        position: 'bottom'
+      }
+    }
+  }],
+  labels: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد"],
+}
+
+
+const seriesPie = [44, 55, 41, 17, 15]
+
 const area_options = {
   chart: {
     fontFamily: "inherit",
@@ -446,6 +683,16 @@ const series = [
     data: [12, 40, 120, 80, 30, 20],
   },
 ];
+
+const seriesHorizontal = [
+  {
+    name: "Net Profit",
+    data: [50, 60, 70, 200, 60, 50],
+  },
+
+];
+
+
 const area_series = [
   {
     name: "Net Profit",

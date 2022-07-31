@@ -81,7 +81,7 @@ $light-inverse: if(isDarkMode(), $gray-800, $gray-600) !default; // Custom varia
 $lighten: rgba($light, 0.5); // Custom variable
 
 // Success colors
-$success: #1BC5BD !default; // Bootstrap variable
+$success: #50CD89 !default; // Bootstrap variable
 $success-active: #0BB7AF !default; // Custom variable
 $success-light: if(isDarkMode(), #1C3833, #C9F7F5) !default; // Custom variable
 $success-inverse: $white !default; // Custom variable
