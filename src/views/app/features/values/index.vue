@@ -2,7 +2,7 @@
     <!-- v-if="features.length" -->
     <section class="mb-6">
         <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-8">
+            <div class="col-span-12 lg:col-span-8">
                 <div class="hx-card p-0">
                     <div class="hx-card__header border-0">
 
@@ -69,7 +69,7 @@
                     </HxDataTable>
                 </div>
             </div>
-            <div class="col-span-4">
+            <div class="col-span-12 lg:col-span-4">
                 <Form @submit="handleCreate" class="w-full">
                     <div class="hx-card">
                         <div class="hx-card__header">

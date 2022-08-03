@@ -4,6 +4,11 @@
 
 .hx-card table>tbody>tr:first-child>td {
     padding-top: 1.3125rem;
+
+}
+
+.hx-card table>tbody>tr>td {
+    padding-left: 1.3125rem;
 }
 
 .hx-card table> :not(caption)>*>*:first-child {

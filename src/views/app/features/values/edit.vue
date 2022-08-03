@@ -1,7 +1,7 @@
 <template>
     <section class="mb-6">
         <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-4">
+            <div class="col-span-12 lg:col-span-6 xl:col-span-4">
                 <Form @submit="handleUpdate" class="w-full" ref="formRef">
                     <div class="hx-card">
                         <div class="hx-card__header">
