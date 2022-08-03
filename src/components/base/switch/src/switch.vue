@@ -37,10 +37,10 @@ const emits = defineEmits(["update:modelValue", "change"]);
 
 const checked = computed(() => props.modelValue === true)
 
-// watch(checked, (val) => {
-//   input.value!.checked = val
+watch(checked, (val) => {
+  input.value!.checked = val
 
-// })
+})
 
 const handleChange = (e: any) => {
   const val = checked.value ? false : true
@@ -55,6 +55,8 @@ const handleChange = (e: any) => {
 }
 
 onMounted(() => {
+  console.log("checked.value", checked.value);
+
   input.value!.checked = checked.value
 })
 </script>

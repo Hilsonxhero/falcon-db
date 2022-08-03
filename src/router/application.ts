@@ -14,7 +14,7 @@ export default {
       path: "/categories",
       name: "categories index",
       component: () =>
-        import(/* webpackChunkName: "categories" */ "@/views/app/categories/index.vue"),
+        import("@/views/app/categories/index.vue"),
     },
 
     {
@@ -28,6 +28,26 @@ export default {
       name: "categories edit",
       component: () =>
         import("@/views/app/categories/edit.vue"),
+    },
+
+    {
+      path: "/brands",
+      name: "brands index",
+      component: () =>
+        import("@/views/app/brands/index.vue"),
+    },
+
+    {
+      path: "/brands/create",
+      name: "brands create",
+      component: () =>
+        import("@/views/app/brands/create.vue"),
+    },
+    {
+      path: "/brands/edit/:id",
+      name: "brands edit",
+      component: () =>
+        import("@/views/app/brands/edit.vue"),
     },
   ],
 };

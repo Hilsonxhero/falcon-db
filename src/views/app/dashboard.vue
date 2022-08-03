@@ -1,5 +1,4 @@
 <template>
-
   <section class="my-4">
 
     <div class="grid grid-cols-12 gap-6">
@@ -140,8 +139,6 @@
 
   </section>
 
-
-
   <section class="my-4">
     <div class=" hx-card">
       <div class="hx-card__header border-0">
@@ -231,7 +228,7 @@
 import { ref, onMounted } from "vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
 import customers from "@/core/data/customers";
-import { ICustomer } from "@/core/data/customers";
+
 import StaticArea from "@/components/common/widgets/statistics/Area.vue";
 import StaticCard from "@/components/common/widgets/statistics/Card.vue";
 import HxChartDonut from "@/components/common/widgets/charts/Donut.vue";
@@ -280,9 +277,9 @@ const tableHeader = ref([
     key: "actions",
   },
 ]);
-const tableData = ref<Array<ICustomer>>(customers);
+const tableData = ref<Array>(customers);
 
-const initCustomers = ref<Array<ICustomer>>([]);
+const initCustomers = ref<Array>([]);
 
 const search = ref<string>("");
 

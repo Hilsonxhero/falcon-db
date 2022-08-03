@@ -25,7 +25,7 @@ const DocMenuConfig = [
           },
           {
             heading: "برندها",
-            route: "",
+            route: "brands index",
           },
           {
             heading: "مشخصه و ویژگی ها",

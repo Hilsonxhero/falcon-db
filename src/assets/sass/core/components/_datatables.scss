@@ -11,6 +11,10 @@
     padding-left: 1.3125rem;
 }
 
+.hx-card table> :not(caption)>*>*:last-child {
+    padding-left: 1.3125rem;
+}
+
 .table {
 
     width: 100%;
