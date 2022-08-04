@@ -140,7 +140,6 @@ const form = ref({
 const fetchData = async () => {
     try {
         const { data } = await ApiService.get('categories')
-        console.log("data", data.data);
         categories.value = data.data
     } catch (e) {
 

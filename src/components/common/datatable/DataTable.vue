@@ -54,7 +54,7 @@
 
           <tbody class=" text-gray-600">
             <template v-if="getItems.length">
-              <template v-for="(item, index) in getItems" :key="i">
+              <template v-for="(item, index) in getItems" :key="index">
                 <tr class="odd">
                   <template v-for="(cell, i) in tableHeader" :key="i">
                     <td :class="{ 'text-start': tableHeader.length - 1 === i }">
@@ -103,12 +103,14 @@
 </template>
 
 <script lang="ts" setup>
+// @ts-nocheck
 import {
   computed,
   ref,
   onMounted,
   watch,
   getCurrentInstance,
+  inject,
 } from "vue";
 import arraySort from "array-sort";
 import VueMultiselect from "vue-multiselect";
@@ -130,13 +132,12 @@ interface IHeaderConfiguration {
   sortable?: boolean;
 }
 
-const emit = defineEmits(["page", "sort", "items-per-page-change"]);
+const emit = defineEmits(["page", "sort", "items-per-page-change", "refresh"]);
 const props = defineProps({
   tableHeader: {
     type: Array as () => Array<IHeaderConfiguration>,
     required: true,
   },
-  tableData: { type: Array, required: true },
   emptyTableText: { type: String, default: "داده ای یافت نشد" },
   loading: { type: Boolean, default: false },
   currentPage: { type: Number, default: 1 },
@@ -146,9 +147,12 @@ const props = defineProps({
   order: { type: String, default: "asc" },
   sortLabel: { type: String, default: "" },
   url: { type: String },
-  singleItemIndex: { type: [Number, String] },
+  refresh: { type: Boolean, default: false },
+  singleItemIndex: { type: [Number, String, null] },
   searchPlaceholder: { type: String }
 });
+// const refresh = inject('refresh')
+const refresh = ref(props.refresh)
 const data = ref([]);
 const loading = ref(false)
 const currentSort = ref<string>("");
@@ -176,8 +180,9 @@ watch(() => data.value, (currentValue, oldValue) => {
 watch(
   () => props.singleItemIndex,
   (val: any, oldVal) => {
-    data.value.splice(val, 1)
-    initData.value.splice(val, 1)
+    let index = data.value.findIndex(d => d.id == val)
+    data.value.splice(index, 1)
+    initData.value.splice(index, 1)
   },
   {
     deep: true,
@@ -188,10 +193,18 @@ watch(() => pagination.value.page, (currentValue, oldValue) => {
   fetchData()
 });
 
-const fetchData = async () => {
-  try {
-    loading.value = true
-    const { data: response } = await ApiService.get(`${props.url}?page=${pagination.value.page}`)
+watch(() => props.refresh, (currentValue, oldValue) => {
+  currentValue && fetchData()
+  emit("refresh", false)
+});
+
+const fetchData = () => {
+
+  loading.value = true
+
+  ApiService.query(`${props.url}`, {
+    params: { 'page': pagination.value.page }
+  }).then(({ data: response }) => {
     pagination.value.total = response.meta.total
     pagination.value.page = response.meta.current_page
     pagination.value.rowsPerPage = response.meta.per_page
@@ -199,9 +212,9 @@ const fetchData = async () => {
     tableData.value = data.value
     initData.value.splice(0, tableData.value.length, ...tableData.value);
     loading.value = false
-  } catch (e) {
+  }).catch(() => {
     loading.value = false
-  }
+  })
 }
 
 
@@ -283,6 +296,7 @@ const searchingFunc = (obj: any, value: any): boolean => {
   }
   return false;
 };
+
 
 
 onMounted(() => {

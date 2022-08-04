@@ -1,5 +1,6 @@
 <template>
     <section class="mb-6">
+
         <HxDataTable url="brands" :single-item-index="index" search-placeholder="جستجوی برند"
             :table-header="tableHeader" :enable-items-per-page-dropdown="false" :on-current-change="true">
             <template #left>
@@ -66,19 +67,20 @@
 
             </template>
         </HxDataTable>
+
+
     </section>
 
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
 import { ref } from "vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
 import { HxMessageBox } from '@/components/base/message-box'
 import { HxNotification } from '@/components/base/notification'
 import ApiService from '@/core/services/ApiService'
-
-
-const index = ref([])
+const index = ref(null)
 const checkedData = ref([]);
 const tableHeader = ref([
     {
@@ -116,8 +118,7 @@ const tableHeader = ref([
         key: "actions",
     },
 ]);
-
-const handleDelete = (item: any, index: any) => {
+const handleDelete = (item: any, i: any) => {
     HxMessageBox.confirm(
         `آیا از حذف برند ${item.title} اطمینان دارید ؟!`,
         'پیام تایید',
@@ -129,7 +130,7 @@ const handleDelete = (item: any, index: any) => {
     )
         .then(() => {
             ApiService.delete(`brands/${item.id}`).then(() => {
-                index.value = index
+                index.value = i
                 HxNotification.success({
                     title: 'عملیات موفقیت آمیز',
                     message: 'برند موردنظر حذف شد',

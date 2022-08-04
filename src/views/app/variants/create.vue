@@ -65,9 +65,8 @@ const form = ref({
     name: '',
 
 })
-const categories = ref([])
-const variants = ref([])
-const id = ref(null)
+
+
 const types = ref([
     'checkbox',
     'color',
@@ -100,13 +99,7 @@ const handleCreate = async (values, { resetForm }) => {
 }
 
 
-onMounted(async () => {
-    id.value = route.params.id
-    const { data: categoriesData } = await ApiService.get(`categories`)
-    const { data: variantsData } = await ApiService.get(`variants/select/${id.value}`)
-    categories.value = categoriesData.data
-    variants.value = variantsData.data
-});
+
 </script>
 <style>
 </style>

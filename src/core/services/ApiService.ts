@@ -1,30 +1,24 @@
+// @ts-nocheck
 import { App } from "vue";
 import axios from "axios";
-import VueAxios from "vue-axios";
 import { AxiosResponse, AxiosRequestConfig } from "axios";
 import router from "@/router";
+import { createApp } from "vue";
 
 /**
  * @description service to call HTTP request via Axios
  */
 class ApiService {
+
     /**
-     * @description property to share vue instance
-     */
+   * @description property to share vue instance
+   */
     public static vueInstance: App;
 
-    /**
-     * @description initialize vue axios
-     */
-    public static init(app: App<Element>) {
+    constructor(app: any) {
         ApiService.vueInstance = app;
-        ApiService.vueInstance.use(VueAxios, axios);
+        ApiService.vueInstance.axios = axios;
         ApiService.vueInstance.axios.defaults.baseURL = process.env.API_URL
-        // ApiService.vueInstance.axios.defaults.params = {
-        //     'api_key': process.env.API_KEY
-        // }
-
-
         ApiService.vueInstance.axios.interceptors.response.use(
             response => {
                 return response;
@@ -38,6 +32,29 @@ class ApiService {
                 return Promise.reject(error);
             }
         );
+    }
+
+
+    /**
+     * @description initialize vue axios
+     */
+    public static init(app: App<Element>) {
+        // ApiService.vueInstance = app;
+        // ApiService.vueInstance.axios = axios;
+        // ApiService.vueInstance.axios.defaults.baseURL = process.env.API_URL
+        // ApiService.vueInstance.axios.interceptors.response.use(
+        //     response => {
+        //         return response;
+        //     },
+        //     error => {
+        //         if (error.response.status == 404) {
+        //             console.log("dfgf");
+        //             router.push({ name: "not-found" });
+        //         }
+
+        //         return Promise.reject(error);
+        //     }
+        // );
 
     }
 
@@ -70,6 +87,7 @@ class ApiService {
      * @returns Promise<AxiosResponse>
      */
     public static get(
+
         resource: string,
         slug = "" as string
     ): Promise<AxiosResponse> {
@@ -88,7 +106,7 @@ class ApiService {
      */
     public static post(
         resource: string,
-        params: AxiosRequestConfig
+        params: any
     ): Promise<AxiosResponse> {
         return ApiService.vueInstance.axios.post(`${resource}`, params);
     }
@@ -132,5 +150,8 @@ class ApiService {
         });
     }
 }
+
+const app = createApp({})
+new ApiService(app);
 
 export default ApiService;

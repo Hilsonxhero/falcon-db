@@ -1,7 +1,7 @@
 <template>
     <section class="mb-6">
-        <HxDataTable url="categories" search-placeholder="جستجوی دسته بندی" :table-header="tableHeader"
-            :enable-items-per-page-dropdown="false" :on-current-change="true">
+        <HxDataTable url="categories" :single-item-index="index" search-placeholder="جستجوی دسته بندی"
+            :table-header="tableHeader" :enable-items-per-page-dropdown="false" :on-current-change="true">
             <template #left>
                 <hx-button :to="{ name: 'categories create' }">
                     دسته بندی جدید
@@ -43,11 +43,11 @@
                 </template>
             </template>
 
-            <template v-slot:cell-actions="{ row: category }">
+            <template v-slot:cell-actions="{ row: category, index: index }">
                 <hx-button variant="gray" size="sm" icon :to="{ name: 'categories edit', params: { id: category.id } }">
                     <hx-icon icon="edit-alt"></hx-icon>
                 </hx-button>
-                <hx-button variant="gray" size="sm" icon @click="handleDelete(category)">
+                <hx-button variant="gray" size="sm" icon @click="handleDelete(category, index)">
                     <hx-icon icon="trash"></hx-icon>
                 </hx-button>
 
@@ -99,7 +99,9 @@ const tableHeader = ref([
     },
 ]);
 
-const handleDelete = (item: any) => {
+const index = ref(null)
+
+const handleDelete = (item: any, i: any) => {
     HxMessageBox.confirm(
         `آیا از حذف دسته بندی ${item.title} اطمینان دارید ؟!`,
         'پیام تایید',
@@ -109,12 +111,10 @@ const handleDelete = (item: any) => {
             type: 'warning',
         }
     )
-        .then(async () => {
-            try {
-                const { data } = await ApiService.delete(`categories/${item.id}`)
+        .then(() => {
 
-                fetchData()
-
+            ApiService.delete(`categories/${item.id}`).then(() => {
+                index.value = item.id
                 HxNotification.success({
                     title: 'عملیات موفقیت آمیز',
                     message: 'دسته بندی موردنظر حذف شد',
@@ -122,9 +122,9 @@ const handleDelete = (item: any) => {
                     duration: 4000,
                     position: 'bottom-right',
                 })
-            } catch (e) {
+            })
 
-            }
+
         })
         .catch(() => {
 

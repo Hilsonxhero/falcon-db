@@ -55,8 +55,6 @@ const handleChange = (e: any) => {
 }
 
 onMounted(() => {
-  console.log("checked.value", checked.value);
-
   input.value!.checked = checked.value
 })
 </script>

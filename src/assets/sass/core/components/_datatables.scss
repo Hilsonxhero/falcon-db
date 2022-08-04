@@ -292,21 +292,21 @@ table.dataTable>thead {
     .sorting_desc {
         vertical-align: middle;
 
-        &:before,
-        &:after {
-            position: relative;
-            opacity: 0;
-            display: inline-block;
-            width: 0.75rem;
-            height: 0.75rem;
-            content: " ";
-            //top: 50%;
-            bottom: auto;
-            right: auto;
-            left: auto;
-            margin-left: 0.5rem;
-            //transform: translateY(-50%);
-        }
+        // &:before,
+        // &:after {
+        //     position: relative;
+        //     opacity: 0;
+        //     display: inline-block;
+        //     width: 0.75rem;
+        //     height: 0.75rem;
+        //     content: " ";
+        //     //top: 50%;
+        //     bottom: auto;
+        //     right: auto;
+        //     left: auto;
+        //     margin-left: 0.5rem;
+        //     //transform: translateY(-50%);
+        // }
 
         &:before {
             display: none !important;

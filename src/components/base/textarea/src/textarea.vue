@@ -1,13 +1,8 @@
 <template>
   <div class="rounded-xl overflow-hidden relative">
-    <textarea
-      rows="5"
-      class="form-input rounded-inherit border-2 border-transparent focus:bg-white focus:border-blue-500"
-      @input="input"
-      :disabled="disabled"
-      :placeholder="placeholder"
-      >{{ modelValue }}</textarea
-    >
+    <textarea rows="5"
+      class="form-input rounded-inherit border-2 border-transparent focus:bg-white focus:border-blue-500" @input="input"
+      :disabled="disabled" :placeholder="placeholder">{{ modelValue }}</textarea>
   </div>
 </template>
 
@@ -26,7 +21,6 @@ const props = defineProps({
 const emits = defineEmits(["update:modelValue"]);
 
 const input = (e: any) => {
-  console.log("e.target?.value", e.target?.value);
   emits("update:modelValue", e.target?.value);
 };
 </script>
