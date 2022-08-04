@@ -34,8 +34,7 @@
     "vue-inline-svg": "^3.1.0",
     "vue-multiselect": "^3.0.0-alpha.2",
     "vue-router": "^4.0.13",
-    "vue3-apexcharts": "^1.4.1",
-    "yup": "^0.32.11"
+    "vue3-apexcharts": "^1.4.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.0",

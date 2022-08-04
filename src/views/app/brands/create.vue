@@ -76,25 +76,7 @@
 
                                 </hx-form-group>
                             </div>
-
-                            <!-- <div class="col-span-3">
-                                <hx-form-group>
-                                    <hx-switch :label="form.status ? 'فعال' : 'غیرفعال'" name="status"
-                                        v-model="form.status">
-                                    </hx-switch>
-                                </hx-form-group>
-                            </div>
-
-                            <div class="col-span-3">
-                                <hx-form-group>
-                                    <hx-switch :label="form.special ? 'ویژه' : 'عادی'" name="special"
-                                        v-model="form.special">
-                                    </hx-switch>
-                                </hx-form-group>
-                            </div> -->
-
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -123,12 +105,9 @@
                         </hx-button>
                     </div>
                 </div>
-
             </div>
-
         </Form>
     </div>
-
 </template>
 
 <script setup lang="ts">
@@ -138,7 +117,7 @@ import ApiService from '@/core/services/ApiService'
 import { useRouter } from 'vue-router';
 import { HxNotification } from '@/components/base/notification'
 import { ErrorMessage, Field, Form } from "vee-validate";
-import * as Yup from "yup";
+
 
 const brands = ref<any>([])
 

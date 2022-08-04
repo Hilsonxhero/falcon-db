@@ -120,7 +120,7 @@ import ApiService from '@/core/services/ApiService'
 import { useRouter } from 'vue-router';
 import { HxNotification } from '@/components/base/notification'
 import { ErrorMessage, Field, Form } from "vee-validate";
-import * as Yup from "yup";
+
 
 const categories = ref<any>([])
 
