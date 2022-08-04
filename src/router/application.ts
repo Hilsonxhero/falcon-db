@@ -81,5 +81,40 @@ export default {
       component: () =>
         import("@/views/app/features/values/edit.vue"),
     },
+
+    // variants
+
+
+    {
+      path: "/variants",
+      name: "variants index",
+      component: () =>
+        import("@/views/app/variants/index.vue"),
+    },
+
+    {
+      path: "/variants/create",
+      name: "variants create",
+      component: () =>
+        import("@/views/app/variants/create.vue"),
+    },
+    {
+      path: "/variants/edit/:id",
+      name: "variants edit",
+      component: () =>
+        import("@/views/app/variants/edit.vue"),
+    },
+    {
+      path: "/variants/:id/values",
+      name: "variants values",
+      component: () =>
+        import("@/views/app/variants/values/index.vue"),
+    },
+    {
+      path: "/variants/:id/values/:value/edit",
+      name: "variants value edit",
+      component: () =>
+        import("@/views/app/variants/values/edit.vue"),
+    }
   ],
 };

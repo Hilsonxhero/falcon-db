@@ -32,8 +32,8 @@ const DocMenuConfig = [
             route: "features index",
           },
           {
-            heading: "مشخصه ها",
-            route: "",
+            heading: "تنوع ها",
+            route: "variants index",
           },
           {
             heading: "تخفیف ها",
