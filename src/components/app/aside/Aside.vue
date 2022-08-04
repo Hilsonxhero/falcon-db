@@ -21,7 +21,7 @@
       <!--begin::Aside toggler-->
       <div class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle">
         <span class="svg-icon svg-icon-1 rotate-180">
-          <inline-svg src="media/icons/duotune/arrows/arr080.svg" />
+
         </span>
       </div>
       <!--end::Aside toggler-->
@@ -42,7 +42,7 @@
           {{ t("docsAndComponents") }}
         </span>
         <span class="svg-icon btn-icon svg-icon-2">
-          <inline-svg src="media/icons/duotune/general/gen005.svg" />
+
         </span>
       </a>
     </div>

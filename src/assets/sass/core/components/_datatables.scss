@@ -2,6 +2,37 @@
 // Basic Bootstrap table
 //
 
+
+table.dataTable {
+    clear: both;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    max-width: none !important;
+    border-collapse: separate !important;
+    border-spacing: 0;
+}
+
+table.dataTable>thead {
+    th.sorting {
+        position: relative;
+    }
+
+    .sorting:after {
+        position: absolute;
+    }
+}
+
+table.dataTable td.dataTables_empty,
+table.dataTable th.dataTables_empty {
+    text-align: center;
+}
+
+div.dataTables_wrapper div.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
 .hx-card table>tbody>tr:first-child>td {
     padding-top: 1.3125rem;
 

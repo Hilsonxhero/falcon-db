@@ -15,9 +15,10 @@
 
 
                     </div>
-                    <HxDataTable @www="currentPageChnage" :total="pagination.total" :rows-per-page="pagination.per_page"
-                        :currentPage="pagination.current_page" :loading="loading" :table-data="tableData"
-                        :table-header="tableHeader" :enable-items-per-page-dropdown="false" :on-current-change="true">
+                    <HxDataTable @page="currentPageChnage" :total="pagination.total"
+                        :rows-per-page="pagination.per_page" :currentPage="pagination.current_page" :loading="loading"
+                        :table-data="tableData" :table-header="tableHeader" :enable-items-per-page-dropdown="false"
+                        :on-current-change="true">
                         <template v-slot:cell-checkbox="{ row: variant }">
                             <div class="form-check form-check-sm form-check-custom form-check-solid">
                                 <input class="form-check-input" type="checkbox" :value="variant.id"

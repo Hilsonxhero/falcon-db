@@ -1,19 +1,35 @@
 <template>
-  <div class="dataTables_wrapper dt-bootstrap4 no-footer">
-    <div class="table-responsive overflow-x-auto">
-      <table :class="[loading && 'overlay overlay-block']" v-if="!loading"
-        class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_customers_table" role="grid">
-        <!--begin::Table head-->
-        <thead>
-          <!--begin::Table row-->
-          <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0" role="row">
-            <template v-for="(cell, i) in tableHeader" :key="i">
-              <th @click="
-                sort(
-                  cell.sortingField ? cell.sortingField : cell.key,
-                  cell.sortable
-                )
-              " :class="[
+  <div class="hx-card p-0">
+
+    <div class="hx-card__header border-0">
+
+      <div class="hx-card__title flex items-center justify-between">
+
+        <div class="flex items-center position-relative my-1">
+          <hx-input v-model="search" @input="searchItems()" :placeholder="searchPlaceholder"></hx-input>
+        </div>
+
+        <div>
+
+          <slot name="left"></slot>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+      <div class="table-responsive overflow-x-auto">
+        <table :class="[loading && 'overlay overlay-block']" v-if="!loading"
+          class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_customers_table" role="grid">
+          <thead>
+            <tr class="text-start text-gray-400 er fs-7 text-uppercase gs-0" role="row">
+              <template v-for="(cell, i) in tableHeader" :key="i">
+                <th @click="
+                  sort(
+                    cell.sortingField ? cell.sortingField : cell.key,
+                    cell.sortable
+                  )
+                " :class="[
   cell.name && 'min-w-125px',
   cell.sortable !== false && 'sorting',
   tableHeader.length - 1 === i && 'text-start',
@@ -24,88 +40,71 @@
   `${cell.sortingField ? cell.sortingField : cell.key}asc` &&
   'sorting_asc',
 ]" tabindex="0" rowspan="1" colspan="1" style="cursor: pointer">
-                <div class="flex items-center space-x-1 space-x-reverse">
-                  <span>{{ cell.name }}</span>
-                  <span v-if="cell.sortable">
-                    <hx-icon icon="sort" class="w-6 h-6 text-gray-500"></hx-icon>
-                  </span>
-                </div>
-              </th>
-            </template>
-          </tr>
-          <!--end::Table row-->
-        </thead>
+                  <div class="flex items-center space-x-1 space-x-reverse">
+                    <span>{{ cell.name }}</span>
+                    <span v-if="cell.sortable">
+                      <hx-icon icon="sort" class="w-6 h-6 text-gray-500"></hx-icon>
+                    </span>
+                  </div>
+                </th>
+              </template>
+            </tr>
 
-        <tbody class="fw-bold text-gray-600">
-          <!-- v-if="getItems.length" -->
-          <template v-if="getItems.length">
-            <template v-for="(item, i) in getItems" :key="i">
+          </thead>
+
+          <tbody class=" text-gray-600">
+            <template v-if="getItems.length">
+              <template v-for="(item, index) in getItems" :key="i">
+                <tr class="odd">
+                  <template v-for="(cell, i) in tableHeader" :key="i">
+                    <td :class="{ 'text-start': tableHeader.length - 1 === i }">
+                      <slot :name="`cell-${cell.key}`" :row="item" :index="index">
+                        {{ item[prop] }}
+                      </slot>
+                    </td>
+                  </template>
+                </tr>
+              </template>
+            </template>
+            <template v-else>
               <tr class="odd">
-                <template v-for="(cell, i) in tableHeader" :key="i">
-                  <td :class="{ 'text-start': tableHeader.length - 1 === i }">
-                    <slot :name="`cell-${cell.key}`" :row="item">
-                      {{ item[prop] }}
-                    </slot>
-                  </td>
-                </template>
-                <!--end::Item=-->
+                <td colspan="7" class="dataTables_empty">
+                  {{ emptyTableText }}
+                </td>
               </tr>
             </template>
-          </template>
-          <template v-else>
-            <tr class="odd">
-              <td colspan="7" class="dataTables_empty">
-                {{ emptyTableText }}
-              </td>
-            </tr>
-          </template>
-        </tbody>
-
-        <!--end::Table body-->
-      </table>
-      <div v-if="loading" class="overlay-layer card-rounded bg-dark bg-opacity-5">
-        <div class="spinner-border text-primary text-center" role="status">
-          <span class="visually-hidden text-center">در حال بارگیری ..</span>
+          </tbody>
+        </table>
+        <div v-if="loading" class="overlay-layer card-rounded bg-dark bg-opacity-5">
+          <div class="spinner-border text-primary text-center" role="status">
+            <span class="visually-hidden text-center">در حال بارگیری ..</span>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="row p-3">
-      <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
-        <div v-if="enableItemsPerPageDropdown" class="dataTables_length" id="kt_customers_table_length">
-          <!-- <label
-            ><select
-              name="kt_customers_table_length"
-              class="form-select form-select-sm form-select-solid"
-              @change="setItemsPerPage"
-            >
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select></label
-          > -->
-
-          <VueMultiselect v-model="selected" class="max-w-[10rem]" @select="setItemsPerPage" :options="PerPageOptions"
-            placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده">
-            <template #noResult> نتیجه ای یافت نشد </template>
-          </VueMultiselect>
+      <div class="row p-3">
+        <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
+          <div v-if="enableItemsPerPageDropdown" class="dataTables_length" id="kt_customers_table_length">
+            <VueMultiselect v-model="selected" class="max-w-[10rem]" @select="setItemsPerPage" :options="PerPageOptions"
+              placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده">
+              <template #noResult> نتیجه ای یافت نشد </template>
+            </VueMultiselect>
+          </div>
         </div>
-      </div>
-      <div class="w-full flex items-center justify-center md:justify-start">
-        <hx-pagination v-model:current-page="pagination.page" @current-change="currentPageChange"
-          :page-size="pagination.rowsPerPage" layout="prev, pager, next,total" :total="pagination.total"
-          :hide-on-single-page="true" background>
-        </hx-pagination>
+        <div class="w-full flex items-center justify-center md:justify-start">
+          <hx-pagination v-model:current-page="pagination.page" @current-change="currentPageChange"
+            :page-size="pagination.rowsPerPage" layout="prev, pager, next,total" :total="pagination.total"
+            :hide-on-single-page="true" background>
+          </hx-pagination>
+        </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script lang="ts" setup>
 import {
   computed,
-  defineComponent,
   ref,
   onMounted,
   watch,
@@ -113,6 +112,10 @@ import {
 } from "vue";
 import arraySort from "array-sort";
 import VueMultiselect from "vue-multiselect";
+import ApiService from '@/core/services/ApiService'
+import {
+  isNumber,
+} from '@/core/utils'
 
 interface IPagination {
   page: number;
@@ -127,7 +130,7 @@ interface IHeaderConfiguration {
   sortable?: boolean;
 }
 
-const emit = defineEmits(["www", "sort", "items-per-page-change"]);
+const emit = defineEmits(["page", "sort", "items-per-page-change"]);
 const props = defineProps({
   tableHeader: {
     type: Array as () => Array<IHeaderConfiguration>,
@@ -142,87 +145,86 @@ const props = defineProps({
   rowsPerPage: { type: Number, default: 10 },
   order: { type: String, default: "asc" },
   sortLabel: { type: String, default: "" },
+  url: { type: String },
+  singleItemIndex: { type: [Number, String] },
+  searchPlaceholder: { type: String }
 });
-const data = ref(props.tableData);
+const data = ref([]);
+const loading = ref(false)
 const currentSort = ref<string>("");
 const order = ref(props.order);
 const label = ref(props.sortLabel);
+const search = ref<string>("");
+const tableData = ref<Array<any>>([]);
+const initData = ref<Array<any>>([]);
 const pagination = ref<IPagination>({
   page: props.currentPage ? props.currentPage : 2,
-  total: props.total,
+  total: 0,
   rowsPerPage: props.rowsPerPage ? props.rowsPerPage : 15,
 });
 
 const PerPageOptions = ref<number[]>([10, 25, 50, 100]);
 const selected = ref<number | null>(null);
-
 const vnodeProps = getCurrentInstance()?.vnode.props || {};
 
-watch(() => props.tableData, () => {
+watch(() => data.value, (currentValue, oldValue) => {
   if ("onCurrentChange" in vnodeProps) {
     currentSort.value = label.value + order.value;
-  } else {
-    // pagination.value.total = data.value.length;
-    pagination.value.total = props.total ? props.total : props.tableData.length;
   }
 });
 
-onMounted(() => {
-  currentSort.value = label.value + order.value;
-  pagination.value.total = props.total ? props.total : props.tableData.length;
-  pagination.value.rowsPerPage = props.rowsPerPage ? props.rowsPerPage : 15;
-  pagination.value.page = props.currentPage ? props.currentPage : 2;
+watch(
+  () => props.singleItemIndex,
+  (val: any, oldVal) => {
+    data.value.splice(val, 1)
+    initData.value.splice(val, 1)
+  },
+  {
+    deep: true,
+  }
+)
+
+watch(() => pagination.value.page, (currentValue, oldValue) => {
+  fetchData()
 });
 
-// const getItems = computed(() => {
-//   if ("onCurrentChange" in vnodeProps) {
-//     return data.value;
-//   } else {
-//     const clone = JSON.parse(JSON.stringify(data.value));
-//     console.log("clone", data.value);
+const fetchData = async () => {
+  try {
+    loading.value = true
+    const { data: response } = await ApiService.get(`${props.url}?page=${pagination.value.page}`)
+    pagination.value.total = response.meta.total
+    pagination.value.page = response.meta.current_page
+    pagination.value.rowsPerPage = response.meta.per_page
+    data.value = response.data
+    tableData.value = data.value
+    initData.value.splice(0, tableData.value.length, ...tableData.value);
+    loading.value = false
+  } catch (e) {
+    loading.value = false
+  }
+}
 
-//     const startFrom =
-//       pagination.value.page * pagination.value.rowsPerPage -
-//       pagination.value.rowsPerPage;
-//     return clone.splice(startFrom, pagination.value.rowsPerPage);
-//   }
-// });
 
 const getItems = computed({
   get: () => {
     if (pagination.value.page == 1) {
-      const clone = JSON.parse(JSON.stringify(props.tableData));
+      const clone = JSON.parse(JSON.stringify(data.value));
       const startFrom =
         pagination.value.page * pagination.value.rowsPerPage -
         pagination.value.rowsPerPage;
       return clone.splice(startFrom, pagination.value.rowsPerPage);
     } else {
-      return props.tableData
+      return data.value
     }
   },
   set: (val) => {
-    console.log("here");
-
     const clone = JSON.parse(JSON.stringify(val));
-    // return props.tableData
-    // const startFrom =
-    //   pagination.value.page * pagination.value.rowsPerPage -
-    //   pagination.value.rowsPerPage;
-    // return clone.splice(startFrom, pagination.value.rowsPerPage);
   }
-  // data.value = val
 })
 
 const currentPageChange = (val: any) => {
-
-  console.log("val", val);
   pagination.value.page = val;
-  emit("www", val);
-  // if ("onCurrentChange" in vnodeProps) {
-
-  // } else {
-  //   pagination.value.page = val;
-  // }
+  emit("page", val);
 };
 
 const sort = (columnName: any, sortable: any) => {
@@ -241,10 +243,10 @@ const sort = (columnName: any, sortable: any) => {
   } else {
     if (order.value === "asc") {
       order.value = "desc";
-      arraySort(props.tableData, columnName, { reverse: false });
+      arraySort(data.value, columnName, { reverse: false });
     } else {
       order.value = "asc";
-      arraySort(props.tableData, columnName, { reverse: true });
+      arraySort(data.value, columnName, { reverse: true });
     }
   }
   currentSort.value = columnName + order.value;
@@ -257,50 +259,40 @@ const setItemsPerPage = (value: any, id: any) => {
     pagination.value.rowsPerPage = value;
   }
 };
+
+const searchItems = () => {
+  tableData.value.splice(0, tableData.value.length, ...initData.value);
+  if (search.value !== "") {
+    let results: Array<any> = [];
+    for (let j = 0; j < tableData.value.length; j++) {
+      if (searchingFunc(tableData.value[j], search.value)) {
+        results.push(tableData.value[j]);
+      }
+    }
+    tableData.value.splice(0, tableData.value.length, ...results);
+  }
+};
+
+const searchingFunc = (obj: any, value: any): boolean => {
+  for (let key in obj) {
+    if (!Number.isInteger(obj[key]) && !(typeof obj[key] === "object")) {
+      if (obj[key].indexOf(value) != -1) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
+
+onMounted(() => {
+  currentSort.value = label.value + order.value;
+  fetchData()
+});
+
+
+
+
 </script>
 
-<style lang="scss">
-table.dataTable {
-  clear: both;
-  margin-top: 6px !important;
-  margin-bottom: 6px !important;
-  max-width: none !important;
-  border-collapse: separate !important;
-  border-spacing: 0;
-}
 
-table.dataTable>thead {
-  th.sorting {
-    position: relative;
-  }
-
-  .sorting:after {
-    position: absolute;
-  }
-}
-
-.el-pagination.is-background .btn-next,
-.el-pagination.is-background .btn-prev,
-.el-pagination.is-background .el-pager li {
-  background: none;
-  border-radius: 0.475rem;
-  font-weight: 500;
-  font-size: 1.075rem;
-  font-family: Poppins, Helvetica, sans-serif;
-}
-
-.el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: #009ef7;
-}
-
-table.dataTable td.dataTables_empty,
-table.dataTable th.dataTables_empty {
-  text-align: center;
-}
-
-div.dataTables_wrapper div.dataTables_processing {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
-</style>

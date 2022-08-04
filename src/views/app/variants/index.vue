@@ -16,7 +16,7 @@
 
                 </div>
             </div>
-            <HxDataTable @www="currentPageChnage" :total="pagination.total" :rows-per-page="pagination.per_page"
+            <HxDataTable @page="currentPageChnage" :total="pagination.total" :rows-per-page="pagination.per_page"
                 :currentPage="pagination.current_page" :loading="loading" :table-data="tableData"
                 :table-header="tableHeader" :enable-items-per-page-dropdown="false" :on-current-change="true">
                 <template v-slot:cell-checkbox="{ row: variant }">
