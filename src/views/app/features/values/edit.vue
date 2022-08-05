@@ -83,7 +83,7 @@ const fetchData = async () => {
         loading.value = true
         const { data } = await ApiService.get(`feature/values/${feature.value}`)
         form.value = data.data
-        selectedStatus.value = statuses.value.find(item => item.key = form.value.status)
+        selectedStatus.value = statuses.value.find(item => item.key == form.value.status)
         formRef.value.setValues({
             ...data.data
         })

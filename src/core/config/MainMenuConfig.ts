@@ -24,6 +24,10 @@ const DocMenuConfig = [
             route: "categories index",
           },
           {
+            heading: "گارانتی ها",
+            route: "warranties index",
+          },
+          {
             heading: "برندها",
             route: "brands index",
           },

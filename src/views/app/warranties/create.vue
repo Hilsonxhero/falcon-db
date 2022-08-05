@@ -5,7 +5,7 @@
                 <Form @submit="handleCreate" class="w-full" ref="formRef">
                     <div class="hx-card">
                         <div class="hx-card__header">
-                            <h4 class="text-gray-600 text-xl">ایجاد ویژگی </h4>
+                            <h4 class="text-gray-600 text-xl">ایجاد گارانتی </h4>
                         </div>
                         <div class="hx-card__body">
 
@@ -21,21 +21,17 @@
                             </hx-form-group>
 
                             <hx-form-group>
-                                <VueMultiselect v-model="form.category" class="" label="title" :options="categories"
-                                    placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده"
-                                    value-field="id" track-by="id">
-                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                </VueMultiselect>
-                            </hx-form-group>
+                                <Field mode="passive" name="description" v-slot="{ field }" rules="required"
+                                    label="توضیحات">
+                                    <hx-textarea v-bind="field" v-model="form.description" placeholder="توضیحات">
+                                    </hx-textarea>
+                                </Field>
 
-                            <hx-form-group>
-                                <VueMultiselect v-model="form.parent" class="" label="title" :options="features"
-                                    placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده"
-                                    value-field="id" track-by="id">
-                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                </VueMultiselect>
-                            </hx-form-group>
+                                <div class="invalid-feedback d-block">
+                                    <ErrorMessage name="description" />
+                                </div>
 
+                            </hx-form-group>
 
                             <hx-form-group>
                                 <VueMultiselect v-model="selectedStatus" class="" label="title" :options="statuses"
@@ -53,7 +49,7 @@
                             <hx-button type="submit">
                                 ذخیره
                             </hx-button>
-                            <hx-button variant="light" :to="{ name: 'features index' }">
+                            <hx-button variant="light" :to="{ name: 'warranties index' }">
                                 لغو
                             </hx-button>
                         </div>
@@ -79,14 +75,12 @@ const route = useRoute()
 const loading = ref(false)
 const formRef = ref<any>(null)
 const form = ref({
-    parent: null,
-    category: null,
-    title: '',
+    description: null,
+    title: null,
     status: null
 })
-const categories = ref([])
-const features = ref([])
-const id = ref(null)
+
+
 const statuses = ref([
     { title: "فعال", key: "enable" },
     { title: "غیرفعال", key: "disable" },
@@ -95,36 +89,17 @@ const statuses = ref([
 ])
 const selectedStatus = ref({ title: "فعال", key: "enable" })
 
-// const fetchData = async () => {
-//     try {
-//         loading.value = true
-//         const { data } = await ApiService.get(`features/${id.value}`)
-//         form.value = data.data
-//         selectedStatus.value = statuses.value.find(item => item.key == form.value.status)
-//         formRef.value.setValues({
-//             ...data.data
-//         })
-//         loading.value = false
-//     } catch (e) {
-//         loading.value = false
-//     }
-// }
-
-
-
 
 const handleCreate = async (values, { resetForm }) => {
 
-
     let formData = {
         title: form.value.title,
-        parent_id: form.value.parent?.id ?? null,
-        category_id: form.value.category?.id ?? null,
+        description: form.value.description,
         status: selectedStatus.value.key,
     }
 
     try {
-        const { data } = await ApiService.post(`features`, formData)
+        const { data } = await ApiService.post(`warranties`, formData)
         resetForm();
         HxNotification.success({
             title: 'success',
@@ -133,20 +108,12 @@ const handleCreate = async (values, { resetForm }) => {
             duration: 4000,
             position: 'bottom-right',
         })
-        router.push({ name: 'features index' })
+        router.push({ name: 'warranties index' })
     } catch (e) {
 
     }
 }
 
-
-onMounted(async () => {
-    id.value = route.params.id
-    const { data: categoriesData } = await ApiService.get(`categories`)
-    const { data: featuresData } = await ApiService.get(`features/select/${id.value}`)
-    categories.value = categoriesData.data
-    features.value = featuresData.data
-});
 </script>
 <style>
 </style>

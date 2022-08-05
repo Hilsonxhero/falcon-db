@@ -50,6 +50,27 @@ export default {
         import("@/views/app/brands/edit.vue"),
     },
 
+
+    {
+      path: "/warranties",
+      name: "warranties index",
+      component: () =>
+        import("@/views/app/warranties/index.vue"),
+    },
+
+    {
+      path: "/warranties/create",
+      name: "warranties create",
+      component: () =>
+        import("@/views/app/warranties/create.vue"),
+    },
+    {
+      path: "/warranties/edit/:id",
+      name: "warranties edit",
+      component: () =>
+        import("@/views/app/warranties/edit.vue"),
+    },
+
     {
       path: "/features",
       name: "features index",
