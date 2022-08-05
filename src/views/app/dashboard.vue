@@ -140,172 +140,90 @@
   </section>
 
   <section class="my-4">
-    <div class=" hx-card">
-      <div class="hx-card__header border-0">
-        <!--begin::Card title-->
-        <div class="hx-card__title flex items-center justify-between">
-          <!--begin::Search-->
-          <div>
-            <h4>آخرین سفارشات</h4>
-          </div>
-          <div class="flex items-center position-relative my-1">
-            <hx-input v-model="search" @input="searchItems()" placeholder="جستجو  در سفارشات"></hx-input>
-          </div>
-          <!--end::Search-->
-        </div>
-        <!--begin::Card title-->
-        <!--begin::Card toolbar-->
-        <div class="card-toolbar">
-          <!--begin::Toolbar-->
-          <!-- <div
-            v-if="checkedCustomers.length === 0"
-            class="d-flex justify-content-end"
-          ></div>
 
-          <div
-            v-else
-            class="d-flex justify-content-end align-items-center"
-            data-kt-customer-table-toolbar="selected"
-          >
-            <div class="fw-bolder me-5">
-              <span class="me-2">{{ checkedCustomers.length }}</span
-              >Selected
-            </div>
-            <button type="button" class="btn btn-danger">
-              Delete Selected
-            </button>
-          </div> -->
-
-          <!-- <div class="d-flex justify-content-end align-items-center d-none">
-            <div class="fw-bolder me-5"><span class="me-2"></span>Selected</div>
-            <button type="button" class="btn btn-danger">
-              Delete Selected
-            </button>
-          </div> -->
-          <!--end::Group actions-->
+    <HxDataTable url="orders" search-placeholder="جستجوی سفارش" :table-header="fields"
+      :enable-items-per-page-dropdown="false">
+      <template v-slot:cell-checkbox="{ row: customer }">
+        <div class="form-check form-check-sm form-check-custom form-check-solid">
+          <input class="form-check-input" type="checkbox" :value="customer.id" v-model="checkedCustomers" />
         </div>
-        <!--end::Card toolbar-->
-      </div>
-      <HxDataTable :rows-per-page="5" :table-data="tableData" :table-header="tableHeader"
-        :enable-items-per-page-dropdown="false">
-        <template v-slot:cell-checkbox="{ row: customer }">
-          <div class="form-check form-check-sm form-check-custom form-check-solid">
-            <input class="form-check-input" type="checkbox" :value="customer.id" v-model="checkedCustomers" />
-          </div>
-        </template>
-        <template v-slot:cell-name="{ row: customer }">
-          {{ customer.name }}
-        </template>
-        <template v-slot:cell-email="{ row: customer }">
-          <a href="#" class="text-gray-600 text-hover-primary mb-1">
-            {{ customer.email }}
-          </a>
-        </template>
-        <template v-slot:cell-company="{ row: customer }">
-          {{ customer.company }}
-        </template>
-        <template v-slot:cell-paymentMethod="{ row: customer }">
-          <img :src="customer.payment.icon" class="w-35px me-3" alt="" />{{
-              customer.payment.ccnumber
-          }}
-        </template>
-        <template v-slot:cell-date="{ row: customer }">
-          {{ customer.date }}
-        </template>
-        <template v-slot:cell-actions="{ row: customer }">
-          <a href="#" class="btn btn-sm btn-light btn-active-light-primary">Actions
-            <span class="svg-icon svg-icon-5 m-0">
-              <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
-            </span>
-          </a>
-        </template>
-      </HxDataTable>
-    </div>
+      </template>
+      <template v-slot:cell-name="{ row: customer }">
+        {{ customer.name }}
+      </template>
+      <template v-slot:cell-email="{ row: customer }">
+        <a href="#" class="text-gray-600 text-hover-primary mb-1">
+          {{ customer.email }}
+        </a>
+      </template>
+      <template v-slot:cell-company="{ row: customer }">
+        {{ customer.company }}
+      </template>
+      <template v-slot:cell-paymentMethod="{ row: customer }">
+        <img :src="customer.payment.icon" class="w-35px me-3" alt="" />{{
+            customer.payment.ccnumber
+        }}
+      </template>
+      <template v-slot:cell-date="{ row: customer }">
+        {{ customer.date }}
+      </template>
+      <template v-slot:cell-actions="{ row: customer }">
+        <a href="#" class="btn btn-sm btn-light btn-active-light-primary">Actions
+          <span class="svg-icon svg-icon-5 m-0">
+            <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
+          </span>
+        </a>
+      </template>
+    </HxDataTable>
   </section>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
-import customers from "@/core/data/customers";
-
 import StaticArea from "@/components/common/widgets/statistics/Area.vue";
 import StaticCard from "@/components/common/widgets/statistics/Card.vue";
 import HxChartDonut from "@/components/common/widgets/charts/Donut.vue";
 import HxChartBar from "@/components/common/widgets/charts/Bar.vue";
 import HxAreaChart from "@/components/common/widgets/charts/Area.vue";
 
-onMounted(() => {
-  initCustomers.value.splice(0, tableData.value.length, ...tableData.value);
-});
 
 const checkedCustomers = ref([]);
 
-const tableHeader = ref([
+const fields = ref([
   {
     key: "checkbox",
     sortable: false,
   },
   {
-    name: "Customer Name",
+    name: "کاربر",
     key: "name",
     sortable: true,
   },
   {
-    name: "Email",
+    name: "ایمیل",
     key: "email",
     sortable: true,
   },
+
   {
-    name: "Company",
-    key: "company",
-    sortable: true,
-  },
-  {
-    name: "Payment Method",
+    name: "روش پرداخت",
     key: "paymentMethod",
     sortingField: "payment.label",
     sortable: true,
   },
   {
-    name: "Created Date",
+    name: "تاریخ ایجاد",
     key: "date",
     sortable: true,
   },
   {
-    name: "Actions",
+    name: "عملیات",
     key: "actions",
   },
 ]);
-const tableData = ref<Array>(customers);
 
-const initCustomers = ref<Array>([]);
 
-const search = ref<string>("");
-
-const searchItems = () => {
-  tableData.value.splice(0, tableData.value.length, ...initCustomers.value);
-  if (search.value !== "") {
-    let results: Array<ICustomer> = [];
-    for (let j = 0; j < tableData.value.length; j++) {
-      if (searchingFunc(tableData.value[j], search.value)) {
-        results.push(tableData.value[j]);
-      }
-    }
-    tableData.value.splice(0, tableData.value.length, ...results);
-  }
-};
-
-const searchingFunc = (obj: any, value: any): boolean => {
-  for (let key in obj) {
-    if (!Number.isInteger(obj[key]) && !(typeof obj[key] === "object")) {
-      if (obj[key].indexOf(value) != -1) {
-        return true;
-      }
-    }
-  }
-  return false;
-};
 </script>
 <style>
 </style>
