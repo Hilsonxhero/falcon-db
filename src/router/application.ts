@@ -72,6 +72,26 @@ export default {
     },
 
     {
+      path: "/shipments",
+      name: "shipments index",
+      component: () =>
+        import("@/views/app/shipments/index.vue"),
+    },
+
+    {
+      path: "/shipments/create",
+      name: "shipments create",
+      component: () =>
+        import("@/views/app/shipments/create.vue"),
+    },
+    {
+      path: "/shipments/edit/:id",
+      name: "shipments edit",
+      component: () =>
+        import("@/views/app/shipments/edit.vue"),
+    },
+
+    {
       path: "/features",
       name: "features index",
       component: () =>

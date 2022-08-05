@@ -2,10 +2,10 @@
     <section class="mb-6">
         <div class="grid grid-cols-12 gap-4">
             <div class="col-span-12 lg:col-span-6 xl:col-span-4">
-                <Form @submit="handleUpdate" class="w-full" ref="formRef">
+                <Form @submit="handleCreate" class="w-full" ref="formRef">
                     <div class="hx-card">
                         <div class="hx-card__header">
-                            <h4 class="text-gray-600 text-xl">ویرایش ویژگی {{ form.title && form.title }}</h4>
+                            <h4 class="text-gray-600 text-xl">ایجاد روش ارسال </h4>
                         </div>
                         <div class="hx-card__body">
 
@@ -19,6 +19,7 @@
                                 </div>
 
                             </hx-form-group>
+
                             <hx-form-group>
                                 <Field mode="passive" name="description" v-slot="{ field }" rules="required"
                                     label="توضیحات">
@@ -33,13 +34,6 @@
                             </hx-form-group>
 
 
-                            <hx-form-group>
-                                <VueMultiselect v-model="selectedStatus" class="" label="title" :options="statuses"
-                                    placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده"
-                                    value-field="key" track-by="key">
-                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                </VueMultiselect>
-                            </hx-form-group>
 
                         </div>
                     </div>
@@ -49,7 +43,7 @@
                             <hx-button type="submit">
                                 ذخیره
                             </hx-button>
-                            <hx-button variant="light" :to="{ name: 'warranties index' }">
+                            <hx-button variant="light" :to="{ name: 'shipments index' }">
                                 لغو
                             </hx-button>
                         </div>
@@ -75,44 +69,23 @@ const route = useRoute()
 const loading = ref(false)
 const formRef = ref<any>(null)
 const form = ref({
-    title: null,
     description: null,
-    status: null
+    title: null,
+
 })
-const id = ref(null)
-const statuses = ref([
-    { title: "فعال", key: "enable" },
-    { title: "غیرفعال", key: "disable" },
-    { title: "درحال انتظار", key: "pending" },
-    { title: "رد شده", key: "rejected" }
-])
-const selectedStatus = ref<any>(null)
 
-const fetchData = async () => {
-    try {
-        loading.value = true
-        const { data } = await ApiService.get(`warranties/${id.value}`)
-        form.value = data.data
-        selectedStatus.value = statuses.value.find(item => item.key == form.value.status)
-        formRef.value.setValues({
-            ...data.data
-        })
-        loading.value = false
-    } catch (e) {
-        loading.value = false
-    }
-}
 
-const handleUpdate = async (values, { resetForm }) => {
+
+const handleCreate = async (values, { resetForm }) => {
 
     let formData = {
         title: form.value.title,
         description: form.value.description,
-        status: selectedStatus.value.key,
+
     }
 
     try {
-        const { data } = await ApiService.put(`warranties/${id.value}`, formData)
+        const { data } = await ApiService.post(`shipments`, formData)
         resetForm();
         HxNotification.success({
             title: 'success',
@@ -121,17 +94,12 @@ const handleUpdate = async (values, { resetForm }) => {
             duration: 4000,
             position: 'bottom-right',
         })
-        router.push({ name: 'warranties index' })
+        router.push({ name: 'shipments index' })
     } catch (e) {
 
     }
 }
 
-
-onMounted(async () => {
-    id.value = route.params.id
-    fetchData()
-});
 </script>
 <style>
 </style>

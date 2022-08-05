@@ -197,7 +197,7 @@ const DocMenuConfig = [
         sub: [
           {
             heading: "روش های ارسال",
-            route: "",
+            route: "shipments index",
           },
           {
             heading: "تنظیمات",
