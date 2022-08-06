@@ -50,6 +50,10 @@ import { collapseContextKey } from "@/core/tokens";
 
 import type { CollapseActiveName } from "./collapse";
 
+defineOptions({
+  name: 'HxCollapseItem',
+})
+
 const props = defineProps({
   title: {
     type: String,

@@ -1,7 +1,6 @@
 <template>
   <div class="rounded-xl overflow-hidden relative">
-    <textarea rows="5"
-      class="form-input rounded-inherit border-2 border-transparent focus:bg-white focus:border-blue-500" @input="input"
+    <textarea rows="5" class="form-input rounded-inherit border-2 border-transparent " @input="input"
       :disabled="disabled" :placeholder="placeholder">{{ modelValue }}</textarea>
   </div>
 </template>
@@ -31,6 +30,7 @@ const input = (e: any) => {
 }
 
 .form-input {
-  @apply block w-full h-full outline-none text-right bg-gray-100 transition-all ease-out duration-200 shadow-md px-3 pt-2 text-sm;
+  @apply block w-full h-full outline-none text-right transition-all ease-out duration-200 shadow-md px-3 pt-2 text-sm;
+  background: #F5F8FA;
 }
 </style>

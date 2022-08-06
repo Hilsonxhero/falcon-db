@@ -4,6 +4,8 @@ import type { ConfigProviderContext } from '@/core/tokens'
 
 
 export const makeInstaller = (components: Plugin[] = []) => {
+  console.log("components", components);
+
   const install = (app: App, options?: ConfigProviderContext) => {
     if (app['INSTALLED_KEY']) return
     app['INSTALLED_KEY'] = true

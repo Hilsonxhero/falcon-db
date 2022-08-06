@@ -13,6 +13,9 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "types": [
+      "unplugin-vue-define-options"
+    ],
     "baseUrl": ".",
     "paths": {
       "@/*": [

@@ -1,7 +1,7 @@
 <template>
   <div class="h-12 rounded-xl overflow-hidden relative">
-    <input class="form-input rounded-inherit border-2 border-transparent focus:bg-white focus:border-blue-500"
-      :type="type" @input="input" :disabled="disabled" :value="modelValue" :placeholder="placeholder" />
+    <input class="form-input rounded-inherit border-2 border-transparent focus:bg-gray-400  " :type="type"
+      @input="input" :disabled="disabled" :value="modelValue" :placeholder="placeholder" />
   </div>
 </template>
 
@@ -36,6 +36,7 @@ const input = (e: any) => {
 }
 
 .form-input {
-  @apply block w-full h-full outline-none text-right bg-gray-100 transition-all ease-out duration-200 shadow-md px-3 text-sm;
+  @apply block w-full h-full outline-none text-right transition-all ease-out duration-200 shadow-md px-3 text-sm;
+  background: #F5F8FA;
 }
 </style>

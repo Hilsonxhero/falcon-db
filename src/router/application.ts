@@ -91,6 +91,27 @@ export default {
         import("@/views/app/shipments/edit.vue"),
     },
 
+    //products 
+    {
+      path: "/products",
+      name: "products index",
+      component: () =>
+        import("@/views/app/products/index.vue"),
+    },
+
+    {
+      path: "/products/create",
+      name: "products create",
+      component: () =>
+        import("@/views/app/products/create.vue"),
+    },
+    {
+      path: "/products/edit/:id",
+      name: "products edit",
+      component: () =>
+        import("@/views/app/products/edit.vue"),
+    },
+
     {
       path: "/features",
       name: "features index",

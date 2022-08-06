@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
+import DefineOptions from 'unplugin-vue-define-options/vite'
 import { resolve } from "path";
 import babel from 'vite-plugin-babel';
 import dotenv from 'dotenv'
@@ -18,7 +19,7 @@ import dotenv from 'dotenv'
 export default () => {
   dotenv.config({ path: `./.env` });
   return defineConfig({
-    plugins: [vue()],
+    plugins: [vue(), DefineOptions()],
     resolve: {
       alias: {
         "@": resolve(__dirname, "src"),

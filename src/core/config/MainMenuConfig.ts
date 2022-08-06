@@ -45,7 +45,7 @@ const DocMenuConfig = [
           },
           {
             heading: "محصولات",
-            route: "",
+            route: "products index",
           },
 
           {

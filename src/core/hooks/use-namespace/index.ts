@@ -1,6 +1,5 @@
 import { computed, unref } from 'vue'
 // import { useGlobalConfig } from '../use-global-config'
-
 export const defaultNamespace = 'hx'
 const statePrefix = 'is-'
 

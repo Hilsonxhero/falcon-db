@@ -11,5 +11,4 @@ export default function (event: any) {
     reader.readAsDataURL(file)
 
     return data
-
 }

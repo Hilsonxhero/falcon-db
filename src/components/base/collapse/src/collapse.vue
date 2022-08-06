@@ -14,6 +14,9 @@ import { collapseContextKey } from "@/core/tokens";
 import type { CollapseActiveName } from "./collapse";
 import { collapseEmits } from "./collapse";
 export type CollapseModelValue = Arrayable<CollapseActiveName>;
+defineOptions({
+  name: 'HxCollapse',
+})
 const props = defineProps({
   accordion: Boolean,
   modelValue: {
