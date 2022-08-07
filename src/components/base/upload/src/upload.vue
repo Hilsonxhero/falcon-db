@@ -18,8 +18,7 @@
       </label>
     </div>
 
-    <div :class="ns.e('input')" class="mb-3 flex justify-center items-center w-36 bg-gray-100 border"
-      @click="uploadRef.click()">
+    <div :class="ns.e('input')" class="mb-3 flex justify-center items-center w-36  border-2" @click="uploadRef.click()">
 
       <div :class="ns.e('input-wrapper')">
         <hx-icon icon="plus" class="w-7 h-7 text-gray-500"></hx-icon>

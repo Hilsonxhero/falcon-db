@@ -1,7 +1,7 @@
 <template>
   <div class="rounded-xl overflow-hidden relative">
-    <textarea rows="5" class="form-input rounded-inherit border-2 border-transparent " @input="input"
-      :disabled="disabled" :placeholder="placeholder">{{ modelValue }}</textarea>
+    <textarea rows="5" class="form-input rounded-inherit border-2  " @input="input" :disabled="disabled"
+      :placeholder="placeholder">{{ modelValue }}</textarea>
   </div>
 </template>
 

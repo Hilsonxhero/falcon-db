@@ -112,11 +112,12 @@
 
 <script lang="ts" setup>
 import { defineComponent, onMounted, ref } from "vue";
-import { useI18n } from "vue-i18n/index";
+// import { useI18n } from "vue-i18n/index";
+import { useLocale } from '@/core/hooks'
 import { useRoute } from "vue-router";
 import MainMenuConfig from "@/core/config/MainMenuConfig";
 
-const { t, te } = useI18n();
+const { t } = useLocale();
 const route = useRoute();
 const scrollElRef = ref<null | HTMLElement>(null);
 
@@ -127,7 +128,7 @@ onMounted(() => {
 });
 
 const translate = (text) => {
-  if (te(text)) {
+  if (t(text)) {
     return t(text);
   } else {
     return text;

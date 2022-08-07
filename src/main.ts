@@ -8,7 +8,7 @@ import { initApexCharts } from "@/core/plugins/apexcharts";
 import { initInlineSvg } from "@/core/plugins/inline-svg";
 import { initVeeValidate } from "@/core/plugins/vee-validate";
 import installer from "@/core/installer/index";
-import i18n from "@/core/plugins/i18n";
+// import i18n from "@/core/plugins/i18n";
 
 const app = createApp(App);
 
@@ -19,6 +19,6 @@ initApexCharts(app)
 initVeeValidate(app)
 
 app.use(router);
-app.use(i18n);
+// app.use(i18n);
 
 app.mount("#app");

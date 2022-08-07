@@ -20,6 +20,10 @@
         <div class="mt-6" :class="ns.e('body')">
           <slot></slot>
         </div>
+
+        <div class="pt-4" :class="ns.e('footer')">
+          <slot name="footer" :close="closeModal"></slot>
+        </div>
       </div>
     </div>
   </teleport>

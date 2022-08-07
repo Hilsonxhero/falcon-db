@@ -1,128 +1,195 @@
 <template>
     <div class="w-full">
-
         <section>
-            <hx-tabs v-model="activeName">
-                <hx-tab-pane label="تنظیمات اولیه" name="setting">
-                    <Form @submit="handleCreate" class="grid grid-cols-12 gap-6">
+            <Form @submit="handleCreate">
+                <hx-tabs v-model="activeName">
+                    <hx-tab-pane label="تنظیمات اولیه" name="setting">
+                        <div class="grid grid-cols-12 gap-6">
 
-                        <div class="col-span-12">
+                            <div class="col-span-12">
 
-                            <div class="hx-card">
-                                <div class="hx-card__header">
-                                    <h4 class="text-gray-600 text-xl">اطلاعات کلی</h4>
-                                </div>
-                                <div class="hx-card__body">
-
-
-                                    <div class="grid grid-cols-12 gap-4">
-
-                                        <div class="col-span-12 sm:col-span-6 lg:col-span-4">
-                                            <hx-form-group>
-                                                <Field mode="passive" name="title" v-slot="{ field }" rules="required"
-                                                    label="عنوان">
-                                                    <hx-input v-bind="field" v-model="form.title" placeholder="عنوان">
-                                                    </hx-input>
-                                                </Field>
-
-                                                <div class="invalid-feedback d-block">
-                                                    <ErrorMessage name="title" />
-                                                </div>
-
-                                            </hx-form-group>
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-6 lg:col-span-4">
-                                            <hx-form-group>
-                                                <Field name="title_en" rules="required" v-slot="{ field }"
-                                                    label="عنوان انگلیسی">
-                                                    <hx-input v-bind="field" v-model="form.title_en"
-                                                        placeholder="عنوان انگلیسی">
-                                                    </hx-input>
-                                                </Field>
-                                                <div class="invalid-feedback d-block">
-                                                    <ErrorMessage name="title_en" />
-                                                </div>
-                                            </hx-form-group>
-
-                                        </div>
-
-                                        <div class="col-span-12 sm:col-span-6 lg:col-span-4">
-
-                                            <hx-form-group>
-                                                <VueMultiselect v-model="form.parent" class="" label="title"
-                                                    :options="categories" placeholder="انتخاب کنید" deselectLabel=""
-                                                    selectLabel="" selectedLabel="انتخاب شده" value-field="id"
-                                                    track-by="id">
-                                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                                </VueMultiselect>
-                                            </hx-form-group>
-                                        </div>
+                                <div class="hx-card">
+                                    <div class="hx-card__header">
+                                        <h4 class="text-gray-600 text-xl">اطلاعات کلی</h4>
+                                    </div>
+                                    <div class="hx-card__body">
 
 
-                                        <div class="col-span-12">
-                                            <hx-form-group>
-                                                <Field name="description" rules="required" v-slot="{ field }"
-                                                    label="توضیحات">
-                                                    <hx-textarea v-bind="field" v-model="form.description"
-                                                        placeholder="توضیحات">
-                                                    </hx-textarea>
+                                        <div class="grid grid-cols-12 gap-4">
 
-                                                </Field>
-                                                <div class="invalid-feedback d-block">
-                                                    <ErrorMessage name="description" />
-                                                </div>
+                                            <div class="col-span-12 sm:col-span-6 lg:col-span-4">
+                                                <hx-form-group>
+                                                    <Field mode="passive" name="title" v-slot="{ field }"
+                                                        rules="required" label="عنوان">
+                                                        <hx-input v-bind="field" v-model="form.title"
+                                                            placeholder="عنوان">
+                                                        </hx-input>
+                                                    </Field>
 
-                                            </hx-form-group>
-                                        </div>
+                                                    <div class="invalid-feedback d-block">
+                                                        <ErrorMessage name="title" />
+                                                    </div>
 
-                                        <div class="col-span-3">
-                                            <hx-form-group>
-                                                <hx-switch :label="form.status ? 'فعال' : 'غیرفعال'" name="staus"
-                                                    v-model="form.status">
-                                                </hx-switch>
-                                            </hx-form-group>
+                                                </hx-form-group>
+                                            </div>
+
+                                            <div class="col-span-12 sm:col-span-6 lg:col-span-4">
+                                                <hx-form-group>
+                                                    <Field name="title_en" rules="required" v-slot="{ field }"
+                                                        label="عنوان انگلیسی">
+                                                        <hx-input v-bind="field" v-model="form.title_en"
+                                                            placeholder="عنوان انگلیسی">
+                                                        </hx-input>
+                                                    </Field>
+                                                    <div class="invalid-feedback d-block">
+                                                        <ErrorMessage name="title_en" />
+                                                    </div>
+                                                </hx-form-group>
+
+                                            </div>
+
+                                            <div class="col-span-12 sm:col-span-6 lg:col-span-4">
+                                                <hx-form-group>
+                                                    <VueMultiselect v-model="form.parent" class="" label="title"
+                                                        :options="categories" placeholder="انتخاب کنید"
+                                                        selectedLabel="انتخاب شده">
+                                                        <template #noResult> نتیجه ای یافت نشد </template>
+                                                    </VueMultiselect>
+                                                </hx-form-group>
+                                            </div>
+
+
+                                            <div class="col-span-12">
+                                                <hx-form-group>
+                                                    <Field name="description" rules="required" v-slot="{ field }"
+                                                        label="توضیحات">
+                                                        <!-- <hx-textarea v-bind="field" v-model="form.description"
+                                                            placeholder="توضیحات">
+                                                        </hx-textarea> -->
+
+                                                        <TiptapEditor v-model="content" :content="content" ref="tiptap">
+                                                        </TiptapEditor>
+
+                                                    </Field>
+                                                    <div class="invalid-feedback d-block">
+                                                        <ErrorMessage name="description" />
+                                                    </div>
+
+                                                </hx-form-group>
+                                            </div>
+
+                                            <div class="col-span-3">
+                                                <hx-form-group>
+                                                    <hx-switch :label="form.status ? 'فعال' : 'غیرفعال'" name="staus"
+                                                        v-model="form.status">
+                                                    </hx-switch>
+                                                </hx-form-group>
+                                            </div>
+
                                         </div>
 
                                     </div>
-
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-span-12 space-y-4">
-                            <div class="hx-card">
-                                <div class="hx-card__header">
-                                    <h4 class="text-gray-600 text-xl">تصویر</h4>
-                                </div>
-                                <div class="hx-card__body ">
-                                    <hx-upload :max="1" v-model="form.image"></hx-upload>
+                            <div class="col-span-12 space-y-4">
+                                <div class="hx-card">
+                                    <div class="hx-card__header">
+                                        <h4 class="text-gray-600 text-xl">ویژگی های محصول</h4>
+                                    </div>
+                                    <div class="hx-card__body ">
+                                        <div class="flex flex-col space-y-2"
+                                            v-for="(feature, index) in selectedFeatures" :key="index">
+                                            <div class="w-full flex items-center">
+                                                <div class="w-3/12">
+                                                    <hx-form-group label="ویژگی">
+                                                        <VueMultiselect v-model="feature.feature"
+                                                            @change="handleSelectFeature" class="" label="title"
+                                                            :options="features" placeholder="انتخاب کنید"
+                                                            selectedLabel="انتخاب شده">
+                                                            <template #noResult> نتیجه ای یافت نشد </template>
+                                                        </VueMultiselect>
+
+                                                    </hx-form-group>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- <div class="w-full flex-wrap flex items-center  ">
+                                                <div class="w-3/12 ml-2" v-for="(value, index) in feature.values"
+                                                    :index="index">
+                                                    <hx-form-group
+                                                        :label="`مقدار ویژگی (${feature.feature.title ?? 'انتخاب نشده'})`">
+                                                        <VueMultiselect v-model="feature.values[index]" class=""
+                                                            label="title" :options="features" placeholder="انتخاب کنید"
+                                                            deselectLabel="" selectLabel="" selectedLabel="انتخاب شده"
+                                                            value-field="id" track-by="id">
+                                                            <template #noResult> نتیجه ای یافت نشد </template>
+                                                        </VueMultiselect>
+                                                    </hx-form-group>
+                                                </div>
+
+                                                <div class="w-2/12 mt-5">
+                                                    <hx-button @click="feature.values.push('ss')" variant="success"
+                                                        icon>
+                                                        <hx-icon icon="plus"></hx-icon>
+                                                    </hx-button>
+                                                </div>
+                                            </div> -->
+
+
+
+                                        </div>
+
+                                        <div class="my-4">
+                                            <hx-button @click="handleCreateNewFeature" variant="success" outlined
+                                                size="sm">ویژگی جدید</hx-button>
+                                        </div>
+                                    </div>
+
                                 </div>
 
                             </div>
 
-                        </div>
 
-                        <div class="col-span-12">
-                            <div class="w-full flex items-center justify-between my-4">
 
-                                <div class="flex items-center space-x-3 space-x-reverse">
-                                    <hx-button type="submit">
-                                        ذخیره
-                                    </hx-button>
-                                    <hx-button variant="light" :to="{ name: 'categories index' }">
-                                        لغو
-                                    </hx-button>
+                            <div class="col-span-12 space-y-4">
+                                <div class="hx-card">
+                                    <div class="hx-card__header">
+                                        <h4 class="text-gray-600 text-xl">تصویر</h4>
+                                    </div>
+                                    <div class="hx-card__body ">
+                                        <hx-upload :max="1" v-model="form.image"></hx-upload>
+                                    </div>
+
                                 </div>
+
                             </div>
 
+                            <div class="col-span-12">
+                                <div class="w-full flex items-center justify-between my-4">
+
+                                    <div class="flex items-center space-x-3 space-x-reverse">
+                                        <hx-button type="submit">
+                                            ذخیره
+                                        </hx-button>
+                                        <hx-button variant="light" :to="{ name: 'categories index' }">
+                                            لغو
+                                        </hx-button>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
 
-                    </Form>
-                </hx-tab-pane>
-                <hx-tab-pane label="ترکیبات" name="variants">ترکیبات</hx-tab-pane>
-                <hx-tab-pane label="ارسال" name="shipment">ارسال</hx-tab-pane>
-                <hx-tab-pane label="سئو" name="seo">سئو</hx-tab-pane>
-            </hx-tabs>
+
+
+
+                    </hx-tab-pane>
+                    <hx-tab-pane label="ترکیبات" name="variants">ترکیبات</hx-tab-pane>
+                    <hx-tab-pane label="ارسال" name="shipment">ارسال</hx-tab-pane>
+                    <hx-tab-pane label="سئو" name="seo">سئو</hx-tab-pane>
+                </hx-tabs>
+            </Form>
         </section>
 
 
@@ -131,16 +198,21 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch, reactive } from 'vue';
 import VueMultiselect from "vue-multiselect";
 import ApiService from '@/core/services/ApiService'
 import { useRouter } from 'vue-router';
 import { HxNotification } from '@/components/base/notification'
 import { ErrorMessage, Field, Form } from "vee-validate";
 
+
+import TiptapEditor from "@/components/common/tiptap/tiptap-editor.vue"
+
 const activeName = ref('setting')
 
 const categories = ref<any>([])
+
+const content = ref("");
 
 const router = useRouter()
 
@@ -150,10 +222,34 @@ const form = ref({
     parent: null,
     description: '',
     status: true,
-    image: []
+    image: [],
+    features: []
 })
 
 
+const selectedFeatures = ref([])
+
+// watch(
+//     () => form.value.features,
+//     (val, old) => {
+//         console.log("val", val);
+//     },
+//     { deep: true }
+// );
+const features = ref([])
+
+const handleSelectFeature = () => {
+    console.log("www");
+
+    selectedFeatures.value.map((item, index) => {
+        console.log("item id map :", item);
+        console.log("item id map :", item.feature);
+    })
+}
+
+const handleCreateNewFeature = () => {
+    selectedFeatures.value.push({ feature: '', values: [''] })
+}
 
 const fetchData = async () => {
     try {
@@ -193,12 +289,17 @@ const handleCreate = async (values, { resetForm }) => {
 fetchData()
 
 onMounted(() => {
-
+    ApiService.get('features').then(({ data }) => {
+        features.value = data.data
+    }).catch(() => {
+    })
 })
 
 
 
 </script>
+
+
 
 <style scoped>
 </style>

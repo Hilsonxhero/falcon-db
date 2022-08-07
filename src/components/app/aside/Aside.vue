@@ -56,7 +56,9 @@
 import HXMenu from "@/components/app/aside/Menu.vue";
 import { asideTheme } from "@/core/helpers/config";
 import { ref, inject } from "vue";
-import { useI18n } from "vue-i18n/index";
+// import { useI18n } from "vue-i18n/index";
+
+import { useLocale } from '@/core/hooks'
 import useClickOutside from "@/core/hooks/useClickOutside";
 
 const props = defineProps({
@@ -86,7 +88,7 @@ onClickOutside(asideRef, () => {
 //   active.value = value;
 // };
 
-const { t } = useI18n();
+const { t } = useLocale();
 </script>
 
 <style scoped>
