@@ -21,11 +21,8 @@
                             </hx-form-group>
 
                             <hx-form-group>
-                                <VueMultiselect v-model="form.type" class="" :options="types" placeholder="انتخاب کنید"
-                                    deselectLabel="" selectLabel="" selectedLabel="انتخاب شده" value-field="key"
-                                    track-by="key">
-                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                </VueMultiselect>
+                                <hx-select nmae="categories" value-key="key" v-model="form.type" filterable
+                                    :options="types" placeholder="انتخاب دسته بندی" />
                             </hx-form-group>
 
                         </div>
@@ -55,8 +52,6 @@ import { HxNotification } from '@/components/base/notification'
 import ApiService from '@/core/services/ApiService'
 import { useRoute, useRouter } from "vue-router";
 import { ErrorMessage, Field, Form } from "vee-validate";
-import VueMultiselect from "vue-multiselect";
-
 const router = useRouter()
 const route = useRoute()
 const formRef = ref<any>(null)
@@ -65,7 +60,6 @@ const form = ref({
     name: '',
 
 })
-
 
 const types = ref([
     'checkbox',

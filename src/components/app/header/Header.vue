@@ -13,22 +13,22 @@
         <!--end::Aside mobile toggle-->
       </div>
       <div>
-        <!-- <hx-dropdown>
+        <hx-dropdown>
           <hx-avatar src="/media/faces/2.jpg" fit="cover" shape="circle"></hx-avatar>
           <template #dropdown>
             <hx-dropdown-item v-for="(item, index) in 5" :key="index">
               آیتم شماره 1
             </hx-dropdown-item>
           </template>
-        </hx-dropdown> -->
+        </hx-dropdown>
 
 
-        <hx-avatar src="/media/faces/2.jpg" fit="cover" shape="circle" @click="ww"></hx-avatar>
+        <!-- <hx-avatar src="/media/faces/2.jpg" fit="cover" shape="circle" @click="ww"></hx-avatar>
 
 
         <hx-modal :show="show" title="حساب کاربری" @close="handleFilterModal">
 
-        </hx-modal>
+        </hx-modal> -->
       </div>
     </div>
   </div>

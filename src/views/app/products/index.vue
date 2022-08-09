@@ -15,18 +15,16 @@
                 </div>
             </template>
 
-            <template v-slot:cell-title="{ row: product }">
+            <template v-slot:cell-thumb="{ row: product }">
                 <div class="flex  space-x-2 space-x-reverse">
                     <img class="w-14 h-14 object-cover rounded-lg" :src="product?.media?.thumb" alt="">
-                    <div class="flex flex-col space-y-1">
-                        <span class="">{{ product?.title }}</span>
-                        <span class="text-sm text-gray-400 max-w-[90%] overflow-hidden">{{ product.short_review
-                        }}</span>
-                    </div>
                 </div>
-
-
             </template>
+
+            <template v-slot:cell-title_fa="{ row: product }">
+                <span class="">{{ product?.title_fa }}</span>
+            </template>
+
             <template v-slot:cell-title_en="{ row: product }">
                 <a href="#" class="text-gray-600 text-hover-primary mb-1">
                     {{ product?.title_en }}
@@ -72,7 +70,7 @@ import ApiService from '@/core/services/ApiService'
 import { useRoute, useRouter } from "vue-router";
 
 const checkedData = ref([]);
-const activeName = ref('first')
+
 const tableHeader = ref([
     {
         key: "checkbox",
@@ -80,8 +78,14 @@ const tableHeader = ref([
     },
 
     {
+        name: "تصویر",
+        key: "thumb",
+        sortable: false,
+    },
+
+    {
         name: "عنوان",
-        key: "title",
+        key: "title_fa",
         sortable: true,
     },
     {
@@ -106,11 +110,6 @@ const tableHeader = ref([
 ]);
 
 
-const tabs = ref([
-    "wwww",
-    "SSS",
-    "xxx"
-])
 
 const index = ref(null)
 

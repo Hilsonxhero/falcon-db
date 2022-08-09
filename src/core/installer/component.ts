@@ -19,6 +19,7 @@ import { HxUpload } from "@/components/base/upload";
 import { HxDropdown, HxDropdownMenu, HxDropdownItem } from "@/components/base/dropdown";
 // import { HxConfigProvider } from "@/components/base/config-provider";
 import { HxTabPane, HxTabs } from '@/components/base/tabs'
+import { HxSelect } from '@/components/base/select'
 import type { Plugin } from 'vue'
 
 export default [
@@ -45,6 +46,7 @@ export default [
   HxDropdownMenu,
   HxDropdownItem,
   HxTabPane,
-  HxTabs
+  HxTabs,
+  HxSelect
 
 ] as Plugin[];
