@@ -21,28 +21,19 @@
                             </hx-form-group>
 
                             <hx-form-group>
-                                <VueMultiselect v-model="form.category" class="" label="title" :options="categories"
-                                    placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده"
-                                    value-field="id" track-by="id">
-                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                </VueMultiselect>
+                                <hx-select nmae="categories" value-key="id" label="title" v-model="form.category"
+                                    filterable :options="categories" placeholder="انتخاب دسته بندی" />
                             </hx-form-group>
 
                             <hx-form-group>
-                                <VueMultiselect v-model="form.parent" class="" label="title" :options="features"
-                                    placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده"
-                                    value-field="id" track-by="id">
-                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                </VueMultiselect>
+                                <hx-select nmae="categories" value-key="id" label="title" v-model="form.parent"
+                                    filterable :options="features" placeholder="انتخاب  والد" />
                             </hx-form-group>
 
 
                             <hx-form-group>
-                                <VueMultiselect v-model="selectedStatus" class="" label="title" :options="statuses"
-                                    placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده"
-                                    value-field="key" track-by="key">
-                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                </VueMultiselect>
+                                <hx-select nmae="categories" value-key="key" label="title" v-model="selectedStatus"
+                                    filterable :options="statuses" placeholder="انتخاب دسته بندی" />
                             </hx-form-group>
 
                         </div>
@@ -67,12 +58,13 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
 import { ref, onMounted, watch } from "vue";
 import { HxNotification } from '@/components/base/notification'
 import ApiService from '@/core/services/ApiService'
 import { useRoute, useRouter } from "vue-router";
 import { ErrorMessage, Field, Form } from "vee-validate";
-import VueMultiselect from "vue-multiselect";
+
 
 const router = useRouter()
 const route = useRoute()
@@ -95,12 +87,16 @@ const statuses = ref([
 ])
 const selectedStatus = ref({ title: "فعال", key: "enable" })
 
+
+
 const fetchData = async () => {
     try {
         loading.value = true
         const { data } = await ApiService.get(`features/${id.value}`)
         form.value = data.data
-        selectedStatus.value = statuses.value.find(item => item.key == form.value.status)
+        selectedStatus.value = statuses.value.find(item => item.key == form.value.status).key
+        form.value.category = form.value.category.id
+        form.value.parent = form.value.parent.id
         formRef.value.setValues({
             ...data.data
         })
@@ -118,9 +114,9 @@ const handleUpdate = async (values, { resetForm }) => {
 
     let formData = {
         title: form.value.title,
-        parent_id: form.value.parent?.id ?? null,
-        category_id: form.value.category?.id ?? null,
-        status: selectedStatus.value.key,
+        parent_id: form.value.parent ?? null,
+        category_id: form.value.category ?? null,
+        status: selectedStatus.value,
     }
 
     try {

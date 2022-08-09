@@ -82,113 +82,6 @@ body * {
 }
 
 
-.multiselect__content-wrapper {
-    box-shadow: 0 0 50px 0 rgba(82, 63, 105, .15);
-    border-radius: .475rem;
-    border: unset !important;
-}
-
-.multiselect__tags {
-    border-radius: 0.75rem !important;
-    border: 2px solid #E5E7EB !important;
-    // background: #F5F8FA !important;
-    min-height: 3rem !important;
-    padding-right: 1rem !important;
-}
-
-.multiselect__input,
-.multiselect__single {
-    // background: #F5F8FA !important;
-    line-height: 35px !important;
-    ;
-    margin-bottom: 0 !important;
-
-}
-
-
-.multiselect__single {
-    line-height: 29px !important;
-}
-
-.invalid-feedback {
-    color: $danger;
-    padding-top: .4rem;
-}
-
-.multiselect__placeholder {
-    padding-top: .4rem !important;
-}
-
-.invalid__placeholder {}
-
-
-.multiselect__select::before {
-    position: relative;
-    right: 0;
-    top: 80%;
-    color: #adadad !important;
-    margin-top: 0 !important;
-    border-style: unset !important;
-    border-width: unset !important;
-    ;
-    border-color: unset !important;
-    ;
-    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
-}
-
-
-.multiselect {
-    min-height: 3rem !important;
-    height: 4px !important;
-}
-
-.multiselect__select {
-    left: 10px !important;
-    top: 4px !important;
-    transform: rotate(0deg) !important;
-    width: 28px !important;
-    height: 25px !important;
-}
-
-.multiselect__input::placeholder {
-    color: #adadad !important;
-    display: inline-block !important;
-    margin-bottom: 10px !important;
-    padding-top: 2px !important;
-    font-size: 14px !important;
-}
-
-.multiselect__option:after {
-    top: 0;
-    right: 0;
-    position: absolute;
-    line-height: 40px;
-    padding-right: 12px;
-    padding-left: 20px;
-    font-size: 13px;
-    // display: none !important;
-}
-
-.multiselect__option--highlight {
-    background: $primary-light !important;
-    outline: none;
-    color: #333 !important;
-
-    &::after {
-        content: unset !important;
-    }
-}
-
-.multiselect__option--selected {
-    background: #f3f3f3;
-    color: #35495e;
-    font-weight: 700;
-
-
-    &::after {
-        content: unset !important;
-    }
-}
 
 
 
@@ -214,233 +107,233 @@ $value in $theme-colors {
 }
 
 
-@media (min-width: 992px) {
+// @media (min-width: 992px) {
 
-    div,
-    main,
-    ol,
-    pre,
-    span,
-    ul {
-        scrollbar-width: thin;
-        scrollbar-color: #eff2f5 transparent;
-    }
+//     div,
+//     main,
+//     ol,
+//     pre,
+//     span,
+//     ul {
+//         scrollbar-width: thin;
+//         scrollbar-color: #eff2f5 transparent;
+//     }
 
-    div::-webkit-scrollbar,
-    main::-webkit-scrollbar,
-    ol::-webkit-scrollbar,
-    pre::-webkit-scrollbar,
-    span::-webkit-scrollbar,
-    ul::-webkit-scrollbar {
-        width: 0.4rem;
-        height: 0.4rem;
-    }
+//     div::-webkit-scrollbar,
+//     main::-webkit-scrollbar,
+//     ol::-webkit-scrollbar,
+//     pre::-webkit-scrollbar,
+//     span::-webkit-scrollbar,
+//     ul::-webkit-scrollbar {
+//         width: 0.4rem;
+//         height: 0.4rem;
+//     }
 
-    div::-webkit-scrollbar-thumb,
-    main::-webkit-scrollbar-thumb,
-    ol::-webkit-scrollbar-thumb,
-    pre::-webkit-scrollbar-thumb,
-    span::-webkit-scrollbar-thumb,
-    ul::-webkit-scrollbar-thumb {
-        background-color: #eff2f5;
-    }
+//     div::-webkit-scrollbar-thumb,
+//     main::-webkit-scrollbar-thumb,
+//     ol::-webkit-scrollbar-thumb,
+//     pre::-webkit-scrollbar-thumb,
+//     span::-webkit-scrollbar-thumb,
+//     ul::-webkit-scrollbar-thumb {
+//         background-color: #eff2f5;
+//     }
 
-    div:hover,
-    main:hover,
-    ol:hover,
-    pre:hover,
-    span:hover,
-    ul:hover {
-        scrollbar-color: #e9edf1 transparent;
-    }
+//     div:hover,
+//     main:hover,
+//     ol:hover,
+//     pre:hover,
+//     span:hover,
+//     ul:hover {
+//         scrollbar-color: #e9edf1 transparent;
+//     }
 
-    div:hover::-webkit-scrollbar-thumb,
-    main:hover::-webkit-scrollbar-thumb,
-    ol:hover::-webkit-scrollbar-thumb,
-    pre:hover::-webkit-scrollbar-thumb,
-    span:hover::-webkit-scrollbar-thumb,
-    ul:hover::-webkit-scrollbar-thumb {
-        background-color: #e9edf1;
-    }
-}
+//     div:hover::-webkit-scrollbar-thumb,
+//     main:hover::-webkit-scrollbar-thumb,
+//     ol:hover::-webkit-scrollbar-thumb,
+//     pre:hover::-webkit-scrollbar-thumb,
+//     span:hover::-webkit-scrollbar-thumb,
+//     ul:hover::-webkit-scrollbar-thumb {
+//         background-color: #e9edf1;
+//     }
+// }
 
-.scroll {
-    overflow: scroll;
-    position: relative;
-}
+// .scroll {
+//     overflow: scroll;
+//     position: relative;
+// }
 
-@media (max-width: 991.98px) {
-    .scroll {
-        overflow: auto;
-    }
-}
+// @media (max-width: 991.98px) {
+//     .scroll {
+//         overflow: auto;
+//     }
+// }
 
-.scroll-x {
-    overflow-x: scroll;
-    position: relative;
-}
+// .scroll-x {
+//     overflow-x: scroll;
+//     position: relative;
+// }
 
-@media (max-width: 991.98px) {
-    .scroll-x {
-        overflow-x: auto;
-    }
-}
+// @media (max-width: 991.98px) {
+//     .scroll-x {
+//         overflow-x: auto;
+//     }
+// }
 
-.scroll-y {
-    overflow-y: scroll;
-    position: relative;
-}
+// .scroll-y {
+//     overflow-y: scroll;
+//     position: relative;
+// }
 
-@media (max-width: 991.98px) {
-    .scroll-y {
-        overflow-y: auto;
-    }
-}
+// @media (max-width: 991.98px) {
+//     .scroll-y {
+//         overflow-y: auto;
+//     }
+// }
 
-.hover-scroll {
-    position: relative;
-}
+// .hover-scroll {
+//     position: relative;
+// }
 
-@media (min-width: 992px) {
-    .hover-scroll {
-        overflow: hidden;
-        border-left: 0.4rem solid transparent;
-        border-bottom: 0.4rem solid transparent;
-        margin-left: -0.4rem;
-        margin-bottom: -0.4rem;
-    }
+// @media (min-width: 992px) {
+//     .hover-scroll {
+//         overflow: hidden;
+//         border-left: 0.4rem solid transparent;
+//         border-bottom: 0.4rem solid transparent;
+//         margin-left: -0.4rem;
+//         margin-bottom: -0.4rem;
+//     }
 
-    .hover-scroll:hover {
-        // overflow: scroll;
-        // border-left: 0;
-        // border-bottom: 0;
-    }
+//     .hover-scroll:hover {
+//         // overflow: scroll;
+//         // border-left: 0;
+//         // border-bottom: 0;
+//     }
 
-    @-moz-document url-prefix() {
-        .hover-scroll {
-            overflow: scroll;
-            position: relative;
-            border-left: 0;
-            border-bottom: 0;
-        }
-    }
-}
+//     @-moz-document url-prefix() {
+//         .hover-scroll {
+//             overflow: scroll;
+//             position: relative;
+//             border-left: 0;
+//             border-bottom: 0;
+//         }
+//     }
+// }
 
-@media (max-width: 991.98px) {
-    .hover-scroll {
-        overflow: auto;
-    }
-}
+// @media (max-width: 991.98px) {
+//     .hover-scroll {
+//         overflow: auto;
+//     }
+// }
 
-.hover-scroll-y {
-    position: relative;
-}
+// .hover-scroll-y {
+//     position: relative;
+// }
 
-@media (min-width: 992px) {
-    .hover-scroll-y {
-        overflow-y: hidden;
-        border-left: 0.4rem solid transparent;
-        margin-left: -0.4rem;
-    }
+// @media (min-width: 992px) {
+//     .hover-scroll-y {
+//         overflow-y: hidden;
+//         border-left: 0.4rem solid transparent;
+//         margin-left: -0.4rem;
+//     }
 
-    .hover-scroll-y:hover {
-        // overflow-y: scroll;
-        // border-left: 0;
-    }
+//     .hover-scroll-y:hover {
+//         // overflow-y: scroll;
+//         // border-left: 0;
+//     }
 
-    @-moz-document url-prefix() {
-        .hover-scroll-y {
-            overflow-y: scroll;
-            position: relative;
-            border-left: 0;
-        }
-    }
-}
+//     @-moz-document url-prefix() {
+//         .hover-scroll-y {
+//             overflow-y: scroll;
+//             position: relative;
+//             border-left: 0;
+//         }
+//     }
+// }
 
-@media (max-width: 991.98px) {
-    .hover-scroll-y {
-        overflow-y: auto;
-    }
-}
+// @media (max-width: 991.98px) {
+//     .hover-scroll-y {
+//         overflow-y: auto;
+//     }
+// }
 
-.hover-scroll-x {
-    position: relative;
-}
+// .hover-scroll-x {
+//     position: relative;
+// }
 
-@media (min-width: 992px) {
-    .hover-scroll-x {
-        overflow-x: hidden;
-        border-bottom: 0.4rem solid transparent;
-    }
+// @media (min-width: 992px) {
+//     .hover-scroll-x {
+//         overflow-x: hidden;
+//         border-bottom: 0.4rem solid transparent;
+//     }
 
-    .hover-scroll-x:hover {
-        // overflow-x: scroll;
-        // border-bottom: 0;
-    }
+//     .hover-scroll-x:hover {
+//         // overflow-x: scroll;
+//         // border-bottom: 0;
+//     }
 
-    @-moz-document url-prefix() {
-        .hover-scroll-x {
-            overflow-x: scroll;
-            position: relative;
-            border-bottom: 0;
-        }
-    }
-}
+//     @-moz-document url-prefix() {
+//         .hover-scroll-x {
+//             overflow-x: scroll;
+//             position: relative;
+//             border-bottom: 0;
+//         }
+//     }
+// }
 
-@media (max-width: 991.98px) {
-    .hover-scroll-x {
-        overflow-x: auto;
-    }
-}
+// @media (max-width: 991.98px) {
+//     .hover-scroll-x {
+//         overflow-x: auto;
+//     }
+// }
 
-.hover-scroll-overlay-y {
-    overflow-y: hidden;
-    position: relative;
-    --scrollbar-space: 0.5rem;
-}
+// .hover-scroll-overlay-y {
+//     overflow-y: hidden;
+//     position: relative;
+//     --scrollbar-space: 0.5rem;
+// }
 
-.hover-scroll-overlay-y::-webkit-scrollbar {
-    width: calc(0.4rem + var(--scrollbar-space));
-}
+// .hover-scroll-overlay-y::-webkit-scrollbar {
+//     width: calc(0.4rem + var(--scrollbar-space));
+// }
 
-.hover-scroll-overlay-y::-webkit-scrollbar-thumb {
-    background-clip: content-box;
-    border-left: var(--scrollbar-space) solid transparent;
-}
+// .hover-scroll-overlay-y::-webkit-scrollbar-thumb {
+//     background-clip: content-box;
+//     border-left: var(--scrollbar-space) solid transparent;
+// }
 
-.hover-scroll-overlay-y:hover {
-    // overflow-y: overlay;
-}
+// .hover-scroll-overlay-y:hover {
+//     // overflow-y: overlay;
+// }
 
-@-moz-document url-prefix() {
-    .hover-scroll-overlay-y {
-        overflow-y: scroll;
-        position: relative;
-    }
-}
+// @-moz-document url-prefix() {
+//     .hover-scroll-overlay-y {
+//         overflow-y: scroll;
+//         position: relative;
+//     }
+// }
 
-.scroll-ps {
-    padding-right: 0.4rem !important;
-}
+// .scroll-ps {
+//     padding-right: 0.4rem !important;
+// }
 
-.scroll-ms {
-    margin-right: 0.4rem !important;
-}
+// .scroll-ms {
+//     margin-right: 0.4rem !important;
+// }
 
-.scroll-pe {
-    padding-left: 0.4rem !important;
-}
+// .scroll-pe {
+//     padding-left: 0.4rem !important;
+// }
 
-.scroll-me {
-    margin-left: 0.4rem !important;
-}
+// .scroll-me {
+//     margin-left: 0.4rem !important;
+// }
 
-.scroll-px {
-    padding-right: 0.4rem !important;
-    padding-left: 0.4rem !important;
-}
+// .scroll-px {
+//     padding-right: 0.4rem !important;
+//     padding-left: 0.4rem !important;
+// }
 
-.scroll-mx {
-    margin-right: 0.4rem !important;
-    margin-left: 0.4rem !important;
-}
+// .scroll-mx {
+//     margin-right: 0.4rem !important;
+//     margin-left: 0.4rem !important;
+// }

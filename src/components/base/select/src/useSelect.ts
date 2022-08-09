@@ -422,8 +422,10 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
     } else {
 
 
+
       selectedIndex.value = idx
       states.selectedLabel = getLabel(option)
+
       update(getValueKey(option))
       expanded.value = false
       states.isComposing = false
@@ -535,6 +537,7 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   }
 
   const onUpdateInputValue = (val: string) => {
+
     states.displayInputValue = val
     states.inputValue = val
   }
@@ -613,6 +616,7 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   }
 
   const onInput = (event) => {
+
     const value = event.target.value
     onUpdateInputValue(value)
     if (states.displayInputValue.length > 0 && !expanded.value) {
@@ -650,7 +654,10 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   // }
 
   const initStates = () => {
+
+
     resetHoveringIndex()
+
     if (props.multiple) {
       if ((props.modelValue as Array<any>).length > 0) {
         let initHovering = false
@@ -675,16 +682,19 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
         states.previousValue = ''
       }
     } else {
+
       if (hasModelValue.value) {
+
         states.previousValue = props.modelValue
         const options = filteredOptions.value
         const selectedItemIndex = options.findIndex(
           (option) => getValueKey(option) === getValueKey(props.modelValue)
         )
-        if (~selectedItemIndex) {
-          // states.selectedLabel = options[selectedItemIndex].label
 
+
+        if (~selectedItemIndex) {
           states.selectedLabel = options[selectedItemIndex][props.label]
+          if (states.selectedLabel === undefined) states.selectedLabel = options[selectedItemIndex]
           updateHoveringIndex(selectedItemIndex)
         } else {
           states.selectedLabel = `${props.modelValue}`

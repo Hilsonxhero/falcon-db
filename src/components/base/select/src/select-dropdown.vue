@@ -124,7 +124,7 @@ const isItemSelected = (modelValue: any[] | any, target: Option) => {
     return contains(select.props.modelValue, get(target, valueKey))
   }
 
-  return isEqual(select.props.modelValue, get(target, valueKey))
+  return isEqual(select.props.modelValue, get(target, valueKey)) || isEqual(select.props.modelValue, target)
 }
 
 const isItemDisabled = (modelValue: any[] | any, selected: boolean) => {

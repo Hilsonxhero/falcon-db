@@ -84,10 +84,14 @@
       <div class="row p-3">
         <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
           <div v-if="enableItemsPerPageDropdown" class="dataTables_length" id="kt_customers_table_length">
-            <VueMultiselect v-model="selected" class="max-w-[10rem]" @select="setItemsPerPage" :options="PerPageOptions"
-              placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده">
-              <template #noResult> نتیجه ای یافت نشد </template>
-            </VueMultiselect>
+
+
+
+
+            <hx-select class="max-w-[10rem]" @change="setItemsPerPage" v-model="selected" filterable
+              :options="PerPageOptions" placeholder="انتخاب دسته بندی" />
+
+
           </div>
         </div>
         <div class="w-full flex items-center justify-center md:justify-start">
@@ -113,7 +117,6 @@ import {
   inject,
 } from "vue";
 import arraySort from "array-sort";
-import VueMultiselect from "vue-multiselect";
 import ApiService from '@/core/services/ApiService'
 import {
   isNumber,

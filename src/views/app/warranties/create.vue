@@ -34,11 +34,11 @@
                             </hx-form-group>
 
                             <hx-form-group>
-                                <VueMultiselect v-model="selectedStatus" class="" label="title" :options="statuses"
-                                    placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده"
-                                    value-field="key" track-by="key">
-                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                </VueMultiselect>
+
+
+
+                                <hx-select nmae="categories" value-key="key" label="title" v-model="selectedStatus"
+                                    filterable :options="statuses" placeholder="انتخاب دسته بندی" />
                             </hx-form-group>
 
                         </div>
@@ -68,7 +68,7 @@ import { HxNotification } from '@/components/base/notification'
 import ApiService from '@/core/services/ApiService'
 import { useRoute, useRouter } from "vue-router";
 import { ErrorMessage, Field, Form } from "vee-validate";
-import VueMultiselect from "vue-multiselect";
+
 
 const router = useRouter()
 const route = useRoute()
@@ -95,7 +95,7 @@ const handleCreate = async (values, { resetForm }) => {
     let formData = {
         title: form.value.title,
         description: form.value.description,
-        status: selectedStatus.value.key,
+        status: selectedStatus.value,
     }
 
     try {

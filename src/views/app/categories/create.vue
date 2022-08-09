@@ -44,11 +44,8 @@
                             <div class="col-span-12 sm:col-span-6 lg:col-span-4">
 
                                 <hx-form-group>
-                                    <VueMultiselect v-model="form.parent" class="" label="title" :options="categories"
-                                        placeholder="انتخاب کنید" deselectLabel="" selectLabel=""
-                                        selectedLabel="انتخاب شده" value-field="id" track-by="id">
-                                        <template #noResult> نتیجه ای یافت نشد </template>
-                                    </VueMultiselect>
+                                    <hx-select nmae="categories" value-key="id" label="title" v-model="form.parent"
+                                        filterable :options="categories" placeholder="انتخاب دسته بندی" />
                                 </hx-form-group>
                             </div>
 
@@ -115,7 +112,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import VueMultiselect from "vue-multiselect";
+
 import ApiService from '@/core/services/ApiService'
 import { useRouter } from 'vue-router';
 import { HxNotification } from '@/components/base/notification'
@@ -152,7 +149,7 @@ const handleCreate = async (values, { resetForm }) => {
     formData.append('title', form.value.title)
     formData.append('title_en', form.value.title_en)
     formData.append('description', form.value.description)
-    formData.append('parent', form.value.parent?.id ?? "")
+    formData.append('parent', form.value.parent ?? "")
     formData.append('status', form.value.status)
     formData.append('image', form.value.image)
 

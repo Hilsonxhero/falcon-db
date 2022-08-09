@@ -31,6 +31,6 @@ const input = (e: any) => {
 
 .form-input {
   @apply block w-full h-full outline-none text-right transition-all ease-out duration-200 shadow-md px-3 pt-2 text-sm;
-  background: #F5F8FA;
+  // background: #F5F8FA;
 }
 </style>

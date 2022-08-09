@@ -72,11 +72,9 @@
                             </hx-form-group>
 
                             <hx-form-group>
-                                <VueMultiselect v-model="selectedStatus" class="" label="title" :options="statuses"
-                                    placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده"
-                                    value-field="key" track-by="key">
-                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                </VueMultiselect>
+
+                                <hx-select value-key="key" label="title" v-model="selectedStatus" filterable
+                                    :options="statuses" placeholder="انتخاب دسته بندی" />
                             </hx-form-group>
 
                         </div>
@@ -99,6 +97,7 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
 import { provide, ref } from "vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
 import { HxMessageBox } from '@/components/base/message-box'
@@ -106,8 +105,6 @@ import { HxNotification } from '@/components/base/notification'
 import ApiService from '@/core/services/ApiService'
 import { useRoute } from "vue-router";
 import { ErrorMessage, Field, Form } from "vee-validate";
-import VueMultiselect from "vue-multiselect";
-
 
 const route = useRoute()
 const checkedData = ref([]);
@@ -161,18 +158,17 @@ const statuses = ref([
     { title: "رد شده", key: "rejected" }
 ])
 
-const selectedStatus = ref({ title: "فعال", key: "enable" })
-
-// provide('refresh', refresh)
+const selectedStatus = ref("enable")
 
 const handleCreate = async (values, { resetForm }) => {
     let formData = {
         title: form.value.title,
         feature_id: id.value,
-        status: selectedStatus.value.key,
+        status: selectedStatus.value,
     }
     ApiService.post('feature/values', formData).then(() => {
         form.value.title = null
+        selectedStatus.value = null
         resetForm();
         refresh.value = true
         HxNotification.success({

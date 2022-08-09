@@ -21,11 +21,10 @@
                             </hx-form-group>
 
                             <hx-form-group>
-                                <VueMultiselect v-model="selectedStatus" class="" label="title" :options="statuses"
-                                    placeholder="انتخاب کنید" deselectLabel="" selectLabel="" selectedLabel="انتخاب شده"
-                                    value-field="key" track-by="key">
-                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                </VueMultiselect>
+
+
+                                <hx-select value-key="key" label="title" v-model="selectedStatus" filterable
+                                    :options="statuses" placeholder="انتخاب دسته بندی" />
                             </hx-form-group>
 
                         </div>
@@ -50,14 +49,13 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
 import { ref, onMounted, watch } from "vue";
-
-import { HxMessageBox } from '@/components/base/message-box'
 import { HxNotification } from '@/components/base/notification'
 import ApiService from '@/core/services/ApiService'
 import { useRoute, useRouter } from "vue-router";
 import { ErrorMessage, Field, Form } from "vee-validate";
-import VueMultiselect from "vue-multiselect";
+
 
 const router = useRouter()
 const route = useRoute()
@@ -83,7 +81,7 @@ const fetchData = async () => {
         loading.value = true
         const { data } = await ApiService.get(`feature/values/${feature.value}`)
         form.value = data.data
-        selectedStatus.value = statuses.value.find(item => item.key == form.value.status)
+        selectedStatus.value = statuses.value.find(item => item.key == form.value.status).key
         formRef.value.setValues({
             ...data.data
         })
@@ -106,7 +104,7 @@ const handleUpdate = async (values, { resetForm }) => {
     let formData = {
         title: form.value.title,
         feature_id: id.value,
-        status: selectedStatus.value.key,
+        status: selectedStatus.value,
     }
 
     try {

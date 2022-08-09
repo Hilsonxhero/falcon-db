@@ -43,22 +43,17 @@
                             <div class="col-span-12 sm:col-span-6 lg:col-span-6">
 
                                 <hx-form-group>
-                                    <VueMultiselect v-model="form.category" class="" label="title" :options="categories"
-                                        placeholder="انتخاب کنید" deselectLabel="" selectLabel=""
-                                        selectedLabel="انتخاب شده" value-field="id" track-by="id">
-                                        <template #noResult> نتیجه ای یافت نشد </template>
-                                    </VueMultiselect>
+                                    <hx-select value-key="id" label="title" v-model="form.category" filterable
+                                        :options="categories" placeholder="انتخاب دسته بندی" />
                                 </hx-form-group>
                             </div>
 
                             <div class="col-span-12 sm:col-span-6 lg:col-span-6">
 
                                 <hx-form-group>
-                                    <VueMultiselect v-model="selectedStatus" class="" label="title" :options="statuses"
-                                        placeholder="انتخاب کنید" deselectLabel="" selectLabel=""
-                                        selectedLabel="انتخاب شده" value-field="key" track-by="key">
-                                        <template #noResult> نتیجه ای یافت نشد </template>
-                                    </VueMultiselect>
+
+                                    <hx-select value-key="key" label="title" v-model="selectedStatus" filterable
+                                        :options="statuses" placeholder="انتخاب دسته بندی" />
                                 </hx-form-group>
                             </div>
 
@@ -76,22 +71,6 @@
 
                                 </hx-form-group>
                             </div>
-
-                            <!-- <div class="col-span-3">
-                                <hx-form-group>
-                                    <hx-switch :label="form.status ? 'فعال' : 'غیرفعال'" name="status"
-                                        v-model="form.status">
-                                    </hx-switch>
-                                </hx-form-group>
-                            </div> -->
-
-                            <!-- <div class="col-span-3">
-                                <hx-form-group>
-                                    <hx-switch :label="form.special ? 'ویژه' : 'عادی'" name="special"
-                                        v-model="form.special" :value="form.special">
-                                    </hx-switch>
-                                </hx-form-group>
-                            </div> -->
 
                         </div>
 
@@ -132,17 +111,14 @@
 </template>
 
 <script setup lang="ts">
+//@ts-nocheck
 import { onMounted, ref } from 'vue';
-import VueMultiselect from "vue-multiselect";
 import ApiService from '@/core/services/ApiService'
 import { useRoute, useRouter } from 'vue-router';
 import { HxNotification } from '@/components/base/notification'
 import { ErrorMessage, Field, Form } from "vee-validate";
-
-
 const categories = ref<any>([])
 const id = ref<any>(null)
-
 const statuses = ref([
     { title: "فعال", key: "enable" },
     { title: "غیرفعال", key: "disable" },
@@ -150,13 +126,10 @@ const statuses = ref([
     { title: "رد شده", key: "rejected" }
 ])
 
-const selectedStatus = ref(null)
-
+const selectedStatus = ref({})
 const formRef = ref<any>(null)
-
 const router = useRouter()
 const route = useRoute()
-
 const form = ref({
     title: '',
     title_en: '',
@@ -185,13 +158,11 @@ const fetchItem = async () => {
         const { data } = await ApiService.get(`brands/${id.value}`)
         form.value = data.data
 
-        selectedStatus.value = statuses.value.find(item => item.key == form.value.status)
-
+        selectedStatus.value = statuses.value.find(item => item.key == form.value.status).key
+        form.value.category = form.value.category.id
         formRef.value.setValues({
             ...data.data
         })
-
-
     } catch (e) {
 
     }
@@ -202,8 +173,8 @@ const handleUpdate = async (values, { resetForm }) => {
         title: form.value.title,
         title_en: form.value.title_en,
         description: form.value.description,
-        category_id: form.value.category?.id,
-        status: selectedStatus.value.key,
+        category_id: form.value.category,
+        status: selectedStatus.value,
         is_special: form.value.special ? 1 : 0,
         logo: form.value.logo,
     }

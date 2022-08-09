@@ -22,10 +22,7 @@
 
 
                             <hx-form-group>
-                                <VueMultiselect v-model="form.type" class="" :options="types" placeholder="انتخاب کنید"
-                                    deselectLabel="" selectLabel="" selectedLabel="انتخاب شده">
-                                    <template #noResult> نتیجه ای یافت نشد </template>
-                                </VueMultiselect>
+                                <hx-select v-model="form.type" filterable :options="types" placeholder="انتخاب  نوع" />
                             </hx-form-group>
 
                         </div>
@@ -55,7 +52,7 @@ import { HxNotification } from '@/components/base/notification'
 import ApiService from '@/core/services/ApiService'
 import { useRoute, useRouter } from "vue-router";
 import { ErrorMessage, Field, Form } from "vee-validate";
-import VueMultiselect from "vue-multiselect";
+
 
 const router = useRouter()
 const route = useRoute()
@@ -75,11 +72,14 @@ const types = ref([
 ])
 
 
+
+
 const fetchData = async () => {
     try {
         loading.value = true
         const { data } = await ApiService.get(`variant/groups/${id.value}`)
         form.value = data.data
+        // form.value.type = types.value.find(d => d.value == form.value.type)
         formRef.value.setValues({
             ...data.data
         })

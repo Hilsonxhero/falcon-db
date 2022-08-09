@@ -127,7 +127,7 @@ const handleDelete = (item: any, i: any) => {
     )
         .then(() => {
             ApiService.delete(`brands/${item.id}`).then(() => {
-                index.value = i
+                index.value = item.id
                 HxNotification.success({
                     title: 'عملیات موفقیت آمیز',
                     message: 'برند موردنظر حذف شد',

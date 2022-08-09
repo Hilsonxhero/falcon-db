@@ -22,7 +22,7 @@
 
                             <hx-form-group>
                                 <hx-select nmae="categories" value-key="key" v-model="form.type" filterable
-                                    :options="types" placeholder="انتخاب دسته بندی" />
+                                    :options="types" placeholder="انتخاب  نوع" />
                             </hx-form-group>
 
                         </div>
@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
+import { ref } from "vue";
 import { HxNotification } from '@/components/base/notification'
 import ApiService from '@/core/services/ApiService'
 import { useRoute, useRouter } from "vue-router";

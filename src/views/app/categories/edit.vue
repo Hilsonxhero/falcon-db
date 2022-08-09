@@ -43,11 +43,9 @@
                             <div class="col-span-12 sm:col-span-6 lg:col-span-4">
 
                                 <hx-form-group>
-                                    <VueMultiselect v-model="form.parent" class="" label="title" :options="categories"
-                                        placeholder="انتخاب کنید" deselectLabel="" selectLabel=""
-                                        selectedLabel="انتخاب شده" value-field="id" track-by="id">
-                                        <template #noResult> نتیجه ای یافت نشد </template>
-                                    </VueMultiselect>
+
+                                    <hx-select nmae="categories" value-key="id" label="title" v-model="form.parent"
+                                        filterable :options="categories" placeholder="انتخاب دسته بندی" />
                                 </hx-form-group>
                             </div>
 
@@ -114,7 +112,6 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import VueMultiselect from "vue-multiselect";
 import ApiService from '@/core/services/ApiService'
 import { useRoute, useRouter } from 'vue-router';
 import { HxNotification } from '@/components/base/notification'
@@ -123,9 +120,7 @@ import { ErrorMessage, Field, Form } from "vee-validate";
 
 const categories = ref<any>([])
 const id = ref<any>(null)
-
 const formRef = ref<any>(null)
-
 const router = useRouter()
 const route = useRoute()
 

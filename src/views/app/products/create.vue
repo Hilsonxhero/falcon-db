@@ -197,7 +197,7 @@
 <script setup lang="ts">
 //@ts-nocheck
 import { onMounted, ref, watch, reactive } from 'vue';
-import VueMultiselect from "vue-multiselect";
+
 import ApiService from '@/core/services/ApiService'
 import { useRouter } from 'vue-router';
 import { HxNotification } from '@/components/base/notification'
