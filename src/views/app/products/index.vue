@@ -109,13 +109,11 @@ const tableHeader = ref([
     },
 ]);
 
-
-
 const index = ref(null)
 
 const handleDelete = (item: any, i: any) => {
     HxMessageBox.confirm(
-        `آیا از حذف محصول ${item.title} اطمینان دارید ؟!`,
+        `آیا از حذف محصول ${item.title_fa} اطمینان دارید ؟!`,
         'پیام تایید',
         {
             confirmButtonText: 'تایید',

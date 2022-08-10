@@ -31,8 +31,8 @@
           </template>
 
           <div v-if="menuItem.sectionTitle" :class="{ show: hasActiveChildren(menuItem.route) }" class="menu-item">
-            <hx-collapse accordion>
-              <hx-collapse-item class="menu-item">
+            <hx-collapse menu accordion>
+              <hx-collapse-item menu class="menu-item">
                 <template #title>
                   <span class="menu-link">
                     <span v-if="menuItem.svgIcon || menuItem.fontIcon" class="menu-icon">
@@ -61,8 +61,8 @@
                   </div>
 
                   <div v-if="item2.sectionTitle" :class="{ show: hasActiveChildren(item2.route) }" class="menu-item">
-                    <hx-collapse accordion>
-                      <hx-collapse-item>
+                    <hx-collapse menu accordion>
+                      <hx-collapse-item menu>
                         <template #title>
                           <span class="menu-link">
                             <span class="menu-bullet">

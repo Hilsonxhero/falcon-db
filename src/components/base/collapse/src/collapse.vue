@@ -19,6 +19,7 @@ defineOptions({
 })
 const props = defineProps({
   accordion: Boolean,
+  menu: Boolean,
   modelValue: {
     type: definePropType<CollapseModelValue>([Array, String, Number]),
     default: () => mutable([] as const),

@@ -59,8 +59,12 @@
                                             <div class="col-span-12">
                                                 <hx-form-group>
 
-                                                    <TiptapEditor v-model="content" :content="content" ref="tiptap">
-                                                    </TiptapEditor>
+                                                    <KeepAlive>
+                                                        <TiptapEditor v-model="content" :content="content" ref="tiptap">
+                                                        </TiptapEditor>
+                                                    </KeepAlive>
+
+
 
                                                     <div class="invalid-feedback d-block">
                                                         <ErrorMessage name="description" />
@@ -182,7 +186,9 @@
 
 
                     </hx-tab-pane>
-                    <hx-tab-pane label="ترکیبات" name="variants">ترکیبات</hx-tab-pane>
+                    <hx-tab-pane label="ترکیبات" name="variants">
+                        <Variants v-model="selectedVariants" />
+                    </hx-tab-pane>
                     <hx-tab-pane label="ارسال" name="shipment">ارسال</hx-tab-pane>
                     <hx-tab-pane label="سئو" name="seo">سئو</hx-tab-pane>
                 </hx-tabs>
@@ -202,15 +208,14 @@ import ApiService from '@/core/services/ApiService'
 import { useRouter } from 'vue-router';
 import { HxNotification } from '@/components/base/notification'
 import { ErrorMessage, Field, Form } from "vee-validate";
-
-
 import TiptapEditor from "@/components/common/tiptap/tiptap-editor.vue"
+import Variants from '@/components/app/product/create/variants.vue';
 
-const activeName = ref('setting')
+const activeName = ref('variants')
 
 const categories = ref<any>([])
 
-
+const selectedVariants = ref([])
 
 const content = ref("");
 
@@ -263,6 +268,7 @@ const handleCreate = async (values, { resetForm }) => {
     formData.append('status', form.value.status)
     formData.append('image', form.value.image)
     formData.append('features', JSON.stringify(selectedFeatures.value))
+    formData.append('variants', JSON.stringify(selectedVariants.value))
 
     try {
         const { data } = await ApiService.post('products', formData)

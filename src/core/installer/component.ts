@@ -8,7 +8,7 @@ import { HxOtp } from "@/components/base/otp";
 import { HxBadge } from "@/components/base/badge";
 import { HxTextarea } from "@/components/base/textarea";
 import { HxRadio } from "@/components/base/radio";
-import { HxCheckbox } from "@/components/base/checkbox";
+import { HxCheckbox, HxCheckboxGroup } from "@/components/base/checkbox";
 import { HxSwitch } from "@/components/base/switch";
 import { HxCollapse, HxCollapseItem } from "@/components/base/collapse";
 import { HxCollapseTransition } from "@/components/base/collapse-transition";
@@ -38,6 +38,7 @@ export default [
   HxCollapseItem,
   HxCollapseTransition,
   HxCheckbox,
+  HxCheckboxGroup,
   HxSlider,
   HxPagination,
   HxAvatar,

@@ -19,19 +19,19 @@ class ApiService {
         ApiService.vueInstance = app;
         ApiService.vueInstance.axios = axios;
         ApiService.vueInstance.axios.defaults.baseURL = process.env.API_URL
-        ApiService.vueInstance.axios.interceptors.response.use(
-            response => {
-                return response;
-            },
-            error => {
-                if (error.response.status == 404) {
-                    console.log("dfgf");
-                    router.push({ name: "not-found" });
-                }
+        // ApiService.vueInstance.axios.interceptors.response.use(
+        //     response => {
+        //         return response;
+        //     },
+        //     error => {
+        //         if (error.response.status == 404) {
+        //             console.log("dfgf");
+        //             router.push({ name: "not-found" });
+        //         }
 
-                return Promise.reject(error);
-            }
-        );
+        //         return Promise.reject(error);
+        //     }
+        // );
     }
 
 
@@ -93,9 +93,9 @@ class ApiService {
     ): Promise<AxiosResponse> {
         return ApiService.vueInstance.axios
             .get(`${resource}`)
-            .catch((error) => {
-                throw new Error(`ApiService ${error}`);
-            });
+        // .catch((error) => {
+        //     throw new Error(`ApiService ${error}`);
+        // });
     }
 
     /**
