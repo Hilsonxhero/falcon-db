@@ -4,17 +4,21 @@
             <div class="hx-card__body">
                 <div class="flex items-center justify-between">
                     <div>
-
                         <div class="flex items-center">
-                            <!-- <span v-for="(item,index) in selectedGroups"></span> -->
+                            <span>تنوع های انتخاب شده : </span>
+                            <span class="mx-2" v-for="(item, index) in selectedGroups">
+                                <hx-badge outlined>
+                                    {{ item.label }}
+                                </hx-badge>
+                            </span>
                         </div>
                     </div>
                     <div class="flex items-center">
-                        <hx-button variant="secondary" @click="createVariant" class="ml-2">
+                        <hx-button variant="light" @click="createVariant" class="ml-2">
                             ایجاد تنوع
                         </hx-button>
 
-                        <hx-button @click="show = !show">
+                        <hx-button outlined @click="show = !show">
                             انتخاب تنوع
                         </hx-button>
 
@@ -58,15 +62,23 @@
             <template v-slot:cell-price="{ row: product }">
                 <hx-input type="number" class="max-w-[12rem]" v-model="product.price"></hx-input>
             </template>
-
             <template v-slot:cell-stock="{ row: product }">
                 <hx-input type="number" class="max-w-[5rem]" v-model="product.stock"></hx-input>
             </template>
+            <template v-slot:cell-order_limit="{ row: product }">
+                <hx-input type="number" class="max-w-[5rem]" v-model="product.order_limit"></hx-input>
+            </template>
+            <template v-slot:cell-discount="{ row: product }">
+                <div class="text-gray-500 flex items-center ">
+                    <span class="ml-2">23%</span>
+                    تا 25 مرداد 1402
+                </div>
+            </template>
             <template v-slot:cell-actions="{ row: product, index: index }">
-                <hx-button variant="gray" size="sm" icon :to="{ name: 'products edit', params: { id: product.id } }">
-                    <hx-icon icon="edit-alt"></hx-icon>
-                </hx-button>
                 <hx-button variant="gray" size="sm" icon @click="handleDelete(product)">
+                    <hx-icon icon="discount"></hx-icon>
+                </hx-button>
+                <hx-button variant="gray" size="sm" icon @click="handleDelete(product,index)">
                     <hx-icon icon="trash"></hx-icon>
                 </hx-button>
             </template>
@@ -75,9 +87,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, computed, watch } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import HxTable from '@/components/common/widgets/table/Table.vue'
 import ApiService from "@/core/services/ApiService";
+import { HxNotification } from '@/components/base/notification'
 
 const tableHeader = ref([
     {
@@ -95,6 +108,15 @@ const tableHeader = ref([
     {
         name: "تعداد",
         key: "stock",
+    },
+    {
+        name: "حداکثر تعداد خرید",
+        key: "order_limit",
+
+    },
+    {
+        name: " تخفیف",
+        key: "discount",
 
     },
     {
@@ -114,8 +136,8 @@ const handleCloseModal = () => {
     show.value = !show.value;
 }
 
-const handleDelete = (item: unknown) => {
-
+const handleDelete = (item: unknown,index : number) => {
+ variants.value.splice(index,1)
 }
 
 const handleGenerateVariants = (arr: any) => {
@@ -158,6 +180,18 @@ watch(() => variants.value,
 
 
 const createVariant = () => {
+    if (selectedGroups.value.length < 1) {
+        HxNotification.info({
+            title: 'مقدار نامعتبر',
+            message: 'تعداد تنوع های انتخاب شده معتبر نمی باشد',
+            showClose: true,
+            duration: 4000,
+            position: 'bottom-right',
+        })
+        // return false
+    }
+
+
     let combinations = handleGenerateVariants(selectedGroups.value)
     let unq_combinations = handleVariantSubsetDup(combinations)
     variants.value = []

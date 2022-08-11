@@ -113,6 +113,21 @@ export default {
     },
 
     {
+      path: "/products/:id/features",
+      name: "products features",
+      component: () =>
+        import("@/views/app/products/features/index.vue"),
+    },
+    {
+      path: "/products/:id/features/:value/edit",
+      name: "products feature edit",
+      component: () =>
+        import("@/views/app/products/features/edit.vue"),
+    },
+
+    //features
+
+    {
       path: "/features",
       name: "features index",
       component: () =>

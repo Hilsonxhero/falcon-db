@@ -87,7 +87,7 @@ const statuses = ref([
     { title: "درحال انتظار", key: "pending" },
     { title: "رد شده", key: "rejected" }
 ])
-const selectedStatus = ref({ title: "فعال", key: "enable" })
+const selectedStatus = ref("enable")
 
 
 const handleCreate = async (values, { resetForm }) => {

@@ -48,6 +48,10 @@
                 </template>
             </template>
             <template v-slot:cell-actions="{ row: product, index: index }">
+                <hx-button variant="gray" size="sm" icon
+                    :to="{ name: 'products features', params: { id: product.id } }">
+                    <hx-icon icon="notepad"></hx-icon>
+                </hx-button>
                 <hx-button variant="gray" size="sm" icon :to="{ name: 'products edit', params: { id: product.id } }">
                     <hx-icon icon="edit-alt"></hx-icon>
                 </hx-button>

@@ -44,8 +44,8 @@
                             <div class="col-span-12 sm:col-span-6 lg:col-span-4">
 
                                 <hx-form-group>
-                                    <hx-select nmae="categories" value-key="id" label="title" v-model="form.parent"
-                                        filterable :options="categories" placeholder="انتخاب دسته بندی" />
+                                    <hx-select value-key="id" label="title" v-model="form.parent" filterable
+                                        :options="categories" placeholder="انتخاب دسته بندی" />
                                 </hx-form-group>
                             </div>
 

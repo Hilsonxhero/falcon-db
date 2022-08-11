@@ -337,3 +337,9 @@ $value in $theme-colors {
 //     margin-right: 0.4rem !important;
 //     margin-left: 0.4rem !important;
 // }
+
+
+.invalid-feedback {
+    color: $danger;
+    padding-top: .4rem;
+}
