@@ -83,14 +83,11 @@ class ApiService {
     /**
      * @description send the GET HTTP request
      * @param resource: string
-     * @param slug: string
      * @returns Promise<AxiosResponse>
      */
     public static get(
-
-        resource: string,
-        slug = "" as string
-    ): Promise<AxiosResponse> {
+        resource: string
+    ) {
         return ApiService.vueInstance.axios
             .get(`${resource}`)
         // .catch((error) => {

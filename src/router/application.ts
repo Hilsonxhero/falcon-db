@@ -124,7 +124,25 @@ export default {
       component: () =>
         import("@/views/app/products/features/edit.vue"),
     },
-
+    // product variants
+    {
+      path: "/products/:id/variants",
+      name: "products variants",
+      component: () =>
+        import("@/views/app/products/variants/index.vue"),
+    },
+    {
+      path: "/products/:id/variants/create",
+      name: "products variant create",
+      component: () =>
+        import("@/views/app/products/variants/create.vue"),
+    },
+    {
+      path: "/products/:id/variants/:value/edit",
+      name: "products variant edit",
+      component: () =>
+        import("@/views/app/products/variants/edit.vue"),
+    },
     //features
 
     {

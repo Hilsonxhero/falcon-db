@@ -1,7 +1,12 @@
 <template>
   <teleport to="body" v-if="showModal">
     <div :class="ns.e('container')" v-show="showModal">
-      <div class="flex flex-col p-5" :class="[ns.e('content'), fs && ns.e('fs')]" role="dialog" ref="modal">
+      <div
+        class="flex flex-col p-5"
+        :class="[ns.e('content'), fs && ns.e('fs')]"
+        role="dialog"
+        ref="modal"
+      >
         <div class="flex items-center justify-between">
           <template v-if="!$slots.header">
             <div>
@@ -65,8 +70,6 @@ const closeModal = () => {
 };
 
 onClickOutside(modal, () => {
-  console.log("here onClickOutside");
-
   if (showModal.value === true) {
     closeModal();
   }
@@ -80,5 +83,4 @@ watch(
 );
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

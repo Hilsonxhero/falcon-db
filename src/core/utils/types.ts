@@ -9,6 +9,7 @@ export {
   isDate,
   isPromise,
   isSymbol,
+
 } from "@vue/shared";
 export { isBoolean, isNumber } from "@vueuse/core";
 export { isVNode } from "vue";
