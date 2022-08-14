@@ -39,24 +39,24 @@ const DocMenuConfig = [
             heading: "تنوع ها",
             route: "variants index",
           },
-          {
-            heading: "تخفیف ها",
-            route: "",
-          },
+
           {
             heading: "محصولات",
             route: "products index",
           },
+          // {
+          //   heading: "تخفیف ها",
+          //   route: "",
+          // },
+          // {
+          //   heading: "محصولات شگفت انگیز",
+          //   route: "",
+          // },
 
-          {
-            heading: "محصولات شگفت انگیز",
-            route: "",
-          },
-
-          {
-            heading: "موجودی ها",
-            route: "",
-          },
+          // {
+          //   heading: "موجودی ها",
+          //   route: "",
+          // },
 
         ],
       },
@@ -200,9 +200,10 @@ const DocMenuConfig = [
             route: "shipments index",
           },
           {
-            heading: "تنظیمات",
-            route: "",
+            heading: "استان ها",
+            route: "states index",
           },
+
         ],
       },
     ],

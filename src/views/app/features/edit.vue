@@ -62,7 +62,7 @@
                   v-model="selectedStatus"
                   filterable
                   :options="statuses"
-                  placeholder="انتخاب دسته بندی"
+                  placeholder="انتخاب  وضعیت"
                 />
               </hx-form-group>
             </div>

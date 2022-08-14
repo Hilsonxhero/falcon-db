@@ -210,6 +210,42 @@ export default {
       name: "variants value edit",
       component: () =>
         import("@/views/app/variants/values/edit.vue"),
-    }
+    },
+
+    {
+      path: "/states",
+      name: "states index",
+      component: () =>
+        import("@/views/app/states/index.vue"),
+    },
+
+    {
+      path: "/states/create",
+      name: "states create",
+      component: () =>
+        import("@/views/app/states/create.vue"),
+    },
+    {
+      path: "/states/edit/:id",
+      name: "states edit",
+      component: () =>
+        import("@/views/app/states/edit.vue"),
+    },
+
+
+    {
+      path: "/states/:id/cities",
+      name: "states cities",
+      component: () =>
+        import("@/views/app/states/cities/index.vue"),
+    },
+    {
+      path: "/states/:id/cities/:value/edit",
+      name: "states city edit",
+      component: () =>
+        import("@/views/app/states/cities/edit.vue"),
+    },
+
+
   ],
 };
