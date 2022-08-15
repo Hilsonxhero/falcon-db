@@ -2,6 +2,8 @@
 // Buttons Base
 //
 
+
+
 // Button
 .hx-button {
 
@@ -46,6 +48,48 @@
             height: 1.5rem;
             //color: rgba(255,255,255,1);
             fill: currentColor;
+        }
+    }
+
+    &__loading {
+        .svg-loader__circle {
+            margin-right: 6px;
+            width: 18px;
+            height: 18px;
+            animation: loading-rotate 2s linear infinite;
+        }
+
+        .svg-loader__path {
+            animation: loading-dash 1.5s ease-in-out infinite;
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: 0;
+            stroke-width: 2;
+            stroke: #fff;
+            stroke-linecap: round;
+        }
+
+
+        @keyframes loading-rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes loading-dash {
+            0% {
+                stroke-dasharray: 1, 200;
+                stroke-dashoffset: 0;
+            }
+
+            50% {
+                stroke-dasharray: 90, 150;
+                stroke-dashoffset: -40px;
+            }
+
+            100% {
+                stroke-dasharray: 90, 150;
+                stroke-dashoffset: -120px;
+            }
         }
     }
 

@@ -43,7 +43,7 @@
 
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
-              <hx-button type="submit"> ذخیره </hx-button>
+              <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
               <hx-button variant="light" :to="{ name: 'roles index' }">
                 لغو
               </hx-button>
@@ -65,6 +65,7 @@ import { ErrorMessage, Field, Form } from "vee-validate";
 const router = useRouter();
 const route = useRoute();
 const formRef = ref<any>(null);
+const loader = ref(false);
 const selectedPermissions = ref<Arrray<any>>([]);
 const permissions = ref<Arrray<any>>([]);
 const form = ref({
@@ -78,6 +79,7 @@ const handleCreate = async (values, { resetForm }) => {
   };
 
   try {
+    loader.value = true;
     const { data } = await ApiService.post(`roles`, formData);
     resetForm();
     HxNotification.success({
@@ -87,6 +89,7 @@ const handleCreate = async (values, { resetForm }) => {
       duration: 4000,
       position: "bottom-right",
     });
+    loader.value = false;
     router.push({ name: "roles index" });
   } catch (e) {}
 };

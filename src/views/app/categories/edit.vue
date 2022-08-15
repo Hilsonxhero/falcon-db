@@ -131,7 +131,7 @@
           <div class="col-span-12">
             <div class="w-full flex items-center justify-between my-4">
               <div class="flex items-center space-x-3 space-x-reverse">
-                <hx-button type="submit"> ذخیره </hx-button>
+                <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
                 <hx-button variant="light" :to="{ name: 'categories index' }">
                   لغو
                 </hx-button>
@@ -153,6 +153,7 @@ import { ErrorMessage, Field, Form } from "vee-validate";
 
 const categories = ref<any>([]);
 const id = ref<any>(null);
+const loader = ref(false);
 const formRef = ref<any>(null);
 const router = useRouter();
 const route = useRoute();
@@ -196,6 +197,7 @@ const handleUpdate = async (values, { resetForm }) => {
   };
 
   try {
+    loader.value = true;
     const { data } = await ApiService.put(`categories/${id.value}`, formData);
     HxNotification.success({
       title: "success",
@@ -204,6 +206,7 @@ const handleUpdate = async (values, { resetForm }) => {
       duration: 4000,
       position: "bottom-right",
     });
+    loader.value = false;
     router.push({ name: "categories index" });
   } catch (e) {}
 };

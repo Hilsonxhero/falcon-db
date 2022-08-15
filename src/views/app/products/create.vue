@@ -17,7 +17,7 @@
         <div class="w-full">
           <div class="w-full flex items-center justify-between my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
-              <hx-button type="submit"> ذخیره </hx-button>
+              <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
               <hx-button variant="light" :to="{ name: 'products index' }">
                 لغو
               </hx-button>
@@ -42,9 +42,9 @@ import Setting from "@/components/app/product/create/setting.vue";
 
 const data = ref({});
 const activeName = ref("setting");
-const shipment = ref(null);
 const selectedVariants = ref([]);
 const router = useRouter();
+const loader = ref(false);
 
 const handleCreate = async (values, { resetForm }) => {
   let formData = new FormData();
@@ -57,6 +57,7 @@ const handleCreate = async (values, { resetForm }) => {
   formData.append("image", JSON.stringify(data.value.image));
   formData.append("variants", JSON.stringify(selectedVariants.value));
   try {
+    loader.value = true;
     const { data } = await ApiService.post("products", formData);
     resetForm();
     HxNotification.success({
@@ -66,6 +67,7 @@ const handleCreate = async (values, { resetForm }) => {
       duration: 4000,
       position: "bottom-right",
     });
+    loader.value = false;
     router.push({ name: "products index" });
   } catch (e) {}
 };

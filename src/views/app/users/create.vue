@@ -181,7 +181,7 @@
       <div class="col-span-12">
         <div class="w-full flex items-center justify-between my-4">
           <div class="flex items-center space-x-3 space-x-reverse">
-            <hx-button type="submit"> ذخیره </hx-button>
+            <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
             <hx-button variant="light" :to="{ name: 'users index' }">
               لغو
             </hx-button>
@@ -212,7 +212,7 @@ const form = ref({
   national_identity_number: "",
   status: "enable",
 });
-
+const loader = ref(false);
 const statuses = ref([
   { title: "فعال", key: "enable" },
   { title: "غیرفعال", key: "disable" },
@@ -248,6 +248,7 @@ const handleCreate = async (values, { resetForm }) => {
   formData.append("profile", JSON.stringify(form.value.profile));
 
   try {
+    loader.value = true;
     const { data } = await ApiService.post("users", formData);
     resetForm();
     HxNotification.success({
@@ -257,6 +258,7 @@ const handleCreate = async (values, { resetForm }) => {
       duration: 4000,
       position: "bottom-right",
     });
+    loader.value = false;
     router.push({ name: "users index" });
   } catch (e) {}
 };

@@ -1,4 +1,5 @@
 <template>
+  <section></section>
   <section class="mb-6">
     <HxDataTable
       url="users"
@@ -152,4 +153,3 @@ const handleDelete = (item: any, i: any) => {
     .catch(() => {});
 };
 </script>
-<style></style>

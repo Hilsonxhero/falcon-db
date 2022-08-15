@@ -176,7 +176,7 @@
 
           <div class="w-full flex items-center justify-end my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
-              <hx-button type="submit"> ذخیره </hx-button>
+              <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
               <hx-button variant="light" :to="{ name: 'states index' }">
                 لغو
               </hx-button>
@@ -212,6 +212,7 @@ const form = ref({
 const id = ref(null);
 const index = ref(null);
 const refresh = ref(false);
+const loader = ref(false);
 
 const statuses = ref([
   { title: "فعال", key: "enable" },
@@ -262,7 +263,7 @@ const handleCreate = async (values, { resetForm }) => {
     pay_at_place: form.value.pay_at_place,
     status: form.value.status,
   };
-
+  loader.value = true;
   ApiService.post("cities", formData).then(() => {
     form.value.name = null;
     form.value.zone_code = null;
@@ -272,6 +273,7 @@ const handleCreate = async (values, { resetForm }) => {
     form.value.pay_at_place = false;
     resetForm();
     refresh.value = true;
+    loader.value = false;
     HxNotification.success({
       title: " موفقیت آمیز",
       message: "ایجاد شهر با موفقیت انجام شد",

@@ -43,7 +43,7 @@
 
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
-              <hx-button type="submit"> ذخیره </hx-button>
+              <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
               <hx-button variant="light" :to="{ name: 'roles index' }">
                 لغو
               </hx-button>
@@ -65,6 +65,7 @@ import { ErrorMessage, Field, Form } from "vee-validate";
 const router = useRouter();
 const route = useRoute();
 const formRef = ref<any>(null);
+const loader = ref(false);
 const id = ref<any>(null);
 const selectedPermissions = ref<Arrray<any>>([]);
 const permissions = ref<Arrray<any>>([]);
@@ -72,14 +73,14 @@ const form = ref({
   name: "",
 });
 
-const handleUpdate = async (values, { resetForm }) => {
+const handleUpdate = (values, { resetForm }) => {
   let formData = {
     name: form.value.name,
     permissions: selectedPermissions.value,
   };
 
-  try {
-    const { data } = await ApiService.put(`roles/${id.value}`, formData);
+  loader.value = true;
+  ApiService.put(`roles/${id.value}`, formData).then(({ data }) => {
     resetForm();
     HxNotification.success({
       title: "عملیات موفقیت آمیز",
@@ -88,8 +89,9 @@ const handleUpdate = async (values, { resetForm }) => {
       duration: 4000,
       position: "bottom-right",
     });
+    loader.value = false;
     router.push({ name: "roles index" });
-  } catch (e) {}
+  });
 };
 
 onMounted(() => {
@@ -106,6 +108,10 @@ onMounted(() => {
       form.value = data.data;
       form.value.permissions.map((permission, i) => {
         selectedPermissions.value.push(permission.id);
+      });
+
+      formRef.value.setValues({
+        ...data.data,
       });
     })
     .catch(() => {});

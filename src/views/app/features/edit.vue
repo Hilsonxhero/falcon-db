@@ -70,7 +70,7 @@
 
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
-              <hx-button type="submit"> ذخیره </hx-button>
+              <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
               <hx-button variant="light" :to="{ name: 'features index' }">
                 لغو
               </hx-button>
@@ -92,8 +92,8 @@ import { ErrorMessage, Field, Form } from "vee-validate";
 
 const router = useRouter();
 const route = useRoute();
-const loading = ref(false);
 const formRef = ref<any>(null);
+const loader = ref(false);
 const form = ref({
   parent: null,
   category: null,
@@ -111,23 +111,21 @@ const statuses = ref([
 ]);
 const selectedStatus = ref({ title: "فعال", key: "enable" });
 
-const fetchData = async () => {
-  try {
-    loading.value = true;
-    const { data } = await ApiService.get(`features/${id.value}`);
+const fetchData = () => {
+  ApiService.get(`features/${id.value}`).then(({ data }) => {
     form.value = data.data;
     selectedStatus.value = statuses.value.find(
       (item) => item.key == form.value.status
     ).key;
     form.value.category = form.value.category.id;
-    form.value.parent = form.value.parent.id;
+    if (form.value.parent) form.value.parent = form.value.parent.id;
+
+    console.log("data.data", data.data);
+
     formRef.value.setValues({
       ...data.data,
     });
-    loading.value = false;
-  } catch (e) {
-    loading.value = false;
-  }
+  });
 };
 
 const handleUpdate = async (values, { resetForm }) => {
@@ -139,6 +137,7 @@ const handleUpdate = async (values, { resetForm }) => {
   };
 
   try {
+    loader.value = true;
     const { data } = await ApiService.put(`features/${id.value}`, formData);
     resetForm();
     HxNotification.success({
@@ -148,6 +147,7 @@ const handleUpdate = async (values, { resetForm }) => {
       duration: 4000,
       position: "bottom-right",
     });
+    loader.value = false;
     router.push({ name: "features index" });
   } catch (e) {}
 };

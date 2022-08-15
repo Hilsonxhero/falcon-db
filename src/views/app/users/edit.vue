@@ -8,12 +8,14 @@
         <hx-skeleton-item variant="button"></hx-skeleton-item>
       </div>
     </template>
+
     <template #default>
       <div class="w-full">
         <Form
           @submit="handleUpdate"
           class="grid grid-cols-12 gap-6"
           ref="formRef"
+          v-if="!loading"
         >
           <div class="col-span-12">
             <div class="hx-card">
@@ -26,7 +28,6 @@
                     class="col-span-12 sm:col-span-6 lg:col-span-3"
                   >
                     <Field
-                      mode="passive"
                       name="username"
                       v-slot="{ field }"
                       rules="required"
@@ -218,7 +219,7 @@
           <div class="col-span-12">
             <div class="w-full flex items-center justify-between my-4">
               <div class="flex items-center space-x-3 space-x-reverse">
-                <hx-button type="submit"> ذخیره </hx-button>
+                <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
                 <hx-button variant="light" :to="{ name: 'users index' }">
                   لغو
                 </hx-button>
@@ -233,18 +234,18 @@
 
 <script setup lang="ts">
 //@ts-nocheck
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch, watchEffect } from "vue";
 import ApiService from "@/core/services/ApiService";
 import { useRoute, useRouter } from "vue-router";
 import { HxNotification } from "@/components/base/notification";
-import { ErrorMessage, Field, Form } from "vee-validate";
+import { ErrorMessage, Field, Form, useForm } from "vee-validate";
 import { fromJSON } from "postcss";
-
+const { setValues } = useForm();
 const users = ref<any>([]);
 
 const id = ref<any>(null);
 const loading = ref<any>(true);
-
+const loader = ref(false);
 const router = useRouter();
 const route = useRoute();
 
@@ -262,8 +263,6 @@ const statuses = ref([
   { title: "غیرفعال", key: "inactive" },
   { title: "مسدود شده", key: "ban" },
 ]);
-
-const selectedStatus = ref(null);
 
 const formRef = ref<any>(null);
 
@@ -284,6 +283,7 @@ const handleUpdate = async (values, { resetForm }) => {
   };
 
   try {
+    loader.value = true;
     const { data } = await ApiService.put(`users/${id.value}`, formData);
     resetForm();
     HxNotification.success({
@@ -293,9 +293,26 @@ const handleUpdate = async (values, { resetForm }) => {
       duration: 4000,
       position: "bottom-right",
     });
+    loader.value = false;
     router.push({ name: "users index" });
   } catch (e) {}
 };
+
+const fetchData = async () => {
+  try {
+    const { data } = await ApiService.get(`users/${id.value}`);
+    form.value = data.data;
+    loading.value = false;
+  } catch (e) {}
+};
+
+watchEffect(() => {
+  if (formRef.value) {
+    formRef.value.setValues({
+      ...form.value,
+    });
+  }
+});
 
 onMounted(() => {
   id.value = route.params.id;
@@ -305,18 +322,19 @@ onMounted(() => {
       roles.value = data.data;
     })
     .catch(() => {});
-  // loading.value = true;
-  ApiService.get(`users/${id.value}`)
-    .then(({ data }) => {
-      console.log("data.data", data.data);
 
-      form.value = data.data;
-      loading.value = false;
-      formRef.value.setValues({
-        ...data.data,
-      });
-    })
-    .catch(() => {});
+  fetchData();
+
+  // ApiService.get(`users/${id.value}`)
+  //   .then(({ data }) => {
+  //     form.value = data.data;
+
+  //     formRef.value.setValues({
+  //       ...data.data,
+  //     });
+  //     loading.value = false;
+  //   })
+  //   .catch(() => {});
 });
 </script>
 

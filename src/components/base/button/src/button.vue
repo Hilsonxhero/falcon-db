@@ -16,10 +16,35 @@
       block && `w-full`,
     ]"
   >
+    <template v-if="loading">
+      <span class="hx-button__content">
+        <svg
+          class="svg-loader__circular"
+          viewBox="-10, -10, 50, 50"
+          data-v-46801470=""
+        >
+          <path
+            class="svg-loader__path"
+            d="
+            M 30 15
+            L 28 17
+            M 25.61 25.61
+            A 15 15, 0, 0, 1, 15 30
+            A 15 15, 0, 1, 1, 27.99 7.5
+            L 15 15
+          "
+            style="stroke-width: 4px; fill: rgba(0, 0, 0, 0)"
+            data-v-46801470=""
+          ></path>
+        </svg>
+      </span>
+    </template>
+    <template v-else>
+      <span class="hx-button__content" v-if="$slots.default">
+        <slot></slot>
+      </span>
+    </template>
     <!-- <i class="el-icon-loading" v-if="loading"></i> -->
-    <span class="hx-button__content" v-if="$slots.default">
-      <slot></slot>
-    </span>
   </button>
 </template>
 
