@@ -3,7 +3,8 @@
   <div ref="scrollElRef" class="hover-scroll-overlay-y my-5 my-lg-5">
     <!--begin::Menu-->
     <div
-      class="menu flex-col menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500">
+      class="menu flex-col menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
+    >
       <template v-for="(item, i) in MainMenuConfig" :key="i">
         <div v-if="item.heading" class="menu-item">
           <div class="menu-content pt-8 pb-2">
@@ -16,33 +17,44 @@
         <template v-for="(menuItem, j) in item.pages" :key="j">
           <template v-if="menuItem.heading">
             <div class="menu-item">
-              <router-link class="menu-link" active-class="active" :to="{ name: menuItem.route }">
-                <span v-if="menuItem.svgIcon || menuItem.fontIcon" class="menu-icon">
+              <router-link
+                class="menu-link"
+                active-class="active"
+                :to="{ name: menuItem.route }"
+              >
+                <span v-if="menuItem.svgIcon" class="menu-icon">
                   <span class="svg-icon svg-icon-2">
                     <!-- <inline-svg :src="menuItem.svgIcon" /> -->
                     <hx-icon :icon="menuItem.svgIcon" class="w-6 h-6"></hx-icon>
                   </span>
                 </span>
                 <span class="menu-title">{{
-                    translate(menuItem.heading)
+                  translate(menuItem.heading)
                 }}</span>
               </router-link>
             </div>
           </template>
 
-          <div v-if="menuItem.sectionTitle" :class="{ show: hasActiveChildren(menuItem.route) }" class="menu-item">
+          <div
+            v-if="menuItem.sectionTitle"
+            :class="{ show: hasActiveChildren(menuItem.route) }"
+            class="menu-item"
+          >
             <hx-collapse menu accordion>
               <hx-collapse-item menu class="menu-item">
                 <template #title>
                   <span class="menu-link">
-                    <span v-if="menuItem.svgIcon || menuItem.fontIcon" class="menu-icon">
+                    <span v-if="menuItem.svgIcon" class="menu-icon">
                       <span class="svg-icon svg-icon-2">
                         <!-- <inline-svg :src="menuItem.svgIcon" /> -->
-                        <hx-icon :icon="menuItem.svgIcon" class="w-6 h-6"></hx-icon>
+                        <hx-icon
+                          :icon="menuItem.svgIcon"
+                          class="w-6 h-6"
+                        ></hx-icon>
                       </span>
                     </span>
                     <span class="menu-title">{{
-                        translate(menuItem.sectionTitle)
+                      translate(menuItem.sectionTitle)
                     }}</span>
                     <span class="menu-arrow"></span>
                   </span>
@@ -50,17 +62,25 @@
 
                 <template v-for="(item2, k) in menuItem.sub" :key="k">
                   <div v-if="item2.heading" class="menu-item">
-                    <router-link class="menu-link" active-class="active" :to="{ name: item2.route }">
+                    <router-link
+                      class="menu-link"
+                      active-class="active"
+                      :to="{ name: item2.route }"
+                    >
                       <span class="menu-bullet">
                         <span class="bullet bullet-dot"></span>
                       </span>
                       <span class="menu-title">{{
-                          translate(item2.heading)
+                        translate(item2.heading)
                       }}</span>
                     </router-link>
                   </div>
 
-                  <div v-if="item2.sectionTitle" :class="{ show: hasActiveChildren(item2.route) }" class="menu-item">
+                  <div
+                    v-if="item2.sectionTitle"
+                    :class="{ show: hasActiveChildren(item2.route) }"
+                    class="menu-item"
+                  >
                     <hx-collapse menu accordion>
                       <hx-collapse-item menu>
                         <template #title>
@@ -69,21 +89,28 @@
                               <span class="bullet bullet-dot"></span>
                             </span>
                             <span class="menu-title">{{
-                                translate(item2.sectionTitle)
+                              translate(item2.sectionTitle)
                             }}</span>
                             <span class="menu-arrow"></span>
                           </span>
                         </template>
 
-                        <div :class="{ show: hasActiveChildren(item2.route) }" class="">
+                        <div
+                          :class="{ show: hasActiveChildren(item2.route) }"
+                          class=""
+                        >
                           <template v-for="(item3, k) in item2.sub" :key="k">
                             <div v-if="item3.heading" class="menu-item">
-                              <router-link class="menu-link" active-class="active" :to="{ name: item3.route }">
+                              <router-link
+                                class="menu-link"
+                                active-class="active"
+                                :to="{ name: item3.route }"
+                              >
                                 <span class="menu-bullet">
                                   <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">{{
-                                    translate(item3.heading)
+                                  translate(item3.heading)
                                 }}</span>
                               </router-link>
                             </div>
@@ -113,7 +140,7 @@
 <script lang="ts" setup>
 import { defineComponent, onMounted, ref } from "vue";
 // import { useI18n } from "vue-i18n/index";
-import { useLocale } from '@/core/hooks'
+import { useLocale } from "@/core/hooks";
 import { useRoute } from "vue-router";
 import MainMenuConfig from "@/core/config/MainMenuConfig";
 

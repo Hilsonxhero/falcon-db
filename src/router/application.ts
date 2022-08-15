@@ -71,6 +71,8 @@ export default {
         import("@/views/app/warranties/edit.vue"),
     },
 
+    //shipments
+
     {
       path: "/shipments",
       name: "shipments index",
@@ -90,6 +92,80 @@ export default {
       component: () =>
         import("@/views/app/shipments/edit.vue"),
     },
+
+
+
+    //users
+
+    {
+      path: "/users",
+      name: "users index",
+      component: () =>
+        import("@/views/app/users/index.vue"),
+    },
+
+    {
+      path: "/users/create",
+      name: "users create",
+      component: () =>
+        import("@/views/app/users/create.vue"),
+    },
+    {
+      path: "/users/edit/:id",
+      name: "users edit",
+      component: () =>
+        import("@/views/app/users/edit.vue"),
+    },
+
+
+
+
+    //permissions
+
+    {
+      path: "/permissions",
+      name: "permissions index",
+      component: () =>
+        import("@/views/app/permissions/index.vue"),
+    },
+
+    {
+      path: "/permissions/create",
+      name: "permissions create",
+      component: () =>
+        import("@/views/app/permissions/create.vue"),
+    },
+    {
+      path: "/permissions/edit/:id",
+      name: "permissions edit",
+      component: () =>
+        import("@/views/app/permissions/edit.vue"),
+    },
+
+    //roles
+
+    {
+      path: "/roles",
+      name: "roles index",
+      component: () =>
+        import("@/views/app/roles/index.vue"),
+    },
+
+    {
+      path: "/roles/create",
+      name: "roles create",
+      component: () =>
+        import("@/views/app/roles/create.vue"),
+    },
+    {
+      path: "/roles/edit/:id",
+      name: "roles edit",
+      component: () =>
+        import("@/views/app/roles/edit.vue"),
+    },
+
+
+
 
     //products 
     {

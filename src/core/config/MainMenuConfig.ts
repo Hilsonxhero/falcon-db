@@ -61,35 +61,35 @@ const DocMenuConfig = [
         ],
       },
 
-      {
-        sectionTitle: "سفارشات",
-        route: "",
-        svgIcon: "shopping-bag",
-        sub: [
-          {
-            heading: "سفارش ها",
-            route: "",
-          },
+      // {
+      //   sectionTitle: "سفارشات",
+      //   route: "",
+      //   svgIcon: "shopping-bag",
+      //   sub: [
+      //     {
+      //       heading: "سفارش ها",
+      //       route: "",
+      //     },
 
-          {
-            heading: "فاکتور",
-            route: "",
-          },
-        ],
-      },
+      //     {
+      //       heading: "فاکتور",
+      //       route: "",
+      //     },
+      //   ],
+      // },
 
 
-      {
-        sectionTitle: "آمار",
-        route: "",
-        svgIcon: "chart-square",
-        sub: [
-          {
-            heading: "گزارش و آمار",
-            route: "",
-          },
-        ],
-      },
+      // {
+      //   sectionTitle: "آمار",
+      //   route: "",
+      //   svgIcon: "chart-square",
+      //   sub: [
+      //     {
+      //       heading: "گزارش و آمار",
+      //       route: "",
+      //     },
+      //   ],
+      // },
 
     ],
   },
@@ -101,12 +101,12 @@ const DocMenuConfig = [
     pages: [
       {
         sectionTitle: " کاربران",
-        route: "",
+        route: "users index",
         svgIcon: "group",
         sub: [
           {
             heading: "لیست کاربران",
-            route: "",
+            route: "users index",
           },
 
         ],
@@ -114,17 +114,17 @@ const DocMenuConfig = [
 
       {
         sectionTitle: " نقش های کاربری",
-        route: "",
+        route: "/roles/",
         svgIcon: "shield-quarter",
 
         sub: [
           {
             heading: "لیست مجوزها",
-            route: "",
+            route: "permissions index",
           },
           {
             heading: "لیست نقش های کاربری",
-            route: "",
+            route: "roles index",
           },
 
         ],
@@ -133,56 +133,56 @@ const DocMenuConfig = [
     ],
   },
 
-  {
-    heading: "بهبود و طراحی",
-    route: "",
-    pages: [
-      {
-        sectionTitle: "ماژول ها",
-        route: "",
-        svgIcon: "selection",
-        sub: [
-          {
-            heading: "لیست ماژول ها",
-            route: "",
-          },
+  // {
+  //   heading: "بهبود و طراحی",
+  //   route: "",
+  //   pages: [
+  //     {
+  //       sectionTitle: "ماژول ها",
+  //       route: "",
+  //       svgIcon: "selection",
+  //       sub: [
+  //         {
+  //           heading: "لیست ماژول ها",
+  //           route: "",
+  //         },
 
-        ],
-      },
+  //       ],
+  //     },
 
-      {
-        sectionTitle: "طراحی و قالب",
-        route: "",
-        svgIcon: "slider-alt",
-        sub: [
-          {
-            heading: "قالب و لوگو",
-            route: "",
-          },
-          {
-            heading: "ساختار ایمیل",
-            route: "",
-          },
+  //     {
+  //       sectionTitle: "طراحی و قالب",
+  //       route: "",
+  //       svgIcon: "slider-alt",
+  //       sub: [
+  //         {
+  //           heading: "قالب و لوگو",
+  //           route: "",
+  //         },
+  //         {
+  //           heading: "ساختار ایمیل",
+  //           route: "",
+  //         },
 
-          {
-            heading: "تنظیمات تصاویر",
-            route: "",
-          },
+  //         {
+  //           heading: "تنظیمات تصاویر",
+  //           route: "",
+  //         },
 
-          {
-            heading: "موقعیت ها",
-            route: "",
-          },
-          {
-            heading: "صفحه ها",
-            route: "",
-          },
+  //         {
+  //           heading: "موقعیت ها",
+  //           route: "",
+  //         },
+  //         {
+  //           heading: "صفحه ها",
+  //           route: "",
+  //         },
 
-        ],
-      },
+  //       ],
+  //     },
 
-    ],
-  },
+  //   ],
+  // },
 
 
 
@@ -208,53 +208,53 @@ const DocMenuConfig = [
       },
     ],
   },
-  {
-    heading: "پرداخت",
-    route: "",
-    pages: [
-      {
-        sectionTitle: "  پرداخت",
-        route: "",
-        svgIcon: "card",
+  // {
+  //   heading: "پرداخت",
+  //   route: "",
+  //   pages: [
+  //     {
+  //       sectionTitle: "  پرداخت",
+  //       route: "",
+  //       svgIcon: "card",
 
-        sub: [
-          {
-            heading: "روش های پرداخت",
-            route: "",
-          },
-          {
-            heading: "تنظیمات",
-            route: "",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    heading: "بازاریابی",
-    route: "",
-    pages: [
-      {
-        sectionTitle: "  بازاریابی",
-        route: "",
-        svgIcon: "party",
-        sub: [
-          {
-            heading: "Google",
-            route: "",
-          },
-          {
-            heading: "Whatsapp",
-            route: "",
-          },
-          {
-            heading: "Telegram",
-            route: "",
-          },
-        ],
-      },
-    ],
-  }
+  //       sub: [
+  //         {
+  //           heading: "روش های پرداخت",
+  //           route: "payment_methods index",
+  //         },
+  //         {
+  //           heading: "تنظیمات",
+  //           route: "",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
+  // {
+  //   heading: "بازاریابی",
+  //   route: "",
+  //   pages: [
+  //     {
+  //       sectionTitle: "  بازاریابی",
+  //       route: "",
+  //       svgIcon: "party",
+  //       sub: [
+  //         {
+  //           heading: "Google",
+  //           route: "",
+  //         },
+  //         {
+  //           heading: "Whatsapp",
+  //           route: "",
+  //         },
+  //         {
+  //           heading: "Telegram",
+  //           route: "",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // }
 
 ];
 
