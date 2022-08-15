@@ -20,6 +20,7 @@ import { HxDropdown, HxDropdownMenu, HxDropdownItem } from "@/components/base/dr
 // import { HxConfigProvider } from "@/components/base/config-provider";
 import { HxTabPane, HxTabs } from '@/components/base/tabs'
 import { HxSelect } from '@/components/base/select'
+import { HxSkeleton, HxSkeletonItem } from '@/components/base/skeleton'
 import type { Plugin } from 'vue'
 
 export default [
@@ -48,6 +49,8 @@ export default [
   HxDropdownItem,
   HxTabPane,
   HxTabs,
-  HxSelect
+  HxSelect,
+  HxSkeleton,
+  HxSkeletonItem
 
 ] as Plugin[];

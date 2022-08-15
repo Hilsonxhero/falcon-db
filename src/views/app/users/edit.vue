@@ -1,199 +1,234 @@
 <template>
-  <div class="w-full">
-    <Form @submit="handleUpdate" class="grid grid-cols-12 gap-6" ref="formRef">
-      <div class="col-span-12">
-        <div class="hx-card">
-          <div class="hx-card__header">
-            <h4 class="text-gray-600 text-xl">اطلاعات کاربری</h4>
-          </div>
-          <div class="hx-card__body">
-            <div class="grid grid-cols-12 gap-4">
-              <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <Field
-                  mode="passive"
-                  name="username"
-                  v-slot="{ field }"
-                  rules="required"
-                  label="نام کاربری"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.username"
-                    placeholder="نام کاربری"
-                  ></hx-input>
-                </Field>
-
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="username" />
-                </div>
-              </hx-form-group>
-
-              <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <Field
-                  name="phone"
-                  rules="required"
-                  v-slot="{ field }"
-                  label=" شماره همراه"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.phone"
-                    placeholder=" شماره همراه"
+  <hx-skeleton animated :loading="loading">
+    <template #template>
+      <hx-skeleton-item variant="card"></hx-skeleton-item>
+      <hx-skeleton-item variant="card"></hx-skeleton-item>
+      <div class="space-x-reverse space-x-2">
+        <hx-skeleton-item variant="button"></hx-skeleton-item>
+        <hx-skeleton-item variant="button"></hx-skeleton-item>
+      </div>
+    </template>
+    <template #default>
+      <div class="w-full">
+        <Form
+          @submit="handleUpdate"
+          class="grid grid-cols-12 gap-6"
+          ref="formRef"
+        >
+          <div class="col-span-12">
+            <div class="hx-card">
+              <div class="hx-card__header">
+                <h4 class="text-gray-600 text-xl">اطلاعات کاربری</h4>
+              </div>
+              <div class="hx-card__body">
+                <div class="grid grid-cols-12 gap-4">
+                  <hx-form-group
+                    class="col-span-12 sm:col-span-6 lg:col-span-3"
                   >
-                  </hx-input>
-                </Field>
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="phone" />
-                </div>
-              </hx-form-group>
+                    <Field
+                      mode="passive"
+                      name="username"
+                      v-slot="{ field }"
+                      rules="required"
+                      label="نام کاربری"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.username"
+                        placeholder="نام کاربری"
+                      ></hx-input>
+                    </Field>
 
-              <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <Field
-                  name="email"
-                  rules="required"
-                  v-slot="{ field }"
-                  label="  ایمیل"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.email"
-                    placeholder="  ایمیل"
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="username" />
+                    </div>
+                  </hx-form-group>
+
+                  <hx-form-group
+                    class="col-span-12 sm:col-span-6 lg:col-span-3"
                   >
-                  </hx-input>
-                </Field>
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="email" />
-                </div>
-              </hx-form-group>
+                    <Field
+                      name="phone"
+                      rules="required"
+                      v-slot="{ field }"
+                      label=" شماره همراه"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.phone"
+                        placeholder=" شماره همراه"
+                      >
+                      </hx-input>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="phone" />
+                    </div>
+                  </hx-form-group>
 
-              <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <Field
-                  name="national_identity_number"
-                  rules="required"
-                  v-slot="{ field }"
-                  label="  کد ملی"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.national_identity_number"
-                    placeholder="  کد ملی"
+                  <hx-form-group
+                    class="col-span-12 sm:col-span-6 lg:col-span-3"
                   >
-                  </hx-input>
-                </Field>
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="national_identity_number" />
-                </div>
-              </hx-form-group>
+                    <Field
+                      name="email"
+                      rules="required"
+                      v-slot="{ field }"
+                      label="  ایمیل"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.email"
+                        placeholder="  ایمیل"
+                      >
+                      </hx-input>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="email" />
+                    </div>
+                  </hx-form-group>
 
-              <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <Field
-                  name="cart_number"
-                  rules="required"
-                  v-slot="{ field }"
-                  label="شماره کارت"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.cart_number"
-                    placeholder="شماره کارت"
+                  <hx-form-group
+                    class="col-span-12 sm:col-span-6 lg:col-span-3"
                   >
-                  </hx-input>
-                </Field>
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="cart_number" />
-                </div>
-              </hx-form-group>
+                    <Field
+                      name="national_identity_number"
+                      rules="required"
+                      v-slot="{ field }"
+                      label="  کد ملی"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.national_identity_number"
+                        placeholder="  کد ملی"
+                      >
+                      </hx-input>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="national_identity_number" />
+                    </div>
+                  </hx-form-group>
 
-              <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <hx-select
-                  value-key="key"
-                  label="title"
-                  v-model="form.status"
-                  filterable
-                  :options="statuses"
-                  placeholder="وضعیت حساب"
-                />
-              </hx-form-group>
-
-              <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <Field
-                  name="password"
-                  :rules="{ required: false }"
-                  v-slot="{ field }"
-                  label="رمز عبور جدید"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.password"
-                    placeholder="رمز عبور جدید"
+                  <hx-form-group
+                    class="col-span-12 sm:col-span-6 lg:col-span-3"
                   >
-                  </hx-input>
-                </Field>
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="password" />
-                </div>
-              </hx-form-group>
+                    <Field
+                      name="cart_number"
+                      rules="required"
+                      v-slot="{ field }"
+                      label="شماره کارت"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.cart_number"
+                        placeholder="شماره کارت"
+                      >
+                      </hx-input>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="cart_number" />
+                    </div>
+                  </hx-form-group>
 
-              <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <Field
-                  name="password_confirmation"
-                  :rules="{ required: false }"
-                  v-slot="{ field }"
-                  label="تکرار رمز عبور جدید"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.password_confirmation"
-                    placeholder="تکرار رمز عبور جدید"
+                  <hx-form-group
+                    class="col-span-12 sm:col-span-6 lg:col-span-3"
                   >
-                  </hx-input>
-                </Field>
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="password_confirmation" />
-                </div>
-              </hx-form-group>
+                    <hx-select
+                      value-key="key"
+                      label="title"
+                      v-model="form.status"
+                      filterable
+                      :options="statuses"
+                      placeholder="وضعیت حساب"
+                    />
+                  </hx-form-group>
 
-              <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <hx-select
-                  value-key="name"
-                  label="name"
-                  v-model="form.role"
-                  filterable
-                  :options="roles"
-                  placeholder="نقش کاربری"
-                />
-              </hx-form-group>
+                  <hx-form-group
+                    class="col-span-12 sm:col-span-6 lg:col-span-3"
+                  >
+                    <Field
+                      name="password"
+                      :rules="{ required: false }"
+                      v-slot="{ field }"
+                      label="رمز عبور جدید"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.password"
+                        placeholder="رمز عبور جدید"
+                      >
+                      </hx-input>
+                    </Field>
+
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="password" />
+                    </div>
+                  </hx-form-group>
+
+                  <hx-form-group
+                    class="col-span-12 sm:col-span-6 lg:col-span-3"
+                  >
+                    <Field
+                      name="password_confirmation"
+                      :rules="{ required: false }"
+                      v-slot="{ field }"
+                      label="تکرار رمز عبور جدید"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.password_confirmation"
+                        placeholder="تکرار رمز عبور جدید"
+                      >
+                      </hx-input>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="password_confirmation" />
+                    </div>
+                  </hx-form-group>
+
+                  <hx-form-group
+                    class="col-span-12 sm:col-span-6 lg:col-span-3"
+                  >
+                    <hx-select
+                      value-key="name"
+                      label="name"
+                      v-model="form.role"
+                      filterable
+                      :options="roles"
+                      placeholder="نقش کاربری"
+                    />
+                  </hx-form-group>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-span-12 space-y-4">
-        <div class="hx-card">
-          <div class="hx-card__header">
-            <h4 class="text-gray-600 text-xl">پروفایل</h4>
+          <div class="col-span-12 space-y-4">
+            <div class="hx-card">
+              <div class="hx-card__header">
+                <h4 class="text-gray-600 text-xl">پروفایل</h4>
+              </div>
+              <div class="hx-card__body">
+                <hx-upload
+                  :max="1"
+                  v-model="form.profile"
+                  :sources="form.avatar"
+                ></hx-upload>
+              </div>
+            </div>
           </div>
-          <div class="hx-card__body">
-            <hx-upload
-              :max="1"
-              v-model="form.profile"
-              :sources="form.avatar"
-            ></hx-upload>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-span-12">
-        <div class="w-full flex items-center justify-between my-4">
-          <div class="flex items-center space-x-3 space-x-reverse">
-            <hx-button type="submit"> ذخیره </hx-button>
-            <hx-button variant="light" :to="{ name: 'users index' }">
-              لغو
-            </hx-button>
+          <div class="col-span-12">
+            <div class="w-full flex items-center justify-between my-4">
+              <div class="flex items-center space-x-3 space-x-reverse">
+                <hx-button type="submit"> ذخیره </hx-button>
+                <hx-button variant="light" :to="{ name: 'users index' }">
+                  لغو
+                </hx-button>
+              </div>
+            </div>
           </div>
-        </div>
+        </Form>
       </div>
-    </Form>
-  </div>
+    </template>
+  </hx-skeleton>
 </template>
 
 <script setup lang="ts">
@@ -208,6 +243,7 @@ import { fromJSON } from "postcss";
 const users = ref<any>([]);
 
 const id = ref<any>(null);
+const loading = ref<any>(true);
 
 const router = useRouter();
 const route = useRoute();
@@ -269,13 +305,13 @@ onMounted(() => {
       roles.value = data.data;
     })
     .catch(() => {});
-
+  // loading.value = true;
   ApiService.get(`users/${id.value}`)
     .then(({ data }) => {
       console.log("data.data", data.data);
 
       form.value = data.data;
-
+      loading.value = false;
       formRef.value.setValues({
         ...data.data,
       });
