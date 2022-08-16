@@ -97,6 +97,7 @@
   </ul>
 </template>
 <script lang="ts" setup>
+//@ts-nocheck
 import { computed, ref, watchEffect } from "vue";
 // import { DArrowLeft, DArrowRight, MoreFilled } from "@/core/icons-vue";
 import { useNamespace } from "@/core/hooks";

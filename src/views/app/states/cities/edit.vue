@@ -122,6 +122,7 @@
 </template>
 
 <script setup lang="ts">
+//@ts-nocheck
 import { ref, onMounted, watch } from "vue";
 import { HxMessageBox } from "@/components/base/message-box";
 import { HxNotification } from "@/components/base/notification";

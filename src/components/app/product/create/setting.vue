@@ -172,7 +172,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch, reactive } from "vue";
+//@ts-nocheck
+import { onMounted, ref, watch, reactive, watchEffect } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import TiptapEditor from "@/components/common/tiptap/tiptap-editor.vue";
 import ApiService from "@/core/services/ApiService";
@@ -216,13 +217,18 @@ watch(
   },
   { deep: true }
 );
-watch(
-  () => props.data,
-  (val: any, oldVal) => {
-    form.value = val;
-  },
-  { deep: true }
-);
+
+// watch(
+//   () => props.data,
+//   (val: any, oldVal) => {
+//     form.value = val;
+//   },
+//   { deep: true }
+// );
+
+watchEffect(() => {
+  if (props.data) form.value = props.data;
+});
 
 onMounted(() => {
   ApiService.get("brands")

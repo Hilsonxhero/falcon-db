@@ -1,3 +1,5 @@
+
+//@ts-nocheck
 import { get, set } from "lodash-unified";
 import type { Entries } from "type-fest";
 

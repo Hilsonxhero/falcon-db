@@ -1,36 +1,33 @@
 <template>
-
   <div :tabindex="-1" :class="[ns.b(), ns.is('disabled', disabled)]">
     <div @click="handleVisibilty">
       <slot />
     </div>
 
-
     <transition name="fade">
-      <ul v-if="visiable" ref="dropdownRef" v-click-outside-directive="hideDropDown"
-        class="absolute normal-case font-normal xs:left-0 left-0 overflow-hidden  w-48  mt-2 p-3  lg:z-[130]" :class="[
-          dropdownKls,
-          visiable && 'active'
-        ]">
+      <ul
+        v-if="visiable"
+        ref="dropdownRef"
+        v-click-outside-directive="hideDropDown"
+        class="absolute normal-case font-normal xs:left-0 left-0 overflow-hidden w-48 mt-2 p-3 lg:z-[130]"
+        :class="[dropdownKls, visiable && 'active']"
+      >
         <slot name="dropdown" />
       </ul>
     </transition>
 
     <!-- <hx-overlay :active="visiable"></hx-overlay> -->
   </div>
-
-
-
 </template>
 
 <script setup lang="ts">
+//@ts-nocheck
 import { ref, computed } from "vue";
-import { useLocale, useNamespace, } from "@/core/hooks";
+import { useLocale, useNamespace } from "@/core/hooks";
 import type { ButtonType } from "@/core/components/button";
 import { definePropType } from "@/core/utils";
 import { useDropdown } from "./useDropdown";
-import { ClickOutSide as vClickOutsideDirective } from '@/core/directives'
-
+import { ClickOutSide as vClickOutsideDirective } from "@/core/directives";
 
 const props = defineProps({
   type: {
@@ -90,7 +87,7 @@ const props = defineProps({
 const { _elDropdownSize } = useDropdown();
 const size = _elDropdownSize.value;
 
-const dropdownRef = ref(null)
+const dropdownRef = ref(null);
 
 const ns = useNamespace("dropdown");
 const { t } = useLocale();
@@ -99,23 +96,21 @@ const dropdownKls = computed(() => {
   return [ns.b("menu"), ns.bm("menu", size?.value)];
 });
 
-const visiable = ref(false)
+const visiable = ref(false);
 const handleVisibilty = () => {
-  visiable.value = !visiable.value
-}
+  visiable.value = !visiable.value;
+};
 
 const hideDropDown = () => {
-  visiable.value = false
-}
+  visiable.value = false;
+};
 </script>
-
-
 
 <style scoped>
 .translate-fade-down-enter-active,
 .translate-fade-down-leave-active {
   transition: all 250ms;
-  transition-timing-function: cubic-bezier(.53, 2, .36, .85);
+  transition-timing-function: cubic-bezier(0.53, 2, 0.36, 0.85);
 }
 
 .translate-fade-down-enter,

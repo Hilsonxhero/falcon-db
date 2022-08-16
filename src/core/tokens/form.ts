@@ -1,3 +1,5 @@
+
+//@ts-nocheck
 import type { InjectionKey, SetupContext, UnwrapRef } from 'vue'
 import type {
   RuleItem,

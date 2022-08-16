@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import objectPath from "object-path";
 import { Actions } from "@/store/enums/StoreEnums";
 import store from "@/store/";

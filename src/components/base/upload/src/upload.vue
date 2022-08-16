@@ -59,7 +59,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch } from "vue";
+//@ts-nocheck
+import { computed, onMounted, ref, watch, watchEffect } from "vue";
 import { useNamespace } from "@/core/hooks";
 import { addUnit, isNumber, isString, isEmpty } from "@/core/utils";
 import { avatarEmits, avatarProps } from "./upload";
@@ -118,11 +119,15 @@ watch(
   { deep: true }
 );
 
+watchEffect(() => {
+  if (props.sources) {
+    if (isString(props.sources)) files.value.push({ url: props.sources });
+  }
+});
+
 watch(
   () => props.sources,
   (val, prev) => {
-    console.log("props.sources", props.sources);
-
     if (isString(props.sources)) files.value.push({ url: props.sources });
 
     // props.sources.map((file, index) => {

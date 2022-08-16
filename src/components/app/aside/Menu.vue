@@ -138,6 +138,7 @@
 </template>
 
 <script lang="ts" setup>
+//@ts-nocheck
 import { defineComponent, onMounted, ref } from "vue";
 // import { useI18n } from "vue-i18n/index";
 import { useLocale } from "@/core/hooks";

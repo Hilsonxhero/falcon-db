@@ -1,35 +1,48 @@
 <template>
-  <div class="w-full">
-    <section>
-      <Form ref="formRef" @submit="handleUpdate">
-        <hx-tabs v-model="activeName">
-          <hx-tab-pane label="تنظیمات اولیه" name="setting">
-            <Setting v-model="data" :data="data" />
-          </hx-tab-pane>
-          <hx-tab-pane label="ترکیبات" name="variants">
-            <Variants v-model="selectedVariants" />
-          </hx-tab-pane>
+  <hx-skeleton animated :loading="loading">
+    <template #template>
+      <hx-skeleton-item variant="card"></hx-skeleton-item>
+      <hx-skeleton-item variant="card"></hx-skeleton-item>
+      <div class="space-x-reverse space-x-2">
+        <hx-skeleton-item variant="button"></hx-skeleton-item>
+        <hx-skeleton-item variant="button"></hx-skeleton-item>
+      </div>
+    </template>
 
-          <!-- <hx-tab-pane label="سئو" name="seo">سئو</hx-tab-pane> -->
-        </hx-tabs>
-        <div class="w-full">
-          <div class="w-full flex items-center justify-between my-4">
-            <div class="flex items-center space-x-3 space-x-reverse">
-              <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
-              <hx-button variant="light" :to="{ name: 'products index' }">
-                لغو
-              </hx-button>
+    <template #default>
+      <div class="w-full">
+        <section>
+          <Form ref="formRef" @submit="handleUpdate">
+            <hx-tabs v-model="activeName">
+              <hx-tab-pane label="تنظیمات اولیه" name="setting">
+                <Setting v-model="data" :data="data" />
+              </hx-tab-pane>
+              <hx-tab-pane label="ترکیبات" name="variants">
+                <Variants v-model="selectedVariants" />
+              </hx-tab-pane>
+
+              <!-- <hx-tab-pane label="سئو" name="seo">سئو</hx-tab-pane> -->
+            </hx-tabs>
+            <div class="w-full">
+              <div class="w-full flex items-center justify-between my-4">
+                <div class="flex items-center space-x-3 space-x-reverse">
+                  <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
+                  <hx-button variant="light" :to="{ name: 'products index' }">
+                    لغو
+                  </hx-button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </Form>
-    </section>
-  </div>
+          </Form>
+        </section>
+      </div>
+    </template>
+  </hx-skeleton>
 </template>
 
 <script setup lang="ts">
 //@ts-nocheck
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watchEffect } from "vue";
 import ApiService from "@/core/services/ApiService";
 import { useRouter, useRoute } from "vue-router";
 import { HxNotification } from "@/components/base/notification";
@@ -42,6 +55,7 @@ const data = ref({});
 const id = ref(null);
 const activeName = ref("setting");
 const loader = ref(false);
+const loading = ref(true);
 const selectedVariants = ref([]);
 const router = useRouter();
 const route = useRoute();
@@ -75,14 +89,30 @@ const handleUpdate = async (values, { resetForm }) => {
   } catch (e) {}
 };
 
-onMounted(() => {
-  id.value = route.params.id;
-  ApiService.get(`products/${id.value}`).then(({ data: product }) => {
+watchEffect(() => {
+  if (formRef.value) {
+    formRef.value.setValues({
+      ...data.value,
+    });
+  }
+});
+
+const fetchData = async () => {
+  try {
+    const { data: product } = await ApiService.get(`products/${id.value}`);
     data.value = product.data;
     selectedVariants.value = product.data.variants;
-    formRef.value.setValues({
-      ...product.data,
-    });
-  });
+    loading.value = false;
+  } catch (e) {}
+};
+
+onMounted(() => {
+  id.value = route.params.id;
+  fetchData();
+  // ApiService.get(`products/${id.value}`).then(({ data: product }) => {
+  //   data.value = product.data;
+  //   selectedVariants.value = product.data.variants;
+  //   loading.value = false;
+  // });
 });
 </script>

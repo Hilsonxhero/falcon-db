@@ -67,6 +67,7 @@
 </template>
 
 <script setup lang="ts">
+//@ts-nocheck
 import { ref, onMounted, watch } from "vue";
 import { HxNotification } from "@/components/base/notification";
 import ApiService from "@/core/services/ApiService";

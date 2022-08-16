@@ -1,3 +1,5 @@
+
+//@ts-nocheck
 import type { ConfigProviderProps } from '@/core/components/config-provider'
 import type { InjectionKey, Ref } from 'vue'
 

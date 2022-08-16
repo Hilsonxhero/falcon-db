@@ -145,6 +145,7 @@
 </template>
 
 <script setup lang="ts">
+//@ts-nocheck
 import { onMounted, ref } from "vue";
 import ApiService from "@/core/services/ApiService";
 import { useRoute, useRouter } from "vue-router";

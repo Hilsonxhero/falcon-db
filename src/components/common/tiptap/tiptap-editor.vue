@@ -70,6 +70,7 @@
 </template>
 
 <script lang="ts" setup>
+//@ts-nocheck
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
