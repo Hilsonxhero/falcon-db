@@ -9,7 +9,7 @@ export default {
       component: () =>
         import(/* webpackChunkName: "home" */ "@/views/app/dashboard.vue"),
     },
-
+    //categories
     {
       path: "/categories",
       name: "categories index",
@@ -29,6 +29,50 @@ export default {
       component: () =>
         import("@/views/app/categories/edit.vue"),
     },
+
+    // categories slide
+    {
+      path: "/categories/slides",
+      name: "categories slides index",
+      component: () =>
+        import("@/views/app/categories/slides/index.vue"),
+    },
+
+    {
+      path: "/categories/slides/create",
+      name: "categories slides create",
+      component: () =>
+        import("@/views/app/categories/slides/create.vue"),
+    },
+    {
+      path: "/categories/slides/edit/:id",
+      name: "categories slides edit",
+      component: () =>
+        import("@/views/app/categories/slides/edit.vue"),
+    },
+
+    // categories banners
+    {
+      path: "/categories/banners",
+      name: "categories banners index",
+      component: () =>
+          import("@/views/app/categories/banners/index.vue"),
+    },
+
+    {
+      path: "/categories/banners/create",
+      name: "categories banners create",
+      component: () =>
+          import("@/views/app/categories/banners/create.vue"),
+    },
+    {
+      path: "/categories/banners/edit/:id",
+      name: "categories banners edit",
+      component: () =>
+          import("@/views/app/categories/banners/edit.vue"),
+    },
+
+
 
     {
       path: "/brands",
@@ -194,6 +238,7 @@ export default {
       component: () =>
         import("@/views/app/products/features/index.vue"),
     },
+
     {
       path: "/products/:id/features/:value/edit",
       name: "products feature edit",
