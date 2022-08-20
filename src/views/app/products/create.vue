@@ -69,6 +69,8 @@ const handleCreate = async (values, { resetForm }) => {
     });
     loader.value = false;
     router.push({ name: "products index" });
-  } catch (e) {}
+  } catch (e) {
+    loader.value = false;
+  }
 };
 </script>

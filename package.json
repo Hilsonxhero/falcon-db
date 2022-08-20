@@ -42,7 +42,8 @@
     "vue-i18n": "^9.1.10",
     "vue-inline-svg": "^3.1.0",
     "vue-router": "^4.0.13",
-    "vue3-apexcharts": "^1.4.1"
+    "vue3-apexcharts": "^1.4.1",
+    "vue3-persian-datetime-picker": "^1.2.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.0",

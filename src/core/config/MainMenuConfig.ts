@@ -62,10 +62,10 @@ const DocMenuConfig = [
           //   heading: "تخفیف ها",
           //   route: "",
           // },
-          // {
-          //   heading: "محصولات شگفت انگیز",
-          //   route: "",
-          // },
+          {
+            heading: "محصولات شگفت انگیز",
+            route: "products incredibles index",
+          },
 
           // {
           //   heading: "موجودی ها",

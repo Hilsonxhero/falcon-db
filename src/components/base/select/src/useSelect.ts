@@ -294,11 +294,13 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   const debouncedOnInputChange = lodashDebounce(onInputChange, debounce.value)
 
   const handleQueryChange = (val: string) => {
+
     if (states.previousQuery === val) {
       return
     }
     states.previousQuery = val
     if (props.filterable && isFunction(props.filterMethod)) {
+
       props.filterMethod(val)
     } else if (
       props.filterable &&

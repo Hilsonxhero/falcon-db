@@ -8,7 +8,6 @@
         <hx-skeleton-item variant="button"></hx-skeleton-item>
       </div>
     </template>
-
     <template #default>
       <div class="w-full">
         <section>
@@ -86,7 +85,9 @@ const handleUpdate = async (values, { resetForm }) => {
     });
     loader.value = false;
     router.push({ name: "products index" });
-  } catch (e) {}
+  } catch (e) {
+    loader.value = false;
+  }
 };
 
 watchEffect(() => {
@@ -103,7 +104,9 @@ const fetchData = async () => {
     data.value = product.data;
     selectedVariants.value = product.data.variants;
     loading.value = false;
-  } catch (e) {}
+  } catch (e) {
+
+  }
 };
 
 onMounted(() => {
