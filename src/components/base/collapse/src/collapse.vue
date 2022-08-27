@@ -14,9 +14,11 @@ import { collapseContextKey } from "@/core/tokens";
 import type { CollapseActiveName } from "./collapse";
 import { collapseEmits } from "./collapse";
 export type CollapseModelValue = Arrayable<CollapseActiveName>;
+
 defineOptions({
-  name: 'HxCollapse',
-})
+  name: "HxCollapse",
+});
+
 const props = defineProps({
   accordion: Boolean,
   menu: Boolean,
@@ -44,7 +46,7 @@ const handleItemClick = (name: CollapseActiveName) => {
   if (props.accordion) {
     setActiveNames([
       (activeNames.value[0] || activeNames.value[0] === 0) &&
-        activeNames.value[0] === name
+      activeNames.value[0] === name
         ? ""
         : name,
     ]);
@@ -79,5 +81,4 @@ defineExpose({
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

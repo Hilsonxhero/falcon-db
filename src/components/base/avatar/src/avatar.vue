@@ -16,6 +16,10 @@
 </template>
 
 <script lang="ts" setup>
+defineOptions({
+  name: "HxAvatar",
+});
+
 import { computed, ref, watch } from "vue";
 import { useNamespace } from "@/core/hooks";
 import { addUnit, isNumber, isString } from "@/core/utils";

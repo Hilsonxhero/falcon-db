@@ -694,7 +694,14 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
         )
 
 
+
+
+
+
         if (~selectedItemIndex) {
+          console.log("props.modelValue", props.modelValue);
+          update(getValueKey(options[selectedItemIndex]))
+          // selectNewOption(options[selectedItemIndex])
           states.selectedLabel = options[selectedItemIndex][props.label]
           if (states.selectedLabel === undefined) states.selectedLabel = options[selectedItemIndex]
           updateHoveringIndex(selectedItemIndex)

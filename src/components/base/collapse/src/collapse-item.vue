@@ -1,48 +1,65 @@
 <template>
-  <div :class="[
-    ns.b('item'),
-    ns.is('active', isActive),
-    ns.is('disabled', disabled),
-    ns.is('menu', menu),
-  ]">
-    <div role="tab" :aria-expanded="isActive" :aria-controls="ns.b(`content-${id}`)"
-      :aria-describedby="ns.b(`content-${id}`)">
-      <div :id="ns.b(`head-${id}`)" :class="[
-        ns.be('item', 'header'),
-        ns.is('active', isActive),
-        ns.is('menu', menu),
-        { focusing: focusing && !disabled },
-      ]" role="button" :tabindex="disabled ? -1 : 0" @click="handleHeaderClick"
-        @keypress.space.enter.stop.prevent="handleEnterClick" @focus="handleFocus" @blur="focusing = false">
+  <div
+    :class="[
+      ns.b('item'),
+      ns.is('active', isActive),
+      ns.is('disabled', disabled),
+      ns.is('menu', menu),
+    ]"
+  >
+    <div
+      role="tab"
+      :aria-expanded="isActive"
+      :aria-controls="ns.b(`content-${id}`)"
+      :aria-describedby="ns.b(`content-${id}`)"
+    >
+      <div
+        :id="ns.b(`head-${id}`)"
+        :class="[
+          ns.be('item', 'header'),
+          ns.is('active', isActive),
+          ns.is('menu', menu),
+          { focusing: focusing && !disabled },
+        ]"
+        role="button"
+        :tabindex="disabled ? -1 : 0"
+        @click="handleHeaderClick"
+        @keypress.space.enter.stop.prevent="handleEnterClick"
+        @focus="handleFocus"
+        @blur="focusing = false"
+      >
         <slot name="title">{{ title }}</slot>
 
-
-
-
-
         <template v-if="menu">
-          <hx-icon icon="arrow-left" class="w-6 h-6 left-[10px] absolute text-gray-400"
-            :class="[ns.be('item', 'arrow'), ns.is('active', isActive)]"></hx-icon>
+          <hx-icon
+            icon="arrow-left"
+            class="w-6 h-6 left-[10px] absolute text-gray-400"
+            :class="[ns.be('item', 'arrow'), ns.is('active', isActive)]"
+          ></hx-icon>
         </template>
 
         <template v-else>
           <hx-button icon variant="gray">
-            <hx-icon icon="arrow-left" class="w-6 h-6" :class="[ns.be('item', 'arrow'), ns.is('active', isActive)]">
+            <hx-icon
+              icon="arrow-left"
+              class="w-6 h-6"
+              :class="[ns.be('item', 'arrow'), ns.is('active', isActive)]"
+            >
             </hx-icon>
           </hx-button>
         </template>
-
-
-
-
       </div>
     </div>
     <hx-collapse-transition>
-      <div v-show="isActive" :id="ns.b(`content-${id}`)" :class="ns.be('item', 'wrap')" role="tabpanel"
-        :aria-hidden="!isActive" :aria-labelledby="ns.b(`head-${id}`)">
-        <div :class="[
-          ns.be('item', 'content'), menu && ns.be('item', 'menu')
-        ]">
+      <div
+        v-show="isActive"
+        :id="ns.b(`content-${id}`)"
+        :class="ns.be('item', 'wrap')"
+        role="tabpanel"
+        :aria-hidden="!isActive"
+        :aria-labelledby="ns.b(`head-${id}`)"
+      >
+        <div :class="[ns.be('item', 'content'), menu && ns.be('item', 'menu')]">
           <slot />
         </div>
       </div>
@@ -68,8 +85,8 @@ import { collapseContextKey } from "@/core/tokens";
 import type { CollapseActiveName } from "./collapse";
 
 defineOptions({
-  name: 'HxCollapseItem',
-})
+  name: "HxCollapseItem",
+});
 
 const props = defineProps({
   title: {

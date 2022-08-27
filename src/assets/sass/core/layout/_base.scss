@@ -343,3 +343,7 @@ $value in $theme-colors {
     color: $danger;
     padding-top: .4rem;
 }
+
+.vpd-input-group input {
+    width: 100%;
+}
