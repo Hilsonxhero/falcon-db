@@ -187,56 +187,61 @@ const DocMenuConfig = [
     ],
   },
 
-  // {
-  //   heading: "بهبود و طراحی",
-  //   route: "",
-  //   pages: [
-  //     {
-  //       sectionTitle: "ماژول ها",
-  //       route: "",
-  //       svgIcon: "selection",
-  //       sub: [
-  //         {
-  //           heading: "لیست ماژول ها",
-  //           route: "",
-  //         },
+  {
+    heading: "بهبود و طراحی",
+    route: "",
+    pages: [
+      // {
+      //   sectionTitle: "ماژول ها",
+      //   route: "",
+      //   svgIcon: "selection",
+      //   sub: [
+      //     {
+      //       heading: "لیست ماژول ها",
+      //       route: "",
+      //     },
 
-  //       ],
-  //     },
+      //   ],
+      // },
 
-  //     {
-  //       sectionTitle: "طراحی و قالب",
-  //       route: "",
-  //       svgIcon: "slider-alt",
-  //       sub: [
-  //         {
-  //           heading: "قالب و لوگو",
-  //           route: "",
-  //         },
-  //         {
-  //           heading: "ساختار ایمیل",
-  //           route: "",
-  //         },
+      {
+        sectionTitle: "طراحی و قالب",
+        route: "",
+        svgIcon: "slider-alt",
+        sub: [
+          {
+            heading: "تنظیمات",
+            route: "setting variables index",
+          },
+          // {
+          //   heading: "ساختار ایمیل",
+          //   route: "",
+          // },
 
-  //         {
-  //           heading: "تنظیمات تصاویر",
-  //           route: "",
-  //         },
+          // {
+          //   heading: "تنظیمات تصاویر",
+          //   route: "",
+          // },
 
-  //         {
-  //           heading: "موقعیت ها",
-  //           route: "",
-  //         },
-  //         {
-  //           heading: "صفحه ها",
-  //           route: "",
-  //         },
+          // {
+          //   heading: "موقعیت ها",
+          //   route: "",
+          // },
+          {
+            heading: "بنرها",
+            route: "setting banners index",
+          },
 
-  //       ],
-  //     },
+          {
+            heading: "صفحات",
+            route: "setting pages index",
+          },
 
-  //   ],
-  // },
+        ],
+      },
+
+    ],
+  },
 
 
 

@@ -86,6 +86,10 @@ import { ref, onMounted, onUnmounted, watch } from "vue";
 const ns = useNamespace("tiptap");
 const props = defineProps({
   content: {},
+  placeholder: {
+    type: String,
+    default: "..",
+  },
 });
 const emit = defineEmits(["update:modelValue"]);
 
@@ -158,7 +162,7 @@ onMounted(() => {
       }),
       Placeholder.configure({
         // emptyEditorClass: 'is-editor-empty',
-        placeholder: "توضیحات محصول ..",
+        placeholder: props.placeholder,
       }),
       TextStyle,
       Highlight,

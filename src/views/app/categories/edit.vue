@@ -122,7 +122,7 @@
                 <hx-upload
                   :max="1"
                   v-model="form.image"
-                  :src="form.media.main"
+                  :sources="form.media.main"
                 ></hx-upload>
               </div>
             </div>
@@ -146,7 +146,7 @@
 
 <script setup lang="ts">
 //@ts-nocheck
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
 import ApiService from "@/core/services/ApiService";
 import { useRoute, useRouter } from "vue-router";
 import { HxNotification } from "@/components/base/notification";
@@ -211,6 +211,14 @@ const handleUpdate = async (values, { resetForm }) => {
     router.push({ name: "categories index" });
   } catch (e) {}
 };
+
+watchEffect(() => {
+  if (formRef.value) {
+    formRef.value.setValues({
+      ...form.value,
+    });
+  }
+});
 
 onMounted(() => {
   id.value = route.params.id;

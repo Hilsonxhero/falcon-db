@@ -388,5 +388,61 @@ export default {
         },
 
 
+
+        // setting slide
+        {
+            path: "/setting/banners",
+            name: "setting banners index",
+            component: () =>
+                import("@/views/app/setting/banners/index.vue"),
+        },
+
+        {
+            path: "/setting/banners/create",
+            name: "setting banners create",
+            component: () =>
+                import("@/views/app/setting/banners/create.vue"),
+        },
+        {
+            path: "/setting/banners/edit/:id",
+            name: "setting banners edit",
+            component: () =>
+                import("@/views/app/setting/banners/edit.vue"),
+        },
+
+
+        // setting pages
+        {
+            path: "/setting/pages",
+            name: "setting pages index",
+            component: () =>
+                import("@/views/app/setting/pages/index.vue"),
+        },
+
+        {
+            path: "/setting/pages/create",
+            name: "setting pages create",
+            component: () =>
+                import("@/views/app/setting/pages/create.vue"),
+        },
+        {
+            path: "/setting/pages/edit/:id",
+            name: "setting pages edit",
+            component: () =>
+                import("@/views/app/setting/pages/edit.vue"),
+        },
+
+        // setting variables
+        {
+            path: "/setting/variables",
+            name: "setting variables index",
+            component: () =>
+                import("@/views/app/setting/variables/index.vue"),
+        },
+
+
+
+
+
     ],
 };

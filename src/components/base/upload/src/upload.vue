@@ -60,13 +60,10 @@
 
 <script lang="ts" setup>
 //@ts-nocheck
-import { computed, onMounted, ref, watch, watchEffect } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useNamespace } from "@/core/hooks";
-import { addUnit, isNumber, isString, isEmpty } from "@/core/utils";
-import { avatarEmits, avatarProps } from "./upload";
+import { isString } from "@/core/utils";
 import useBase64 from "@/core/hooks/use-base64";
-import type { CSSProperties } from "vue";
-
 const props = defineProps({
   max: {
     type: Number,
@@ -88,19 +85,26 @@ const uploadRef = ref(null);
 const files = ref<Array<any>>([]);
 const media = ref<any>({});
 
-const handleObjectURL = (event: any) => {
-  let base64File = useBase64(event);
-  console.log("base64File", base64File.value);
-  media.value.media = base64File;
-  media.value.name = event.target.files[0].name;
-  media.value.url = URL.createObjectURL(event.target.files[0]);
+const handleObjectURL = async (event: any) => {
+  const file = event.target.files[0];
+  media.value.media = await useBase64(file);
+  media.value.name = file.name;
+  media.value.url = URL.createObjectURL(file);
   if (files.value.length >= props.max) return false;
   files.value.push({
-    file: base64File,
+    file: await useBase64(file),
     name: media.value.name,
     url: media.value.url,
   });
 };
+
+const toBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 
 const handleDeleteFile = (file, index) => {
   files.value.splice(index, 1);
@@ -111,50 +115,21 @@ watch(
   () => files.value,
   (val, oldVal) => {
     if (media.value.media && props.max === 1) {
+      console.log("wwwww");
       emit("update:modelValue", media.value.media);
     } else {
-      // emit("update:modelValue", val);
+      console.log("ssss");
+
+      emit("update:modelValue", files.value);
     }
   },
   { deep: true }
 );
 
-watchEffect(() => {
+onMounted(() => {
+  console.log("props.sources", props.sources);
   if (props.sources) {
     if (isString(props.sources)) files.value.push({ url: props.sources });
   }
-});
-
-watch(
-  () => props.sources,
-  (val, prev) => {
-    if (isString(props.sources)) files.value.push({ url: props.sources });
-
-    // props.sources.map((file, index) => {
-    //   files.value.push({
-    //     id: file.uuid,
-    //     name: "",
-    //     url: file.original_url,
-    //     file: [],
-    //   });
-    // });
-  }
-);
-
-onMounted(() => {
-  // if (props.src) files.value.push({ url: props.src });
-  // props.data.map((file, index) => {});
-  // if (props.data) files.value.push({ url: props.src });
-  // console.log("array", array);
-  // if (props.sources) {
-  //   props.sources.map((file, index) => {
-  //     files.value.push({
-  //       id: file.id,
-  //       name: "",
-  //       url: file.original_url,
-  //       file: [],
-  //     });
-  //   });
-  // }
 });
 </script>

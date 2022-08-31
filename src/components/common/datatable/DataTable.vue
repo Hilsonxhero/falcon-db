@@ -32,6 +32,7 @@
             >
               <template v-for="(cell, i) in tableHeader" :key="i">
                 <th
+                  class="w-20 max-w-[5rem]"
                   @click="
                     sort(
                       cell.sortingField ? cell.sortingField : cell.key,
