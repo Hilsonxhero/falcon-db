@@ -6,7 +6,6 @@ const DocMenuConfig = [
         route: "dashboard",
         svgIcon: "user-circle",
       },
-
     ],
   },
 
@@ -71,7 +70,6 @@ const DocMenuConfig = [
           //   heading: "موجودی ها",
           //   route: "",
           // },
-
         ],
       },
 
@@ -132,7 +130,6 @@ const DocMenuConfig = [
       //   ],
       // },
 
-
       // {
       //   sectionTitle: "آمار",
       //   route: "",
@@ -144,10 +141,8 @@ const DocMenuConfig = [
       //     },
       //   ],
       // },
-
     ],
   },
-
 
   {
     heading: "کاربران",
@@ -162,7 +157,6 @@ const DocMenuConfig = [
             heading: "لیست کاربران",
             route: "users index",
           },
-
         ],
       },
 
@@ -180,10 +174,8 @@ const DocMenuConfig = [
             heading: "لیست نقش های کاربری",
             route: "roles index",
           },
-
         ],
       },
-
     ],
   },
 
@@ -236,14 +228,28 @@ const DocMenuConfig = [
             heading: "صفحات",
             route: "setting pages index",
           },
-
         ],
       },
-
     ],
   },
 
-
+  {
+    heading: "محتوا",
+    route: "",
+    pages: [
+      {
+        sectionTitle: "مقالات",
+        route: "",
+        svgIcon: "car",
+        sub: [
+          {
+            heading: "مقالات",
+            route: "articles index",
+          },
+        ],
+      },
+    ],
+  },
 
   {
     heading: "ارسال",
@@ -262,11 +268,11 @@ const DocMenuConfig = [
             heading: "استان ها",
             route: "states index",
           },
-
         ],
       },
     ],
   },
+
   // {
   //   heading: "پرداخت",
   //   route: "",
@@ -314,7 +320,6 @@ const DocMenuConfig = [
   //     },
   //   ],
   // }
-
 ];
 
 export default DocMenuConfig;

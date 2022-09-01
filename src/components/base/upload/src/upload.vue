@@ -98,14 +98,6 @@ const handleObjectURL = async (event: any) => {
   });
 };
 
-const toBase64 = (file) =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-
 const handleDeleteFile = (file, index) => {
   files.value.splice(index, 1);
   emit("delete", file.id);
@@ -114,12 +106,11 @@ const handleDeleteFile = (file, index) => {
 watch(
   () => files.value,
   (val, oldVal) => {
-    if (media.value.media && props.max === 1) {
+    if (props.max === 1) {
       console.log("wwwww");
       emit("update:modelValue", media.value.media);
     } else {
       console.log("ssss");
-
       emit("update:modelValue", files.value);
     }
   },
@@ -127,7 +118,6 @@ watch(
 );
 
 onMounted(() => {
-  console.log("props.sources", props.sources);
   if (props.sources) {
     if (isString(props.sources)) files.value.push({ url: props.sources });
   }

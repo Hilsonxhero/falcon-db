@@ -16,7 +16,7 @@
         <input
           type="file"
           class="hidden"
-          id="file-input"
+          ref="upload"
           @change="uploadImageHandler"
         />
         <button
@@ -82,6 +82,7 @@ import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import { useNamespace } from "@/core/hooks";
 import { ref, onMounted, onUnmounted, watch } from "vue";
+import ApiService from "@/core/services/ApiService";
 
 const ns = useNamespace("tiptap");
 const props = defineProps({
@@ -98,8 +99,8 @@ defineOptions({
 });
 
 const show = ref(false);
+const upload = ref(false);
 const url = ref(null);
-const dropzone = ref<any>(null);
 const editor = ref<any>(null);
 const file = ref<any>(null);
 const color = ref<any>(null);
@@ -108,7 +109,7 @@ const showColorBox = () => {
   // document.getElementById("color-box").click();
 };
 const showFileHandler = () => {
-  // document.getElementById("file-input").click();
+  upload.value.click();
 };
 
 const handleSetLink = () => {
@@ -141,13 +142,11 @@ const uploadImageHandler = (event) => {
   file.value = event.target.files[0];
   const data = new FormData();
   data.append("file", file.value);
-  // axios
-  //     .post("/api/admin/upload/editor", data)
-  //     .then(({ data }) => {
-  //         console.log(data.data);
-  //         editor.value.commands.setImage({ src: data.data });
-  //     })
-  //     .catch((error) => { });
+  ApiService.post("/upload/editor", data)
+    .then(({ data }) => {
+      editor.value.commands.setImage({ src: data.data });
+    })
+    .catch((error) => {});
 };
 
 onMounted(() => {

@@ -141,6 +141,7 @@ const statuses = ref([
 ]);
 
 const types = ref([
+  { title: "بخش بالا منو", key: "header" },
   { title: "بخش زیر منو", key: "hero" },
   { title: "بخش بالا", key: "top" },
   { title: "بخش میانی", key: "middle" },
@@ -154,7 +155,7 @@ const handleCreate = async (values, { resetForm }) => {
     type: form.value.type,
     position: form.value.position,
     status: form.value.status,
-    banner: form.value.image,
+    image: form.value.image,
     page: form.value.page,
   };
 

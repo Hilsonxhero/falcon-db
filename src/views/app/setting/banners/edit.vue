@@ -176,6 +176,7 @@ const statuses = ref([
 ]);
 
 const types = ref([
+  { title: "بخش بالا منو", key: "header" },
   { title: "بخش زیر منو", key: "hero" },
   { title: "بخش بالا", key: "top" },
   { title: "بخش میانی", key: "middle" },
