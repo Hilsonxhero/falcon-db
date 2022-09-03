@@ -5,7 +5,7 @@
         <slot name="empty"></slot>
       </p>
     </div>
-
+    <!-- v-infinite-scroll="load" -->
     <ul ref="listRef" class="space-y-2 p-2 overflow-auto max-h-[12rem]" v-else>
       <OptionItem
         v-for="(item, index) in data"
@@ -47,6 +47,10 @@ const select = inject(selectV2InjectionKey)!;
 const ns = useNamespace("select");
 const cachedHeights = ref<Array<number>>([]);
 const listRef = ref(null);
+
+const load = () => {
+  console.log("Wwww");
+};
 
 // const scrollToItem = (index: number) => {
 //   const list = listRef.value as any

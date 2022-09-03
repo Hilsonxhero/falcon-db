@@ -250,6 +250,8 @@ const handleCreate = async (values, { resetForm }) => {
     form.value.variant = null;
     form.value.discount = null;
     form.value.expire_at = null;
+    products.value = [];
+    variants.value = [];
     resetForm();
     refresh.value = true;
     loader.value = false;

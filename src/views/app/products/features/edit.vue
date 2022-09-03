@@ -5,9 +5,7 @@
         <Form @submit="handleUpdate" class="w-full" ref="formRef">
           <div class="hx-card">
             <div class="hx-card__header">
-              <h4 class="text-gray-600 text-xl">
-                ویرایش مقدار {{ form.feature && form.feature.title }}
-              </h4>
+              <h4 class="text-gray-600 text-xl">ویرایش ویژگی</h4>
             </div>
             <div class="hx-card__body">
               <hx-form-group>
@@ -136,8 +134,8 @@ const fetchData = async () => {
       `products/${id.value}/features/${feature.value}`
     );
     form.value = data.data;
-    if (form.value.quantity) form.value.custom = true;
-    handleSelectFeature(form.value.feature);
+    if (!form.value.has_feature_value) form.value.custom = true;
+    // handleSelectFeature(form.value.feature);
     // selectedStatus.value = statuses.value.find(item => item.key == form.value.status).key
     formRef.value.setValues({
       ...data.data,
@@ -182,6 +180,8 @@ const handleUpdate = async (values, { resetForm }) => {
 };
 
 const handleSelectFeature = (val) => {
+  console.log("val", val);
+
   ApiService.get(`features/${val}/values`).then(({ data }) => {
     values.value = data.data;
   });

@@ -134,9 +134,7 @@ const handleCreate = async (values, { resetForm }) => {
 onMounted(async () => {
   id.value = route.params.id;
   const { data: categoriesData } = await ApiService.get(`categories`);
-  const { data: featuresData } = await ApiService.get(
-    `features/select/${id.value}`
-  );
+  const { data: featuresData } = await ApiService.get(`feature/select`);
   categories.value = categoriesData.data;
   features.value = featuresData.data;
 });

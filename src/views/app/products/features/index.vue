@@ -28,7 +28,7 @@
           <template v-slot:cell-feature="{ row: feature }">
             <div class="flex space-x-2 space-x-reverse">
               <div class="flex flex-col space-y-1">
-                <span class="">{{ feature?.feature }}</span>
+                <span class="">{{ feature?.feature.title }}</span>
               </div>
             </div>
           </template>
@@ -37,7 +37,7 @@
             <div
               class="overflow-hidden overflow-ellipsis whitespace-nowrap max-w-[10rem]"
             >
-              {{ feature.value }}
+              {{ feature.quantity }}
             </div>
           </template>
 
@@ -80,6 +80,8 @@
                 >
                   <hx-select
                     v-bind="field"
+                    remote
+                    :remote-method="handleSearch"
                     @change="handleSelectFeature"
                     value-key="id"
                     label="title"
@@ -225,6 +227,15 @@ watch(
   }
 );
 
+const handleSearch = (query) => {
+  console.log("query", query);
+  ApiService.query(`feature/select`, {
+    params: { q: query, doesnt_have_parent: 1 },
+  }).then(({ data }) => {
+    features.value = data.data?.data;
+  });
+};
+
 const handleCreate = async (values, { resetForm }) => {
   let formData = {
     product_id: id.value,
@@ -283,7 +294,9 @@ const handleSelectFeature = (val) => {
 };
 
 onMounted(() => {
-  ApiService.get(`features`).then(({ data }) => {
+  ApiService.query(`feature/select`, {
+    params: { doesnt_have_parent: 1 },
+  }).then(({ data }) => {
     features.value = data.data;
   });
 });

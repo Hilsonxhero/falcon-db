@@ -236,7 +236,7 @@ export default {
 
     {
       path: "/products/:id/variants/:value/edit",
-      name: "products feature edit",
+      name: "products variant edit",
       component: () => import("@/views/app/products/variants/edit.vue"),
     },
 

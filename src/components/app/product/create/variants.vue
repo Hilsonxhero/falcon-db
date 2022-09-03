@@ -142,6 +142,14 @@
                 type="datetime"
               ></date-picker>
             </hx-form-group>
+
+            <hx-form-group class="col-span-12" label="تنوع پیش فرض">
+              <hx-radio
+                v-model="variant.default_on"
+                label="تنوع پیش فرض"
+                name="default_on"
+              ></hx-radio>
+            </hx-form-group>
           </div>
         </div>
       </div>
@@ -319,6 +327,8 @@ const createVariant = () => {
         order_limit: 0,
         product: null,
         id: id,
+        discount_expire_at: null,
+        default_on: false,
       });
 
       const sameCombinations =

@@ -156,7 +156,7 @@ onMounted(async () => {
   id.value = route.params.id;
   const { data: categoriesData } = await ApiService.get(`categories`);
   const { data: featuresData } = await ApiService.get(
-    `features/select/${id.value}`
+    `feature/select/${id.value}`
   );
   categories.value = categoriesData.data;
   features.value = featuresData.data;
