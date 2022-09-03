@@ -145,10 +145,11 @@
 
             <hx-form-group class="col-span-12" label="تنوع پیش فرض">
               <hx-radio
+                :label="variant.default_on"
                 v-model="variant.default_on"
-                label="تنوع پیش فرض"
                 name="default_on"
-              ></hx-radio>
+                >تنوع پیش فرض</hx-radio
+              >
             </hx-form-group>
           </div>
         </div>

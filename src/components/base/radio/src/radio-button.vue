@@ -1,17 +1,36 @@
 <template>
-  <label>
-    <span class="ml-2 mt-1">
+  <label
+    :class="[
+      ns.b(),
+      ns.is('disabled', disabled),
+      ns.is('focus', focus),
+      ns.is('bordered', border),
+      ns.is('checked', modelValue === label),
+      ns.m(size),
+    ]"
+  >
+    <span
+      :class="[
+        ns.e('input'),
+        ns.is('disabled', disabled),
+        ns.is('checked', modelValue === label),
+      ]"
+    >
       <input
         ref="radioRef"
-        :value="modelValue"
-        :name="name"
+        v-model="modelValue"
+        :class="ns.e('original')"
+        :value="label"
+        :name="name || radioGroup?.name"
         :disabled="disabled"
         type="radio"
+        @focus="focus = true"
+        @blur="focus = false"
         @change="handleChange"
       />
-      <span></span>
+      <span :class="ns.e('inner')" />
     </span>
-    <span class="w-full" @keydown.stop>
+    <span class="mr-2" :class="ns.e('label')" @keydown.stop>
       <slot>
         {{ label }}
       </slot>
@@ -19,30 +38,26 @@
   </label>
 </template>
 
-<script setup lang="ts">
-import { computed, nextTick } from "vue";
+<script lang="ts" setup>
+import { nextTick } from "vue";
+import { useNamespace } from "@/core/hooks";
+import { radioEmits, radioProps } from "./radio";
+import { useRadio } from "./use-radio";
 
-const props = defineProps({
-  modelValue: [String, Number, Object, Array],
-  value: [String, Number, Object, Array],
-  disabled: {
-    type: Boolean,
-    default: () => false,
-  },
-  name: {
-    type: String,
-  },
-
-  label: {
-    type: String,
-  },
+defineOptions({
+  name: "ElRadio",
 });
-const emits = defineEmits(["update:modelValue", "change"]);
 
-function handleChange(e: any) {
-  console.log("e.target?.value", e.target?.value);
-  nextTick(() => emits("update:modelValue", e.target?.value));
+const props = defineProps(radioProps);
+const emit = defineEmits(radioEmits);
+
+const ns = useNamespace("radio");
+const { radioRef, radioGroup, focus, size, disabled, modelValue } = useRadio(
+  props,
+  emit
+);
+
+function handleChange() {
+  nextTick(() => emit("change", modelValue.value));
 }
 </script>
-
-<style scoped lang="scss"></style>
