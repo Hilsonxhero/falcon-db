@@ -221,7 +221,6 @@ onMounted(() => {
       });
   ApiService.get(`product/${id.value}/combinations`)
       .then(({data}) => {
-        console.log("data.data",data.data)
       })
       .catch(() => {
       });

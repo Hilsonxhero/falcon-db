@@ -226,7 +226,6 @@ const roles = ref<Array<any>>([]);
 const fetchData = async () => {
   try {
     const { data } = await ApiService.get("categories");
-    console.log("data", data.data);
     users.value = data.data;
   } catch (e) {}
 };

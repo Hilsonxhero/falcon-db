@@ -228,7 +228,6 @@ watch(
 );
 
 const handleSearch = (query) => {
-  console.log("query", query);
   ApiService.query(`feature/select`, {
     params: { q: query, doesnt_have_parent: 1 },
   }).then(({ data }) => {

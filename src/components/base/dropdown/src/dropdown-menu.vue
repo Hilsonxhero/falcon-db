@@ -26,7 +26,6 @@ const { onClickOutside } = useClickOutside();
 
 onClickOutside(dropdownRef, () => {
   if (visiable.value === true) {
-    console.log("here clickoutside");
     visiable.value = false;
   }
 });

@@ -46,7 +46,6 @@ const show = ref(false);
 const emits = defineEmits(["show-nav"]);
 
 const ww = () => {
-  console.log("ww");
   show.value = !show.value;
 };
 

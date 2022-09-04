@@ -292,7 +292,6 @@ const useEvent = (
   function handleChange(e: Event) {
     if (isLimitExceeded!.value) return
     const target = e.target as HTMLInputElement
-    // console.log("getLabeledValue(target.checked)", getLabeledValue(target.checked));
 
     emit('change', getLabeledValue(target.checked), e)
   }

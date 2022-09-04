@@ -205,7 +205,6 @@ function onPagerClick(event: UIEvent) {
   const pageCount = props.pageCount!;
   const currentPage = props.currentPage;
   const pagerCountOffset = props.pagerCount - 2;
-  console.log("target:", target.classList?.contains("more"));
 
   if (
     target.classList.contains("more") ||

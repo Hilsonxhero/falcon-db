@@ -119,9 +119,6 @@ const fetchData = () => {
     ).key;
     form.value.category = form.value.category.id;
     if (form.value.parent) form.value.parent = form.value.parent.id;
-
-    console.log("data.data", data.data);
-
     formRef.value.setValues({
       ...data.data,
     });

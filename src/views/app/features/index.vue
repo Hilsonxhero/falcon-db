@@ -131,8 +131,6 @@ const tableHeader = ref([
 ]);
 
 const handleDelete = (item: any, i: any) => {
-  console.log("i value:", i);
-
   HxMessageBox.confirm(
     `آیا از حذف ویژگی ${item.title} اطمینان دارید ؟!`,
     "پیام تایید",

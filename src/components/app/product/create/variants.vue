@@ -325,7 +325,6 @@ const createVariant = () => {
           (el) =>
             el.combinations.length !== variants.value[0]?.combinations.length
         ) == -1;
-      console.log("sameCombinations", sameCombinations);
       if (!sameCombinations) {
         const i = variants.value.findIndex((variant) => variant.id == id);
         variants.value.splice(i, 1);

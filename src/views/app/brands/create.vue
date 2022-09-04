@@ -163,7 +163,6 @@ const loading = ref(false);
 const fetchData = async () => {
   try {
     const { data } = await ApiService.get("categories");
-    console.log("data", data.data);
     brands.value = data.data;
   } catch (e) {}
 };

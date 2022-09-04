@@ -284,7 +284,6 @@ export default defineComponent({
     } as any);
 
     const { onClickOutside } = useClickOutside();
-    console.log("selectRef", API.selectRef);
 
     onClickOutside(API.selectRef, () => {
       API.expanded.value = false;

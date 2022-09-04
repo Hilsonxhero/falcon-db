@@ -291,7 +291,6 @@ const handleDelete = (item: any, i: any) => {
 };
 
 const handleSearchProduct = (query) => {
-  console.log("query", query);
   ApiService.query(`product/select`, {
     params: { q: query, doesnt_have_incredble: 1, doesnt_have_discount: 1 },
   }).then(({ data }) => {
@@ -300,7 +299,6 @@ const handleSearchProduct = (query) => {
 };
 
 const handleSelectProduct = (id) => {
-  console.log("id", id);
   ApiService.get(`products/${id}/variants`).then(({ data }) => {
     data.data.map((variant) => {
       let combination = [];

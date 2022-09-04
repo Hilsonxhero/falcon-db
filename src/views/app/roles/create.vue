@@ -98,7 +98,6 @@ onMounted(() => {
   ApiService.get("permissions")
     .then(({ data }) => {
       permissions.value = data.data;
-      console.log("data", data);
     })
     .catch(() => {});
 });

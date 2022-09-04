@@ -180,8 +180,6 @@ const handleUpdate = async (values, { resetForm }) => {
 };
 
 const handleSelectFeature = (val) => {
-  console.log("val", val);
-
   ApiService.get(`features/${val}/values`).then(({ data }) => {
     values.value = data.data;
   });

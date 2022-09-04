@@ -25,7 +25,6 @@ class ApiService {
         //     },
         //     error => {
         //         if (error.response.status == 404) {
-        //             console.log("dfgf");
         //             router.push({ name: "not-found" });
         //         }
 
@@ -48,7 +47,6 @@ class ApiService {
         //     },
         //     error => {
         //         if (error.response.status == 404) {
-        //             console.log("dfgf");
         //             router.push({ name: "not-found" });
         //         }
 

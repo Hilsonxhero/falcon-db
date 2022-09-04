@@ -160,7 +160,6 @@ const MESSAGE_BOX_DEFAULT_OPTS: Record<
 
 MESSAGE_BOX_VARIANTS.forEach((boxType) => {
   MessageBox[boxType] = messageBoxFactory(boxType)
-  // console.log("MessageBox[boxType]", MessageBox);
 })
 
 function messageBoxFactory(boxType: typeof MESSAGE_BOX_VARIANTS[number]) {

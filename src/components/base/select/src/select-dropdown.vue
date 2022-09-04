@@ -49,7 +49,6 @@ const cachedHeights = ref<Array<number>>([]);
 const listRef = ref(null);
 
 const load = () => {
-  console.log("Wwww");
 };
 
 // const scrollToItem = (index: number) => {
