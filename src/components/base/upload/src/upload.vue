@@ -107,10 +107,8 @@ watch(
   () => files.value,
   (val, oldVal) => {
     if (props.max === 1) {
-      console.log("wwwww");
       emit("update:modelValue", media.value.media);
     } else {
-      console.log("ssss");
       emit("update:modelValue", files.value);
     }
   },

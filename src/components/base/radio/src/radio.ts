@@ -11,6 +11,9 @@ export const radioPropsBase = buildProps({
     type: [String, Number, Boolean],
     default: "",
   },
+  value: {
+    type: [String, Number, Boolean],
+  },
 });
 
 export const radioProps = buildProps({
@@ -29,7 +32,7 @@ export const radioProps = buildProps({
 export const radioEmits = {
   [UPDATE_MODEL_EVENT]: (val: string | number | boolean) =>
     isString(val) || isNumber(val) || isBoolean(val),
-  [CHANGE_EVENT]: (val: string | number | boolean) =>
+  [CHANGE_EVENT]: (val: string | number | boolean | any) =>
     isString(val) || isNumber(val) || isBoolean(val),
 };
 

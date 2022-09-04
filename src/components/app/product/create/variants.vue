@@ -145,11 +145,10 @@
 
             <hx-form-group class="col-span-12" label="تنوع پیش فرض">
               <hx-radio
-                :label="variant.default_on"
-                v-model="variant.default_on"
+                :label="variant.id"
+                v-model="default_variant"
                 name="default_on"
-                >تنوع پیش فرض</hx-radio
-              >
+              ></hx-radio>
             </hx-form-group>
           </div>
         </div>
@@ -160,7 +159,7 @@
 
 <script setup lang="ts">
 //@ts-nocheck
-import { onMounted, onUnmounted, ref, watch, watchEffect } from "vue";
+import { onMounted, onUnmounted, ref, watch, watchEffect, computed } from "vue";
 import HxTable from "@/components/common/widgets/table/Table.vue";
 import ApiService from "@/core/services/ApiService";
 import { HxNotification } from "@/components/base/notification";
@@ -168,15 +167,7 @@ import { generateId } from "@/core/utils";
 import DatePicker from "vue3-persian-datetime-picker";
 import { HxMessageBox } from "@/components/base/message-box";
 
-import {
-  isEqual,
-  uniqBy,
-  uniqWith,
-  isLength,
-  isEqualWith,
-  differenceBy,
-  unionWith,
-} from "lodash-unified";
+import { isEqual, uniqBy, isLength, isEqualWith } from "lodash-unified";
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -193,8 +184,9 @@ const groups = ref<Array<any>>([]);
 const selectedGroups = ref<Array<any>>([]);
 const uniqueSelectedGroups = ref<Array<any>>([]);
 const show = ref(false);
-const date = ref("");
 const combinations = ref<Array<any>>([]);
+
+const default_variant = ref<any>(null);
 
 const handleDelete = (item: unknown, index: number) => {
   if (!item.product) return variants.value.splice(index, 1);
@@ -220,10 +212,6 @@ const handleDelete = (item: unknown, index: number) => {
     })
     .catch(() => {});
 };
-
-// const handleGenerateVariants = (arr: Array<any>) => {
-//
-// };
 
 const handleGenerateVariants = (arr) =>
   arr.reduce(
@@ -251,13 +239,17 @@ const handleVariantSubsetDup = (arr) => {
 watch(
   () => variants.value,
   (val, oldVal) => {
+    default_variant.value = val.find((item, index) => item.default_on == 1).id;
     emit("update:modelValue", val);
-    // val.map((variant, index) => {
-    //   combinations.value.push(variant.combinations)
-    // });
-  },
-  { deep: true }
+  }
 );
+
+watch(default_variant, (val: any, oldVal) => {
+  variants.value.map((variant, i) => {
+    variant.default_on = 0;
+  });
+  variants.value.find((item, index) => item.id == val).default_on = 1;
+});
 
 watch(
   () => props.modelValue,
@@ -288,10 +280,6 @@ const contains = (arr, item) => {
     }
   }
   return true;
-};
-
-const checkCombinations = () => {
-  return isEqualWith([...combinations.value], isLength);
 };
 
 const createVariant = () => {

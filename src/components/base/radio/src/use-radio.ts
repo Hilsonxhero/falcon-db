@@ -6,7 +6,11 @@ import type { SetupContext } from "vue";
 import type { RadioEmits, RadioProps } from "./radio";
 
 export const useRadio = (
-  props: { label: RadioProps["label"]; modelValue?: RadioProps["modelValue"] },
+  props: {
+    label: RadioProps["label"];
+    modelValue?: RadioProps["modelValue"];
+    value?: RadioProps["value"];
+  },
   emit?: SetupContext<RadioEmits>["emit"]
 ) => {
   const radioRef = ref<HTMLInputElement>();
@@ -28,6 +32,7 @@ export const useRadio = (
 
   const size = useSize(computed(() => radioGroup?.size));
   const disabled = useDisabled(computed(() => radioGroup?.disabled));
+  const value = computed(() => props.value);
   const focus = ref(false);
   const tabIndex = computed(() => {
     return disabled.value || (isGroup.value && modelValue.value !== props.label)
@@ -36,6 +41,7 @@ export const useRadio = (
   });
 
   return {
+    value,
     radioRef,
     isGroup,
     radioGroup,
