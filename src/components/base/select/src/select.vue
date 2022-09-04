@@ -287,8 +287,6 @@ export default defineComponent({
     console.log("selectRef", API.selectRef);
 
     onClickOutside(API.selectRef, () => {
-      console.log("wow");
-
       API.expanded.value = false;
     });
 
