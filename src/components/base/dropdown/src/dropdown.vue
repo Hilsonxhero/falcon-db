@@ -84,6 +84,10 @@ const props = defineProps({
   // },
 } as const);
 
+defineOptions({
+  name: "HxDropdown",
+});
+
 const { _elDropdownSize } = useDropdown();
 const size = _elDropdownSize.value;
 

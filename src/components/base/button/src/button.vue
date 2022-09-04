@@ -49,6 +49,7 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
 import { computed, PropType } from "vue";
 import { useRouter } from "vue-router";
 const props = defineProps({
@@ -99,6 +100,10 @@ const props = defineProps({
   to: {
     type: [String, Object],
   },
+});
+
+defineOptions({
+  name: "HxButton",
 });
 
 const router = useRouter();

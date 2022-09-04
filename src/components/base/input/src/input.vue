@@ -1,11 +1,15 @@
 <template>
   <div class="h-12 rounded-xl overflow-hidden relative">
-    <input class="form-input rounded-inherit border-2" :type="type" @input="input" :disabled="disabled"
-      :value="modelValue" :placeholder="placeholder" />
+    <input
+      class="form-input rounded-inherit border-2"
+      :type="type"
+      @input="input"
+      :disabled="disabled"
+      :value="modelValue"
+      :placeholder="placeholder"
+    />
   </div>
 </template>
-
-
 
 <script setup lang="ts">
 import { computed } from "vue";
@@ -24,6 +28,10 @@ const props = defineProps({
   },
 });
 const emits = defineEmits(["update:modelValue"]);
+
+defineOptions({
+  name: "HxInput",
+});
 
 const input = (e: any) => {
   emits("update:modelValue", e.target?.value);

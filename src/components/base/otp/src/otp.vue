@@ -39,6 +39,10 @@ const props = defineProps({
   },
 });
 
+defineOptions({
+  name: "HxOtp",
+});
+
 const emit = defineEmits(["update:modelValue"]);
 
 const values = ref(Array(length).fill(""));

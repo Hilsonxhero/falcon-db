@@ -1,8 +1,12 @@
 <template>
   <transition name="dropdown-fade">
-    <ul v-if="visiable" ref="dropdownRef"
+    <ul
+      v-if="visiable"
+      ref="dropdownRef"
       class="absolute normal-case font-normal xs:left-0 lg:left-0 bg-white shadow overflow-hidden rounded w-48 border mt-2 py-1 px-2 lg:z-20"
-      :class="dropdownKls" :tabindex="-1">
+      :class="dropdownKls"
+      :tabindex="-1"
+    >
       <slot />
     </ul>
   </transition>
@@ -15,12 +19,16 @@ import { useNamespace } from "@/core/hooks";
 import { DROPDOWN_INJECTION_KEY } from "./tokens";
 import useClickOutside from "@/core/hooks/useClickOutside";
 import { useDropdown } from "./useDropdown";
+
+defineOptions({
+  name: "HxDropdownMenu",
+});
+
 const ns = useNamespace("dropdown");
 const { _elDropdownSize } = useDropdown();
 const size = _elDropdownSize.value;
 
-const dropdownRef = ref(null)
-
+const dropdownRef = ref(null);
 
 const { onClickOutside } = useClickOutside();
 
@@ -29,7 +37,6 @@ onClickOutside(dropdownRef, () => {
     visiable.value = false;
   }
 });
-
 
 const dropdownKls = computed(() => {
   return [ns.b("menu"), ns.bm("menu", size?.value)];
@@ -41,7 +48,7 @@ const dropdownKls = computed(() => {
 //   isVisible.value = isVisible.value
 // }
 
-const visiable = inject("elDropdown", false)
+const visiable = inject("elDropdown", false);
 </script>
 
 <style scoped>

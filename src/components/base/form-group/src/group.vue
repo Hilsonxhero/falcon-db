@@ -9,7 +9,10 @@
 const props = defineProps({
   label: String,
 });
+
+defineOptions({
+  name: "HxFormGroup",
+});
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

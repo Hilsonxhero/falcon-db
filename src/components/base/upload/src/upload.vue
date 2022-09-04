@@ -78,6 +78,10 @@ const props = defineProps({
   },
 });
 
+defineOptions({
+  name: "HxUpload",
+});
+
 const emit = defineEmits(["fileChange", "update:modelValue", "delete"]);
 
 const ns = useNamespace("upload");

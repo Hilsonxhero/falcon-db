@@ -57,6 +57,10 @@ const props = defineProps({
   },
 });
 
+defineOptions({
+  name: "HxSlider",
+});
+
 // const emits = defineEmits(["update:modelValue"]);
 let priceGap = ref<number>(1000);
 let progress = ref<any>(null);

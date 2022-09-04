@@ -59,6 +59,9 @@ const props = defineProps({
     default: false,
   },
 });
+defineOptions({
+  name: "HxModal",
+});
 
 const showModal = ref(false);
 const modal = ref(null);

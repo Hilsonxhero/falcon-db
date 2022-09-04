@@ -19,6 +19,10 @@ const props = defineProps({
 });
 const emits = defineEmits(["update:modelValue"]);
 
+defineOptions({
+  name: "HxTextarea",
+});
+
 const input = (e: any) => {
   emits("update:modelValue", e.target?.value);
 };

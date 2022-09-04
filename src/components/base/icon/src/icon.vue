@@ -21,6 +21,10 @@ const props = defineProps({
     default: () => false,
   },
 });
+
+defineOptions({
+  name: "HxIcon",
+});
 </script>
 
 <style scoped></style>

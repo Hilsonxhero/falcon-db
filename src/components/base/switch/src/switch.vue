@@ -43,6 +43,10 @@ const props = defineProps({
 });
 const emits = defineEmits(["update:modelValue", "change"]);
 
+defineOptions({
+  name: "HxSwitch",
+});
+
 const checked = computed(() => props.modelValue === true);
 
 watch(checked, (val) => {

@@ -8,6 +8,10 @@
 import { useNamespace } from "@/core/hooks";
 import type { RendererElement } from "@vue/runtime-core";
 
+defineOptions({
+  name: "HxCollapseTransition",
+});
+
 const ns = useNamespace("collapse-transition");
 const on = {
   beforeEnter(el: RendererElement) {

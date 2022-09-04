@@ -45,6 +45,10 @@ const props = defineProps({
   },
 });
 
+defineOptions({
+  name: "HxBadge",
+});
+
 const vc = computed(() => {
   return props.outlined ? `color-${props.variant}` : `${props.variant}`;
 });
