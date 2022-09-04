@@ -239,7 +239,10 @@ const handleVariantSubsetDup = (arr) => {
 watch(
   () => variants.value,
   (val, oldVal) => {
-    default_variant.value = val.find((item, index) => item.default_on == 1).id;
+    if (variants.value.length >= 1)
+      default_variant.value = val.find(
+        (item, index) => item.default_on == 1
+      ).id;
     emit("update:modelValue", val);
   }
 );
