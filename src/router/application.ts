@@ -116,6 +116,68 @@ export default {
       component: () => import("@/views/app/shipments/edit.vue"),
     },
 
+    //shipment types
+
+    {
+      path: "/shipment/types",
+      name: "shipment types index",
+      component: () => import("@/views/app/shipments/types/index.vue"),
+    },
+
+    {
+      path: "/shipment/types/create",
+      name: "shipment types create",
+      component: () => import("@/views/app/shipments/types/create.vue"),
+    },
+
+    {
+      path: "/shipment/types/edit/:id",
+      name: "shipment types edit",
+      component: () => import("@/views/app/shipments/types/edit.vue"),
+    },
+
+    //delivery types
+
+    {
+      path: "delivery/types",
+      name: "delivery types index",
+      component: () => import("@/views/app/delivery/types/index.vue"),
+    },
+
+    {
+      path: "delivery/types/create",
+      name: "delivery types create",
+      component: () => import("@/views/app/delivery/types/create.vue"),
+    },
+
+    {
+      path: "delivery/types/edit/:id",
+      name: "delivery types edit",
+      component: () => import("@/views/app/delivery/types/edit.vue"),
+    },
+
+
+    //shipment type dates
+
+    {
+      path: "shipment/cities/:id/dates",
+      name: "shipment dates index",
+      component: () => import("@/views/app/shipments/dates/index.vue"),
+    },
+
+    {
+      path: "shipment/cities/:id/dates/create",
+      name: "shipment dates create",
+      component: () => import("@/views/app/shipments/dates/create.vue"),
+    },
+
+    {
+      path: "shipment/cities/:id/dates/edit/:date",
+      name: "shipment dates edit",
+      component: () => import("@/views/app/shipments/dates/edit.vue"),
+    },
+
+
     //users
 
     {

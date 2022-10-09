@@ -265,6 +265,14 @@ const DocMenuConfig = [
             route: "shipments index",
           },
           {
+            heading: "انوع  ارسال کالا",
+            route: "delivery types index",
+          },
+          {
+            heading: "انوع  حمل و نقل",
+            route: "shipment types index",
+          },
+          {
             heading: "استان ها",
             route: "states index",
           },

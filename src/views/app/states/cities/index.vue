@@ -56,6 +56,17 @@
               size="sm"
               icon
               :to="{
+                name: 'shipment dates index',
+                params: { id: city.id },
+              }"
+            >
+              <hx-icon icon="calendar"></hx-icon>
+            </hx-button>
+            <hx-button
+              variant="gray"
+              size="sm"
+              icon
+              :to="{
                 name: 'states city edit',
                 params: { id: id, value: city.id },
               }"
