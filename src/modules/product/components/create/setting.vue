@@ -147,12 +147,12 @@
           </div>
           <div class="hx-card__body">
             <!-- <Field
-              mode="passive"
-              name="media"
-              v-slot="{ field }"
-              rules="required"
-              label=" تصویر"
-            > -->
+                mode="passive"
+                name="media"
+                v-slot="{ field }"
+                rules="required"
+                label=" تصویر"
+              > -->
             <hx-upload
               :max="1"
               v-model="form.image"
@@ -160,10 +160,10 @@
               @delete="handleDeleteThumb"
             ></hx-upload>
             <!-- </Field>
-
-            <div class="invalid-feedback d-block">
-              <ErrorMessage name="media" />
-            </div> -->
+  
+              <div class="invalid-feedback d-block">
+                <ErrorMessage name="media" />
+              </div> -->
           </div>
         </div>
       </section>

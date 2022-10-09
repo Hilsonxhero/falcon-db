@@ -67,7 +67,7 @@
 
 <script setup lang="ts">
 //@ts-nocheck
-import HXMenu from "@/components/app/aside/Menu.vue";
+import HXMenu from "@/modules/dashboard/components/aside/Menu.vue";
 import { asideTheme } from "@/core/helpers/config";
 import { ref, inject } from "vue";
 // import { useI18n } from "vue-i18n/index";

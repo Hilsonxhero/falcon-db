@@ -46,9 +46,9 @@ import ApiService from "@/core/services/ApiService";
 import { useRouter, useRoute } from "vue-router";
 import { HxNotification } from "@/components/base/notification";
 import { Form } from "vee-validate";
-import Variants from "@/components/app/product/create/variants.vue";
-import Shipment from "@/components/app/product/create/shipment.vue";
-import Setting from "@/components/app/product/create/setting.vue";
+import Variants from "@/modules/product/components/create/variants.vue";
+import Shipment from "@/modules/product/components/create/shipment.vue";
+import Setting from "@/modules/product/components/create/setting.vue";
 
 const data = ref({});
 const id = ref(null);

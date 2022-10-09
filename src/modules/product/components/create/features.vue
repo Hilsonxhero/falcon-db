@@ -47,11 +47,11 @@
               </hx-form-group>
 
               <!-- <hx-form-group :label="`مقدار سفارشی `">
-                <hx-textarea
-                  v-model="feature.values[index]"
-                  placeholder="انتخاب  مقدار سفارشی"
-                />
-              </hx-form-group> -->
+                  <hx-textarea
+                    v-model="feature.values[index]"
+                    placeholder="انتخاب  مقدار سفارشی"
+                  />
+                </hx-form-group> -->
             </div>
           </div>
         </div>
