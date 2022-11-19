@@ -1,7 +1,7 @@
 <template>
   <section class="mb-6">
     <HxDataTable
-      :url="`shipment/cities/${shipment}/dates`"
+      :url="`shipment/cities/${type}/dates`"
       :single-item-index="index"
       search-placeholder="جستجوی  تاریخ"
       :table-header="tableHeader"
@@ -9,7 +9,7 @@
       :on-current-change="true"
     >
       <template #left>
-        <hx-button :to="{ name: 'shipment types create' }">
+        <hx-button :to="{ name: 'shipment dates create' }">
           نوع ارسال جدید
         </hx-button>
       </template>
@@ -26,8 +26,8 @@
         </div>
       </template>
 
-      <template v-slot:cell-shipment="{ row: shipment }">
-        <span class="">{{ shipment?.shipment?.title }}</span>
+      <template v-slot:cell-type="{ row: shipment }">
+        <span class="">{{ shipment?.type?.title }}</span>
       </template>
 
       <template v-slot:cell-date="{ row: shipment }">
@@ -43,15 +43,21 @@
           variant="gray"
           size="sm"
           icon
-          :to="{ name: 'shipment types edit', params: { id: shipment.id } }"
+          :to="{
+            name: 'shipment date intervals index',
+            params: { id: shipment.id },
+          }"
         >
-          <hx-icon icon="calendar"></hx-icon>
+          <hx-icon icon="time"></hx-icon>
         </hx-button>
         <hx-button
           variant="gray"
           size="sm"
           icon
-          :to="{ name: 'shipment types edit', params: { id: shipment.id } }"
+          :to="{
+            name: 'shipment dates edit',
+            params: { id: type, date: shipment.id },
+          }"
         >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>
@@ -78,7 +84,7 @@ import { useRoute, useRouter } from "vue-router";
 
 const checkedData = ref([]);
 
-const shipment = ref<any>(null);
+const type = ref<any>(null);
 
 const route = useRoute();
 
@@ -90,7 +96,7 @@ const tableHeader = ref([
 
   {
     name: "نوع ارسال",
-    key: "shipment",
+    key: "type",
     sortable: false,
   },
 
@@ -116,7 +122,7 @@ const index = ref(null);
 
 const handleDelete = (item: any, i: any) => {
   HxMessageBox.confirm(
-    `آیا از حذف نوع ارسال ${item.title} اطمینان دارید ؟!`,
+    `آیا از حذف نوع ارسال ${item?.shipment?.title} اطمینان دارید ؟!`,
     "پیام تایید",
     {
       confirmButtonText: "تایید",
@@ -125,20 +131,22 @@ const handleDelete = (item: any, i: any) => {
     }
   )
     .then(() => {
-      ApiService.delete(`shipment/types/${item.id}`).then(() => {
-        index.value = item.id;
-        HxNotification.success({
-          title: "عملیات موفقیت آمیز",
-          message: "روش ارسال موردنظر حذف شد",
-          showClose: true,
-          duration: 4000,
-          position: "bottom-right",
-        });
-      });
+      ApiService.delete(`shipment/cities/${type.value}/dates/${item.id}`).then(
+        () => {
+          index.value = item.id;
+          HxNotification.success({
+            title: "عملیات موفقیت آمیز",
+            message: "روش ارسال موردنظر حذف شد",
+            showClose: true,
+            duration: 4000,
+            position: "bottom-right",
+          });
+        }
+      );
     })
     .catch(() => {});
 };
-shipment.value = route.params.id;
+type.value = route.params.id;
 // onMounted(() => {
 //   shipment.value = route.params.id;
 // });

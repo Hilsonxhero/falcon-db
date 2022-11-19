@@ -6,27 +6,47 @@
           <div class="hx-card">
             <div class="hx-card__header">
               <h4 class="text-gray-600 text-xl">
-                ویرایش روش ارسال {{ form.title && form.title }}
+                ویرایش استان {{ form.name && form.name }}
               </h4>
             </div>
             <div class="hx-card__body">
               <hx-form-group>
                 <Field
                   mode="passive"
-                  name="title"
+                  name="name"
                   v-slot="{ field }"
                   rules="required"
                   label="عنوان"
                 >
                   <hx-input
                     v-bind="field"
-                    v-model="form.title"
-                    placeholder="عنوان"
+                    v-model="form.name"
+                    placeholder="نام استان"
                   ></hx-input>
                 </Field>
 
                 <div class="invalid-feedback d-block">
-                  <ErrorMessage name="title" />
+                  <ErrorMessage name="name" />
+                </div>
+              </hx-form-group>
+
+              <hx-form-group>
+                <Field
+                  mode="passive"
+                  name="zone_code"
+                  v-slot="{ field }"
+                  rules="required"
+                  label="کد منطقه"
+                >
+                  <hx-input
+                    v-bind="field"
+                    v-model="form.zone_code"
+                    placeholder="کد منطقه "
+                  ></hx-input>
+                </Field>
+
+                <div class="invalid-feedback d-block">
+                  <ErrorMessage name="zone_code" />
                 </div>
               </hx-form-group>
             </div>
@@ -35,7 +55,7 @@
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
               <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
-              <hx-button variant="light" :to="{ name: 'delivery types index' }">
+              <hx-button variant="light" :to="{ name: 'states index' }">
                 لغو
               </hx-button>
             </div>
@@ -58,33 +78,39 @@ const router = useRouter();
 const route = useRoute();
 const loading = ref(false);
 const formRef = ref<any>(null);
-const form = ref({
-  title: null,
-});
-const id = ref(null);
 const loader = ref(false);
+const form = ref({
+  zone_code: null,
+  name: "",
+});
+
+const id = ref(null);
+const types = ref(["checkbox", "color", "select", "size"]);
 
 const fetchData = async () => {
   try {
-    const { data } = await ApiService.get(`delivery/types/${id.value}`);
+    loading.value = true;
+    const { data } = await ApiService.get(`states/${id.value}`);
     form.value = data.data;
+    // form.value.type = types.value.find(d => d.value == form.value.type)
     formRef.value.setValues({
       ...data.data,
     });
-  } catch (e) {}
+    loading.value = false;
+  } catch (e) {
+    loading.value = false;
+  }
 };
 
 const handleUpdate = async (values, { resetForm }) => {
   let formData = {
-    title: form.value.title,
+    name: form.value.name,
+    zone_code: form.value.zone_code,
   };
 
   try {
     loader.value = true;
-    const { data } = await ApiService.put(
-      `delivery/types/${id.value}`,
-      formData
-    );
+    const { data } = await ApiService.put(`states/${id.value}`, formData);
     resetForm();
     HxNotification.success({
       title: "success",
@@ -94,7 +120,7 @@ const handleUpdate = async (values, { resetForm }) => {
       position: "bottom-right",
     });
     loader.value = false;
-    router.push({ name: "delivery types index" });
+    router.push({ name: "states index" });
   } catch (e) {}
 };
 

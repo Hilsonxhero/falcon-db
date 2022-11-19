@@ -1,15 +1,17 @@
 <template>
   <section class="mb-6">
     <HxDataTable
-      url="shipments"
+      :url="`shipment/cities/${city}/types`"
       :single-item-index="index"
-      search-placeholder="جستجوی انواع ارسال"
+      search-placeholder="جستجوی  تاریخ"
       :table-header="tableHeader"
       :enable-items-per-page-dropdown="false"
       :on-current-change="true"
     >
       <template #left>
-        <hx-button :to="{ name: 'shipments create' }">
+        <hx-button
+          :to="{ name: 'shipment cities create', params: { city: city } }"
+        >
           نوع ارسال جدید
         </hx-button>
       </template>
@@ -26,24 +28,36 @@
         </div>
       </template>
 
-      <template v-slot:cell-title="{ row: shipment }">
-        <span class="">{{ shipment?.title }}</span>
+      <template v-slot:cell-shipment="{ row: shipment }">
+        <span class="">{{ shipment?.shipment?.title }}</span>
       </template>
 
+      <template v-slot:cell-delivery="{ row: shipment }">
+        <span class="">{{ shipment?.delivery?.title }}</span>
+      </template>
+      <template v-slot:cell-city="{ row: shipment }">
+        <span class="">{{ shipment?.city?.name }}</span>
+      </template>
       <template v-slot:cell-actions="{ row: shipment, index: index }">
-        <!-- <hx-button
-            variant="gray"
-            size="sm"
-            icon
-            :to="{ name: 'shipment dates index', params: { id: shipment.id } }"
-          >
-            <hx-icon icon="calendar"></hx-icon>
-          </hx-button> -->
         <hx-button
           variant="gray"
           size="sm"
           icon
-          :to="{ name: 'shipments edit', params: { id: shipment.id } }"
+          :to="{
+            name: 'shipment dates index',
+            params: { id: shipment.id },
+          }"
+        >
+          <hx-icon icon="calendar"></hx-icon>
+        </hx-button>
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          :to="{
+            name: 'shipment cities edit',
+            params: { city: city, id: shipment.id },
+          }"
         >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>
@@ -70,6 +84,10 @@ import { useRoute, useRouter } from "vue-router";
 
 const checkedData = ref([]);
 
+const city = ref<any>(null);
+
+const route = useRoute();
+
 const tableHeader = ref([
   {
     key: "checkbox",
@@ -77,8 +95,19 @@ const tableHeader = ref([
   },
 
   {
-    name: "عنوان",
-    key: "title",
+    name: "نوع کالا",
+    key: "delivery",
+    sortable: false,
+  },
+
+  {
+    name: "نوع ارسال",
+    key: "shipment",
+    sortable: true,
+  },
+  {
+    name: " شهر",
+    key: "city",
     sortable: true,
   },
 
@@ -92,7 +121,7 @@ const index = ref(null);
 
 const handleDelete = (item: any, i: any) => {
   HxMessageBox.confirm(
-    `آیا از حذف نوع ارسال ${item.title} اطمینان دارید ؟!`,
+    `آیا از حذف نوع ارسال ${item?.shipment?.title} اطمینان دارید ؟!`,
     "پیام تایید",
     {
       confirmButtonText: "تایید",
@@ -101,18 +130,24 @@ const handleDelete = (item: any, i: any) => {
     }
   )
     .then(() => {
-      ApiService.delete(`shipments/${item.id}`).then(() => {
-        index.value = item.id;
-        HxNotification.success({
-          title: "عملیات موفقیت آمیز",
-          message: "روش ارسال موردنظر حذف شد",
-          showClose: true,
-          duration: 4000,
-          position: "bottom-right",
-        });
-      });
+      ApiService.delete(`shipment/cities/${city.value}/types/${item.id}`).then(
+        () => {
+          index.value = item.id;
+          HxNotification.success({
+            title: "عملیات موفقیت آمیز",
+            message: "روش ارسال موردنظر حذف شد",
+            showClose: true,
+            duration: 4000,
+            position: "bottom-right",
+          });
+        }
+      );
     })
     .catch(() => {});
 };
+city.value = route.params.city;
+// onMounted(() => {
+//   shipment.value = route.params.id;
+// });
 </script>
 <style></style>

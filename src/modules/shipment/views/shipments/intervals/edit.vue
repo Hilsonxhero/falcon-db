@@ -15,51 +15,84 @@
             <Form @submit="handleUpdate" class="w-full" ref="formRef">
               <div class="hx-card">
                 <div class="hx-card__header">
-                  <h4 class="text-gray-600 text-xl">ایجاد روش ارسال</h4>
+                  <h4 class="text-gray-600 text-xl">ویرایش بازه زمانی</h4>
                 </div>
                 <div class="hx-card__body">
-                  <!-- <hx-form-group label="نوع ارسال">
+                  <hx-form-group label="ساعت شروع">
                     <Field
                       mode="passive"
-                      name="type"
+                      name="start_at"
                       v-slot="{ field }"
                       rules="required"
-                      label="نوع ارسال"
-                    >
-                      <hx-select
-                        v-bind="field"
-                        value-key="id"
-                        label="title"
-                        v-model="form.type"
-                        filterable
-                        :options="types"
-                        placeholder="نوع ارسال"
-                      />
-                    </Field>
-
-                    <div class="invalid-feedback d-block">
-                      <ErrorMessage name="type" />
-                    </div>
-                  </hx-form-group> -->
-
-                  <hx-form-group label="تاریخ">
-                    <Field
-                      mode="passive"
-                      name="date"
-                      v-slot="{ field }"
-                      rules="required"
-                      label="تاریخ"
+                      label="ساعت شروع"
                     >
                       <date-picker
                         v-bind="field"
-                        v-model="form.date"
-                        type="date"
-                        simple
+                        v-model="form.start_at"
+                        type="time"
                       ></date-picker>
                     </Field>
 
                     <div class="invalid-feedback d-block">
-                      <ErrorMessage name="date" />
+                      <ErrorMessage name="start_at" />
+                    </div>
+                  </hx-form-group>
+
+                  <hx-form-group label="ساعت پایان">
+                    <Field
+                      mode="passive"
+                      name="end_at"
+                      v-slot="{ field }"
+                      rules="required"
+                      label="ساعت پایان"
+                    >
+                      <date-picker
+                        v-bind="field"
+                        v-model="form.end_at"
+                        type="time"
+                      ></date-picker>
+                    </Field>
+
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="end_at" />
+                    </div>
+                  </hx-form-group>
+
+                  <hx-form-group label=" هزینه ارسال">
+                    <Field
+                      mode="passive"
+                      name="shipping_cost"
+                      v-slot="{ field }"
+                      rules="required"
+                      label=" هزینه ارسال"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.shipping_cost"
+                      ></hx-input>
+                    </Field>
+
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="shipping_cost" />
+                    </div>
+                  </hx-form-group>
+
+                  <hx-form-group label="ظرفیت">
+                    <Field
+                      mode="passive"
+                      name="order_capacity"
+                      v-slot="{ field }"
+                      rules="required"
+                      label="ظرفیت"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.order_capacity"
+                      ></hx-input>
+                    </Field>
+
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="order_capacity" />
                     </div>
                   </hx-form-group>
                 </div>
@@ -71,8 +104,8 @@
                   <hx-button
                     variant="light"
                     :to="{
-                      name: 'shipment dates index',
-                      params: { id: form.type },
+                      name: 'shipment date intervals index',
+                      params: { id: shipment_date },
                     }"
                   >
                     لغو
@@ -100,24 +133,27 @@ const loading = ref(true);
 const loader = ref(false);
 const formRef = ref<any>(null);
 const form = ref<any>({
-  type: null,
-  date: null,
-  city: null,
+  start_at: null,
+  end_at: null,
+  shipping_cost: 0,
+  order_capacity: null,
 });
 
-const types = ref<Array<any>>([]);
+const shipment_date = ref<any>(null);
 
 const handleUpdate = async (values, { resetForm }) => {
-  let formData = {
-    shipment_type_city_id: form.value.type,
-    date: form.value.date,
-    is_holiday: 0,
+  let formData: any = {
+    shipment_type_date_id: shipment_date.value,
+    start_at: form.value.start_at,
+    end_at: form.value.end_at,
+    shipping_cost: form.value.shipping_cost,
+    order_capacity: form.value.order_capacity,
   };
 
   try {
     loader.value = true;
     const { data } = await ApiService.put(
-      `shipment/cities/${route.params.id}/dates/${route.params.date}`,
+      `shipment/dates/${shipment_date.value}/intervals/${route.params.interval}`,
       formData
     );
 
@@ -131,8 +167,8 @@ const handleUpdate = async (values, { resetForm }) => {
     });
     loader.value = false;
     router.push({
-      name: "shipment dates index",
-      params: { id: form.value.type },
+      name: "shipment date intervals index",
+      params: { id: route.params.id },
     });
   } catch (e) {}
 };
@@ -145,17 +181,12 @@ watchEffect(() => {
   }
 });
 
-ApiService.get("shipment/types")
-  .then(({ data }) => {
-    types.value = data.data;
-  })
-  .catch(() => {});
+shipment_date.value = route.params.id;
 
 ApiService.get(
-  `shipment/cities/${route.params.id}/dates/${route.params.date}`
+  `shipment/dates/${shipment_date.value}/intervals/${route.params.interval}`
 ).then(({ data }) => {
   form.value = data.data;
-  form.value.type = route.params.id;
   loading.value = false;
 });
 </script>

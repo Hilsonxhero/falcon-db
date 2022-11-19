@@ -23,44 +23,45 @@ export default {
             component: () => import("@/modules/shipment/views/shipments/edit.vue"),
         },
 
-        //shipment types
+
+        //deliveries
 
         {
-            path: "/shipment/types",
-            name: "shipment types index",
-            component: () => import("@/modules/shipment/views/shipments/types/index.vue"),
+            path: "deliveries",
+            name: "deliveries index",
+            component: () => import("@/modules/shipment/views/deliveries/index.vue"),
         },
 
         {
-            path: "/shipment/types/create",
-            name: "shipment types create",
-            component: () => import("@/modules/shipment/views/shipments/types/create.vue"),
+            path: "deliveries/create",
+            name: "deliveries create",
+            component: () => import("@/modules/shipment/views/deliveries/create.vue"),
         },
 
         {
-            path: "/shipment/types/edit/:id",
-            name: "shipment types edit",
-            component: () => import("@/modules/shipment/views/shipments/types/edit.vue"),
+            path: "deliveries/edit/:id",
+            name: "deliveries edit",
+            component: () => import("@/modules/shipment/views/deliveries/edit.vue"),
         },
 
-        //delivery types
+        //shipment type cities
 
         {
-            path: "delivery/types",
-            name: "delivery types index",
-            component: () => import("@/modules/shipment/views/delivery/types/index.vue"),
-        },
-
-        {
-            path: "delivery/types/create",
-            name: "delivery types create",
-            component: () => import("@/modules/shipment/views/delivery/types/create.vue"),
+            path: "shipment/cities/:city",
+            name: "shipment cities index",
+            component: () => import("@/modules/shipment/views/shipments/cities/index.vue"),
         },
 
         {
-            path: "delivery/types/edit/:id",
-            name: "delivery types edit",
-            component: () => import("@/modules/shipment/views/delivery/types/edit.vue"),
+            path: "shipment/cities/:city/create",
+            name: "shipment cities create",
+            component: () => import("@/modules/shipment/views/shipments/cities/create.vue"),
+        },
+
+        {
+            path: "shipment/cities/:city/edit/:id",
+            name: "shipment cities edit",
+            component: () => import("@/modules/shipment/views/shipments/cities/edit.vue"),
         },
 
 
@@ -82,6 +83,26 @@ export default {
             path: "shipment/cities/:id/dates/edit/:date",
             name: "shipment dates edit",
             component: () => import("@/modules/shipment/views/shipments/dates/edit.vue"),
+        },
+
+        //shipment date intervals
+
+        {
+            path: "shipment/date/:id/intervals",
+            name: "shipment date intervals index",
+            component: () => import("@/modules/shipment/views/shipments/intervals/index.vue"),
+        },
+
+        {
+            path: "shipment/date/:id/intervals/create",
+            name: "shipment date intervals create",
+            component: () => import("@/modules/shipment/views/shipments/intervals/create.vue"),
+        },
+
+        {
+            path: "shipment/date/:id/intervals/edit/:interval",
+            name: "shipment date intervals edit",
+            component: () => import("@/modules/shipment/views/shipments/intervals/edit.vue"),
         },
 
     ],

@@ -33,7 +33,7 @@
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
               <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
-              <hx-button variant="light" :to="{ name: 'delivery types index' }">
+              <hx-button variant="light" :to="{ name: 'deliveries index' }">
                 لغو
               </hx-button>
             </div>
@@ -67,7 +67,7 @@ const handleCreate = async (values, { resetForm }) => {
 
   try {
     loader.value = true;
-    const { data } = await ApiService.post(`delivery/types`, formData);
+    const { data } = await ApiService.post(`deliveries`, formData);
     resetForm();
     HxNotification.success({
       title: "success",
@@ -77,7 +77,7 @@ const handleCreate = async (values, { resetForm }) => {
       position: "bottom-right",
     });
     loader.value = false;
-    router.push({ name: "delivery types index" });
+    router.push({ name: "deliveries index" });
   } catch (e) {}
 };
 

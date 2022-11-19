@@ -1,16 +1,21 @@
 <template>
   <section class="mb-6">
     <HxDataTable
-      url="delivery/types"
+      :url="`shipment/dates/${shipment_date}/intervals`"
       :single-item-index="index"
-      search-placeholder="جستجوی انواع ارسال"
+      search-placeholder="جستجوی  تاریخ"
       :table-header="tableHeader"
       :enable-items-per-page-dropdown="false"
       :on-current-change="true"
     >
       <template #left>
-        <hx-button :to="{ name: 'delivery types create' }">
-          نوع ارسال جدید
+        <hx-button
+          :to="{
+            name: 'shipment date intervals create',
+            params: { id: shipment_date },
+          }"
+        >
+          بازه زمانی جدید
         </hx-button>
       </template>
       <template v-slot:cell-checkbox="{ row: shipment }">
@@ -26,12 +31,24 @@
         </div>
       </template>
 
-      <template v-slot:cell-title="{ row: shipment }">
-        <span class="">{{ shipment?.title }}</span>
+      <template v-slot:cell-shipment_date="{ row: shipment }">
+        <span class="">{{ shipment?.shipment_date?.date }}</span>
       </template>
 
-      <template v-slot:cell-code="{ row: shipment }">
-        <span class="">{{ shipment?.code }}</span>
+      <template v-slot:cell-start_at="{ row: shipment }">
+        <span class="">{{ shipment?.start_at }}</span>
+      </template>
+
+      <template v-slot:cell-end_at="{ row: shipment }">
+        <span class="">{{ shipment?.end_at }}</span>
+      </template>
+
+      <template v-slot:cell-shipping_cost="{ row: shipment }">
+        <span class=""> {{ $filters.separate(shipment?.shipping_cost) }}</span>
+      </template>
+
+      <template v-slot:cell-order_capacity="{ row: shipment }">
+        <span class="">{{ shipment?.order_capacity }}</span>
       </template>
 
       <template v-slot:cell-actions="{ row: shipment, index: index }">
@@ -39,7 +56,10 @@
           variant="gray"
           size="sm"
           icon
-          :to="{ name: 'delivery types edit', params: { id: shipment.id } }"
+          :to="{
+            name: 'shipment date intervals edit',
+            params: { id: shipment_date, interval: shipment.id },
+          }"
         >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>
@@ -66,6 +86,10 @@ import { useRoute, useRouter } from "vue-router";
 
 const checkedData = ref([]);
 
+const shipment_date = ref<any>(null);
+
+const route = useRoute();
+
 const tableHeader = ref([
   {
     key: "checkbox",
@@ -73,14 +97,31 @@ const tableHeader = ref([
   },
 
   {
-    name: "عنوان",
-    key: "title",
+    name: "تاریخ",
+    key: "shipment_date",
+    sortable: false,
+  },
+
+  {
+    name: "ساعت شروع",
+    key: "start_at",
     sortable: true,
   },
 
   {
-    name: "کد",
-    key: "code",
+    name: " ساعت پایان",
+    key: "end_at",
+    sortable: true,
+  },
+
+  {
+    name: "ظرفیت",
+    key: "order_capacity",
+    sortable: true,
+  },
+  {
+    name: "هزینه ارسال",
+    key: "shipping_cost",
     sortable: true,
   },
 
@@ -94,7 +135,7 @@ const index = ref(null);
 
 const handleDelete = (item: any, i: any) => {
   HxMessageBox.confirm(
-    `آیا از حذف نوع ارسال ${item.title} اطمینان دارید ؟!`,
+    `آیا از حذف نوع ارسال ${item?.shipment?.title} اطمینان دارید ؟!`,
     "پیام تایید",
     {
       confirmButtonText: "تایید",
@@ -103,7 +144,9 @@ const handleDelete = (item: any, i: any) => {
     }
   )
     .then(() => {
-      ApiService.delete(`delivery/types/${item.id}`).then(() => {
+      ApiService.delete(
+        `shipment/dates/${shipment_date.value}/intervals/${item.id}`
+      ).then(() => {
         index.value = item.id;
         HxNotification.success({
           title: "عملیات موفقیت آمیز",
@@ -116,5 +159,9 @@ const handleDelete = (item: any, i: any) => {
     })
     .catch(() => {});
 };
+shipment_date.value = route.params.id;
+// onMounted(() => {
+//   shipment.value = route.params.id;
+// });
 </script>
 <style></style>

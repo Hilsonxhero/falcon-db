@@ -1,7 +1,7 @@
 <template>
   <section class="mb-6">
     <HxDataTable
-      url="shipment/types"
+      url="shipments"
       :single-item-index="index"
       search-placeholder="جستجوی انواع ارسال"
       :table-header="tableHeader"
@@ -9,7 +9,7 @@
       :on-current-change="true"
     >
       <template #left>
-        <hx-button :to="{ name: 'shipment types create' }">
+        <hx-button :to="{ name: 'shipments create' }">
           نوع ارسال جدید
         </hx-button>
       </template>
@@ -43,7 +43,7 @@
           variant="gray"
           size="sm"
           icon
-          :to="{ name: 'shipment types edit', params: { id: shipment.id } }"
+          :to="{ name: 'shipments edit', params: { id: shipment.id } }"
         >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>
@@ -101,7 +101,7 @@ const handleDelete = (item: any, i: any) => {
     }
   )
     .then(() => {
-      ApiService.delete(`shipment/types/${item.id}`).then(() => {
+      ApiService.delete(`shipments/${item.id}`).then(() => {
         index.value = item.id;
         HxNotification.success({
           title: "عملیات موفقیت آمیز",

@@ -91,11 +91,13 @@ const media = ref<any>({});
 
 const handleObjectURL = async (event: any) => {
   const file = event.target.files[0];
-  media.value.media = await useBase64(file);
+  media.value.base64 = await useBase64(file);
+  media.value.media = file;
   media.value.name = file.name;
   media.value.url = URL.createObjectURL(file);
   if (files.value.length >= props.max) return false;
   files.value.push({
+    media: file,
     file: await useBase64(file),
     name: media.value.name,
     url: media.value.url,
@@ -111,7 +113,10 @@ watch(
   () => files.value,
   (val, oldVal) => {
     if (props.max === 1) {
-      emit("update:modelValue", media.value.media);
+      emit("update:modelValue", {
+        file: media.value.media,
+        base64: media.value.base64,
+      });
     } else {
       emit("update:modelValue", files.value);
     }

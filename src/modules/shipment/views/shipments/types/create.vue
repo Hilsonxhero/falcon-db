@@ -31,6 +31,29 @@
               <hx-form-group>
                 <Field
                   mode="passive"
+                  name="delivery"
+                  v-slot="{ field }"
+                  rules="required"
+                  label=" نوع ارسال کالا"
+                >
+                  <hx-select
+                    v-bind="field"
+                    value-key="id"
+                    label="title"
+                    v-model="form.delivery"
+                    filterable
+                    :options="deliveries"
+                    placeholder="انتخاب  نوع ارسال کالا"
+                  />
+                </Field>
+                <div class="invalid-feedback d-block">
+                  <ErrorMessage name="delivery" />
+                </div>
+              </hx-form-group>
+
+              <hx-form-group>
+                <Field
+                  mode="passive"
                   name="shipping_cost"
                   v-slot="{ field }"
                   rules="required"
@@ -68,13 +91,18 @@
                   <ErrorMessage name="description" />
                 </div>
               </hx-form-group>
+
+              <hx-form-group label="ارسال پیش فرض">
+                <hx-switch label="ارسال پیش فرض" v-model="form.is_default">
+                </hx-switch>
+              </hx-form-group>
             </div>
           </div>
 
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
               <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
-              <hx-button variant="light" :to="{ name: 'shipment types index' }">
+              <hx-button variant="light" :to="{ name: 'shipments index' }">
                 لغو
               </hx-button>
             </div>
@@ -97,10 +125,13 @@ const route = useRoute();
 const loading = ref(false);
 const loader = ref(false);
 const formRef = ref<any>(null);
+const deliveries = ref<any>([]);
 const form = ref({
   description: null,
   title: null,
+  delivery: null,
   shipping_cost: 0,
+  is_default: false,
 });
 
 const handleCreate = async (values, { resetForm }) => {
@@ -108,11 +139,13 @@ const handleCreate = async (values, { resetForm }) => {
     title: form.value.title,
     description: form.value.description,
     shipping_cost: form.value.shipping_cost,
+    is_default: form.value.is_default,
+    delivery: form.value.delivery,
   };
 
   try {
     loader.value = true;
-    const { data } = await ApiService.post(`shipment/types`, formData);
+    const { data } = await ApiService.post(`shipments`, formData);
     resetForm();
     HxNotification.success({
       title: "success",
@@ -122,8 +155,10 @@ const handleCreate = async (values, { resetForm }) => {
       position: "bottom-right",
     });
     loader.value = false;
-    router.push({ name: "shipment types index" });
-  } catch (e) {}
+    router.push({ name: "shipments index" });
+  } catch (e) {
+    loader.value = false;
+  }
 };
 
 watchEffect(() => {
@@ -132,6 +167,14 @@ watchEffect(() => {
       ...form.value,
     });
   }
+});
+
+onMounted(() => {
+  ApiService.get("deliveries/select/items")
+    .then(({ data }) => {
+      deliveries.value = data.data;
+    })
+    .catch(() => {});
 });
 </script>
 <style></style>

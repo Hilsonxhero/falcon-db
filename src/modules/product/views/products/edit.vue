@@ -65,10 +65,11 @@ const handleUpdate = async (values, { resetForm }) => {
     title_en: data.value.title_en,
     review: data.value.review,
     category_id: data.value.category,
+    delivery: data.value.delivery,
     brand_id: data.value.brand,
     warranty_id: data.value.warranty,
     status: data.value.status,
-    image: JSON.stringify(data.value.image),
+    image: JSON.stringify(data.value.image?.base64),
     variants: JSON.stringify(selectedVariants.value),
   };
 
@@ -104,9 +105,7 @@ const fetchData = async () => {
     data.value = product.data;
     selectedVariants.value = product.data.variants;
     loading.value = false;
-  } catch (e) {
-
-  }
+  } catch (e) {}
 };
 
 onMounted(() => {

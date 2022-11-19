@@ -104,19 +104,7 @@
               ></hx-input>
             </hx-form-group>
 
-            <hx-form-group class="col-span-12" label="نوع ارسال">
-              <hx-select
-                filterable
-                v-model="variant.shipment_type"
-                placeholder="انتخاب  نوع ارسال"
-                value-key="id"
-                label="title"
-                :options="shipment_types"
-              >
-              </hx-select>
-            </hx-form-group>
-
-            <hx-form-group class="col-span-6" label="روش ارسال">
+            <hx-form-group class="col-span-12" label="روش ارسال">
               <hx-select
                 filterable
                 v-model="variant.shipment"
@@ -128,7 +116,7 @@
               </hx-select>
             </hx-form-group>
 
-            <hx-form-group class="col-span-6" label="گارانتی">
+            <hx-form-group class="col-span-12" label="گارانتی">
               <hx-select
                 filterable
                 v-model="variant.warranty"
@@ -194,7 +182,7 @@ const props = defineProps({
 const variants = ref<Array<any>>([]);
 const warranties = ref<Array<any>>([]);
 const shipments = ref<Array<any>>([]);
-const shipment_types = ref<Array<any>>([]);
+
 const groups = ref<Array<any>>([]);
 const selectedGroups = ref<Array<any>>([]);
 const uniqueSelectedGroups = ref<Array<any>>([]);
@@ -331,7 +319,6 @@ const createVariant = () => {
         warranty: null,
         shipment: null,
         shipment_price: 0,
-        shipment_type: null,
         order_limit: 0,
         product: null,
         id: id,
@@ -374,11 +361,6 @@ onMounted(() => {
   ApiService.get("shipments")
     .then(({ data }) => {
       shipments.value = data.data;
-    })
-    .catch(() => {});
-  ApiService.get("shipment/types")
-    .then(({ data }) => {
-      shipment_types.value = data.data;
     })
     .catch(() => {});
 });

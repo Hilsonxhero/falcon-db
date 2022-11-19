@@ -112,6 +112,32 @@
                   </hx-form-group>
                 </hx-form-group>
               </div>
+
+              <div class="col-span-12 sm:col-span-6 lg:col-span-4">
+                <hx-form-group>
+                  <Field
+                    mode="passive"
+                    name="delivery"
+                    v-slot="{ field }"
+                    rules="required"
+                    label=" نوع ارسال کالا"
+                  >
+                    <hx-select
+                      v-bind="field"
+                      value-key="id"
+                      label="title"
+                      v-model="form.delivery"
+                      filterable
+                      :options="deliveries"
+                      placeholder="انتخاب  نوع ارسال کالا"
+                    />
+                  </Field>
+                  <div class="invalid-feedback d-block">
+                    <ErrorMessage name="delivery" />
+                  </div>
+                </hx-form-group>
+              </div>
+
               <div class="col-span-12">
                 <hx-form-group>
                   <Field
@@ -193,9 +219,11 @@ const form = ref({
   review: "",
   status: "enable",
   image: null,
+  delivery: null,
 });
 const tiptap = ref(null);
 const categories = ref<any>([]);
+const deliveries = ref<any>([]);
 
 const brands = ref<any>([]);
 const statuses = ref([
@@ -234,6 +262,12 @@ onMounted(() => {
   ApiService.get("brands")
     .then(({ data }) => {
       brands.value = data.data;
+    })
+    .catch(() => {});
+
+  ApiService.get("deliveries/select/items")
+    .then(({ data }) => {
+      deliveries.value = data.data;
     })
     .catch(() => {});
 

@@ -29,57 +29,13 @@
                   <ErrorMessage name="title" />
                 </div>
               </hx-form-group>
-              <hx-form-group>
-                <Field
-                  mode="passive"
-                  name="shipping_cost"
-                  v-slot="{ field }"
-                  rules="required"
-                  label="هزینه ارسال"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.shipping_cost"
-                    placeholder="هزینه ارسال"
-                  ></hx-input>
-                </Field>
-
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="shipping_cost" />
-                </div>
-              </hx-form-group>
-              <hx-form-group>
-                <Field
-                  mode="passive"
-                  name="description"
-                  v-slot="{ field }"
-                  rules="required"
-                  label="توضیحات"
-                >
-                  <hx-textarea
-                    v-bind="field"
-                    v-model="form.description"
-                    placeholder="توضیحات"
-                  >
-                  </hx-textarea>
-                </Field>
-
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="description" />
-                </div>
-              </hx-form-group>
-
-              <hx-form-group label="ارسال پیش فرض">
-                <hx-switch label="ارسال پیش فرض" v-model="form.is_default">
-                </hx-switch>
-              </hx-form-group>
             </div>
           </div>
 
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
               <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
-              <hx-button variant="light" :to="{ name: 'shipments index' }">
+              <hx-button variant="light" :to="{ name: 'deliveries index' }">
                 لغو
               </hx-button>
             </div>
@@ -104,16 +60,13 @@ const loading = ref(false);
 const formRef = ref<any>(null);
 const form = ref({
   title: null,
-  description: null,
-  shipping_cost: 0,
-  is_default: false,
 });
 const id = ref(null);
 const loader = ref(false);
 
 const fetchData = async () => {
   try {
-    const { data } = await ApiService.get(`shipments/${id.value}`);
+    const { data } = await ApiService.get(`deliveries/${id.value}`);
     form.value = data.data;
     formRef.value.setValues({
       ...data.data,
@@ -124,15 +77,12 @@ const fetchData = async () => {
 const handleUpdate = async (values, { resetForm }) => {
   let formData = {
     title: form.value.title,
-    description: form.value.description,
-    shipping_cost: form.value.shipping_cost,
-    is_default: form.value.is_default,
   };
 
   try {
     loader.value = true;
     const { data } = await ApiService.put(
-      `shipment/types/${id.value}`,
+      `deliveries/${id.value}`,
       formData
     );
     resetForm();
@@ -144,7 +94,7 @@ const handleUpdate = async (values, { resetForm }) => {
       position: "bottom-right",
     });
     loader.value = false;
-    router.push({ name: "shipments index" });
+    router.push({ name: "deliveries index" });
   } catch (e) {}
 };
 

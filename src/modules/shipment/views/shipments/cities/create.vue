@@ -8,33 +8,13 @@
               <h4 class="text-gray-600 text-xl">ایجاد روش ارسال</h4>
             </div>
             <div class="hx-card__body">
-              <hx-form-group>
-                <Field
-                  mode="passive"
-                  name="title"
-                  v-slot="{ field }"
-                  rules="required"
-                  label="عنوان"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.title"
-                    placeholder="عنوان"
-                  ></hx-input>
-                </Field>
-
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="title" />
-                </div>
-              </hx-form-group>
-
-              <hx-form-group>
+              <hx-form-group label="نوع کالا">
                 <Field
                   mode="passive"
                   name="delivery"
                   v-slot="{ field }"
                   rules="required"
-                  label=" نوع ارسال کالا"
+                  label="نوع کالا"
                 >
                   <hx-select
                     v-bind="field"
@@ -43,58 +23,37 @@
                     v-model="form.delivery"
                     filterable
                     :options="deliveries"
-                    placeholder="انتخاب  نوع ارسال کالا"
+                    placeholder="نوع ارسال"
                   />
                 </Field>
+
                 <div class="invalid-feedback d-block">
                   <ErrorMessage name="delivery" />
                 </div>
               </hx-form-group>
 
-              <hx-form-group>
+              <hx-form-group label="نوع ارسال">
                 <Field
                   mode="passive"
-                  name="shipping_cost"
+                  name="shipment"
                   v-slot="{ field }"
                   rules="required"
-                  label="هزینه ارسال"
+                  label="نوع ارسال"
                 >
-                  <hx-input
+                  <hx-select
                     v-bind="field"
-                    v-model="form.shipping_cost"
-                    placeholder="هزینه ارسال"
-                  ></hx-input>
+                    value-key="id"
+                    label="title"
+                    v-model="form.shipment"
+                    filterable
+                    :options="shipments"
+                    placeholder="نوع ارسال"
+                  />
                 </Field>
 
                 <div class="invalid-feedback d-block">
-                  <ErrorMessage name="shipping_cost" />
+                  <ErrorMessage name="shipment" />
                 </div>
-              </hx-form-group>
-
-              <hx-form-group>
-                <Field
-                  mode="passive"
-                  name="description"
-                  v-slot="{ field }"
-                  rules="required"
-                  label="توضیحات"
-                >
-                  <hx-textarea
-                    v-bind="field"
-                    v-model="form.description"
-                    placeholder="توضیحات"
-                  >
-                  </hx-textarea>
-                </Field>
-
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="description" />
-                </div>
-              </hx-form-group>
-
-              <hx-form-group label="ارسال پیش فرض">
-                <hx-switch label="ارسال پیش فرض" v-model="form.is_default">
-                </hx-switch>
               </hx-form-group>
             </div>
           </div>
@@ -102,7 +61,13 @@
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
               <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
-              <hx-button variant="light" :to="{ name: 'shipments index' }">
+              <hx-button
+                variant="light"
+                :to="{
+                  name: 'shipment cities index',
+                  params: { city: form.city },
+                }"
+              >
                 لغو
               </hx-button>
             </div>
@@ -125,27 +90,28 @@ const route = useRoute();
 const loading = ref(false);
 const loader = ref(false);
 const formRef = ref<any>(null);
-const deliveries = ref<any>([]);
-const form = ref({
-  description: null,
-  title: null,
+const form = ref<any>({
+  shipment: null,
+  city: null,
   delivery: null,
-  shipping_cost: 0,
-  is_default: false,
 });
+
+const shipments = ref<Array<any>>([]);
+const deliveries = ref<Array<any>>([]);
 
 const handleCreate = async (values, { resetForm }) => {
   let formData = {
-    title: form.value.title,
-    description: form.value.description,
-    shipping_cost: form.value.shipping_cost,
-    is_default: form.value.is_default,
-    delivery: form.value.delivery,
+    shipment_id: form.value.shipment,
+    city_id: form.value.city,
+    delivery_id: form.value.delivery,
   };
 
   try {
     loader.value = true;
-    const { data } = await ApiService.post(`shipments`, formData);
+    const { data } = await ApiService.post(
+      `shipment/cities/${form.value.city}/types`,
+      formData
+    );
     resetForm();
     HxNotification.success({
       title: "success",
@@ -155,7 +121,10 @@ const handleCreate = async (values, { resetForm }) => {
       position: "bottom-right",
     });
     loader.value = false;
-    router.push({ name: "shipments index" });
+    router.push({
+      name: "shipment cities index",
+      params: { city: form.value.city },
+    });
   } catch (e) {
     loader.value = false;
   }
@@ -169,12 +138,17 @@ watchEffect(() => {
   }
 });
 
-onMounted(() => {
-  ApiService.get("deliveries/select/items")
-    .then(({ data }) => {
-      deliveries.value = data.data;
-    })
-    .catch(() => {});
-});
+form.value.city = route.params.city;
+
+ApiService.get("shipments")
+  .then(({ data }) => {
+    shipments.value = data.data;
+  })
+  .catch(() => {});
+ApiService.get("deliveries/select/items")
+  .then(({ data }) => {
+    deliveries.value = data.data;
+  })
+  .catch(() => {});
 </script>
 <style></style>

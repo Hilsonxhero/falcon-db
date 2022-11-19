@@ -52,9 +52,10 @@ const handleCreate = async (values, { resetForm }) => {
   formData.append("title_en", data.value.title_en);
   formData.append("review", data.value.review);
   formData.append("category_id", data.value.category);
+  formData.append("delivery", data.value.delivery);
   formData.append("brand_id", data.value.brand);
   formData.append("status", data.value.status);
-  formData.append("image", JSON.stringify(data.value.image));
+  formData.append("image", JSON.stringify(data.value.image?.base64));
   formData.append("variants", JSON.stringify(selectedVariants.value));
   try {
     loader.value = true;

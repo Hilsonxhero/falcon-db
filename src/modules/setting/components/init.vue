@@ -197,21 +197,6 @@
           </div>
         </div>
       </section>
-
-      <section class="col-span-12 space-y-4">
-        <div class="hx-card">
-          <div class="hx-card__header">
-            <h4 class="text-gray-600 text-xl">بنر THB (بنر بالای منو)</h4>
-          </div>
-          <div class="hx-card__body">
-            <hx-upload
-              :max="1"
-              v-model="form.thb"
-              :sources="form.thb"
-            ></hx-upload>
-          </div>
-        </div>
-      </section>
     </div>
   </section>
 </template>
@@ -238,7 +223,6 @@ const form = ref({
   address: null,
   copyright: "",
   logo: null,
-  thb: null,
 });
 const tiptap = ref(null);
 
@@ -249,7 +233,6 @@ watch(
   },
   { deep: true }
 );
-
 
 watchEffect(() => {
   if (props.data) form.value = props.data;

@@ -70,8 +70,11 @@ const handleCreate = async (values, { resetForm }) => {
   formData.append("address", form.value.address);
   formData.append("copyright", form.value.copyright);
   formData.append("logo", form.value.logo);
-  formData.append("thb", form.value.thb);
   formData.append("links", JSON.stringify(links.value));
+
+  // let formData = {
+  //   logo: form.value.logo,
+  // };
 
   try {
     loader.value = true;

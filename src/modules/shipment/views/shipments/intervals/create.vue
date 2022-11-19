@@ -2,69 +2,63 @@
   <section class="mb-6">
     <div class="grid grid-cols-12 gap-4">
       <div class="col-span-12 lg:col-span-6 xl:col-span-4">
-        <Form @submit="handleUpdate" class="w-full" ref="formRef">
+        <Form @submit="handleCreate" class="w-full" ref="formRef">
           <div class="hx-card">
             <div class="hx-card__header">
-              <h4 class="text-gray-600 text-xl">
-                ویرایش روش ارسال {{ form.title && form.title }}
-              </h4>
+              <h4 class="text-gray-600 text-xl">ایجاد بازه زمانی</h4>
             </div>
             <div class="hx-card__body">
-              <hx-form-group>
+              <hx-form-group label="ساعت شروع">
                 <Field
                   mode="passive"
-                  name="title"
+                  name="start_at"
                   v-slot="{ field }"
                   rules="required"
-                  label="عنوان"
+                  label="ساعت شروع"
                 >
-                  <hx-input
+                  <date-picker
                     v-bind="field"
-                    v-model="form.title"
-                    placeholder="عنوان"
-                  ></hx-input>
+                    v-model="form.start_at"
+                    type="time"
+                  ></date-picker>
                 </Field>
 
                 <div class="invalid-feedback d-block">
-                  <ErrorMessage name="title" />
+                  <ErrorMessage name="start_at" />
                 </div>
               </hx-form-group>
 
-              <hx-form-group>
+              <hx-form-group label="ساعت پایان">
                 <Field
                   mode="passive"
-                  name="delivery"
+                  name="end_at"
                   v-slot="{ field }"
                   rules="required"
-                  label=" نوع ارسال کالا"
+                  label="ساعت پایان"
                 >
-                  <hx-select
+                  <date-picker
                     v-bind="field"
-                    value-key="id"
-                    label="title"
-                    v-model="form.delivery"
-                    filterable
-                    :options="deliveries"
-                    placeholder="انتخاب  نوع ارسال کالا"
-                  />
+                    v-model="form.end_at"
+                    type="time"
+                  ></date-picker>
                 </Field>
+
                 <div class="invalid-feedback d-block">
-                  <ErrorMessage name="delivery" />
+                  <ErrorMessage name="end_at" />
                 </div>
               </hx-form-group>
 
-              <hx-form-group>
+              <hx-form-group label=" هزینه ارسال">
                 <Field
                   mode="passive"
                   name="shipping_cost"
                   v-slot="{ field }"
                   rules="required"
-                  label="هزینه ارسال"
+                  label=" هزینه ارسال"
                 >
                   <hx-input
                     v-bind="field"
                     v-model="form.shipping_cost"
-                    placeholder="هزینه ارسال"
                   ></hx-input>
                 </Field>
 
@@ -72,30 +66,24 @@
                   <ErrorMessage name="shipping_cost" />
                 </div>
               </hx-form-group>
-              <hx-form-group>
+
+              <hx-form-group label="ظرفیت">
                 <Field
                   mode="passive"
-                  name="description"
+                  name="order_capacity"
                   v-slot="{ field }"
                   rules="required"
-                  label="توضیحات"
+                  label="ظرفیت"
                 >
-                  <hx-textarea
+                  <hx-input
                     v-bind="field"
-                    v-model="form.description"
-                    placeholder="توضیحات"
-                  >
-                  </hx-textarea>
+                    v-model="form.order_capacity"
+                  ></hx-input>
                 </Field>
 
                 <div class="invalid-feedback d-block">
-                  <ErrorMessage name="description" />
+                  <ErrorMessage name="order_capacity" />
                 </div>
-              </hx-form-group>
-
-              <hx-form-group label="ارسال پیش فرض">
-                <hx-switch label="ارسال پیش فرض" v-model="form.is_default">
-                </hx-switch>
               </hx-form-group>
             </div>
           </div>
@@ -103,7 +91,13 @@
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
               <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
-              <hx-button variant="light" :to="{ name: 'shipments index' }">
+              <hx-button
+                variant="light"
+                :to="{
+                  name: 'shipment date intervals index',
+                  params: { id: shipment_date },
+                }"
+              >
                 لغو
               </hx-button>
             </div>
@@ -115,49 +109,43 @@
 </template>
 
 <script setup lang="ts">
-//@ts-nocheck
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, watchEffect } from "vue";
 import { HxNotification } from "@/components/base/notification";
 import ApiService from "@/core/services/ApiService";
 import { useRoute, useRouter } from "vue-router";
 import { ErrorMessage, Field, Form } from "vee-validate";
-
+import DatePicker from "vue3-persian-datetime-picker";
 const router = useRouter();
 const route = useRoute();
 const loading = ref(false);
-const formRef = ref<any>(null);
-const form = ref({
-  title: null,
-  delivery: null,
-  description: null,
-  shipping_cost: 0,
-  is_default: false,
-});
-const id = ref(null);
 const loader = ref(false);
-const deliveries = ref<any>([]);
-const fetchData = async () => {
-  try {
-    const { data } = await ApiService.get(`shipments/${id.value}`);
-    form.value = data.data;
-    formRef.value.setValues({
-      ...data.data,
-    });
-  } catch (e) {}
-};
+const formRef = ref<any>(null);
+const form = ref<any>({
+  start_at: null,
+  end_at: null,
+  shipping_cost: 0,
+  order_capacity: null,
+});
 
-const handleUpdate = async (values, { resetForm }) => {
+const shipment_date = ref<any>(null);
+
+shipment_date.value = route.params.id;
+
+const handleCreate = async (values, { resetForm }) => {
   let formData = {
-    title: form.value.title,
-    description: form.value.description,
+    shipment_type_date_id: shipment_date.value,
+    start_at: form.value.start_at,
+    end_at: form.value.end_at,
     shipping_cost: form.value.shipping_cost,
-    is_default: form.value.is_default,
-    delivery: form.value.delivery,
+    order_capacity: form.value.order_capacity,
   };
 
   try {
     loader.value = true;
-    const { data } = await ApiService.put(`shipments/${id.value}`, formData);
+    const { data } = await ApiService.post(
+      `shipment/dates/${shipment_date.value}/intervals`,
+      formData
+    );
     resetForm();
     HxNotification.success({
       title: "success",
@@ -167,18 +155,19 @@ const handleUpdate = async (values, { resetForm }) => {
       position: "bottom-right",
     });
     loader.value = false;
-    router.push({ name: "shipments index" });
+    router.push({
+      name: "shipment date intervals index",
+      params: { id: shipment_date.value },
+    });
   } catch (e) {}
 };
 
-onMounted(async () => {
-  id.value = route.params.id;
-  ApiService.get("deliveries/select/items")
-    .then(({ data }) => {
-      deliveries.value = data.data;
-    })
-    .catch(() => {});
-  fetchData();
+watchEffect(() => {
+  if (formRef.value) {
+    formRef.value.setValues({
+      ...form.value,
+    });
+  }
 });
 </script>
 <style></style>

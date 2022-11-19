@@ -18,7 +18,30 @@
                   <h4 class="text-gray-600 text-xl">ایجاد روش ارسال</h4>
                 </div>
                 <div class="hx-card__body">
-                  <!-- <hx-form-group label="نوع ارسال">
+                  <hx-form-group label="نوع کالا">
+                    <Field
+                      mode="passive"
+                      name="type"
+                      v-slot="{ field }"
+                      rules="required"
+                      label="نوع کالا"
+                    >
+                      <hx-select
+                        v-bind="field"
+                        value-key="id"
+                        label="title"
+                        v-model="form.delivery"
+                        filterable
+                        :options="deliveries"
+                        placeholder="نوع ارسال"
+                      />
+                    </Field>
+
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="type" />
+                    </div>
+                  </hx-form-group>
+                  <hx-form-group label="نوع ارسال">
                     <Field
                       mode="passive"
                       name="type"
@@ -40,27 +63,6 @@
                     <div class="invalid-feedback d-block">
                       <ErrorMessage name="type" />
                     </div>
-                  </hx-form-group> -->
-
-                  <hx-form-group label="تاریخ">
-                    <Field
-                      mode="passive"
-                      name="date"
-                      v-slot="{ field }"
-                      rules="required"
-                      label="تاریخ"
-                    >
-                      <date-picker
-                        v-bind="field"
-                        v-model="form.date"
-                        type="date"
-                        simple
-                      ></date-picker>
-                    </Field>
-
-                    <div class="invalid-feedback d-block">
-                      <ErrorMessage name="date" />
-                    </div>
                   </hx-form-group>
                 </div>
               </div>
@@ -72,7 +74,7 @@
                     variant="light"
                     :to="{
                       name: 'shipment dates index',
-                      params: { id: form.type },
+                      params: { id: form.city },
                     }"
                   >
                     لغو
@@ -93,7 +95,7 @@ import { HxNotification } from "@/components/base/notification";
 import ApiService from "@/core/services/ApiService";
 import { useRoute, useRouter } from "vue-router";
 import { ErrorMessage, Field, Form } from "vee-validate";
-import DatePicker from "vue3-persian-datetime-picker";
+
 const router = useRouter();
 const route = useRoute();
 const loading = ref(true);
@@ -101,23 +103,25 @@ const loader = ref(false);
 const formRef = ref<any>(null);
 const form = ref<any>({
   type: null,
-  date: null,
   city: null,
+  delivery: null,
 });
 
 const types = ref<Array<any>>([]);
 
+const deliveries = ref<Array<any>>([]);
+
 const handleUpdate = async (values, { resetForm }) => {
-  let formData = {
-    shipment_type_city_id: form.value.type,
-    date: form.value.date,
-    is_holiday: 0,
+  let formData = <any>{
+    shipment_type_id: form.value.type,
+    city_id: form.value.city,
+    delivery_id: form.value.delivery,
   };
 
   try {
     loader.value = true;
     const { data } = await ApiService.put(
-      `shipment/cities/${route.params.id}/dates/${route.params.date}`,
+      `shipment/cities/${route.params.city}/types/${route.params.id}`,
       formData
     );
 
@@ -131,8 +135,8 @@ const handleUpdate = async (values, { resetForm }) => {
     });
     loader.value = false;
     router.push({
-      name: "shipment dates index",
-      params: { id: form.value.type },
+      name: "shipment cities index",
+      params: { city: form.value.city },
     });
   } catch (e) {}
 };
@@ -151,11 +155,19 @@ ApiService.get("shipment/types")
   })
   .catch(() => {});
 
+ApiService.get("deliveries/select/items")
+  .then(({ data }) => {
+    deliveries.value = data.data;
+  })
+  .catch(() => {});
+
 ApiService.get(
-  `shipment/cities/${route.params.id}/dates/${route.params.date}`
+  `shipment/cities/${route.params.city}/types/${route.params.id}`
 ).then(({ data }) => {
-  form.value = data.data;
-  form.value.type = route.params.id;
+  // form.value = data.data;
+  form.value.type = data.data?.shipment.id;
+  form.value.delivery = data.data?.delivery.id;
+  form.value.city = route.params.city;
   loading.value = false;
 });
 </script>

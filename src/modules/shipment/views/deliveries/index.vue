@@ -1,7 +1,7 @@
 <template>
   <section class="mb-6">
     <HxDataTable
-      url="shipments"
+      url="deliveries"
       :single-item-index="index"
       search-placeholder="جستجوی انواع ارسال"
       :table-header="tableHeader"
@@ -9,7 +9,7 @@
       :on-current-change="true"
     >
       <template #left>
-        <hx-button :to="{ name: 'shipments create' }">
+        <hx-button :to="{ name: 'deliveries create' }">
           نوع ارسال جدید
         </hx-button>
       </template>
@@ -30,20 +30,16 @@
         <span class="">{{ shipment?.title }}</span>
       </template>
 
+      <template v-slot:cell-code="{ row: shipment }">
+        <span class="">{{ shipment?.code }}</span>
+      </template>
+
       <template v-slot:cell-actions="{ row: shipment, index: index }">
-        <!-- <hx-button
-            variant="gray"
-            size="sm"
-            icon
-            :to="{ name: 'shipment dates index', params: { id: shipment.id } }"
-          >
-            <hx-icon icon="calendar"></hx-icon>
-          </hx-button> -->
         <hx-button
           variant="gray"
           size="sm"
           icon
-          :to="{ name: 'shipments edit', params: { id: shipment.id } }"
+          :to="{ name: 'deliveries edit', params: { id: shipment.id } }"
         >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>
@@ -83,6 +79,12 @@ const tableHeader = ref([
   },
 
   {
+    name: "کد",
+    key: "code",
+    sortable: true,
+  },
+
+  {
     name: "عملیات",
     key: "actions",
   },
@@ -101,7 +103,7 @@ const handleDelete = (item: any, i: any) => {
     }
   )
     .then(() => {
-      ApiService.delete(`shipments/${item.id}`).then(() => {
+      ApiService.delete(`deliveries/${item.id}`).then(() => {
         index.value = item.id;
         HxNotification.success({
           title: "عملیات موفقیت آمیز",

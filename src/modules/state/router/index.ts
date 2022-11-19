@@ -31,6 +31,15 @@ export default {
             component: () => import("@/modules/state/views/states/cities/edit.vue"),
         },
 
+        // cities
+
+        {
+            path: "/cities",
+            name: "cities index",
+            component: () => import("@/modules/state/views/cities/index.vue"),
+        },
+
+
 
     ],
 };

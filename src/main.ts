@@ -12,6 +12,13 @@ import installer from "@/core/installer/index";
 
 const app = createApp(App);
 
+app.config.globalProperties.$filters = {
+    separate(Number) {
+        return Number.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    }
+};
+
+
 ApiService.init(app);
 installer.install(app);
 initInlineSvg(app);
