@@ -143,7 +143,7 @@ const shipment_date = ref<any>(null);
 
 const handleUpdate = async (values, { resetForm }) => {
   let formData: any = {
-    shipment_type_date_id: shipment_date.value,
+    shipment_date_id: shipment_date.value,
     start_at: form.value.start_at,
     end_at: form.value.end_at,
     shipping_cost: form.value.shipping_cost,

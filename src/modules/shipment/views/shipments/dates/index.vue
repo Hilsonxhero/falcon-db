@@ -1,7 +1,7 @@
 <template>
   <section class="mb-6">
     <HxDataTable
-      :url="`shipment/cities/${type}/dates`"
+      :url="`shipment/cities/${shipment_city}/dates`"
       :single-item-index="index"
       search-placeholder="جستجوی  تاریخ"
       :table-header="tableHeader"
@@ -9,7 +9,12 @@
       :on-current-change="true"
     >
       <template #left>
-        <hx-button :to="{ name: 'shipment dates create' }">
+        <hx-button
+          :to="{
+            name: 'shipment dates create',
+            params: { shipment: shipment, id: shipment_city },
+          }"
+        >
           نوع ارسال جدید
         </hx-button>
       </template>
@@ -56,7 +61,7 @@
           icon
           :to="{
             name: 'shipment dates edit',
-            params: { id: type, date: shipment.id },
+            params: { id: shipment_city, date: shipment.id },
           }"
         >
           <hx-icon icon="edit-alt"></hx-icon>
@@ -84,7 +89,8 @@ import { useRoute, useRouter } from "vue-router";
 
 const checkedData = ref([]);
 
-const type = ref<any>(null);
+const shipment_city = ref<any>(null);
+const shipment = ref<any>(null);
 
 const route = useRoute();
 
@@ -131,22 +137,23 @@ const handleDelete = (item: any, i: any) => {
     }
   )
     .then(() => {
-      ApiService.delete(`shipment/cities/${type.value}/dates/${item.id}`).then(
-        () => {
-          index.value = item.id;
-          HxNotification.success({
-            title: "عملیات موفقیت آمیز",
-            message: "روش ارسال موردنظر حذف شد",
-            showClose: true,
-            duration: 4000,
-            position: "bottom-right",
-          });
-        }
-      );
+      ApiService.delete(
+        `shipment/cities/${shipment_city.value}/dates/${item.id}`
+      ).then(() => {
+        index.value = item.id;
+        HxNotification.success({
+          title: "عملیات موفقیت آمیز",
+          message: "روش ارسال موردنظر حذف شد",
+          showClose: true,
+          duration: 4000,
+          position: "bottom-right",
+        });
+      });
     })
     .catch(() => {});
 };
-type.value = route.params.id;
+shipment_city.value = route.params.id;
+shipment.value = route.params.shipment;
 // onMounted(() => {
 //   shipment.value = route.params.id;
 // });

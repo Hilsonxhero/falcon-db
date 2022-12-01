@@ -113,7 +113,7 @@ const deliveries = ref<Array<any>>([]);
 
 const handleUpdate = async (values, { resetForm }) => {
   let formData = <any>{
-    shipment_type_id: form.value.type,
+    shipment_id: form.value.type,
     city_id: form.value.city,
     delivery_id: form.value.delivery,
   };

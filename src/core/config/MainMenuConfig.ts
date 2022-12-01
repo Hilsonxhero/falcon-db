@@ -282,28 +282,28 @@ const DocMenuConfig = [
     ],
   },
 
-  // {
-  //   heading: "پرداخت",
-  //   route: "",
-  //   pages: [
-  //     {
-  //       sectionTitle: "  پرداخت",
-  //       route: "",
-  //       svgIcon: "card",
+  {
+    heading: "پرداخت",
+    route: "",
+    pages: [
+      {
+        sectionTitle: "  پرداخت",
+        route: "",
+        svgIcon: "card",
 
-  //       sub: [
-  //         {
-  //           heading: "روش های پرداخت",
-  //           route: "payment_methods index",
-  //         },
-  //         {
-  //           heading: "تنظیمات",
-  //           route: "",
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+        sub: [
+          {
+            heading: "روش های پرداخت",
+            route: "payment-methods-index",
+          },
+          {
+            heading: "تنظیمات",
+            route: "",
+          },
+        ],
+      },
+    ],
+  },
   // {
   //   heading: "بازاریابی",
   //   route: "",

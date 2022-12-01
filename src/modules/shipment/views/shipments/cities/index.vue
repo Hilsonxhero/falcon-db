@@ -45,7 +45,7 @@
           icon
           :to="{
             name: 'shipment dates index',
-            params: { id: shipment.id },
+            params: { shipment: shipment.shipment.id, id: shipment.id },
           }"
         >
           <hx-icon icon="calendar"></hx-icon>

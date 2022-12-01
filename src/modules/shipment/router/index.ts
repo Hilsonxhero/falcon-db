@@ -68,13 +68,13 @@ export default {
         //shipment type dates
 
         {
-            path: "shipment/cities/:id/dates",
+            path: "shipment/:shipment/cities/:id/dates",
             name: "shipment dates index",
             component: () => import("@/modules/shipment/views/shipments/dates/index.vue"),
         },
 
         {
-            path: "shipment/cities/:id/dates/create",
+            path: "shipment/:shipment/cities/:id/dates/create",
             name: "shipment dates create",
             component: () => import("@/modules/shipment/views/shipments/dates/create.vue"),
         },

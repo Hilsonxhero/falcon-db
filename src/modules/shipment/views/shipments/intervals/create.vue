@@ -133,7 +133,7 @@ shipment_date.value = route.params.id;
 
 const handleCreate = async (values, { resetForm }) => {
   let formData = {
-    shipment_type_date_id: shipment_date.value,
+    shipment_date_id: shipment_date.value,
     start_at: form.value.start_at,
     end_at: form.value.end_at,
     shipping_cost: form.value.shipping_cost,
@@ -159,7 +159,9 @@ const handleCreate = async (values, { resetForm }) => {
       name: "shipment date intervals index",
       params: { id: shipment_date.value },
     });
-  } catch (e) {}
+  } catch (e) {
+    loader.value = false;
+  }
 };
 
 watchEffect(() => {

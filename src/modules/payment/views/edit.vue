@@ -2,54 +2,51 @@
   <section class="mb-6">
     <div class="grid grid-cols-12 gap-4">
       <div class="col-span-12 lg:col-span-6 xl:col-span-4">
-        <Form @submit="handleCreate" class="w-full" ref="formRef">
+        <Form @submit="handleUpdate" class="w-full" ref="formRef">
           <div class="hx-card">
             <div class="hx-card__header">
-              <h4 class="text-gray-600 text-xl">ایجاد روش ارسال</h4>
+              <h4 class="text-gray-600 text-xl">
+                ویرایش استان {{ form.name && form.name }}
+              </h4>
             </div>
             <div class="hx-card__body">
-              <!-- <hx-form-group label="نوع ارسال">
+              <hx-form-group>
                 <Field
                   mode="passive"
-                  name="type"
+                  name="name"
                   v-slot="{ field }"
                   rules="required"
-                  label="نوع ارسال"
+                  label="عنوان"
                 >
-                  <hx-select
+                  <hx-input
                     v-bind="field"
-                    value-key="id"
-                    label="title"
-                    v-model="form.type"
-                    filterable
-                    :options="types"
-                    placeholder="نوع ارسال"
-                  />
+                    v-model="form.name"
+                    placeholder="نام استان"
+                  ></hx-input>
                 </Field>
 
                 <div class="invalid-feedback d-block">
-                  <ErrorMessage name="type" />
+                  <ErrorMessage name="name" />
                 </div>
-              </hx-form-group> -->
+              </hx-form-group>
 
-              <hx-form-group label="تاریخ">
+              <hx-form-group>
                 <Field
                   mode="passive"
-                  name="date"
+                  name="zone_code"
                   v-slot="{ field }"
                   rules="required"
-                  label="تاریخ"
+                  label="کد منطقه"
                 >
-                  <date-picker
+                  <hx-input
                     v-bind="field"
-                    v-model="form.date"
-                    type="date"
-                    simple
-                  ></date-picker>
+                    v-model="form.zone_code"
+                    placeholder="کد منطقه "
+                  ></hx-input>
                 </Field>
 
                 <div class="invalid-feedback d-block">
-                  <ErrorMessage name="date" />
+                  <ErrorMessage name="zone_code" />
                 </div>
               </hx-form-group>
             </div>
@@ -58,7 +55,7 @@
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
               <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
-              <hx-button variant="light" :to="{ name: 'shipment dates index' }">
+              <hx-button variant="light" :to="{ name: 'states index' }">
                 لغو
               </hx-button>
             </div>
@@ -70,38 +67,50 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, watchEffect } from "vue";
+//@ts-nocheck
+import { ref, onMounted, watch } from "vue";
 import { HxNotification } from "@/components/base/notification";
 import ApiService from "@/core/services/ApiService";
 import { useRoute, useRouter } from "vue-router";
 import { ErrorMessage, Field, Form } from "vee-validate";
-import DatePicker from "vue3-persian-datetime-picker";
+
 const router = useRouter();
 const route = useRoute();
 const loading = ref(false);
-const loader = ref(false);
 const formRef = ref<any>(null);
-const form = ref<any>({
-  type: null,
-  date: null,
-  city: null,
-  shipment: null,
+const loader = ref(false);
+const form = ref({
+  zone_code: null,
+  name: "",
 });
 
-const handleCreate = async (values, { resetForm }) => {
+const id = ref(null);
+const types = ref(["checkbox", "color", "select", "size"]);
+
+const fetchData = async () => {
+  try {
+    loading.value = true;
+    const { data } = await ApiService.get(`states/${id.value}`);
+    form.value = data.data;
+    // form.value.type = types.value.find(d => d.value == form.value.type)
+    formRef.value.setValues({
+      ...data.data,
+    });
+    loading.value = false;
+  } catch (e) {
+    loading.value = false;
+  }
+};
+
+const handleUpdate = async (values, { resetForm }) => {
   let formData = {
-    shipment_city_id: form.value.city,
-    shipment_id: form.value.shipment,
-    date: form.value.date,
-    is_holiday: 0,
+    name: form.value.name,
+    zone_code: form.value.zone_code,
   };
 
   try {
     loader.value = true;
-    const { data } = await ApiService.post(
-      `shipment/cities/${form.value.city}/dates`,
-      formData
-    );
+    const { data } = await ApiService.put(`states/${id.value}`, formData);
     resetForm();
     HxNotification.success({
       title: "success",
@@ -111,25 +120,13 @@ const handleCreate = async (values, { resetForm }) => {
       position: "bottom-right",
     });
     loader.value = false;
-    router.push({
-      name: "shipment dates index",
-      params: { shipment: form.value.shipment, id: form.value.city },
-    });
-  } catch (e) {
-    loader.value = false;
-  }
+    router.push({ name: "states index" });
+  } catch (e) {}
 };
 
-watchEffect(() => {
-  if (formRef.value) {
-    formRef.value.setValues({
-      ...form.value,
-    });
-  }
+onMounted(async () => {
+  id.value = route.params.id;
+  fetchData();
 });
-
-form.value.city = route.params.id;
-
-form.value.shipment = route.params.shipment;
 </script>
 <style></style>
