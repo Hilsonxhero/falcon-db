@@ -206,7 +206,7 @@ const handleUpdate = async (values, { resetForm }) => {
     type: form.value.type,
     position: form.value.position,
     status: form.value.status,
-    banner: form.value.image,
+    banner: form.value.image?.base64,
     page: form.value.page,
   };
   try {

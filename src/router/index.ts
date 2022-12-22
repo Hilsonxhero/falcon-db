@@ -14,11 +14,13 @@ import product from "@/modules/product/router";
 import state from "@/modules/state/router";
 import setting from "@/modules/setting/router";
 import payment from "@/modules/payment/router";
+import order from "@/modules/order/router";
+
 const routes: Array<RouteRecordRaw> = [
   auth, article, category,
   brand, warranty, shipment, user,
   role, dashboard, product,
-  state, setting, payment
+  state, setting, payment, order
 ];
 
 const router = createRouter({

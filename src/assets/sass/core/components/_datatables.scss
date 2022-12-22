@@ -223,6 +223,7 @@ table.dataTable {
     th {
         // border-bottom-color: $table-border-color;
         text-align: right;
+        padding: $table-cell-padding-y 2rem;
     }
 }
 

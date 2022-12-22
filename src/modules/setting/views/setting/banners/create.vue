@@ -155,7 +155,7 @@ const handleCreate = async (values, { resetForm }) => {
     type: form.value.type,
     position: form.value.position,
     status: form.value.status,
-    image: form.value.image,
+    image: form.value.image?.base64,
     page: form.value.page,
   };
 

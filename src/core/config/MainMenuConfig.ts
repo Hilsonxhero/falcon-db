@@ -113,22 +113,22 @@ const DocMenuConfig = [
       //   ],
       // },
 
-      // {
-      //   sectionTitle: "سفارشات",
-      //   route: "",
-      //   svgIcon: "shopping-bag",
-      //   sub: [
-      //     {
-      //       heading: "سفارش ها",
-      //       route: "",
-      //     },
+      {
+        sectionTitle: "سفارشات",
+        route: "",
+        svgIcon: "shopping-bag",
+        sub: [
+          {
+            heading: "سفارش ها",
+            route: "orders index",
+          },
 
-      //     {
-      //       heading: "فاکتور",
-      //       route: "",
-      //     },
-      //   ],
-      // },
+          // {
+          //   heading: "فاکتور",
+          //   route: "",
+          // },
+        ],
+      },
 
       // {
       //   sectionTitle: "آمار",
