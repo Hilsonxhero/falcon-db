@@ -1,0 +1,20 @@
+.hx-tabs {
+    &__header {
+        margin: 1rem 0;
+    }
+
+    &__nav-wrap {}
+
+    &__nav {}
+
+    &__item {
+        padding: .5rem 0;
+
+        &.is-active {
+            border-bottom: 2px solid #009ef7;
+            color: #009ef7 !important;
+
+        }
+    }
+
+}

@@ -1,0 +1,356 @@
+@font-face {
+    font-family: YekanBakh;
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url('@/assets/fonts/YekanBakh/YekanBakh-Regular.woff2') format("woff2"), url('@/assets/fonts/YekanBakh/YekanBakh-Regular.ttf') format("truetype")
+}
+
+@font-face {
+    font-family: YekanBakh;
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('@/assets/fonts/YekanBakh/YekanBakh-Medium.woff2') format("woff2"), url('@/assets/fonts/YekanBakh/YekanBakh-Medium.ttf') format("truetype")
+}
+
+
+*:focus-visible {
+    outline: none !important;
+}
+
+.shadow-design-base {
+    --tw-shadow: 0px 2px 14px #0000001a;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.rounded-inherit {
+    border-radius: inherit;
+}
+
+
+body,
+html {
+    user-select: none !important;
+}
+
+body * {
+    font-family: inherit;
+}
+
+.fade-in-linear-enter-active,
+.fade-in-linear-leave-active {
+    transition: getCssVar('transition-fade', 'linear');
+}
+
+.fade-in-linear-enter-from,
+.fade-in-linear-leave-to {
+    opacity: 0;
+}
+
+.apexcharts-tooltip.apexcharts-theme-light {
+    border-radius: 0.475rem;
+    box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
+    border: 0 !important;
+    background: #ffffff !important;
+    color: #3F4254;
+}
+
+.apexcharts-tooltip {
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px -4px #999;
+    cursor: default;
+    font-size: 14px;
+    left: 62px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 12;
+    transition: 0.15s ease all;
+}
+
+.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
+    background: #ffffff !important;
+    font-weight: 500;
+    color: #3F4254;
+    border-bottom: 1px solid #F5F8FA !important;
+}
+
+
+
+
+
+@each $name,
+$value in $theme-colors {
+    .hx-bg__#{$name} {
+        background-color: $value !important;
+        background: $value !important;
+    }
+
+    .hx-bg__#{$name}--light {
+        background-color: $value;
+    }
+}
+
+
+.apexcharts-yaxis-texts-g.apexcharts-xaxis-inversed-texts-g .apexcharts-yaxis-label {
+    transform: translateX(-75px);
+}
+
+.apexcharts-legend-marker+.apexcharts-legend-text {
+    margin-right: .7rem;
+}
+
+
+// @media (min-width: 992px) {
+
+//     div,
+//     main,
+//     ol,
+//     pre,
+//     span,
+//     ul {
+//         scrollbar-width: thin;
+//         scrollbar-color: #eff2f5 transparent;
+//     }
+
+//     div::-webkit-scrollbar,
+//     main::-webkit-scrollbar,
+//     ol::-webkit-scrollbar,
+//     pre::-webkit-scrollbar,
+//     span::-webkit-scrollbar,
+//     ul::-webkit-scrollbar {
+//         width: 0.4rem;
+//         height: 0.4rem;
+//     }
+
+//     div::-webkit-scrollbar-thumb,
+//     main::-webkit-scrollbar-thumb,
+//     ol::-webkit-scrollbar-thumb,
+//     pre::-webkit-scrollbar-thumb,
+//     span::-webkit-scrollbar-thumb,
+//     ul::-webkit-scrollbar-thumb {
+//         background-color: #eff2f5;
+//     }
+
+//     div:hover,
+//     main:hover,
+//     ol:hover,
+//     pre:hover,
+//     span:hover,
+//     ul:hover {
+//         scrollbar-color: #e9edf1 transparent;
+//     }
+
+//     div:hover::-webkit-scrollbar-thumb,
+//     main:hover::-webkit-scrollbar-thumb,
+//     ol:hover::-webkit-scrollbar-thumb,
+//     pre:hover::-webkit-scrollbar-thumb,
+//     span:hover::-webkit-scrollbar-thumb,
+//     ul:hover::-webkit-scrollbar-thumb {
+//         background-color: #e9edf1;
+//     }
+// }
+
+// .scroll {
+//     overflow: scroll;
+//     position: relative;
+// }
+
+// @media (max-width: 991.98px) {
+//     .scroll {
+//         overflow: auto;
+//     }
+// }
+
+// .scroll-x {
+//     overflow-x: scroll;
+//     position: relative;
+// }
+
+// @media (max-width: 991.98px) {
+//     .scroll-x {
+//         overflow-x: auto;
+//     }
+// }
+
+// .scroll-y {
+//     overflow-y: scroll;
+//     position: relative;
+// }
+
+// @media (max-width: 991.98px) {
+//     .scroll-y {
+//         overflow-y: auto;
+//     }
+// }
+
+// .hover-scroll {
+//     position: relative;
+// }
+
+// @media (min-width: 992px) {
+//     .hover-scroll {
+//         overflow: hidden;
+//         border-left: 0.4rem solid transparent;
+//         border-bottom: 0.4rem solid transparent;
+//         margin-left: -0.4rem;
+//         margin-bottom: -0.4rem;
+//     }
+
+//     .hover-scroll:hover {
+//         // overflow: scroll;
+//         // border-left: 0;
+//         // border-bottom: 0;
+//     }
+
+//     @-moz-document url-prefix() {
+//         .hover-scroll {
+//             overflow: scroll;
+//             position: relative;
+//             border-left: 0;
+//             border-bottom: 0;
+//         }
+//     }
+// }
+
+// @media (max-width: 991.98px) {
+//     .hover-scroll {
+//         overflow: auto;
+//     }
+// }
+
+// .hover-scroll-y {
+//     position: relative;
+// }
+
+// @media (min-width: 992px) {
+//     .hover-scroll-y {
+//         overflow-y: hidden;
+//         border-left: 0.4rem solid transparent;
+//         margin-left: -0.4rem;
+//     }
+
+//     .hover-scroll-y:hover {
+//         // overflow-y: scroll;
+//         // border-left: 0;
+//     }
+
+//     @-moz-document url-prefix() {
+//         .hover-scroll-y {
+//             overflow-y: scroll;
+//             position: relative;
+//             border-left: 0;
+//         }
+//     }
+// }
+
+// @media (max-width: 991.98px) {
+//     .hover-scroll-y {
+//         overflow-y: auto;
+//     }
+// }
+
+// .hover-scroll-x {
+//     position: relative;
+// }
+
+// @media (min-width: 992px) {
+//     .hover-scroll-x {
+//         overflow-x: hidden;
+//         border-bottom: 0.4rem solid transparent;
+//     }
+
+//     .hover-scroll-x:hover {
+//         // overflow-x: scroll;
+//         // border-bottom: 0;
+//     }
+
+//     @-moz-document url-prefix() {
+//         .hover-scroll-x {
+//             overflow-x: scroll;
+//             position: relative;
+//             border-bottom: 0;
+//         }
+//     }
+// }
+
+// @media (max-width: 991.98px) {
+//     .hover-scroll-x {
+//         overflow-x: auto;
+//     }
+// }
+
+// .hover-scroll-overlay-y {
+//     overflow-y: hidden;
+//     position: relative;
+//     --scrollbar-space: 0.5rem;
+// }
+
+// .hover-scroll-overlay-y::-webkit-scrollbar {
+//     width: calc(0.4rem + var(--scrollbar-space));
+// }
+
+// .hover-scroll-overlay-y::-webkit-scrollbar-thumb {
+//     background-clip: content-box;
+//     border-left: var(--scrollbar-space) solid transparent;
+// }
+
+// .hover-scroll-overlay-y:hover {
+//     // overflow-y: overlay;
+// }
+
+// @-moz-document url-prefix() {
+//     .hover-scroll-overlay-y {
+//         overflow-y: scroll;
+//         position: relative;
+//     }
+// }
+
+// .scroll-ps {
+//     padding-right: 0.4rem !important;
+// }
+
+// .scroll-ms {
+//     margin-right: 0.4rem !important;
+// }
+
+// .scroll-pe {
+//     padding-left: 0.4rem !important;
+// }
+
+// .scroll-me {
+//     margin-left: 0.4rem !important;
+// }
+
+// .scroll-px {
+//     padding-right: 0.4rem !important;
+//     padding-left: 0.4rem !important;
+// }
+
+// .scroll-mx {
+//     margin-right: 0.4rem !important;
+//     margin-left: 0.4rem !important;
+// }
+
+
+.invalid-feedback {
+    color: $danger;
+    padding-top: .4rem;
+}
+
+.vpd-input-group input {
+    width: 100%;
+}
+
+.ellipsis-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
