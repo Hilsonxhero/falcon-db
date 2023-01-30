@@ -10,78 +10,38 @@
             <div class="grid grid-cols-12 gap-4">
 
               <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <Field
-                    mode="passive"
-                    name="title"
-                    v-slot="{ field }"
-                    rules="required"
-                    label="عنوان"
-                >
-                  <hx-input
-                      v-bind="field"
-                      v-model="form.title"
-                      placeholder="عنوان"
-                  ></hx-input>
+                <Field mode="passive" name="title" v-slot="{ field }" rules="required" label="عنوان">
+                  <hx-input v-bind="field" v-model="form.title" placeholder="عنوان"></hx-input>
                 </Field>
 
                 <div class="invalid-feedback d-block">
-                  <ErrorMessage name="title"/>
+                  <ErrorMessage name="title" />
                 </div>
               </hx-form-group>
 
               <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <Field
-                    name="url"
-                    rules="required"
-                    v-slot="{ field }"
-                    label="لینک"
-                >
-                  <hx-input
-                      v-bind="field"
-                      v-model="form.url"
-                      placeholder="لینک"
-                  >
+                <Field name="url" rules="required" v-slot="{ field }" label="لینک">
+                  <hx-input v-bind="field" v-model="form.url" placeholder="لینک">
                   </hx-input>
                 </Field>
                 <div class="invalid-feedback d-block">
-                  <ErrorMessage name="url"/>
+                  <ErrorMessage name="url" />
                 </div>
               </hx-form-group>
 
               <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <hx-select
-                    nmae="categories"
-                    value-key="key"
-                    label="title"
-                    v-model="form.type"
-                    filterable
-                    :options="types"
-                    placeholder="انتخاب  نوع"
-                />
+                <hx-select nmae="categories" value-key="key" label="title" v-model="form.type" filterable
+                  :options="types" placeholder="انتخاب  نوع" />
               </hx-form-group>
 
               <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <hx-select
-                    nmae="categories"
-                    value-key="key"
-                    label="title"
-                    v-model="form.status"
-                    filterable
-                    :options="statuses"
-                    placeholder="انتخاب  وضعیت"
-                />
+                <hx-select nmae="categories" value-key="key" label="title" v-model="form.status" filterable
+                  :options="statuses" placeholder="انتخاب  وضعیت" />
               </hx-form-group>
 
               <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-3">
-                <hx-select
-                    nmae="categories"
-                    value-key="id"
-                    label="title"
-                    v-model="form.category"
-                    filterable
-                    :options="categories"
-                    placeholder="انتخاب  دسته بندی"
-                />
+                <hx-select nmae="categories" value-key="id" label="title" v-model="form.category" filterable
+                  :options="categories" placeholder="انتخاب  دسته بندی" />
               </hx-form-group>
 
 
@@ -116,12 +76,12 @@
 
 <script setup lang="ts">
 //@ts-nocheck
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from "vue";
 
 import ApiService from "@/core/services/ApiService";
-import {useRouter} from "vue-router";
-import {HxNotification} from "@/components/base/notification";
-import {ErrorMessage, Field, Form} from "vee-validate";
+import { useRouter } from "vue-router";
+import { HxNotification } from "@/components/base/notification";
+import { ErrorMessage, Field, Form } from "vee-validate";
 
 const categories = ref<any>([]);
 const loading = ref(false);
@@ -137,31 +97,31 @@ const form = ref({
 });
 
 const statuses = ref([
-  {title: "فعال", key: "enable"},
-  {title: "غیرفعال", key: "disable"},
-  {title: "درحال انتظار", key: "pending"},
-  {title: "رد شده", key: "rejected"},
+  { title: "فعال", key: "enable" },
+  { title: "غیرفعال", key: "disable" },
+  { title: "درحال انتظار", key: "pending" },
+  { title: "رد شده", key: "rejected" },
 ]);
 
 const types = ref([
-  {title: "بخش بالا", key: "top"},
+  { title: "بخش بالا", key: "top" },
 ]);
 
 
-const handleCreate = async (values, {resetForm}) => {
+const handleCreate = async (values, { resetForm }) => {
   let formData = {
-    title  : form.value.title,
-    url  : form.value.url,
-    type  : form.value.type,
-    position  : form.value.position,
-    status  : form.value.status,
-    banner  : form.value.image,
-    category  : form.value.category,
+    title: form.value.title,
+    url: form.value.url,
+    type: form.value.type,
+    position: form.value.position,
+    status: form.value.status,
+    banner: form.value.image?.base64,
+    category: form.value.category,
   }
 
   loading.value = true;
   try {
-    const {data} = await ApiService.post("category/slides", formData);
+    const { data } = await ApiService.post("category/slides", formData);
     resetForm();
     HxNotification.success({
       title: "عملیات موفقیت آمیز",
@@ -172,7 +132,7 @@ const handleCreate = async (values, {resetForm}) => {
     });
 
     loading.value = false;
-    router.push({name: "categories slides index"});
+    router.push({ name: "categories slides index" });
   } catch (e) {
     loading.value = false;
   }
@@ -180,13 +140,15 @@ const handleCreate = async (values, {resetForm}) => {
 
 
 
-onMounted(async() => {
+onMounted(async () => {
   try {
-    const {data} = await ApiService.get("categories");
+    const { data } = await ApiService.get("categories");
     categories.value = data.data;
   } catch (e) {
   }
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

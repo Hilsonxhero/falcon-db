@@ -20,6 +20,26 @@ export default {
             component: () => import("@/modules/product/views/products/edit.vue"),
         },
 
+
+        // recommendations
+        {
+            path: "/recommendations",
+            name: "recommendations index",
+            component: () => import("@/modules/product/views/recommendations/index.vue"),
+        },
+        {
+            path: "/recommendations/create",
+            name: "recommendations create",
+            component: () => import("@/modules/product/views/recommendations/create.vue"),
+        },
+        {
+            path: "/recommendations/edit/:id",
+            name: "recommendations edit",
+            component: () => import("@/modules/product/views/recommendations/edit.vue"),
+        },
+
+
+
         //products incredibles
         {
             path: "/products/incredibles",

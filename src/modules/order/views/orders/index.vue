@@ -1,27 +1,14 @@
 <template>
   <section></section>
   <section class="mb-6">
-    <HxDataTable
-      url="orders"
-      :single-item-index="index"
-      search-placeholder="جستجوی کاربر"
-      :table-header="tableHeader"
-      :enable-items-per-page-dropdown="false"
-      :on-current-change="true"
-    >
+    <HxDataTable url="orders" :single-item-index="index" search-placeholder="جستجوی سفارش" :table-header="tableHeader"
+      :enable-items-per-page-dropdown="false" :on-current-change="true">
       <template #left>
         <!-- <div></div> -->
       </template>
       <template v-slot:cell-checkbox="{ row: order }">
-        <div
-          class="form-check form-check-sm form-check-custom form-check-solid"
-        >
-          <input
-            class="form-check-input"
-            type="checkbox"
-            :value="order.id"
-            v-model="checkedData"
-          />
+        <div class="form-check form-check-sm form-check-custom form-check-solid">
+          <input class="form-check-input" type="checkbox" :value="order.id" v-model="checkedData" />
         </div>
       </template>
 
@@ -41,37 +28,15 @@
         {{ order.payable_price }}
       </template>
 
-      <template v-slot:cell-status="{ row: order }">
-        <template v-if="order?.status == 'wait_payment'">
-          <hx-button outlined variant="success" size="sm"
-            >در انتظار پرداخت</hx-button
-          >
-        </template>
+      <template v-slot:cell-status_fa="{ row: order }">
+        <div>{{ order.status_fa }}</div>
       </template>
 
       <template v-slot:cell-actions="{ row: order, index: index }">
-        <hx-button
-          variant="gray"
-          size="sm"
-          icon
-          :to="{ name: 'orders detail', params: { id: order.id } }"
-        >
+        <hx-button variant="gray" size="sm" icon :to="{ name: 'orders edit', params: { id: order.id } }">
           <hx-icon icon="notepad"></hx-icon>
         </hx-button>
-        <hx-button
-          variant="gray"
-          size="sm"
-          icon
-          :to="{ name: 'orders edit', params: { id: order.id } }"
-        >
-          <hx-icon icon="edit-alt"></hx-icon>
-        </hx-button>
-        <hx-button
-          variant="gray"
-          size="sm"
-          icon
-          @click="handleDelete(order, index)"
-        >
+        <hx-button variant="gray" size="sm" icon @click="handleDelete(order, index)">
           <hx-icon icon="trash"></hx-icon>
         </hx-button>
       </template>
@@ -117,7 +82,7 @@ const tableHeader = ref([
   },
   {
     name: "وضعیت",
-    key: "status",
+    key: "status_fa",
     sortable: false,
   },
   {
@@ -147,6 +112,6 @@ const handleDelete = (item: any, i: any) => {
         });
       });
     })
-    .catch(() => {});
+    .catch(() => { });
 };
 </script>

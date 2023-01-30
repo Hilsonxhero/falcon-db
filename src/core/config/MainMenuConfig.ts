@@ -4,7 +4,7 @@ const DocMenuConfig = [
       {
         heading: "داشبورد",
         route: "dashboard",
-        svgIcon: "user-circle",
+        svgIcon: "dashboard",
       },
     ],
   },
@@ -52,11 +52,11 @@ const DocMenuConfig = [
             heading: "تنوع ها",
             route: "variants index",
           },
-
           {
             heading: "محصولات",
             route: "products index",
           },
+
           // {
           //   heading: "تخفیف ها",
           //   route: "",
@@ -64,6 +64,11 @@ const DocMenuConfig = [
           {
             heading: "محصولات شگفت انگیز",
             route: "products incredibles index",
+          },
+
+          {
+            heading: "دسته بندی های پیشنهادی",
+            route: "recommendations index",
           },
 
           // {
@@ -240,7 +245,7 @@ const DocMenuConfig = [
       {
         sectionTitle: "مقالات",
         route: "",
-        svgIcon: "car",
+        svgIcon: "news",
         sub: [
           {
             heading: "مقالات",
