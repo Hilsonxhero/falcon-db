@@ -38,6 +38,18 @@ export default {
             component: () => import("@/modules/product/views/vouchers/edit.vue"),
         },
 
+        {
+            path: "/vouchers/:id/voucherables",
+            name: "vouchers voucherables index",
+            component: () => import("@/modules/product/views/vouchers/voucherables.vue"),
+        },
+
+        {
+            path: "/vouchers/:id/voucherables/create",
+            name: "vouchers voucherables create",
+            component: () => import("@/modules/product/views/vouchers/config.vue"),
+        },
+
 
         // recommendations
         {

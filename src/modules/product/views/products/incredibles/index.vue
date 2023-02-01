@@ -2,26 +2,12 @@
   <section class="mb-6">
     <div class="grid grid-cols-12 gap-4">
       <div class="col-span-12 lg:col-span-8">
-        <HxDataTable
-          @refresh="refresh = false"
-          :refresh="refresh"
-          :url="`product/incredibles`"
-          :single-item-index="index"
-          search-placeholder="جستجوی مقدار ویژگی"
-          :table-header="tableHeader"
-          :enable-items-per-page-dropdown="false"
-          :on-current-change="true"
-        >
+        <HxDataTable @refresh="refresh = false" :refresh="refresh" :url="`product/incredibles`"
+          :single-item-index="index" search-placeholder="جستجوی مقدار ویژگی" :table-header="tableHeader"
+          :enable-items-per-page-dropdown="false" :on-current-change="true">
           <template v-slot:cell-checkbox="{ row: product }">
-            <div
-              class="form-check form-check-sm form-check-custom form-check-solid"
-            >
-              <input
-                class="form-check-input"
-                type="checkbox"
-                :value="product.id"
-                v-model="checkedData"
-              />
+            <div class="form-check form-check-sm form-check-custom form-check-solid">
+              <input class="form-check-input" type="checkbox" :value="product.id" v-model="checkedData" />
             </div>
           </template>
 
@@ -41,33 +27,19 @@
 
           <template v-slot:cell-variant="{ row: product }">
             <div class="flex items-center">
-              <span
-                class="ml-2"
-                v-for="(combination, index) in product?.default_variant
-                  .combinations"
-                >{{ combination.label }}</span
-              >
+              <span class="ml-2" v-for="(combination, index) in product?.default_variant
+              .combinations">{{ combination.label }}</span>
             </div>
           </template>
 
           <template v-slot:cell-actions="{ row: feature, index: index }">
-            <hx-button
-              variant="gray"
-              size="sm"
-              icon
-              :to="{
-                name: 'products feature edit',
-                params: { id: id, value: feature.id },
-              }"
-            >
+            <hx-button variant="gray" size="sm" icon :to="{
+              name: 'products feature edit',
+              params: { id: id, value: feature.id },
+            }">
               <hx-icon icon="edit-alt"></hx-icon>
             </hx-button>
-            <hx-button
-              variant="gray"
-              size="sm"
-              icon
-              @click="handleDelete(feature, index)"
-            >
+            <hx-button variant="gray" size="sm" icon @click="handleDelete(feature, index)">
               <hx-icon icon="trash"></hx-icon>
             </hx-button>
           </template>
@@ -81,24 +53,10 @@
             </div>
             <div class="hx-card__body">
               <hx-form-group label="محصول">
-                <Field
-                  name="product"
-                  rules="required"
-                  v-slot="{ field }"
-                  label="محصول"
-                >
-                  <hx-select
-                    v-bind="field"
-                    remote
-                    @change="handleSelectProduct"
-                    :remote-method="handleSearchProduct"
-                    value-key="id"
-                    label="title_fa"
-                    v-model="form.product"
-                    filterable
-                    :options="products"
-                    placeholder="انتخاب  محصول"
-                  />
+                <Field name="product" rules="required" v-slot="{ field }" label="محصول">
+                  <hx-select v-bind="field" remote @change="handleSelectProduct" :remote-method="handleSearchProduct"
+                    value-key="id" label="title_fa" v-model="form.product" filterable :options="products"
+                    placeholder="انتخاب  محصول" />
                 </Field>
 
                 <div class="invalid-feedback d-block">
@@ -107,22 +65,9 @@
               </hx-form-group>
 
               <hx-form-group label="تنوع محصول">
-                <Field
-                  name="variant"
-                  rules="required"
-                  v-slot="{ field }"
-                  label="تنوع محصول"
-                >
-                  <hx-select
-                    v-bind="field"
-                    value-key="id"
-                    label="label"
-                    v-model="form.variant"
-                    filterable
-                    :options="variants"
-                    placeholder="انتخاب  تنوع محصول"
-                    allow-create
-                  >
+                <Field name="variant" rules="required" v-slot="{ field }" label="تنوع محصول">
+                  <hx-select v-bind="field" value-key="id" label="label" v-model="form.variant" filterable
+                    :options="variants" placeholder="انتخاب  تنوع محصول" allow-create>
                   </hx-select>
                 </Field>
 
@@ -132,17 +77,8 @@
               </hx-form-group>
 
               <hx-form-group label="درصد تخفیف">
-                <Field
-                  name="discount"
-                  rules="required"
-                  v-slot="{ field }"
-                  label="درصد تخفیف"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.discount"
-                    placeholder="درصد تخفیف"
-                  >
+                <Field name="discount" rules="required" v-slot="{ field }" label="درصد تخفیف">
+                  <hx-input v-bind="field" v-model="form.discount" placeholder="درصد تخفیف">
                   </hx-input>
                 </Field>
 
@@ -152,10 +88,7 @@
               </hx-form-group>
 
               <hx-form-group label="پایان تخفیف">
-                <date-picker
-                  v-model="form.expire_at"
-                  type="datetime"
-                ></date-picker>
+                <date-picker v-model="form.expire_at" type="datetime"></date-picker>
               </hx-form-group>
             </div>
           </div>
@@ -287,15 +220,20 @@ const handleDelete = (item: any, i: any) => {
         });
       });
     })
-    .catch(() => {});
+    .catch(() => { });
 };
 
-const handleSearchProduct = (query) => {
+const fetchProducts = (query = "") => {
   ApiService.query(`product/select`, {
     params: { q: query, doesnt_have_incredble: 1, doesnt_have_discount: 1 },
   }).then(({ data }) => {
-    products.value = data.data?.data;
+    products.value = data.data;
   });
+}
+
+
+const handleSearchProduct = (query) => {
+  fetchProducts(query)
 };
 
 const handleSelectProduct = (id) => {
@@ -311,6 +249,10 @@ const handleSelectProduct = (id) => {
   });
 };
 
-onMounted(() => {});
+onMounted(() => {
+  fetchProducts()
+});
 </script>
-<style></style>
+<style>
+
+</style>

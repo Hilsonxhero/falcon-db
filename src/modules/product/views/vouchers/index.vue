@@ -40,7 +40,15 @@
                         <span class="">{{ voucher?.used }}</span>
                     </template>
                     <template v-slot:cell-is_active="{ row: voucher }">
-                        <span class="">{{ voucher?.is_active }}</span>
+
+                        <template v-if="voucher.is_active">
+                            <hx-button outlined variant="success" size="sm">فعال</hx-button>
+                        </template>
+                        <template v-else>
+                            <hx-button outlined variant="light" size="sm">غیر فعال</hx-button>
+                        </template>
+
+
                     </template>
                     <template v-slot:cell-start_date="{ row: voucher }">
                         <span class="">{{ voucher?.start_date }}</span>
@@ -52,7 +60,7 @@
 
                     <template v-slot:cell-actions="{ row: voucher, index: index }">
                         <hx-button variant="gray" size="sm" icon :to="{
-                            name: 'vouchers edit',
+                            name: 'vouchers voucherables index',
                             params: { id: voucher.id },
                         }">
                             <hx-icon icon="filter-add"></hx-icon>

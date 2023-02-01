@@ -184,19 +184,26 @@ const handleDelete = (item: any, i: any) => {
         .catch(() => { });
 };
 
-const handleSearch = (query) => {
+
+const fetchCategories = (query = "") => {
     ApiService.query(`category/select`, {
         params: { q: query },
     }).then(({ data }) => {
         categories.value = data?.data;
     });
+}
+
+const handleSearch = (query) => {
+    fetchCategories(query)
 };
 
 const handleSelect = (id) => {
 
 };
 
-onMounted(() => { });
+onMounted(() => {
+    fetchCategories()
+});
 </script>
 <style>
 

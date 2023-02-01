@@ -174,12 +174,18 @@ const handleDelete = (item: any, i: any) => {
         .catch(() => { });
 };
 
-const handleSearch = (query) => {
+
+const fetchProducts = (query = "") => {
     ApiService.query(`product/select`, {
         params: { q: query },
     }).then(({ data }) => {
-        products.value = data?.data?.data;
+        products.value = data?.data;
     });
+}
+
+const handleSearch = (query) => {
+    fetchProducts(query)
+        ;
 };
 
 onMounted(() => {
@@ -187,6 +193,8 @@ onMounted(() => {
     }).then(({ data }) => {
         recommendations.value = data?.data;
     });
+
+    fetchProducts()
     // ApiService.query(`product/select`, {
     // }).then(({ data }) => {
     //     products.value = data?.data;
