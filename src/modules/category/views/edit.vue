@@ -10,11 +10,7 @@
     </template>
     <template #default>
       <div class="w-full">
-        <Form
-          @submit="handleUpdate"
-          class="grid grid-cols-12 gap-6"
-          ref="formRef"
-        >
+        <Form @submit="handleUpdate" class="grid grid-cols-12 gap-6" ref="formRef">
           <div class="col-span-12">
             <div class="hx-card">
               <div class="hx-card__header">
@@ -24,17 +20,8 @@
                 <div class="grid grid-cols-12 gap-4">
                   <div class="col-span-12 sm:col-span-6 lg:col-span-4">
                     <hx-form-group>
-                      <Field
-                        name="title"
-                        rules="required"
-                        v-slot="{ field }"
-                        label="عنوان"
-                      >
-                        <hx-input
-                          v-bind="field"
-                          v-model="form.title"
-                          placeholder="عنوان"
-                        ></hx-input>
+                      <Field name="title" rules="required" v-slot="{ field }" label="عنوان">
+                        <hx-input v-bind="field" v-model="form.title" placeholder="عنوان"></hx-input>
                       </Field>
 
                       <div class="invalid-feedback d-block">
@@ -45,17 +32,8 @@
 
                   <div class="col-span-12 sm:col-span-6 lg:col-span-4">
                     <hx-form-group>
-                      <Field
-                        name="title_en"
-                        rules="required"
-                        v-slot="{ field }"
-                        label="عنوان انگلیسی"
-                      >
-                        <hx-input
-                          v-bind="field"
-                          v-model="form.title_en"
-                          placeholder="عنوان انگلیسی"
-                        >
+                      <Field name="title_en" rules="required" v-slot="{ field }" label="عنوان انگلیسی">
+                        <hx-input v-bind="field" v-model="form.title_en" placeholder="عنوان انگلیسی">
                         </hx-input>
                       </Field>
                       <div class="invalid-feedback d-block">
@@ -66,31 +44,15 @@
 
                   <div class="col-span-12 sm:col-span-6 lg:col-span-4">
                     <hx-form-group>
-                      <hx-select
-                        nmae="categories"
-                        value-key="id"
-                        label="title"
-                        v-model="form.parent"
-                        filterable
-                        :options="categories"
-                        placeholder="انتخاب دسته بندی"
-                      />
+                      <hx-select nmae="categories" value-key="id" label="title" v-model="form.parent" filterable
+                        :options="categories" placeholder="انتخاب دسته بندی" />
                     </hx-form-group>
                   </div>
 
                   <div class="col-span-12">
                     <hx-form-group>
-                      <Field
-                        name="description"
-                        rules="required"
-                        v-slot="{ field }"
-                        label="توضیحات"
-                      >
-                        <hx-textarea
-                          v-bind="field"
-                          v-model="form.description"
-                          placeholder="توضیحات"
-                        >
+                      <Field name="description" rules="required" v-slot="{ field }" label="توضیحات">
+                        <hx-textarea v-bind="field" v-model="form.description" placeholder="توضیحات">
                         </hx-textarea>
                       </Field>
                       <div class="invalid-feedback d-block">
@@ -101,11 +63,7 @@
 
                   <div class="col-span-3">
                     <hx-form-group>
-                      <hx-switch
-                        :label="form.status ? 'فعال' : 'غیرفعال'"
-                        name="staus"
-                        v-model="form.status"
-                      >
+                      <hx-switch :label="form.status ? 'فعال' : 'غیرفعال'" name="staus" v-model="form.status">
                       </hx-switch>
                     </hx-form-group>
                   </div>
@@ -119,11 +77,7 @@
                 <h4 class="text-gray-600 text-xl">تصویر</h4>
               </div>
               <div class="hx-card__body" v-if="form.media">
-                <hx-upload
-                  :max="1"
-                  v-model="form.image"
-                  :sources="form.media.main"
-                ></hx-upload>
+                <hx-upload :max="1" v-model="form.image" :sources="form.media.main"></hx-upload>
               </div>
             </div>
           </div>
@@ -173,7 +127,7 @@ const fetchData = async () => {
     const { data } = await ApiService.get(`categories`);
     categories.value = data.data;
     loading.value = false;
-  } catch (e) {}
+  } catch (e) { }
 };
 
 const fetchCategory = async () => {
@@ -184,7 +138,7 @@ const fetchCategory = async () => {
     formRef.value.setValues({
       ...data.data,
     });
-  } catch (e) {}
+  } catch (e) { }
 };
 
 const handleUpdate = async (values, { resetForm }) => {
@@ -192,9 +146,9 @@ const handleUpdate = async (values, { resetForm }) => {
     title: form.value.title,
     title_en: form.value.title_en,
     description: form.value.description,
-    parent: form.value.parent?.id,
+    parent: form.value.parent,
     status: form.value.status,
-    image: form.value.image,
+    image: form.value.image?.base64,
   };
 
   try {
@@ -209,7 +163,7 @@ const handleUpdate = async (values, { resetForm }) => {
     });
     loader.value = false;
     router.push({ name: "categories index" });
-  } catch (e) {}
+  } catch (e) { }
 };
 
 watchEffect(() => {
@@ -227,4 +181,6 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

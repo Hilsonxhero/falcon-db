@@ -141,7 +141,7 @@
                 icon
                 :to="{ name: 'orders edit', params: { id: order.id } }"
               >
-                <hx-icon icon="notepad"></hx-icon>
+                <hx-icon icon="slider-alt"></hx-icon>
               </hx-button>
               <hx-button
                 variant="gray"

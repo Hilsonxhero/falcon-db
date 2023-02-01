@@ -21,6 +21,24 @@ export default {
         },
 
 
+        //vouchers
+        {
+            path: "/vouchers",
+            name: "vouchers index",
+            component: () => import("@/modules/product/views/vouchers/index.vue"),
+        },
+        {
+            path: "/vouchers/create",
+            name: "vouchers create",
+            component: () => import("@/modules/product/views/vouchers/create.vue"),
+        },
+        {
+            path: "/vouchers/edit/:id",
+            name: "vouchers edit",
+            component: () => import("@/modules/product/views/vouchers/edit.vue"),
+        },
+
+
         // recommendations
         {
             path: "/recommendations",

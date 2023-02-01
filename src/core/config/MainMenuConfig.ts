@@ -57,10 +57,10 @@ const DocMenuConfig = [
             route: "products index",
           },
 
-          // {
-          //   heading: "تخفیف ها",
-          //   route: "",
-          // },
+          {
+            heading: "کد تخفیف ",
+            route: "vouchers index",
+          },
           {
             heading: "محصولات شگفت انگیز",
             route: "products incredibles index",

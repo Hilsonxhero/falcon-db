@@ -30,7 +30,7 @@
 
             <template v-slot:cell-actions="{ row: variant }">
                 <hx-button variant="gray" size="sm" icon :to="{ name: 'variants values', params: { id: variant.id } }">
-                    <hx-icon icon="notepad"></hx-icon>
+                    <hx-icon icon="slider-alt"></hx-icon>
                 </hx-button>
                 <hx-button variant="gray" size="sm" icon :to="{ name: 'variants edit', params: { id: variant.id } }">
                     <hx-icon icon="edit-alt"></hx-icon>
@@ -106,4 +106,5 @@ const handleDelete = (item: any) => {
 
 </script>
 <style>
+
 </style>

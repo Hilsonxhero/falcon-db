@@ -3,8 +3,7 @@
   <div ref="scrollElRef" class="hover-scroll-overlay-y my-5 my-lg-5">
     <!--begin::Menu-->
     <div
-      class="menu flex-col menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
-    >
+      class="menu flex-col menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500">
       <template v-for="(item, i) in MainMenuConfig" :key="i">
         <div v-if="item.heading" class="menu-item">
           <div class="menu-content pt-8 pb-2">
@@ -17,15 +16,11 @@
         <template v-for="(menuItem, j) in item.pages" :key="j">
           <template v-if="menuItem.heading">
             <div class="menu-item">
-              <router-link
-                class="menu-link"
-                active-class="active"
-                :to="{ name: menuItem.route }"
-              >
+              <router-link class="menu-link" active-class="active" :to="{ name: menuItem.route }">
                 <span v-if="menuItem.svgIcon" class="menu-icon">
                   <span class="svg-icon svg-icon-2">
                     <!-- <inline-svg :src="menuItem.svgIcon" /> -->
-                    <hx-icon :icon="menuItem.svgIcon" class="w-6 h-6"></hx-icon>
+                    <hx-icon :icon="menuItem.svgIcon" class="w-5 h-5"></hx-icon>
                   </span>
                 </span>
                 <span class="menu-title">{{
@@ -35,11 +30,7 @@
             </div>
           </template>
 
-          <div
-            v-if="menuItem.sectionTitle"
-            :class="{ show: hasActiveChildren(menuItem.route) }"
-            class="menu-item"
-          >
+          <div v-if="menuItem.sectionTitle" :class="{ show: hasActiveChildren(menuItem.route) }" class="menu-item">
             <hx-collapse menu accordion>
               <hx-collapse-item menu class="menu-item">
                 <template #title>
@@ -47,10 +38,7 @@
                     <span v-if="menuItem.svgIcon" class="menu-icon">
                       <span class="svg-icon svg-icon-2">
                         <!-- <inline-svg :src="menuItem.svgIcon" /> -->
-                        <hx-icon
-                          :icon="menuItem.svgIcon"
-                          class="w-6 h-6"
-                        ></hx-icon>
+                        <hx-icon :icon="menuItem.svgIcon" class="w-5 h-5"></hx-icon>
                       </span>
                     </span>
                     <span class="menu-title">{{
@@ -62,11 +50,7 @@
 
                 <template v-for="(item2, k) in menuItem.sub" :key="k">
                   <div v-if="item2.heading" class="menu-item">
-                    <router-link
-                      class="menu-link"
-                      active-class="active"
-                      :to="{ name: item2.route }"
-                    >
+                    <router-link class="menu-link" active-class="active" :to="{ name: item2.route }">
                       <span class="menu-bullet">
                         <span class="bullet bullet-dot"></span>
                       </span>
@@ -76,11 +60,7 @@
                     </router-link>
                   </div>
 
-                  <div
-                    v-if="item2.sectionTitle"
-                    :class="{ show: hasActiveChildren(item2.route) }"
-                    class="menu-item"
-                  >
+                  <div v-if="item2.sectionTitle" :class="{ show: hasActiveChildren(item2.route) }" class="menu-item">
                     <hx-collapse menu accordion>
                       <hx-collapse-item menu>
                         <template #title>
@@ -95,17 +75,10 @@
                           </span>
                         </template>
 
-                        <div
-                          :class="{ show: hasActiveChildren(item2.route) }"
-                          class=""
-                        >
+                        <div :class="{ show: hasActiveChildren(item2.route) }" class="">
                           <template v-for="(item3, k) in item2.sub" :key="k">
                             <div v-if="item3.heading" class="menu-item">
-                              <router-link
-                                class="menu-link"
-                                active-class="active"
-                                :to="{ name: item3.route }"
-                              >
+                              <router-link class="menu-link" active-class="active" :to="{ name: item3.route }">
                                 <span class="menu-bullet">
                                   <span class="bullet bullet-dot"></span>
                                 </span>

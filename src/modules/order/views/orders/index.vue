@@ -34,7 +34,7 @@
 
       <template v-slot:cell-actions="{ row: order, index: index }">
         <hx-button variant="gray" size="sm" icon :to="{ name: 'orders edit', params: { id: order.id } }">
-          <hx-icon icon="notepad"></hx-icon>
+          <hx-icon icon="slider-alt"></hx-icon>
         </hx-button>
         <hx-button variant="gray" size="sm" icon @click="handleDelete(order, index)">
           <hx-icon icon="trash"></hx-icon>
