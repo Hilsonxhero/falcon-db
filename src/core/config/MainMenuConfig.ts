@@ -77,47 +77,6 @@ const DocMenuConfig = [
           // },
         ],
       },
-
-      // {
-      //   sectionTitle: "pages",
-      //   route: "",
-      //   svgIcon: "media/icons/duotune/general/gen022.svg",
-      //   fontIcon: "bi-archive",
-      //   sub: [
-      //     {
-      //       sectionTitle: "profile",
-      //       route: "/profile",
-      //       sub: [
-      //         {
-      //           heading: "profileOverview",
-      //           route: "",
-      //         },
-      //         {
-      //           heading: "projects",
-      //           route: "",
-      //         },
-      //         {
-      //           heading: "campaigns",
-      //           route: "",
-      //         },
-      //         {
-      //           heading: "documents",
-      //           route: "",
-      //         },
-      //         {
-      //           heading: "connections",
-      //           route: "",
-      //         },
-      //         {
-      //           heading: "activity",
-      //           route: "",
-      //         },
-      //       ],
-      //     },
-
-      //   ],
-      // },
-
       {
         sectionTitle: "سفارشات",
         route: "",
@@ -148,6 +107,24 @@ const DocMenuConfig = [
       // },
     ],
   },
+
+  {
+    heading: "نظرات",
+    route: "",
+    pages: [
+      {
+        heading: "نظرات",
+        route: "comments index",
+        svgIcon: "messages",
+      },
+      {
+        heading: "عناوین امتیاز نظرات",
+        route: "score models index",
+        svgIcon: "messages",
+      },
+    ],
+  },
+
 
   {
     heading: "کاربران",

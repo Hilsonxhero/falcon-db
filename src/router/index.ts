@@ -15,12 +15,12 @@ import state from "@/modules/state/router";
 import setting from "@/modules/setting/router";
 import payment from "@/modules/payment/router";
 import order from "@/modules/order/router";
-
+import comment from "@/modules/comment/router";
 const routes: Array<RouteRecordRaw> = [
   auth, article, category,
   brand, warranty, shipment, user,
   role, dashboard, product,
-  state, setting, payment, order
+  state, setting, payment, order,comment
 ];
 
 const router = createRouter({
