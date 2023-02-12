@@ -101,7 +101,7 @@ export const paginationEmits = {
 }
 export type PaginationEmits = typeof paginationEmits
 
-const componentName = 'ElPagination'
+const componentName = 'HxPagination'
 export default defineComponent({
   name: componentName,
 

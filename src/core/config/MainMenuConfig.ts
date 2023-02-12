@@ -109,12 +109,17 @@ const DocMenuConfig = [
   },
 
   {
-    heading: "نظرات",
+    heading: "نظرات و پرسش ها",
     route: "",
     pages: [
       {
         heading: "نظرات",
         route: "comments index",
+        svgIcon: "messages",
+      },
+      {
+        heading: "پرسش ها",
+        route: "questions index",
         svgIcon: "messages",
       },
       {

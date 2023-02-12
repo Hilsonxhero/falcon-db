@@ -6,24 +6,16 @@
           <div class="hx-card">
             <div class="hx-card__header">
               <h4 class="text-gray-600 text-xl">
-                ویرایش نظر {{ form.title && form.title }}
+                ویرایش نظر
               </h4>
             </div>
             <div class="hx-card__body">
-              <hx-form-group>
-                <Field mode="passive" name="title" v-slot="{ field }" rules="required" label="عنوان">
-                  <hx-input v-bind="field" v-model="form.title" placeholder="عنوان نظر"></hx-input>
-                </Field>
 
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="title" />
-                </div>
-              </hx-form-group>
 
               <hx-form-group>
                 <Field mode="passive" name="content" v-slot="{ field }" rules="required" label="متن">
                   <hx-input class="h-32" type="textarea" v-bind="field" v-model="form.content"
-                    placeholder="متن نظر"></hx-input>
+                    placeholder="متن پرسش"></hx-input>
                 </Field>
 
                 <div class="invalid-feedback d-block">
@@ -32,7 +24,7 @@
               </hx-form-group>
 
               <hx-form-group>
-                <Field mode="passive" name="status" v-slot="{ field }" rules="required" label="وضعیت نظر">
+                <Field mode="passive" name="status" v-slot="{ field }" rules="required" label="وضعیت پرسش">
                   <hx-select name="status" value-key="key" label="title" v-model="form.status" filterable
                     :options="statuses" placeholder="انتخاب  وضعیت" />
                 </Field>
@@ -45,7 +37,7 @@
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
               <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
-              <hx-button variant="light" :to="{ name: 'comments index' }">
+              <hx-button variant="light" :to="{ name: 'questions index' }">
                 لغو
               </hx-button>
             </div>
@@ -70,7 +62,6 @@ const loading = ref(false);
 const formRef = ref<any>(null);
 const loader = ref(false);
 const form = ref({
-  title: null,
   content: null,
   status: null,
 });
@@ -82,12 +73,12 @@ const statuses = ref([
 ]);
 
 const id = ref(null);
-const types = ref(["checkbox", "color", "select", "size"]);
+
 
 const fetchData = async () => {
   try {
     loading.value = true;
-    const { data } = await ApiService.get(`comments/${id.value}`);
+    const { data } = await ApiService.get(`questions/${id.value}`);
     form.value = data.data;
     // form.value.type = types.value.find(d => d.value == form.value.type)
     formRef.value.setValues({
@@ -101,14 +92,13 @@ const fetchData = async () => {
 
 const handleUpdate = async (values, { resetForm }) => {
   let formData = {
-    title: form.value.title,
     content: form.value.content,
     status: form.value.status,
   };
 
   try {
     loader.value = true;
-    const { data } = await ApiService.put(`comments/${id.value}`, formData);
+    const { data } = await ApiService.put(`questions/${id.value}`, formData);
     resetForm();
     HxNotification.success({
       title: "success",
@@ -118,7 +108,7 @@ const handleUpdate = async (values, { resetForm }) => {
       position: "bottom-right",
     });
     loader.value = false;
-    router.push({ name: "comments index" });
+    router.push({ name: "questions index" });
   } catch (e) {
     loader.value = false;
   }

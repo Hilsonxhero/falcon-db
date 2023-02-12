@@ -20,6 +20,18 @@ export default {
             component: () => import("@/modules/product/views/products/edit.vue"),
         },
 
+        // product questions
+        {
+            path: "/questions",
+            name: "questions index",
+            component: () => import("@/modules/product/views/questions/index.vue"),
+        },
+        {
+            path: "/questions/edit/:id",
+            name: "questions edit",
+            component: () => import("@/modules/product/views/questions/edit.vue"),
+        },
+
 
         //vouchers
         {
