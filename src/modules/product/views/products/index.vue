@@ -21,11 +21,11 @@
         <span class="">{{ product?.title_fa }}</span>
       </template>
 
-      <template v-slot:cell-title_en="{ row: product }">
+      <!-- <template v-slot:cell-title_en="{ row: product }">
         <a href="#" class="text-gray-600 text-hover-primary mb-1">
           {{ product?.title_en }}
         </a>
-      </template>
+      </template> -->
       <template v-slot:cell-category="{ row: product }">
         {{ product.category.title }}
       </template>
@@ -45,8 +45,12 @@
         </template>
       </template>
       <template v-slot:cell-actions="{ row: product, index: index }">
-        <hx-button variant="gray" size="sm" icon :to="{ name: 'products variants', params: { id: product.id } }">
+        <!-- <hx-button variant="gray" size="sm" icon :to="{ name: 'products variants', params: { id: product.id } }">
           <hx-icon icon="slider-alt"></hx-icon>
+        </hx-button> -->
+
+        <hx-button variant="gray" size="sm" icon :to="{ name: 'products gallery index', params: { id: product.id } }">
+          <hx-icon icon="gallery"></hx-icon>
         </hx-button>
 
         <hx-button variant="gray" size="sm" icon :to="{ name: 'products features', params: { id: product.id } }">
@@ -90,11 +94,11 @@ const tableHeader = ref([
     key: "title_fa",
     sortable: true,
   },
-  {
-    name: "عنوان لاتین",
-    key: "title_en",
-    sortable: true,
-  },
+  // {
+  //   name: "عنوان لاتین",
+  //   key: "title_en",
+  //   sortable: true,
+  // },
   {
     name: "دسته بندی",
     key: "category",

@@ -149,6 +149,21 @@ export default {
         },
 
 
+
+        //products gallery
+        {
+            path: "/products/:id/gallery",
+            name: "products gallery index",
+            component: () => import("@/modules/product/views/gallery/index.vue"),
+        },
+
+        {
+            path: "/products/:product/gallery/:id/edit",
+            name: "products gallery edit",
+            component: () => import("@/modules/product/views/gallery/edit.vue"),
+        },
+
+
         //features
 
         {

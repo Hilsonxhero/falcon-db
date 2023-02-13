@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="flex items-center justify-start flex-wrap space-x-2 space-x-reverse"
-  >
-    <div
+  <div class="flex items-center justify-start flex-wrap space-x-2 space-x-reverse">
+    <!-- <div
       v-for="(file, index) in files"
       :key="index"
       :class="ns.e('input')"
@@ -31,9 +29,9 @@
           @change="handleObjectURL"
         />
       </label>
-    </div>
+    </div> -->
 
-    <div
+    <!-- <div
       :class="ns.e('input')"
       class="mb-3 flex justify-center items-center w-36 border-2"
       @click="uploadRef.click()"
@@ -50,11 +48,45 @@
           @change="handleObjectURL"
         />
       </label>
+    </div> -->
+
+
+    <div class="flex flex-col relative w-full">
+      <label for="file-upload"
+        class="relative block bg-gray-100 border-dashed border-2 border-gray-300 rounded-xl overflow-hidden ">
+        <input ref="uploadRef" id="file-upload" @change="handleObjectURL" type="file"
+          class="opacity-0 cursor-pointer absolute inset-0 w-full">
+        <span class=" items-center pointer-events-none flex  justify-center h-full ">
+          <span class=" flex items-center justify-center h-full text-center mx-auto ">
+            <div class="p-1 space-y-4 flex lg:t-col">
+              <div class="items-center flex flex-col justify-center">
+                <template v-if="uploaded_file.preview">
+                  <div class="max-h-[5rem] mt-2">
+                    <img :src="uploaded_file.preview" class="w-full h-full object-contain rounded-md" alt="">
+                  </div>
+                </template>
+                <template v-else>
+                  <hx-icon class="mb-3 w-10 h-10 text-typo-light fill-current icon sprite-next text-gray-500"
+                    icon="gallery"></hx-icon>
+                </template>
+
+
+                <template v-if="uploaded_file.name">
+                  <div class="mr-1 mt-2 text-typo-light text-xs font-bold">
+                    {{ uploaded_file.name }}
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="mr-1 mt-2 text-typo-light text-xs font-bold">
+                    فایل را انتخاب کنید
+                  </div>
+                </template>
+
+              </div>
+            </div>
+          </span></span></label>
     </div>
 
-    <!-- <div class="text-gray-400 text-xs text-right mt-2">
-      لورم ایپسوم متن ساختگی با تولید سادگی
-    </div> -->
   </div>
 </template>
 
@@ -87,46 +119,90 @@ const emit = defineEmits(["fileChange", "update:modelValue", "delete"]);
 const ns = useNamespace("upload");
 const uploadRef = ref(null);
 const files = ref<Array<any>>([]);
+const uploaded_file = ref<any>({});
 const media = ref<any>({});
 
 const handleObjectURL = async (event: any) => {
   const file = event.target.files[0];
-  media.value.base64 = await useBase64(file);
-  media.value.media = file;
-  media.value.name = file.name;
-  media.value.url = URL.createObjectURL(file);
+  uploaded_file.value.base64 = await useBase64(file);
+  uploaded_file.value.media = file;
+  uploaded_file.value.name = file.name;
+  uploaded_file.value.preview = URL.createObjectURL(file);
   if (files.value.length >= props.max) return false;
-  files.value.push({
-    media: file,
-    file: await useBase64(file),
-    name: media.value.name,
-    url: media.value.url,
-  });
+  // files.value.push({
+  //   media: file,
+  //   file: await useBase64(file),
+  //   name: uploaded_file.value.name,
+  //   preview: uploaded_file.value.preview,
+  // });
+
+  // uploaded_file.value = {
+  //   media: file,
+  //   file: await useBase64(file),
+  //   name: media.value.name,
+  //   preview: media.value.preview,
+  // }
 };
 
 const handleDeleteFile = (file, index) => {
   files.value.splice(index, 1);
   emit("delete", file.id);
 };
+const clear = () => {
+  uploaded_file.value = {}
+};
+
+defineExpose({ clear })
 
 watch(
-  () => files.value,
+  () => uploaded_file.value,
   (val, oldVal) => {
-    if (props.max === 1) {
-      emit("update:modelValue", {
-        file: media.value.media,
-        base64: media.value.base64,
-      });
-    } else {
-      emit("update:modelValue", files.value);
-    }
+
+    emit("update:modelValue", {
+      file: val.media,
+      name: val.name,
+      base64: val.base64,
+      preview: val.preview,
+    });
   },
   { deep: true }
 );
 
+watch(
+  () => props.modelValue,
+  (val, oldVal) => {
+  },
+  { deep: true }
+);
+
+watch(
+  () => props.sources,
+  (val, oldVal) => {
+    if (isString(val)) uploaded_file.value.preview = val;
+  },
+  { deep: true }
+);
+
+// watch(
+//   () => files.value,
+//   (val, oldVal) => {
+//     if (props.max === 1) {
+//       emit("update:modelValue", {
+//         file: media.value.media,
+//         base64: media.value.base64,
+//       });
+//     } else {
+//       emit("update:modelValue", files.value);
+//     }
+//   },
+//   { deep: true }
+// );
+
 onMounted(() => {
   if (props.sources) {
-    if (isString(props.sources)) files.value.push({ url: props.sources });
+    // if (isString(props.sources)) files.value.push({ preview: props.sources });
+    if (isString(props.sources)) uploaded_file.value.preview = props.sources;
+
   }
 });
 </script>
