@@ -53,6 +53,10 @@
           <hx-icon icon="gallery"></hx-icon>
         </hx-button>
 
+        <hx-button variant="gray" size="sm" icon :to="{ name: 'products reviews index', params: { id: product.id } }">
+          <hx-icon icon="notepad"></hx-icon>
+        </hx-button>
+
         <hx-button variant="gray" size="sm" icon :to="{ name: 'products features', params: { id: product.id } }">
           <hx-icon icon="slider-alt"></hx-icon>
         </hx-button>

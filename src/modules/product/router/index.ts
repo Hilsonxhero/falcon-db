@@ -164,6 +164,26 @@ export default {
         },
 
 
+
+        //products reviews
+        {
+            path: "/products/:id/reviews",
+            name: "products reviews index",
+            component: () => import("@/modules/product/views/reviews/index.vue"),
+        },
+
+        {
+            path: "/products/:id/reviews/create",
+            name: "products reviews create",
+            component: () => import("@/modules/product/views/reviews/create.vue"),
+        },
+
+        {
+            path: "/products/:product/reviews/:id/edit",
+            name: "products reviews edit",
+            component: () => import("@/modules/product/views/reviews/edit.vue"),
+        },
+
         //features
 
         {
