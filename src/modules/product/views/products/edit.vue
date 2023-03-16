@@ -63,7 +63,7 @@ const handleUpdate = async (values, { resetForm }) => {
   let formData = {
     title_fa: data.value.title_fa,
     title_en: data.value.title_en,
-    review: data.value.review,
+    review: data.value.review.content,
     category_id: data.value.category,
     delivery: data.value.delivery,
     brand_id: data.value.brand,

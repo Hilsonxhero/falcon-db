@@ -31,6 +31,26 @@
               <hx-form-group>
                 <Field
                   mode="passive"
+                  name="delivery_date"
+                  v-slot="{ field }"
+                  rules="required"
+                  label="زمان تحویل"
+                >
+                  <hx-input
+                    v-bind="field"
+                    v-model="form.delivery_date"
+                    placeholder="زمان تحویل"
+                  ></hx-input>
+                </Field>
+
+                <div class="invalid-feedback d-block">
+                  <ErrorMessage name="delivery_date" />
+                </div>
+              </hx-form-group>
+
+              <hx-form-group>
+                <Field
+                  mode="passive"
                   name="delivery"
                   v-slot="{ field }"
                   rules="required"
@@ -132,6 +152,7 @@ const form = ref({
   delivery: null,
   shipping_cost: 0,
   is_default: false,
+  delivery_date: null,
 });
 
 const handleCreate = async (values, { resetForm }) => {
@@ -141,6 +162,7 @@ const handleCreate = async (values, { resetForm }) => {
     shipping_cost: form.value.shipping_cost,
     is_default: form.value.is_default,
     delivery: form.value.delivery,
+    delivery_date: form.value.delivery_date,
   };
 
   try {

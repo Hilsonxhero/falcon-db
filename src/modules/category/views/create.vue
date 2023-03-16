@@ -159,7 +159,7 @@ const handleCreate = async (values, { resetForm }) => {
   formData.append("title_en", form.value.title_en);
   formData.append("description", form.value.description);
   formData.append("parent", form.value.parent ?? "");
-  formData.append("status", form.value.status);
+  formData.append("status", "enable");
   formData.append("image", form.value.image?.base64);
   loading.value = true;
   try {
