@@ -14,16 +14,7 @@
         </hx-button>
       </template>
       <template v-slot:cell-checkbox="{ row: page }">
-        <div
-          class="form-check form-check-sm form-check-custom form-check-solid"
-        >
-          <input
-            class="form-check-input"
-            type="checkbox"
-            :value="page.id"
-            v-model="checkedData"
-          />
-        </div>
+        <hx-checkbox v-model="checkedData"></hx-checkbox>
       </template>
 
       <template v-slot:cell-banner="{ row: page }">

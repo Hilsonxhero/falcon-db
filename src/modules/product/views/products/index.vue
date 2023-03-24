@@ -1,19 +1,31 @@
 <template>
   <section class="mb-6">
-    <HxDataTable url="products" :single-item-index="index" search-placeholder="جستجوی محصول" :table-header="tableHeader"
-      :enable-items-per-page-dropdown="false" :on-current-change="true">
+    <HxDataTable
+      url="products"
+      :single-item-index="index"
+      search-placeholder="جستجوی محصول"
+      :table-header="tableHeader"
+      :enable-items-per-page-dropdown="false"
+      :on-current-change="true"
+    >
       <template #left>
         <hx-button :to="{ name: 'products create' }"> محصول جدید</hx-button>
       </template>
       <template v-slot:cell-checkbox="{ row: product }">
-        <div class="form-check form-check-sm form-check-custom form-check-solid">
-          <input class="form-check-input" type="checkbox" :value="product.id" v-model="checkedData" />
+        <div
+          class="form-check form-check-sm form-check-custom form-check-solid"
+        >
+          <hx-checkbox v-model="checkedData"></hx-checkbox>
         </div>
       </template>
 
       <template v-slot:cell-thumb="{ row: product }">
         <div class="flex space-x-2 space-x-reverse">
-          <img class="w-14 h-14 object-cover rounded-lg" :src="product?.media?.thumb" alt="" />
+          <img
+            class="w-14 h-14 object-cover rounded-lg"
+            :src="product?.media?.thumb"
+            alt=""
+          />
         </div>
       </template>
 
@@ -37,7 +49,8 @@
           <hx-button outlined variant="light" size="sm">غیر فعال</hx-button>
         </template>
         <template v-if="product?.status == 'pending'">
-          <hx-button outlined variant="warning" size="sm">در حال انتظار
+          <hx-button outlined variant="warning" size="sm"
+            >در حال انتظار
           </hx-button>
         </template>
         <template v-if="product?.status == 'rejected'">
@@ -49,21 +62,46 @@
           <hx-icon icon="slider-alt"></hx-icon>
         </hx-button> -->
 
-        <hx-button variant="gray" size="sm" icon :to="{ name: 'products gallery index', params: { id: product.id } }">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          :to="{ name: 'products gallery index', params: { id: product.id } }"
+        >
           <hx-icon icon="gallery"></hx-icon>
         </hx-button>
 
-        <hx-button variant="gray" size="sm" icon :to="{ name: 'products reviews index', params: { id: product.id } }">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          :to="{ name: 'products reviews index', params: { id: product.id } }"
+        >
           <hx-icon icon="notepad"></hx-icon>
         </hx-button>
 
-        <hx-button variant="gray" size="sm" icon :to="{ name: 'products features', params: { id: product.id } }">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          :to="{ name: 'products features', params: { id: product.id } }"
+        >
           <hx-icon icon="slider-alt"></hx-icon>
         </hx-button>
-        <hx-button variant="gray" size="sm" icon :to="{ name: 'products edit', params: { id: product.id } }">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          :to="{ name: 'products edit', params: { id: product.id } }"
+        >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>
-        <hx-button variant="gray" size="sm" icon @click="handleDelete(product, index)">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          @click="handleDelete(product, index)"
+        >
           <hx-icon icon="trash"></hx-icon>
         </hx-button>
       </template>
@@ -143,10 +181,7 @@ const handleDelete = (item: any, i: any) => {
         });
       });
     })
-    .catch(() => {
-    });
+    .catch(() => {});
 };
 </script>
-<style>
-
-</style>
+<style></style>

@@ -39,7 +39,11 @@ export default {
             component: () => import("@/modules/state/views/cities/index.vue"),
         },
 
-
+        {
+            path: "/cities/edit/:id",
+            name: "cities edit",
+            component: () => import("@/modules/state/views/cities/edit.vue"),
+        },
 
     ],
 };

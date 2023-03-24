@@ -1,26 +1,37 @@
 <template>
   <section class="mb-6">
-    <HxDataTable url="category/slides" :single-item-index="index" search-placeholder="جستجوی  عنوان"
-                 :table-header="fields" :enable-items-per-page-dropdown="false" :on-current-change="true">
+    <HxDataTable
+      url="category/slides"
+      :single-item-index="index"
+      search-placeholder="جستجوی  عنوان"
+      :table-header="fields"
+      :enable-items-per-page-dropdown="false"
+      :on-current-change="true"
+    >
       <template #left>
         <hx-button :to="{ name: 'categories slides create' }">
           اسلاید جدید
         </hx-button>
       </template>
       <template v-slot:cell-checkbox="{ row: slide }">
-        <div class="form-check form-check-sm form-check-custom form-check-solid">
-          <input class="form-check-input" type="checkbox" :value="slide.id" v-model="checkedData"/>
+        <div
+          class="form-check form-check-sm form-check-custom form-check-solid"
+        >
+          <hx-checkbox v-model="checkedData"></hx-checkbox>
         </div>
       </template>
 
       <template v-slot:cell-banner="{ row: slide }">
-        <img class="rounded-md w-20 h-16 h-full object-cover" :src="slide.banner" alt="">
+        <img
+          class="rounded-md w-20 h-16 h-full object-cover"
+          :src="slide.banner"
+          alt=""
+        />
       </template>
 
       <template v-slot:cell-title="{ row: slide }">
         {{ slide?.title }}
       </template>
-
 
       <template v-slot:cell-url="{ row: slide }">
         {{ slide?.url }}
@@ -30,17 +41,15 @@
         {{ slide?.category?.title }}
       </template>
 
-
       <template v-slot:cell-type="{ row: slide }">
         {{ slide?.type }}
       </template>
 
-<!--      <template v-slot:cell-position="{ row: slide }">-->
-<!--        {{ slide?.position }}-->
-<!--      </template>-->
+      <!--      <template v-slot:cell-position="{ row: slide }">-->
+      <!--        {{ slide?.position }}-->
+      <!--      </template>-->
 
       <template v-slot:cell-status="{ row: slide }">
-
         <template v-if="slide?.status == 'enable'">
           <hx-button outlined variant="success" size="sm">فعال</hx-button>
         </template>
@@ -50,26 +59,34 @@
       </template>
 
       <template v-slot:cell-actions="{ row: slide, index: index }">
-        <hx-button variant="gray" size="sm" icon :to="{ name: 'categories slides edit', params: { id: slide.id } }">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          :to="{ name: 'categories slides edit', params: { id: slide.id } }"
+        >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>
-        <hx-button variant="gray" size="sm" icon @click="handleDelete(slide, index)">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          @click="handleDelete(slide, index)"
+        >
           <hx-icon icon="trash"></hx-icon>
         </hx-button>
-
       </template>
     </HxDataTable>
   </section>
-
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted, watch,watchEffect} from "vue";
+import { ref, onMounted, watch, watchEffect } from "vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
-import {HxMessageBox} from '@/components/base/message-box'
-import {HxNotification} from '@/components/base/notification'
-import ApiService from '@/core/services/ApiService'
-import {useRoute, useRouter} from "vue-router";
+import { HxMessageBox } from "@/components/base/message-box";
+import { HxNotification } from "@/components/base/notification";
+import ApiService from "@/core/services/ApiService";
+import { useRoute, useRouter } from "vue-router";
 
 const checkedData = ref([]);
 
@@ -117,37 +134,30 @@ const fields = ref([
   },
 ]);
 
-const index = ref(null)
+const index = ref(null);
 
 const handleDelete = (item: any, i: any) => {
   HxMessageBox.confirm(
-      `آیا از حذف اسلاید ${item.title} اطمینان دارید ؟!`,
-      'پیام تایید',
-      {
-        confirmButtonText: 'تایید',
-        cancelButtonText: 'لغو',
-        type: 'warning',
-      }
+    `آیا از حذف اسلاید ${item.title} اطمینان دارید ؟!`,
+    "پیام تایید",
+    {
+      confirmButtonText: "تایید",
+      cancelButtonText: "لغو",
+      type: "warning",
+    }
   )
-      .then(() => {
-
-        ApiService.delete(`category/slides/${item.id}`).then(() => {
-          index.value = item.id
-          HxNotification.success({
-            title: 'عملیات موفقیت آمیز',
-            message: 'اسلاید موردنظر حذف شد',
-            showClose: true,
-            duration: 4000,
-            position: 'bottom-right',
-          })
-        })
-
-
-      })
-      .catch(() => {
-
-      })
-
-}
-
+    .then(() => {
+      ApiService.delete(`category/slides/${item.id}`).then(() => {
+        index.value = item.id;
+        HxNotification.success({
+          title: "عملیات موفقیت آمیز",
+          message: "اسلاید موردنظر حذف شد",
+          showClose: true,
+          duration: 4000,
+          position: "bottom-right",
+        });
+      });
+    })
+    .catch(() => {});
+};
 </script>

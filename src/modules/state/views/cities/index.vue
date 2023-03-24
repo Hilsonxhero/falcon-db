@@ -15,12 +15,7 @@
         <div
           class="form-check form-check-sm form-check-custom form-check-solid"
         >
-          <input
-            class="form-check-input"
-            type="checkbox"
-            :value="city.id"
-            v-model="checkedData"
-          />
+          <hx-checkbox v-model="checkedData"></hx-checkbox>
         </div>
       </template>
 
@@ -62,7 +57,7 @@
           variant="gray"
           size="sm"
           icon
-          :to="{ name: 'states edit', params: { id: city.id } }"
+          :to="{ name: 'cities edit', params: { id: city.id } }"
         >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>

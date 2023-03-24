@@ -1,6 +1,6 @@
 <template>
-  <label
-    class="flex"
+  <component
+    :is="!hasOwnLabel && isLabeledByFormItem ? 'span' : 'label'"
     :class="[
       ns.b(),
       ns.m(checkboxSize),
@@ -8,6 +8,7 @@
       ns.is('bordered', border),
       ns.is('checked', isChecked),
     ]"
+    :aria-controls="indeterminate ? controls : null"
     @click="onClickRoot"
   >
     <span
@@ -46,7 +47,7 @@
         type="checkbox"
         :aria-hidden="indeterminate ? 'true' : 'false'"
         :disabled="isDisabled"
-        :value="value"
+        :value="label"
         :name="name"
         :tabindex="tabindex"
         @change="handleChange"
@@ -55,15 +56,14 @@
       />
       <span :class="ns.e('inner')" />
     </span>
-    <span v-if="hasOwnLabel" :class="ns.e('label')" class="mr-2">
+    <span v-if="hasOwnLabel" :class="ns.e('label')">
       <slot />
       <template v-if="!$slots.default">{{ label }}</template>
     </span>
-  </label>
+  </component>
 </template>
 
 <script lang="ts" setup>
-// @ts-nocheck
 import { useSlots } from "vue";
 import { useNamespace } from "@/core/hooks";
 import { checkboxEmits, checkboxProps, useCheckbox } from "./checkbox";

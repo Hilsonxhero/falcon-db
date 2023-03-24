@@ -1,112 +1,120 @@
 .hx-select {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
+  position: relative;
+  // vertical-align: middle;
+  font-size: 14px;
+
+  &__wrapper {
+    $selector: &;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    cursor: pointer;
+    // padding: 1px 2px 1px 30px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    // border: 2px solid $primary;
+    // background-color: #fff;
+    transition: all 0.3s;
     position: relative;
-    // vertical-align: middle;
-    font-size: 14px;
 
-    &__wrapper {
-        $selector: &;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        box-sizing: border-box;
-        cursor: pointer;
-        // padding: 1px 2px 1px 30px;
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
-        // border: 2px solid $primary;
-        // background-color: #fff;
-        transition: all .3s;
-        position: relative;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
 
-        font-size: 0.875rem;
-        line-height: 1.25rem;
+  &__input-wrapper {
+    box-sizing: border-box;
+    position: relative;
+    // margin-inline-start: 12px;
+    max-width: 100%;
+    overflow: hidden;
+    line-height: 32px;
+  }
+
+  &__selected-item {
+    line-height: inherit;
+    // height: inherit;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: flex;
+  }
+
+  &__input-calculator {
+    left: 0;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    white-space: pre;
+    z-index: 999;
+  }
+
+  &__placeholder {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    // margin-inline-start: 12px;
+    width: calc(100% - 52px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $gray-500;
+
+    &.is-transparent {
+      color: $gray-500;
     }
+  }
 
-    &__input-wrapper {
-        box-sizing: border-box;
-        position: relative;
-        // margin-inline-start: 12px;
-        max-width: 100%;
-        overflow: hidden;
-        line-height: 32px;
+  &__suffix {
+    display: inline-flex;
+    position: absolute;
+    left: 12px;
+
+    // height: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $gray-500;
+    transform-origin: center center;
+    transition: all 0.25s ease;
+    // &.is-reverse {
+    //   color: $gray-500;
+    //   transform: rotate(180deg) translateY(50%);
+    // }
+  }
+
+  &__caret {
+    color: $gray-500;
+    transform-origin: center center;
+    transition: all 0.25s ease;
+
+    // transform: rotate(135deg);
+    &.is-reverse {
+      transform-origin: center center;
+      color: $gray-500;
+      transform: rotate(180deg);
     }
+  }
 
-    &__selected-item {
-        line-height: inherit;
-        // height: inherit;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        display: flex;
+  &__dropdown {
+    width: 100%;
+    transform: translateY(5px);
+    position: absolute;
+    border-radius: 0.475rem;
+    background-color: #fff;
+    box-shadow: 0 0 50px 0 rgba(82, 63, 105, 0.15);
+    z-index: 12;
+  }
+
+  &-dropdown__option-item {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &.is-selected {
+      background: $gray-200;
     }
-
-    &__input-calculator {
-        left: 0;
-        position: absolute;
-        top: 0;
-        visibility: hidden;
-        white-space: pre;
-        z-index: 999;
-    }
-
-    &__placeholder {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        // margin-inline-start: 12px;
-        width: calc(100% - 52px);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        color: $gray-500;
-
-        &.is-transparent {
-            color: $gray-500;
-        }
-    }
-
-    &__suffix {
-        display: inline-flex;
-        position: absolute;
-        left: 12px;
-        // height: 32px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: $gray-500;
-    }
-
-    &__caret {
-        color: $gray-500;
-
-        &.is-reverse {
-            color: $gray-500;
-            transform: rotate(180deg);
-        }
-    }
-
-    &__dropdown {
-        width: 100%;
-        transform: translateY(5px);
-        position: absolute;
-        border-radius: .475rem;
-        background-color: #fff;
-        box-shadow: 0 0 50px 0 rgba(82, 63, 105, .15);
-        z-index: 12;
-
-
-    }
-
-    &-dropdown__option-item {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        &.is-selected {
-            background: $gray-200;
-        }
-    }
-
+  }
 }

@@ -1,13 +1,19 @@
 <template>
   <section class="mb-6">
-    <HxDataTable url="comments" :single-item-index="index" search-placeholder="جستجوی عنوان" :table-header="tableHeader"
-      :enable-items-per-page-dropdown="false" :on-current-change="true">
-      <template #left>
-
-      </template>
+    <HxDataTable
+      url="comments"
+      :single-item-index="index"
+      search-placeholder="جستجوی عنوان"
+      :table-header="tableHeader"
+      :enable-items-per-page-dropdown="false"
+      :on-current-change="true"
+    >
+      <template #left> </template>
       <template v-slot:cell-checkbox="{ row: comment }">
-        <div class="form-check form-check-sm form-check-custom form-check-solid">
-          <input class="form-check-input" type="checkbox" :value="comment.id" v-model="checkedData" />
+        <div
+          class="form-check form-check-sm form-check-custom form-check-solid"
+        >
+          <hx-checkbox v-model="checkedData"></hx-checkbox>
         </div>
       </template>
 
@@ -32,18 +38,22 @@
           <hx-button outlined variant="success" size="sm">فعال</hx-button>
         </template>
         <template v-if="comment?.status == 'pending'">
-          <hx-button outlined variant="warning" size="sm">در حال انتظار</hx-button>
+          <hx-button outlined variant="warning" size="sm"
+            >در حال انتظار</hx-button
+          >
         </template>
         <template v-if="comment?.status == 'rejected'">
           <hx-button outlined variant="danger" size="sm">رد شده</hx-button>
-
-
         </template>
       </template>
 
       <template v-slot:cell-actions="{ row: comment }">
-
-        <hx-button variant="gray" size="sm" icon :to="{ name: 'comments edit', params: { id: comment.id } }">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          :to="{ name: 'comments edit', params: { id: comment.id } }"
+        >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>
         <hx-button variant="gray" size="sm" icon @click="handleDelete(comment)">
@@ -123,9 +133,7 @@ const handleDelete = (item: any) => {
         });
       });
     })
-    .catch(() => { });
+    .catch(() => {});
 };
 </script>
-<style>
-
-</style>
+<style></style>

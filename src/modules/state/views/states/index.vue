@@ -15,12 +15,7 @@
         <div
           class="form-check form-check-sm form-check-custom form-check-solid"
         >
-          <input
-            class="form-check-input"
-            type="checkbox"
-            :value="state.id"
-            v-model="checkedData"
-          />
+          <hx-checkbox v-model="checkedData"></hx-checkbox>
         </div>
       </template>
 
@@ -32,7 +27,6 @@
         </div>
       </template>
 
-      
       <template v-slot:cell-status="{ row: state }">
         <template v-if="state?.status == 'enable'">
           <hx-button outlined variant="success" size="sm">فعال</hx-button>

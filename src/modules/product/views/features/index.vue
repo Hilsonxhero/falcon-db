@@ -1,13 +1,22 @@
 <template>
   <section class="mb-6">
-    <HxDataTable url="features" :single-item-index="index" search-placeholder="جستجوی ویژگی" :table-data="tableData"
-      :table-header="tableHeader" :enable-items-per-page-dropdown="false" :on-current-change="true">
+    <HxDataTable
+      url="features"
+      :single-item-index="index"
+      search-placeholder="جستجوی ویژگی"
+      :table-data="tableData"
+      :table-header="tableHeader"
+      :enable-items-per-page-dropdown="false"
+      :on-current-change="true"
+    >
       <template #left>
         <hx-button :to="{ name: 'features create' }"> ویژگی جدید </hx-button>
       </template>
       <template v-slot:cell-checkbox="{ row: feature }">
-        <div class="form-check form-check-sm form-check-custom form-check-solid">
-          <input class="form-check-input" type="checkbox" :value="feature.id" v-model="checkedData" />
+        <div
+          class="form-check form-check-sm form-check-custom form-check-solid"
+        >
+          <hx-checkbox v-model="checkedData"></hx-checkbox>
         </div>
       </template>
 
@@ -33,7 +42,9 @@
           <hx-button outlined variant="light" size="sm">غیر فعال</hx-button>
         </template>
         <template v-if="feature?.status == 'pending'">
-          <hx-button outlined variant="warning" size="sm">در حال انتظار</hx-button>
+          <hx-button outlined variant="warning" size="sm"
+            >در حال انتظار</hx-button
+          >
         </template>
         <template v-if="feature?.status == 'rejected'">
           <hx-button outlined variant="danger" size="sm">رد شده</hx-button>
@@ -41,13 +52,28 @@
       </template>
 
       <template v-slot:cell-actions="{ row: feature, index: index }">
-        <hx-button variant="gray" size="sm" icon :to="{ name: 'features values', params: { id: feature.id } }">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          :to="{ name: 'features values', params: { id: feature.id } }"
+        >
           <hx-icon icon="slider-alt"></hx-icon>
         </hx-button>
-        <hx-button variant="gray" size="sm" icon :to="{ name: 'features edit', params: { id: feature.id } }">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          :to="{ name: 'features edit', params: { id: feature.id } }"
+        >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>
-        <hx-button variant="gray" size="sm" icon @click="handleDelete(feature, index)">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          @click="handleDelete(feature, index)"
+        >
           <hx-icon icon="trash"></hx-icon>
         </hx-button>
       </template>
@@ -121,9 +147,7 @@ const handleDelete = (item: any, i: any) => {
         });
       });
     })
-    .catch(() => { });
+    .catch(() => {});
 };
 </script>
-<style>
-
-</style>
+<style></style>

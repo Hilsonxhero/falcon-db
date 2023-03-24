@@ -15,12 +15,7 @@
         <div
           class="form-check form-check-sm form-check-custom form-check-solid"
         >
-          <input
-            class="form-check-input"
-            type="checkbox"
-            :value="article.id"
-            v-model="checkedData"
-          />
+          <hx-checkbox v-model="checkedData"></hx-checkbox>
         </div>
       </template>
 

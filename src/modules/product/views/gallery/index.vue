@@ -2,12 +2,21 @@
   <section class="mb-6">
     <div class="grid grid-cols-12 gap-4">
       <div class="col-span-12 lg:col-span-8">
-        <HxDataTable @refresh="refresh = false" :refresh="refresh" :url="`products/${product_id}/gallery`"
-          :single-item-index="index" search-placeholder="جستجوی مقدار ویژگی" :table-header="tableHeader"
-          :enable-items-per-page-dropdown="false" :on-current-change="true">
+        <HxDataTable
+          @refresh="refresh = false"
+          :refresh="refresh"
+          :url="`products/${product_id}/gallery`"
+          :single-item-index="index"
+          search-placeholder="جستجوی مقدار ویژگی"
+          :table-header="tableHeader"
+          :enable-items-per-page-dropdown="false"
+          :on-current-change="true"
+        >
           <template v-slot:cell-checkbox="{ row: gallery }">
-            <div class="form-check form-check-sm form-check-custom form-check-solid">
-              <input class="form-check-input" type="checkbox" :value="gallery.id" v-model="checkedData" />
+            <div
+              class="form-check form-check-sm form-check-custom form-check-solid"
+            >
+              <hx-checkbox v-model="checkedData"></hx-checkbox>
             </div>
           </template>
 
@@ -20,13 +29,23 @@
           </template>
 
           <template v-slot:cell-actions="{ row: gallery, index: index }">
-            <hx-button variant="gray" size="sm" icon :to="{
-              name: 'products gallery edit',
-              params: { product: product_id, id: gallery.id },
-            }">
+            <hx-button
+              variant="gray"
+              size="sm"
+              icon
+              :to="{
+                name: 'products gallery edit',
+                params: { product: product_id, id: gallery.id },
+              }"
+            >
               <hx-icon icon="edit-alt"></hx-icon>
             </hx-button>
-            <hx-button variant="gray" size="sm" icon @click="handleDelete(gallery, index)">
+            <hx-button
+              variant="gray"
+              size="sm"
+              icon
+              @click="handleDelete(gallery, index)"
+            >
               <hx-icon icon="trash"></hx-icon>
             </hx-button>
           </template>
@@ -40,8 +59,17 @@
             </div>
             <div class="hx-card__body">
               <hx-form-group label="عنوان">
-                <Field name="title" rules="required" v-slot="{ field }" label="عنوان">
-                  <hx-input v-bind="field" v-model="form.title" placeholder="عنوان">
+                <Field
+                  name="title"
+                  rules="required"
+                  v-slot="{ field }"
+                  label="عنوان"
+                >
+                  <hx-input
+                    v-bind="field"
+                    v-model="form.title"
+                    placeholder="عنوان"
+                  >
                   </hx-input>
                 </Field>
                 <div class="invalid-feedback d-block">
@@ -50,9 +78,12 @@
               </hx-form-group>
 
               <hx-form-group label="فایل">
-                <hx-upload ref="uploader" :max="1" v-model="form.media"></hx-upload>
+                <hx-upload
+                  ref="uploader"
+                  :max="1"
+                  v-model="form.media"
+                ></hx-upload>
               </hx-form-group>
-
             </div>
           </div>
 
@@ -80,10 +111,9 @@ import ApiService from "@/core/services/ApiService";
 import { useRoute } from "vue-router";
 import { ErrorMessage, Field, Form } from "vee-validate";
 
-
 const route = useRoute();
 const checkedData = ref([]);
-const uploader = ref(null)
+const uploader = ref(null);
 
 const form = ref({
   title: null,
@@ -93,8 +123,6 @@ const product_id = ref<any>(null);
 const loader = ref(false);
 const index = ref(null);
 const refresh = ref(false);
-
-
 
 const tableHeader = ref([
   {
@@ -118,30 +146,31 @@ const tableHeader = ref([
 ]);
 
 const handleCreate = async (values, { resetForm }) => {
+  let formData = new FormData();
 
-  let formData = new FormData()
-
-  formData.append("product_id", product_id.value)
-  formData.append("title", form.value.title)
-  formData.append("media", form.value.media?.file)
+  formData.append("product_id", product_id.value);
+  formData.append("title", form.value.title);
+  formData.append("media", form.value.media?.file);
 
   loader.value = true;
-  ApiService.post(`products/${product_id.value}/gallery`, formData).then(() => {
-    form.value.title = null;
-    resetForm();
-    uploader.value.clear()
-    refresh.value = true;
-    loader.value = false;
-    HxNotification.success({
-      title: "success",
-      message: "عملیات موفقیت آمیز",
-      showClose: true,
-      duration: 4000,
-      position: "bottom-right",
+  ApiService.post(`products/${product_id.value}/gallery`, formData)
+    .then(() => {
+      form.value.title = null;
+      resetForm();
+      uploader.value.clear();
+      refresh.value = true;
+      loader.value = false;
+      HxNotification.success({
+        title: "success",
+        message: "عملیات موفقیت آمیز",
+        showClose: true,
+        duration: 4000,
+        position: "bottom-right",
+      });
+    })
+    .catch(() => {
+      loader.value = false;
     });
-  }).catch(() => {
-    loader.value = false;
-  });
 };
 
 const handleDelete = (item: any, i: any) => {
@@ -155,25 +184,24 @@ const handleDelete = (item: any, i: any) => {
     }
   )
     .then(() => {
-      ApiService.delete(`products/${product_id.value}/gallery/${item.id}`).then(() => {
-        index.value = item.id;
-        HxNotification.success({
-          title: "عملیات موفقیت آمیز",
-          message: "ویژگی موردنظر حذف شد",
-          showClose: true,
-          duration: 4000,
-          position: "bottom-right",
-        });
-      });
+      ApiService.delete(`products/${product_id.value}/gallery/${item.id}`).then(
+        () => {
+          index.value = item.id;
+          HxNotification.success({
+            title: "عملیات موفقیت آمیز",
+            message: "ویژگی موردنظر حذف شد",
+            showClose: true,
+            duration: 4000,
+            position: "bottom-right",
+          });
+        }
+      );
     })
-    .catch(() => { });
+    .catch(() => {});
 };
 
 onMounted(() => {
   product_id.value = route.params.id;
-
 });
 </script>
-<style>
-
-</style>
+<style></style>

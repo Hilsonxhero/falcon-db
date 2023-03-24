@@ -1,21 +1,33 @@
 <template>
   <section class="mb-6">
-    <HxDataTable url="categories" :single-item-index="index" search-placeholder="جستجوی دسته بندی"
-      :table-header="tableHeader" :enable-items-per-page-dropdown="false" :on-current-change="true">
+    <HxDataTable
+      url="categories"
+      :single-item-index="index"
+      search-placeholder="جستجوی دسته بندی"
+      :table-header="tableHeader"
+      :enable-items-per-page-dropdown="false"
+      :on-current-change="true"
+    >
       <template #left>
         <hx-button :to="{ name: 'categories create' }">
           دسته بندی جدید
         </hx-button>
       </template>
       <template v-slot:cell-checkbox="{ row: category }">
-        <div class="form-check form-check-sm form-check-custom form-check-solid">
-          <input class="form-check-input" type="checkbox" :value="category.id" v-model="checkedData" />
+        <div
+          class="form-check form-check-sm form-check-custom form-check-solid"
+        >
+          <hx-checkbox v-model="checkedData"></hx-checkbox>
         </div>
       </template>
 
       <template v-slot:cell-title="{ row: category }">
         <div class="flex space-x-2 space-x-reverse">
-          <img class="w-14 h-14 object-cover rounded-lg" :src="category?.media?.thumb" alt="" />
+          <img
+            class="w-14 h-14 object-cover rounded-lg"
+            :src="category?.media?.thumb"
+            alt=""
+          />
           <div class="flex flex-col space-y-1">
             <span class="">{{ category?.title }}</span>
             <span class="text-sm text-gray-400 max-w-[90%] overflow-hidden">{{
@@ -42,10 +54,20 @@
       </template>
 
       <template v-slot:cell-actions="{ row: category, index: index }">
-        <hx-button variant="gray" size="sm" icon :to="{ name: 'categories edit', params: { id: category.id } }">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          :to="{ name: 'categories edit', params: { id: category.id } }"
+        >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>
-        <hx-button variant="gray" size="sm" icon @click="handleDelete(category, index)">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          @click="handleDelete(category, index)"
+        >
           <hx-icon icon="trash"></hx-icon>
         </hx-button>
       </template>
@@ -119,9 +141,7 @@ const handleDelete = (item: any, i: any) => {
         });
       });
     })
-    .catch(() => { });
+    .catch(() => {});
 };
 </script>
-<style>
-
-</style>
+<style></style>

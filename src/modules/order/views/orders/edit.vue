@@ -32,7 +32,9 @@
 
                     <div class="flex items-center">
                       <div class="text-gray-700">آدرس سفارش :</div>
-                      <div class="text-gray-400 mr-2 overflow-hidden text-ellipsis whitespace-nowrap">
+                      <div
+                        class="text-gray-400 mr-2 overflow-hidden text-ellipsis whitespace-nowrap"
+                      >
                         {{ form?.address?.address }}
                       </div>
                     </div>
@@ -62,8 +64,15 @@
                 <div class="col-span-3">
                   <div class="flex flex-col space-y-6">
                     <hx-form-group label="وضعیت سفارش">
-                      <hx-select name="status" value-key="key" label="title" v-model="selected_status" filterable
-                        :options="statuses" placeholder="انتخاب کنید" />
+                      <hx-select
+                        name="status"
+                        value-key="key"
+                        label="title"
+                        v-model="selected_status"
+                        filterable
+                        :options="statuses"
+                        placeholder="انتخاب کنید"
+                      />
                     </hx-form-group>
                   </div>
                 </div>
@@ -76,15 +85,28 @@
               <h4 class="text-gray-600 text-xl">محصولات</h4>
             </div>
             <div class="hx-card__body">
-              <div v-for="(shipping_item, index) in form.shipments" :key="index">
+              <div
+                v-for="(shipping_item, index) in form.shipments"
+                :key="index"
+              >
                 <div class="text-xs">
                   {{ shipping_item?.shipment?.title }}
                 </div>
                 <div class="flex flex-wrap items-center my-6">
-                  <div class="flex flex-col mb-3 ml-2 border rounded-xl"
-                    v-for="(order_item, i) in shipping_item.order_items" :key="i">
-                    <router-link class="w-24 h-24 lg:w-20 lg:h-20 relative p-2" to="/">
-                      <img class="object-contain h-full w-full" :src="order_item.product?.media?.thumb" alt="" />
+                  <div
+                    class="flex flex-col mb-3 ml-2 border rounded-xl"
+                    v-for="(order_item, i) in shipping_item.order_items"
+                    :key="i"
+                  >
+                    <router-link
+                      class="w-24 h-24 lg:w-20 lg:h-20 relative p-2"
+                      to="/"
+                    >
+                      <img
+                        class="object-contain h-full w-full"
+                        :src="order_item.product?.media?.thumb"
+                        alt=""
+                      />
                     </router-link>
                   </div>
                 </div>
@@ -107,14 +129,22 @@
             </div>
           </div> -->
           <div v-if="form.payments" class="mt-2">
-            <HxTable :table-data="form.payments" :table-header="table_headers" :single-item-index="index"
-              search-placeholder="جستجوی کاربر" :enable-items-per-page-dropdown="false" :on-current-change="true">
+            <HxTable
+              :table-data="form.payments"
+              :table-header="table_headers"
+              :single-item-index="index"
+              search-placeholder="جستجوی کاربر"
+              :enable-items-per-page-dropdown="false"
+              :on-current-change="true"
+            >
               <template #left>
                 <div>پرداخت ها</div>
               </template>
               <template v-slot:cell-checkbox="{ row: payment }">
-                <div class="form-check form-check-sm form-check-custom form-check-solid">
-                  <input class="form-check-input" type="checkbox" :value="payment.id" v-model="checkedData" />
+                <div
+                  class="form-check form-check-sm form-check-custom form-check-solid"
+                >
+                  <hx-checkbox v-model="checkedData"></hx-checkbox>
                 </div>
               </template>
 
@@ -257,7 +287,6 @@ const fetchData = async () => {
 };
 
 const handleUpdate = async (values, { resetForm }) => {
-
   let formData = {
     status: selected_status.value,
   };
@@ -275,7 +304,7 @@ const handleUpdate = async (values, { resetForm }) => {
     });
     loader.value = false;
     router.push({ name: "orders index" });
-  } catch (e) { }
+  } catch (e) {}
 };
 
 onMounted(async () => {
@@ -283,6 +312,4 @@ onMounted(async () => {
   fetchData();
 });
 </script>
-<style>
-
-</style>
+<style></style>

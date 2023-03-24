@@ -17,12 +17,7 @@
             <div
               class="form-check form-check-sm form-check-custom form-check-solid"
             >
-              <input
-                class="form-check-input"
-                type="checkbox"
-                :value="city.id"
-                v-model="checkedData"
-              />
+              <hx-checkbox v-model="checkedData"></hx-checkbox>
             </div>
           </template>
 
@@ -56,8 +51,8 @@
               size="sm"
               icon
               :to="{
-                name: 'shipment dates index',
-                params: { id: city.id },
+                name: 'shipment cities index',
+                params: { city: city.id },
               }"
             >
               <hx-icon icon="calendar"></hx-icon>

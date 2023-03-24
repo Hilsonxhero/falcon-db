@@ -1,13 +1,23 @@
 <template>
   <section class="mb-6">
-    <HxDataTable url="score/models" :single-item-index="index" search-placeholder="جستجوی عنوان و .."
-      :table-header="tableHeader" :enable-items-per-page-dropdown="false" :on-current-change="true">
+    <HxDataTable
+      url="score/models"
+      :single-item-index="index"
+      search-placeholder="جستجوی عنوان و .."
+      :table-header="tableHeader"
+      :enable-items-per-page-dropdown="false"
+      :on-current-change="true"
+    >
       <template #left>
-        <hx-button :to="{ name: 'score models create' }">ایجاد امتیاز </hx-button>
+        <hx-button :to="{ name: 'score models create' }"
+          >ایجاد امتیاز
+        </hx-button>
       </template>
       <template v-slot:cell-checkbox="{ row: score }">
-        <div class="form-check form-check-sm form-check-custom form-check-solid">
-          <input class="form-check-input" type="checkbox" :value="score.id" v-model="checkedData" />
+        <div
+          class="form-check form-check-sm form-check-custom form-check-solid"
+        >
+          <hx-checkbox v-model="checkedData"></hx-checkbox>
         </div>
       </template>
 
@@ -19,8 +29,6 @@
         <span class="">{{ score?.category?.title }}</span>
       </template>
 
-
-
       <template v-slot:cell-status="{ row: score }">
         <template v-if="score?.status == 'active'">
           <hx-button outlined variant="success" size="sm">فعال</hx-button>
@@ -28,12 +36,15 @@
         <template v-if="score?.status == 'inactive'">
           <hx-button outlined variant="light" size="sm">غیر فعال</hx-button>
         </template>
-
       </template>
 
       <template v-slot:cell-actions="{ row: score }">
-
-        <hx-button variant="gray" size="sm" icon :to="{ name: 'score models edit', params: { id: score.id } }">
+        <hx-button
+          variant="gray"
+          size="sm"
+          icon
+          :to="{ name: 'score models edit', params: { id: score.id } }"
+        >
           <hx-icon icon="edit-alt"></hx-icon>
         </hx-button>
         <hx-button variant="gray" size="sm" icon @click="handleDelete(score)">
@@ -103,9 +114,7 @@ const handleDelete = (item: any) => {
         });
       });
     })
-    .catch(() => { });
+    .catch(() => {});
 };
 </script>
-<style>
-
-</style>
+<style></style>

@@ -6,7 +6,7 @@
           <div class="hx-card">
             <div class="hx-card__header">
               <h4 class="text-gray-600 text-xl">
-                ویرایش استان {{ form.name && form.name }}
+                ویرایش شهر {{ form.name && form.name }}
               </h4>
             </div>
             <div class="hx-card__body">
@@ -21,7 +21,7 @@
                   <hx-input
                     v-bind="field"
                     v-model="form.name"
-                    placeholder="نام استان"
+                    placeholder="نام شهر"
                   ></hx-input>
                 </Field>
 
@@ -49,13 +49,26 @@
                   <ErrorMessage name="zone_code" />
                 </div>
               </hx-form-group>
+
+              <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-4">
+                <hx-form-group>
+                  <hx-select
+                    value-key="key"
+                    label="title"
+                    v-model="form.status"
+                    filterable
+                    :options="statuses"
+                    placeholder="انتخاب  وضعیت"
+                  />
+                </hx-form-group>
+              </hx-form-group>
             </div>
           </div>
 
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
               <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
-              <hx-button variant="light" :to="{ name: 'states index' }">
+              <hx-button variant="light" :to="{ name: 'cities index' }">
                 لغو
               </hx-button>
             </div>
@@ -82,7 +95,15 @@ const loader = ref(false);
 const form = ref({
   zone_code: null,
   name: "",
+  status: null,
 });
+
+const statuses = ref([
+  { title: "فعال", key: "enable" },
+  { title: "غیرفعال", key: "disable" },
+  { title: "درحال انتظار", key: "pending" },
+  { title: "رد شده", key: "rejected" },
+]);
 
 const id = ref(null);
 const types = ref(["checkbox", "color", "select", "size"]);
@@ -90,7 +111,7 @@ const types = ref(["checkbox", "color", "select", "size"]);
 const fetchData = async () => {
   try {
     loading.value = true;
-    const { data } = await ApiService.get(`states/${id.value}`);
+    const { data } = await ApiService.get(`cities/${id.value}`);
     form.value = data.data;
     // form.value.type = types.value.find(d => d.value == form.value.type)
     formRef.value.setValues({
@@ -105,12 +126,13 @@ const fetchData = async () => {
 const handleUpdate = async (values, { resetForm }) => {
   let formData = {
     name: form.value.name,
+    status: form.value.status,
     zone_code: form.value.zone_code,
   };
 
   try {
     loader.value = true;
-    const { data } = await ApiService.put(`states/${id.value}`, formData);
+    const { data } = await ApiService.put(`cities/${id.value}`, formData);
     resetForm();
     HxNotification.success({
       title: "success",
@@ -120,7 +142,7 @@ const handleUpdate = async (values, { resetForm }) => {
       position: "bottom-right",
     });
     loader.value = false;
-    router.push({ name: "states index" });
+    router.push({ name: "cities index" });
   } catch (e) {}
 };
 

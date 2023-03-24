@@ -1,132 +1,217 @@
 <template>
-  <section class="mb-6">
-    <div class="grid grid-cols-12 gap-4">
-      <div class="col-span-12 lg:col-span-6 xl:col-span-4">
-        <Form @submit="handleUpdate" class="w-full" ref="formRef">
-          <div class="hx-card">
-            <div class="hx-card__header">
-              <h4 class="text-gray-600 text-xl">
-                ویرایش استان {{ form.name && form.name }}
-              </h4>
-            </div>
-            <div class="hx-card__body">
-              <hx-form-group>
-                <Field
-                  mode="passive"
-                  name="name"
-                  v-slot="{ field }"
-                  rules="required"
-                  label="عنوان"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.name"
-                    placeholder="نام استان"
-                  ></hx-input>
-                </Field>
+  <div class="w-full">
+    <Form ref="formRef" @submit="handleUpdate" class="grid grid-cols-12 gap-6">
+      <div class="col-span-12">
+        <div class="hx-card">
+          <div class="hx-card__header">
+            <h4 class="text-gray-600 text-xl">اطلاعات کلی</h4>
+          </div>
+          <div class="hx-card__body">
+            <div class="grid grid-cols-12 gap-4">
+              <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                <hx-form-group>
+                  <Field
+                    mode="passive"
+                    name="title"
+                    v-slot="{ field }"
+                    rules="required"
+                    label="عنوان"
+                  >
+                    <hx-input
+                      v-bind="field"
+                      v-model="form.title"
+                      placeholder="عنوان"
+                    ></hx-input>
+                  </Field>
 
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="name" />
-                </div>
-              </hx-form-group>
+                  <div class="invalid-feedback d-block">
+                    <ErrorMessage name="title" />
+                  </div>
+                </hx-form-group>
+              </div>
 
-              <hx-form-group>
-                <Field
-                  mode="passive"
-                  name="zone_code"
-                  v-slot="{ field }"
-                  rules="required"
-                  label="کد منطقه"
-                >
-                  <hx-input
-                    v-bind="field"
-                    v-model="form.zone_code"
-                    placeholder="کد منطقه "
-                  ></hx-input>
-                </Field>
+              <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                <hx-form-group>
+                  <Field
+                    name="slug"
+                    rules="required"
+                    v-slot="{ field }"
+                    label="عنوان انگلیسی"
+                  >
+                    <hx-input
+                      v-bind="field"
+                      v-model="form.slug"
+                      placeholder="عنوان انگلیسی"
+                    >
+                    </hx-input>
+                  </Field>
+                  <div class="invalid-feedback d-block">
+                    <ErrorMessage name="slug" />
+                  </div>
+                </hx-form-group>
+              </div>
 
-                <div class="invalid-feedback d-block">
-                  <ErrorMessage name="zone_code" />
-                </div>
-              </hx-form-group>
+              <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                <hx-form-group>
+                  <hx-select
+                    value-key="key"
+                    label="title"
+                    v-model="form.status"
+                    filterable
+                    :options="statuses"
+                    placeholder="وضعیت  "
+                  />
+                </hx-form-group>
+              </div>
+
+              <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                <hx-form-group>
+                  <hx-select
+                    value-key="key"
+                    label="title"
+                    v-model="form.type"
+                    filterable
+                    :options="types"
+                    placeholder="نوع روش پرداخت  "
+                  />
+                </hx-form-group>
+              </div>
+
+              <div class="col-span-12">
+                <hx-form-group>
+                  <Field
+                    name="description"
+                    rules="required"
+                    v-slot="{ field }"
+                    label="توضیحات"
+                  >
+                    <hx-textarea
+                      v-bind="field"
+                      v-model="form.description"
+                      placeholder="توضیحات"
+                    >
+                    </hx-textarea>
+                  </Field>
+                  <div class="invalid-feedback d-block">
+                    <ErrorMessage name="description" />
+                  </div>
+                </hx-form-group>
+              </div>
+
+              <div class="col-span-3">
+                <hx-form-group label="حالت پیش فرض پرداخت">
+                  <hx-switch
+                    :label="form.is_default ? 'پیش فرض' : 'غیرپیش فرض'"
+                    v-model="form.is_default"
+                  >
+                  </hx-switch>
+                </hx-form-group>
+              </div>
             </div>
           </div>
-
-          <div class="w-full flex items-center justify-start my-4">
-            <div class="flex items-center space-x-3 space-x-reverse">
-              <hx-button type="submit" :loading="loader"> ذخیره </hx-button>
-              <hx-button variant="light" :to="{ name: 'states index' }">
-                لغو
-              </hx-button>
-            </div>
-          </div>
-        </Form>
+        </div>
       </div>
-    </div>
-  </section>
+
+      <div class="col-span-12">
+        <div class="w-full flex items-center justify-between my-4">
+          <div class="flex items-center space-x-3 space-x-reverse">
+            <hx-button type="submit" :loading="loading"> ذخیره </hx-button>
+            <hx-button variant="light" :to="{ name: 'payment-methods-index' }">
+              لغو
+            </hx-button>
+          </div>
+        </div>
+      </div>
+    </Form>
+  </div>
 </template>
 
 <script setup lang="ts">
 //@ts-nocheck
-import { ref, onMounted, watch } from "vue";
-import { HxNotification } from "@/components/base/notification";
+import { onMounted, ref } from "vue";
+
 import ApiService from "@/core/services/ApiService";
 import { useRoute, useRouter } from "vue-router";
+import { HxNotification } from "@/components/base/notification";
 import { ErrorMessage, Field, Form } from "vee-validate";
 
+const loading = ref(false);
 const router = useRouter();
 const route = useRoute();
-const loading = ref(false);
-const formRef = ref<any>(null);
-const loader = ref(false);
+const formRef = ref(null);
 const form = ref({
-  zone_code: null,
-  name: "",
+  title: "",
+  slug: "",
+  description: "",
+  status: "",
+  type: "",
+  is_default: true,
 });
 
-const id = ref(null);
-const types = ref(["checkbox", "color", "select", "size"]);
+const payment_method_id = ref(null);
 
-const fetchData = async () => {
-  try {
-    loading.value = true;
-    const { data } = await ApiService.get(`states/${id.value}`);
-    form.value = data.data;
-    // form.value.type = types.value.find(d => d.value == form.value.type)
-    formRef.value.setValues({
-      ...data.data,
-    });
-    loading.value = false;
-  } catch (e) {
-    loading.value = false;
-  }
-};
+const statuses = ref([
+  { title: "فعال", key: "enable" },
+  { title: "غیرفعال", key: "disable" },
+  { title: "درحال انتظار", key: "pending" },
+  { title: "رد شده", key: "rejected" },
+]);
+const types = ref([
+  { title: "پرداخت آنلاین", key: "online" },
+  { title: "کیف پول", key: "wallet" },
+]);
 
 const handleUpdate = async (values, { resetForm }) => {
   let formData = {
-    name: form.value.name,
-    zone_code: form.value.zone_code,
+    title: form.value.title,
+    slug: form.value.slug,
+    description: form.value.description,
+    status: form.value.status,
+    type: form.value.type,
+    is_default: form.value.is_default,
   };
 
+  loading.value = true;
   try {
-    loader.value = true;
-    const { data } = await ApiService.put(`states/${id.value}`, formData);
+    const { data } = await ApiService.put(
+      `payment/methods/${payment_method_id.value}`,
+      formData
+    );
     resetForm();
     HxNotification.success({
-      title: "success",
+      title: "ساخت روش پرداخت",
       message: "عملیات موفقیت آمیز",
       showClose: true,
       duration: 4000,
       position: "bottom-right",
     });
-    loader.value = false;
-    router.push({ name: "states index" });
+    loading.value = false;
+    router.push({ name: "payment-methods-index" });
   } catch (e) {}
 };
 
-onMounted(async () => {
-  id.value = route.params.id;
+const fetchData = async () => {
+  try {
+    const { data } = await ApiService.get(
+      `payment/methods/${payment_method_id.value}`
+    );
+    form.value = data.data;
+    if (form.value.is_default) {
+      form.value.is_default = true;
+    } else {
+      form.value.is_default = false;
+    }
+
+    formRef.value.setValues({
+      ...data.data,
+    });
+  } catch (e) {}
+};
+
+onMounted(() => {
+  payment_method_id.value = route.params.id;
   fetchData();
 });
 </script>
-<style></style>
+
+<style scoped></style>

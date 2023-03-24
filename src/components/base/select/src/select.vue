@@ -189,10 +189,10 @@
       >
         {{ currentPlaceholder }}
       </span>
-      <span :class="nsSelectV2.e('suffix')">
+      <span :class="[nsSelectV2.e('suffix'), iconReverse]">
         <hx-icon
           icon="arrow-down"
-          class="w-6 h-6"
+          class="w-5 h-5"
           v-show="!showClearBtn"
           :class="[nsSelectV2.e('caret'), nsInput.e('icon'), iconReverse]"
         ></hx-icon>
