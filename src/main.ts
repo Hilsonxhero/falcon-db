@@ -14,7 +14,8 @@ const app = createApp(App);
 
 app.config.globalProperties.$filters = {
     separate(Number) {
-        return Number.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+        const value = Number / 10
+        return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     }
 };
 
