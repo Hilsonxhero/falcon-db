@@ -27,10 +27,6 @@ const DocMenuConfig = [
                 route: "categories index",
               },
               {
-                heading: "اسلایدر",
-                route: "categories slides index",
-              },
-              {
                 heading: "بنرها",
                 route: "categories banners index",
               },
