@@ -55,7 +55,7 @@
                         label="title"
                         v-model="form.type"
                         filterable
-                        :options="types"
+                        :options="shipments"
                         placeholder="نوع ارسال"
                       />
                     </Field>
@@ -107,7 +107,7 @@ const form = ref<any>({
   delivery: null,
 });
 
-const types = ref<Array<any>>([]);
+const shipments = ref<Array<any>>([]);
 
 const deliveries = ref<Array<any>>([]);
 
@@ -149,9 +149,9 @@ watchEffect(() => {
   }
 });
 
-ApiService.get("shipment/types")
+ApiService.get("shipments")
   .then(({ data }) => {
-    types.value = data.data;
+    shipments.value = data.data;
   })
   .catch(() => {});
 
