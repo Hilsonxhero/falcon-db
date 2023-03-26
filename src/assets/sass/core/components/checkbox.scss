@@ -40,7 +40,7 @@ $checkbox-bordered-input-width: () !default;
   align-items: center;
   white-space: nowrap;
   user-select: none;
-  margin-right: 30px;
+  // margin-right: 30px;
   height: 32px;
 
   //   @include when(bordered) {
@@ -204,7 +204,7 @@ $checkbox-bordered-input-width: () !default;
     border: 2px solid #e5e7eb;
     border-radius: 32%;
     box-sizing: border-box;
-    width: 23px;
+    width: 25px;
     height: 23px;
     background-color: #ffffff;
     z-index: 1;
@@ -245,7 +245,7 @@ $checkbox-bordered-input-width: () !default;
 
   @include e(label) {
     display: inline-block;
-    padding-left: 8px;
+    padding-right: 8px;
     line-height: 1;
     font-size: getCssVar("checkbox-font-size");
   }
@@ -282,6 +282,6 @@ $checkbox-bordered-input-width: () !default;
   }
 
   &:last-of-type {
-    margin-right: 0;
+    // margin-right: 0;
   }
 }

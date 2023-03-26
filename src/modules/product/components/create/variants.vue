@@ -41,8 +41,9 @@
                         type: group.type,
                       }"
                       :key="index"
-                      :label="value.name"
+                      :label="value.id"
                     >
+                      {{ value.name }}
                     </hx-checkbox>
                   </hx-checkbox-group>
                 </hx-collapse-item>

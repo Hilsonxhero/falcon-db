@@ -3,7 +3,6 @@
     <div class="grid grid-cols-12 gap-4">
       <div class="col-span-12 lg:col-span-12 xl:col-span-12">
         <Form @submit="handleCreate" class="w-full" ref="formRef">
-
           <div class="hx-card">
             <div class="hx-card__body">
               <div class="flex flex-wrap items-center justify-between">
@@ -11,13 +10,13 @@
                   <div class="flex flex-wrap items-center">
                     <span>تنوع های انتخاب شده : </span>
                     <span
-                        class="mx-2 mb-2 lg:mb-0"
-                        v-for="(item, index) in selectedGroups"
+                      class="mx-2 mb-2 lg:mb-0"
+                      v-for="(filtered_varinat, index) in filtered_varinats"
                     >
-                <hx-badge outlined>
-                  {{ item.label }}
-                </hx-badge>
-              </span>
+                      <hx-badge outlined>
+                        {{ filtered_varinat.label }}
+                      </hx-badge>
+                    </span>
                   </div>
                 </div>
                 <div class="flex items-center">
@@ -25,12 +24,14 @@
                   <!--                    ایجاد تنوع-->
                   <!--                  </hx-button>-->
 
-                  <hx-button outlined @click="show = !show"> انتخاب تنوع</hx-button>
+                  <hx-button outlined @click="show = !show">
+                    انتخاب تنوع</hx-button
+                  >
 
                   <hx-modal
-                      :show="show"
-                      title="انتخاب تنوع"
-                      @close="show = !show"
+                    :show="show"
+                    title="انتخاب تنوع"
+                    @close="show = !show"
                   >
                     <hx-collapse accordion>
                       <hx-collapse-item v-for="(group, index) in groups">
@@ -39,16 +40,11 @@
                         </template>
                         <hx-checkbox-group v-model="selectedGroups">
                           <hx-checkbox
-                              v-for="(value, index) in group.values"
-                              :value="{
-                        id: value.id,
-                        label: value.name,
-                        value: value.value,
-                        type: group.type,
-                      }"
-                              :key="index"
-                              :label="value.name"
+                            v-for="(value, index) in group.values"
+                            :key="index"
+                            :label="value.id"
                           >
+                            {{ value.name }}
                           </hx-checkbox>
                         </hx-checkbox-group>
                       </hx-collapse-item>
@@ -60,81 +56,176 @@
           </div>
 
           <section class="mt-12">
-            <div
-                class="hx-card"
-            >
+            <div class="hx-card">
               <div class="hx-card__body">
-
-
                 <div class="grid grid-cols-12 gap-2">
                   <hx-form-group class="col-span-6" label="قیمت ">
-                    <hx-input v-model="variant.price" placeholder="قیمت"></hx-input>
+                    <Field
+                      name="price"
+                      rules="required"
+                      v-slot="{ field }"
+                      label="قیمت"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.price"
+                        placeholder="قیمت"
+                      ></hx-input>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="price" />
+                    </div>
                   </hx-form-group>
                   <hx-form-group class="col-span-6" label="تعداد ">
-                    <hx-input v-model="variant.stock" placeholder="تعداد"></hx-input>
+                    <Field
+                      name="stock"
+                      rules="required"
+                      v-slot="{ field }"
+                      label="تعداد"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.stock"
+                        placeholder="تعداد"
+                      ></hx-input>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="stock" />
+                    </div>
                   </hx-form-group>
                   <hx-form-group class="col-span-6" label="حداکثر تعداد خرید ">
-                    <hx-input
-                        v-model="variant.order_limit"
+                    <Field
+                      name="order_limit"
+                      rules="required"
+                      v-slot="{ field }"
+                      label="حداکثر تعداد خرید"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.order_limit"
                         placeholder="حداکثر تعداد خرید"
-                    ></hx-input>
+                      ></hx-input>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="order_limit" />
+                    </div>
                   </hx-form-group>
                   <hx-form-group class="col-span-6" label="درصد تخفیف ">
-                    <hx-input
-                        v-model="variant.discount"
+                    <Field
+                      name="discount"
+                      rules="required"
+                      v-slot="{ field }"
+                      label="درصد تخفیف"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.discount"
                         placeholder="درصد تخفیف"
-                    ></hx-input>
+                      ></hx-input>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="discount" />
+                    </div>
                   </hx-form-group>
 
                   <hx-form-group class="col-span-6" label="روش ارسال">
-                    <hx-select
+                    <Field
+                      name="shipment"
+                      rules="required"
+                      v-slot="{ field }"
+                      label="انتخاب  روش ارسال"
+                    >
+                      <hx-select
+                        v-bind="field"
                         filterable
-                        v-model="variant.shipment"
+                        v-model="form.shipment"
                         placeholder="انتخاب  روش ارسال"
                         value-key="id"
                         label="title"
                         :options="shipments"
-                    >
-                    </hx-select>
+                      >
+                      </hx-select>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="shipment" />
+                    </div>
                   </hx-form-group>
 
                   <hx-form-group class="col-span-6" label="گارانتی">
-                    <hx-select
+                    <Field
+                      name="warranty"
+                      rules="required"
+                      v-slot="{ field }"
+                      label="انتخاب   گارانتی"
+                    >
+                      <hx-select
+                        v-bind="field"
                         filterable
-                        v-model="variant.warranty"
+                        v-model="form.warranty"
                         placeholder="انتخاب   گارانتی"
                         value-key="id"
                         label="title"
                         :options="warranties"
-                    >
-                    </hx-select>
+                      >
+                      </hx-select>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="warranty" />
+                    </div>
                   </hx-form-group>
 
                   <hx-form-group class="col-span-6" label="وزن(گرم)">
-                    <hx-input v-model="variant.weight" placeholder="وزن"></hx-input>
+                    <Field
+                      name="weight"
+                      rules="required"
+                      v-slot="{ field }"
+                      label="وزن"
+                    >
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.weight"
+                        placeholder="وزن"
+                      ></hx-input>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="weight" />
+                    </div>
                   </hx-form-group>
                   <hx-form-group class="col-span-6" label="هزینه ارسال">
-                    <hx-input
-                        v-model="variant.shipment_price"
-                        placeholder="هزینه ارسال"
+                    <Field
+                      name="shipment_price"
+                      rules="required"
+                      v-slot="{ field }"
+                      label="هزینه ارسال"
                     >
-                    </hx-input>
+                      <hx-input
+                        v-bind="field"
+                        v-model="form.shipment_price"
+                        placeholder="هزینه ارسال"
+                      >
+                      </hx-input>
+                    </Field>
+                    <div class="invalid-feedback d-block">
+                      <ErrorMessage name="shipment_price" />
+                    </div>
                   </hx-form-group>
                   <hx-form-group class="col-span-12" label="پایان تخفیف">
-                    <date-picker v-model="variant.discount_expire_at" type="datetime"></date-picker>
+                    <date-picker
+                      v-model="form.discount_expire_at"
+                      type="datetime"
+                    ></date-picker>
                   </hx-form-group>
                 </div>
               </div>
             </div>
           </section>
 
-
           <div class="w-full flex items-center justify-start my-4">
             <div class="flex items-center space-x-3 space-x-reverse">
               <hx-button type="submit" :loading="loader"> ذخیره</hx-button>
               <hx-button
-                  variant="light"
-                  :to="{ name: 'products variants', params: { id: id } }"
+                variant="light"
+                :to="{ name: 'products variants', params: { id: id } }"
               >
                 لغو
               </hx-button>
@@ -148,15 +239,15 @@
 
 <script setup lang="ts">
 // @ts-nocheck
-import {ref, onMounted, watch, watchEffect} from "vue";
-import {HxNotification} from "@/components/base/notification";
+import { ref, onMounted, watch, watchEffect } from "vue";
+import { HxNotification } from "@/components/base/notification";
 import ApiService from "@/core/services/ApiService";
-import {useRoute, useRouter} from "vue-router";
-import {ErrorMessage, Field, Form} from "vee-validate";
-
-import DatePicker from 'vue3-persian-datetime-picker'
-import {generateId} from "@/core/utils";
-import {uniqBy} from "lodash-unified";
+import { useRoute, useRouter } from "vue-router";
+import { ErrorMessage, Field, Form } from "vee-validate";
+import { HxMessage } from "@/components/base/message";
+import DatePicker from "vue3-persian-datetime-picker";
+import { generateId } from "@/core/utils";
+import { uniqBy } from "lodash-unified";
 
 const router = useRouter();
 const route = useRoute();
@@ -165,100 +256,145 @@ const formRef = ref<any>(null);
 const warranties = ref<Array<any>>([]);
 const shipments = ref<Array<any>>([]);
 const groups = ref<Array<any>>([]);
-
+const selectedGroups = ref<Array<any>>([]);
+const selected_variants = ref<Array<any>>([]);
+const filtered_varinats = ref<Array<any>>([]);
+const product_combinations = ref<Array<any>>([]);
 const id = ref(null);
 const loader = ref(false);
-
-const variant = ref(
-    {
-      stock: 0,
-      price: 0,
-      discount: 0,
-      discount_price: 0,
-      weight: 0,
-      warranty: null,
-      shipment: null,
-      shipment_price: 0,
-      order_limit: 0,
-      product: null,
-      discount_expire_at: ''
-      // id: generateId()
-    }
-);
+const has_variants = ref(false);
+const form = ref({
+  stock: 0,
+  price: 0,
+  discount: 0,
+  discount_price: 0,
+  weight: 0,
+  warranty: null,
+  shipment: null,
+  shipment_price: 0,
+  order_limit: 0,
+  product: null,
+  discount_expire_at: "",
+});
 const show = ref(false);
-const selectedGroups = ref<Array<any>>([]);
-
 
 watch(
-    () => selectedGroups.value,
-    (val, oldVal) => {
-    },
+  () => selectedGroups.value,
+  (val, oldVal) => {
+    filtered_varinats.value = [];
+    const variantTypes = new Set();
+
+    for (const variant of groups.value) {
+      for (const variantValue of variant.values) {
+        if (val.includes(variantValue.id)) {
+          if (variantTypes.has(variantValue.group.type)) {
+            val.splice(val.indexOf(variantValue.id), 1);
+          } else {
+            filtered_varinats.value.push({
+              variant_id: variantValue.id,
+              label: variantValue.name,
+              value: variantValue.value,
+              type: variantValue.group.type,
+            });
+            variantTypes.add(variantValue.group.type);
+          }
+        }
+      }
+    }
+  }
 );
 
 watchEffect(() => {
-  selectedGroups.value = uniqBy(selectedGroups.value, "type")
-})
-
+  // selectedGroups.value = uniqBy(selectedGroups.value, "type");
+});
 
 onMounted(() => {
   id.value = route.params.id;
 
-  ApiService.get("variant/groups/list/active").then(({data}) => {
-    groups.value = data.data;
+  ApiService.get(`variant/groups/list/active/${id.value}`).then(({ data }) => {
+    groups.value = data.data.groups;
+    has_variants.value = data.data.has_variants;
+    product_combinations.value = data.data.combinations;
   });
 
   ApiService.get("warranties")
-      .then(({data}) => {
-        warranties.value = data.data;
-      })
-      .catch(() => {
-      });
+    .then(({ data }) => {
+      warranties.value = data.data;
+    })
+    .catch(() => {});
   ApiService.get("shipments")
-      .then(({data}) => {
-        shipments.value = data.data;
-      })
-      .catch(() => {
-      });
+    .then(({ data }) => {
+      shipments.value = data.data;
+    })
+    .catch(() => {});
   ApiService.get(`product/${id.value}/combinations`)
-      .then(({data}) => {
-      })
-      .catch(() => {
-      });
+    .then(({ data }) => {})
+    .catch(() => {});
 });
 
-const handleCreate = async (values, {resetForm}) => {
-  let formData = {
-    stock: variant.value.stock,
-    price: variant.value.price,
-    discount: variant.value.discount,
-    discount_price: variant.value.discount_price,
-    weight: variant.value.weight,
-    warranty: variant.value.warranty,
-    shipment: variant.value.shipment,
-    shipment_price: variant.value.shipment_price,
-    order_limit: variant.value.order_limit,
-    discount_expire_at: variant.value.discount_expire_at,
-    combinations: JSON.stringify(selectedGroups.value),
-  };
+const handleCreate = async (values, { resetForm }) => {
+  const allowed_length = has_variants.value ? groups.value.length : 1;
+  if (selectedGroups.value.length >= allowed_length) {
+    product_combinations.value.forEach((innerArr) => innerArr.sort());
+    product_combinations.value.sort();
+    selectedGroups.value.sort();
 
-  try {
-    loader.value = true;
-    const {data} = await ApiService.post(
-        `products/${id.value}/variants`,
-        formData
-    );
-    resetForm();
-    loader.value = false;
-    HxNotification.success({
-      title: "success",
-      message: "عملیات موفقیت آمیز",
-      showClose: true,
+    if (
+      JSON.stringify(product_combinations.value) ===
+      JSON.stringify([selectedGroups.value])
+    ) {
+      HxMessage({
+        message: "تنوع انتخاب شده قبلا برای محصول ثبت شده است",
+        type: "warning",
+        duration: 4000,
+        center: true,
+        offset: 20,
+        "custom-class": "",
+      });
+    } else {
+      let formData = {
+        stock: form.value.stock,
+        price: form.value.price,
+        discount: form.value.discount,
+        discount_price: form.value.discount_price,
+        weight: form.value.weight,
+        warranty_id: form.value.warranty,
+        shipment_id: form.value.shipment,
+        shipment_price: form.value.shipment_price,
+        order_limit: form.value.order_limit,
+        discount_expire_at: form.value.discount_expire_at,
+        combinations: selectedGroups.value,
+      };
+
+      try {
+        loader.value = true;
+        const { data } = await ApiService.post(
+          `products/${id.value}/variants`,
+          formData
+        );
+        resetForm();
+        loader.value = false;
+        HxNotification.success({
+          title: "success",
+          message: "عملیات موفقیت آمیز",
+          showClose: true,
+          duration: 4000,
+          position: "bottom-right",
+        });
+        router.push({ name: "products variants", params: { id: id.value } });
+      } catch (e) {
+        loader.value = false;
+      }
+    }
+  } else {
+    HxMessage({
+      message: "حداقل تنوع های انتخاب شده مجاز نمی باشد",
+      type: "warning",
       duration: 4000,
-      position: "bottom-right",
+      center: true,
+      offset: 20,
+      "custom-class": "",
     });
-    router.push({name: "products variants", params: {id: id.value}});
-  } catch (e) {
-    loader.value = false;
   }
 };
 

@@ -7,7 +7,7 @@
           :refresh="refresh"
           :url="`products/${id}/variants`"
           :single-item-index="index"
-          search-placeholder="جستجوی مقدار ویژگی"
+          search-placeholder="جستجوی  عنوان"
           :table-header="tableHeader"
           :enable-items-per-page-dropdown="false"
           :on-current-change="true"
@@ -27,7 +27,7 @@
           </template>
 
           <template v-slot:cell-combinations="{ row: variant }">
-            <div class="flex">
+            <div class="flex w-[150px]">
               <span
                 class="ml-2"
                 v-for="(combination, index) in variant?.combinations"
@@ -46,7 +46,9 @@
           </template>
 
           <template v-slot:cell-price="{ row: product }">
-            {{ product.price }}
+            <div class="w-[100px]">
+              {{ $filters.separate(product.price) }}
+            </div>
           </template>
 
           <template v-slot:cell-stock="{ row: product }">
@@ -58,7 +60,10 @@
           </template>
 
           <template v-slot:cell-discount_expire_at="{ row: product }">
-            {{ product.discount_expire_at }}
+            <div v-if="product.discount_expire_at">
+              {{ product.discount_expire_at }}
+            </div>
+            <div v-else>ندارد</div>
           </template>
 
           <template v-slot:cell-order_limit="{ row: product }">
@@ -66,25 +71,27 @@
           </template>
 
           <template v-slot:cell-actions="{ row: variant, index: index }">
-            <hx-button
-              variant="gray"
-              size="sm"
-              icon
-              :to="{
-                name: 'products feature edit',
-                params: { id: id, value: variant.id },
-              }"
-            >
-              <hx-icon icon="edit-alt"></hx-icon>
-            </hx-button>
-            <hx-button
-              variant="gray"
-              size="sm"
-              icon
-              @click="handleDelete(variant, index)"
-            >
-              <hx-icon icon="trash"></hx-icon>
-            </hx-button>
+            <div class="flex items-center w-[150px]">
+              <hx-button
+                variant="gray"
+                size="sm"
+                icon
+                :to="{
+                  name: 'products variant edit',
+                  params: { id: id, value: variant.id },
+                }"
+              >
+                <hx-icon icon="edit-alt"></hx-icon>
+              </hx-button>
+              <hx-button
+                variant="gray"
+                size="sm"
+                icon
+                @click="handleDelete(variant, index)"
+              >
+                <hx-icon icon="trash"></hx-icon>
+              </hx-button>
+            </div>
           </template>
         </HxDataTable>
       </div>
