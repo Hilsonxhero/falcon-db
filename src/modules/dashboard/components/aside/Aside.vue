@@ -25,7 +25,11 @@
         href="#"
         v-if="asideTheme === 'light'"
       >
-        <!-- <img alt="Logo" :src="lightLogo" class="h-25px logo" /> -->
+        <!-- <img
+          alt="Logo"
+          src="http://127.0.0.1:9090/storage/3c4c94626f4e752ab7ef83b413ac9670/cXIenrTlcIEF2wUNLi52.svg"
+          class="h-25px logo"
+        /> -->
         <hx-icon icon="logo" class=""></hx-icon>
       </a>
       <!--end::Logo-->

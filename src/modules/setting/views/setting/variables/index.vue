@@ -69,8 +69,11 @@ const handleCreate = async (values, { resetForm }) => {
   formData.append("phone", form.value.phone);
   formData.append("address", form.value.address);
   formData.append("copyright", form.value.copyright);
-  formData.append("logo", form.value.logo);
   formData.append("links", JSON.stringify(links.value));
+
+  if (form.value.logo && form.value.logo.file) {
+    formData.append("logo", form.value.logo.file);
+  }
 
   // let formData = {
   //   logo: form.value.logo,
