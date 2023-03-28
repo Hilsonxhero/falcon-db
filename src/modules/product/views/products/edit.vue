@@ -16,9 +16,9 @@
               <hx-tab-pane label="تنظیمات اولیه" name="setting">
                 <Setting v-model="data" :data="data" />
               </hx-tab-pane>
-              <hx-tab-pane label="ترکیبات" name="variants">
+              <!-- <hx-tab-pane label="ترکیبات" name="variants">
                 <Variants v-model="selectedVariants" />
-              </hx-tab-pane>
+              </hx-tab-pane> -->
 
               <!-- <hx-tab-pane label="سئو" name="seo">سئو</hx-tab-pane> -->
             </hx-tabs>

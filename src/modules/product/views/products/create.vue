@@ -6,9 +6,9 @@
           <hx-tab-pane label="تنظیمات اولیه" name="setting">
             <Setting v-model="data" />
           </hx-tab-pane>
-          <hx-tab-pane label="ترکیبات" name="variants">
+          <!-- <hx-tab-pane label="ترکیبات" name="variants">
             <Variants v-model="selectedVariants" />
-          </hx-tab-pane>
+          </hx-tab-pane> -->
           <!-- <hx-tab-pane label="ارسال" name="shipment">
             <Shipment v-model="shipment" />
           </hx-tab-pane>

@@ -149,8 +149,8 @@
                   >
                     <TiptapEditor
                       v-bind="field"
-                      v-model="form.review.content"
-                      :content="form.review.content"
+                      v-model="form.review"
+                      :content="form.review"
                       ref="tiptap"
                     >
                     </TiptapEditor>
@@ -216,7 +216,7 @@ const form = ref({
   category: null,
   brand: null,
   warranty: null,
-  review: { content: "" },
+  review: "",
   status: "enable",
   image: null,
   delivery: null,
