@@ -32,7 +32,7 @@
 
         <template v-if="menu">
           <hx-icon
-            icon="arrow-left"
+            icon="arrow-left-2"
             class="w-6 h-6 left-[10px] absolute text-gray-400"
             :class="[ns.be('item', 'arrow'), ns.is('active', isActive)]"
           ></hx-icon>
@@ -41,7 +41,7 @@
         <template v-else>
           <hx-button icon variant="gray">
             <hx-icon
-              icon="arrow-left"
+              icon="arrow-left-2"
               class="w-6 h-6"
               :class="[ns.be('item', 'arrow'), ns.is('active', isActive)]"
             >

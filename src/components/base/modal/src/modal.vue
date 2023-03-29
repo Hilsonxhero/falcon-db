@@ -13,7 +13,7 @@
               <h5>{{ title }}</h5>
             </div>
             <hx-button icon variant="gray" @click="closeModal">
-              <hx-icon icon="close" class="w-6 h-6"></hx-icon>
+              <hx-icon icon="close-circle" class="w-6 h-6"></hx-icon>
             </hx-button>
           </template>
 
