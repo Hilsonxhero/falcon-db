@@ -360,3 +360,10 @@ body * {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.dir-ltr {
+  direction: ltr;
+}
+.profile-item-container {
+  background: rgba(55, 125, 255, 0.2);
+}

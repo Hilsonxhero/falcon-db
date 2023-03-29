@@ -31,6 +31,9 @@ export const inputProps = buildProps({
     type: String,
     default: 'text',
   },
+  autofocus: {
+    type: Boolean
+  },
   resize: {
     type: String,
     values: ['none', 'both', 'horizontal', 'vertical'],

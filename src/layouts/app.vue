@@ -2,7 +2,7 @@
   <!-- <HXLoader v-if="loaderEnabled" :logo="loaderLogo"></HXLoader> -->
 
   <!-- begin:: Body -->
-  <div class="page flex flex-row flex-column-fluid">
+  <div class="page flex flex-row flex-column-fluid pt-[7rem]">
     <!-- begin:: Aside Left -->
     <HXAside
       v-if="asideEnabled"

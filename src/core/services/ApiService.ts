@@ -19,6 +19,7 @@ class ApiService {
         ApiService.vueInstance = app;
         ApiService.vueInstance.axios = axios;
         ApiService.vueInstance.axios.defaults.baseURL = process.env.API_URL
+        ApiService.vueInstance.axios.defaults.withCredentials = true;
         // ApiService.vueInstance.axios.interceptors.response.use(
         //     response => {
         //         return response;

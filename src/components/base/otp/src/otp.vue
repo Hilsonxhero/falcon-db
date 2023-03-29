@@ -1,36 +1,22 @@
 <template>
-  <div class="flex items-center">
-    <div class="flex items-center">
-      <input
-        maxlength="1"
-        autofocus
-        @keyup.delete="previous"
-        class="form-input border-2 border-transparent focus:bg-white mr-2 h-10 focus:border-blue-500"
-        type="text"
-        v-for="(item, index) in length"
-        v-model="values[index]"
-        @input="next"
-        placeholder="-"
-      />
-    </div>
-
-    <div mode="out-in" class="flex flex-col justify-center mr-6 w-56">
-      <div class="flex items-center text-typo-light text-sm font-extrabold">
-        <span>55</span>
-        :
-        <span>01</span>
-      </div>
-      <div
-        class="inline-block text-xs cursor-pointer text-typo-light font-medium opacity-20"
-      >
-        ارسال مجدد
-      </div>
-    </div>
+  <div class="flex items-center dir-ltr">
+    <input
+      maxlength="1"
+      @keyup.delete="previous"
+      class="form-input border-2 border-transparent focus:bg-white mr-2 h-10 focus:border-blue-500"
+      type="text"
+      v-for="(item, index) in length"
+      :ref="index === 0 ? 'firstInput' : undefined"
+      v-model="values[index]"
+      @input="next"
+      placeholder="-"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+// @ts-nocheck
+import { ref, watch, onMounted, nextTick } from "vue";
 const props = defineProps({
   length: {
     type: Number,
@@ -44,6 +30,8 @@ defineOptions({
 });
 
 const emit = defineEmits(["update:modelValue"]);
+
+const firstInput = ref(null);
 
 const values = ref(Array(length).fill(""));
 const code = ref("");
@@ -75,6 +63,14 @@ watch(
     deep: true,
   }
 );
+
+onMounted(() => {
+  nextTick(() => {
+    console.log("firstInput.value", firstInput.value[0]);
+
+    firstInput.value[0].focus();
+  });
+});
 </script>
 
 <style scoped>

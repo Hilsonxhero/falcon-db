@@ -16,20 +16,42 @@ import setting from "@/modules/setting/router";
 import payment from "@/modules/payment/router";
 import order from "@/modules/order/router";
 import comment from "@/modules/comment/router";
+import { useAuthStore } from "@/modules/auth";
+
+
 const routes: Array<RouteRecordRaw> = [
   auth, article, category,
   brand, warranty, shipment, user,
   role, dashboard, product,
-  state, setting, payment, order,comment
+  state, setting, payment, order, comment
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    // always scroll to top
     return { top: 0, behavior: "smooth" };
   },
+});
+
+router.beforeEach(async (to, from, next) => {
+  const store = useAuthStore();
+
+  if (to.name !== "auth") {
+    await store.init();
+  }
+
+  if (
+    !store.loggedIn && to.name !== "auth"
+  ) {
+    next({ name: "auth" });
+  }
+
+  if (to.meta.guest && store.loggedIn) {
+    next({ name: "dashboard" });
+  }
+
+  next();
 });
 
 export default router;
