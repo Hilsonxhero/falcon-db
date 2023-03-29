@@ -263,7 +263,7 @@ const statuses = ref([
   { title: "خروج از مرکز پردازش", key: "leaving_center" },
   { title: "دریافت در مرکز توضیح", key: "received_center" },
   { title: "تحویل به مامور ارسال", key: "delivery_dispatcher" },
-  { title: "تحویل مرسوله  به مشتری", key: "delivery_customer" },
+  { title: "تحویل مرسوله  به مشتری", key: "sent" },
   { title: "لغو سیستمی", key: "canceled_system" },
 ]);
 
