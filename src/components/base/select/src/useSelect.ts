@@ -6,7 +6,7 @@ import { useResizeObserver } from "@vueuse/core";
 import { useFormItem, useLocale, useNamespace, useSize } from "@/core/hooks";
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from "@/core/constants";
 import { debugWarn } from "@/core/utils";
-
+import type HxTooltip from '@/components/base/tooltip'
 import { useAllowCreate } from "./useAllowCreate";
 
 import { flattenOptions } from "./util";
@@ -59,13 +59,13 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
 
   // data refs
   const selectedIndex = ref(-1);
-  // const popperSize = ref(-1)
+  const popperSize = ref(-1)
 
   // DOM & Component refs
   const controlRef = ref(null);
   const inputRef = ref(null); // el-input ref
   const menuRef = ref(null);
-  // const popper = ref<InstanceType<any> | null>(null)
+  const popper = ref<InstanceType<typeof HxTooltip> | null>(null)
   const selectRef = ref(null);
   const selectionRef = ref(null); // tags ref
   const calculatorRef = ref<HTMLElement>(null);
@@ -74,6 +74,11 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   const expanded = ref(false);
 
   const selectDisabled = computed(() => props.disabled || elForm?.disabled);
+
+  const popupHeight = computed(() => {
+    const totalHeight = filteredOptions.value.length * 34
+    return totalHeight > props.height ? props.height : totalHeight
+  })
 
   const hasModelValue = computed(() => {
     return (
@@ -183,17 +188,16 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
     );
   });
 
-  // const calculatePopperSize = () => {
-  //   popperSize.value = selectRef.value?.offsetWidth || 200
-  // }
+  const calculatePopperSize = () => {
+    popperSize.value = selectRef.value?.offsetWidth || 200
+  }
 
   const inputWrapperStyle = computed(() => {
     return {
-      width: `${
-        states.calculatedWidth === 0
-          ? MINIMUM_INPUT_WIDTH
-          : Math.ceil(states.calculatedWidth) + MINIMUM_INPUT_WIDTH
-      }px`,
+      width: `${states.calculatedWidth === 0
+        ? MINIMUM_INPUT_WIDTH
+        : Math.ceil(states.calculatedWidth) + MINIMUM_INPUT_WIDTH
+        }px`,
     } as CSSProperties;
   });
 
@@ -213,7 +217,10 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   });
 
   // this obtains the actual popper DOM element.
-  // const popperRef = computed(() => popper.value?.popperRef?.contentRef)
+  const popperRef = computed(() => popper.value?.popperRef?.contentRef)
+
+
+
 
   // the index with current value in options
   const indexRef = computed<number>(() => {
@@ -257,10 +264,10 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   } = useInput((e) => onInput(e));
 
   // methods
-  // const focusAndUpdatePopup = () => {
-  //   inputRef.value.focus?.()
-  //   popper.value?.updatePopper()
-  // }
+  const focusAndUpdatePopup = () => {
+    inputRef.value.focus?.()
+    popper.value?.updatePopper()
+  }
 
   const toggleMenu = () => {
     if (props.automaticDropdown) return;
@@ -349,15 +356,15 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
 
       selectRef.value.height = selection.offsetHeight;
       if (expanded.value && emptyText.value !== false) {
-        // popper.value?.updatePopper?.()
+        popper.value?.updatePopper?.()
       }
     });
   };
 
   const handleResize = () => {
     resetInputWidth();
-    // calculatePopperSize()
-    // popper.value?.updatePopper?.()
+    calculatePopperSize()
+    popper.value?.updatePopper?.()
     if (props.multiple) {
       return resetInputHeight();
     }
@@ -623,19 +630,19 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
     return handleBlur();
   };
 
-  // const handleMenuEnter = () => {
-  //   states.inputValue = states.displayInputValue
-  //   return nextTick(() => {
-  //     if (~indexRef.value) {
-  //       updateHoveringIndex(indexRef.value)
-  //       scrollToItem(states.hoveringIndex)
-  //     }
-  //   })
-  // }
+  const handleMenuEnter = () => {
+    states.inputValue = states.displayInputValue
+    return nextTick(() => {
+      if (~indexRef.value) {
+        updateHoveringIndex(indexRef.value)
+        scrollToItem(states.hoveringIndex)
+      }
+    })
+  }
 
-  // const scrollToItem = (index: number) => {
-  //   menuRef.value.scrollToItem(index)
-  // }
+  const scrollToItem = (index: number) => {
+    menuRef.value.scrollToItem(index)
+  }
 
   const initStates = () => {
     resetHoveringIndex();
@@ -687,7 +694,7 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
       }
     }
     clearAllNewOption();
-    // calculatePopperSize()
+    calculatePopperSize()
   };
 
   // in order to track these individually, we need to turn them into refs instead of watching the entire
@@ -697,7 +704,9 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
   watch(expanded, (val) => {
     emit("visible-change", val);
     if (val) {
-      // popper.value.update?.()
+
+
+      popper.value.update?.()
       // the purpose of this function is to differ the blur event trigger mechanism
     } else {
       states.displayInputValue = "";
@@ -755,7 +764,7 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
     filteredOptions,
     iconReverse,
     inputWrapperStyle,
-
+    popperSize,
     dropdownMenuVisible,
     hasModelValue,
     // readonly,
@@ -767,7 +776,9 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
     tagMaxWidth,
     nsSelectV2,
     nsInput,
-
+    popper,
+    popperRef,
+    popupHeight,
     // refs items exports
     calculatorRef,
     controlRef,
@@ -789,7 +800,6 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
     handleDel,
     handleEsc,
     handleFocus,
-    // handleMenuEnter,
     handleResize,
     toggleMenu,
     // scrollTo: scrollToItem,
@@ -802,6 +812,7 @@ const useSelect = (props: ExtractPropTypes<typeof SelectProps>, emit) => {
     handleCompositionStart,
     handleCompositionEnd,
     handleCompositionUpdate,
+    handleMenuEnter
   };
 };
 

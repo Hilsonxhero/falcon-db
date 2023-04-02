@@ -66,8 +66,6 @@ watch(
 
 onMounted(() => {
   nextTick(() => {
-    console.log("firstInput.value", firstInput.value[0]);
-
     firstInput.value[0].focus();
   });
 });

@@ -5,3 +5,4 @@ export * from "./config-provider";
 export * from "./form";
 export * from "./tabs";
 export * from "./radio";
+export * from "./popper";

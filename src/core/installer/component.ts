@@ -16,11 +16,14 @@ import { HxSlider } from "@/components/base/slider";
 import { HxPagination } from "@/components/base/pagination";
 import { HxAvatar } from "@/components/base/avatar";
 import { HxUpload } from "@/components/base/upload";
-import { HxDropdown, HxDropdownMenu, HxDropdownItem } from "@/components/base/dropdown";
+// import { HxDropdown, HxDropdownMenu, HxDropdownItem } from "@/components/base/dropdown";
 // import { HxConfigProvider } from "@/components/base/config-provider";
 import { HxTabPane, HxTabs } from '@/components/base/tabs'
 import { HxSelect } from '@/components/base/select'
 import { HxSkeleton, HxSkeletonItem } from '@/components/base/skeleton'
+import { HxPopover } from '@/components/base/popover'
+import { HxPopper } from '@/components/base/popper'
+import { HxTooltip } from '@/components/base/tooltip'
 import type { Plugin } from 'vue'
 
 export default [
@@ -44,13 +47,16 @@ export default [
   HxPagination,
   HxAvatar,
   HxUpload,
-  HxDropdown,
-  HxDropdownMenu,
-  HxDropdownItem,
+  // HxDropdown,
+  // HxDropdownMenu,
+  // HxDropdownItem,
   HxTabPane,
   HxTabs,
   HxSelect,
   HxSkeleton,
-  HxSkeletonItem
+  HxSkeletonItem,
+  HxPopover,
+  HxPopper,
+  HxTooltip
 
 ] as Plugin[];

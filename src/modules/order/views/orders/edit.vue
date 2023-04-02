@@ -69,7 +69,6 @@
                         value-key="key"
                         label="title"
                         v-model="selected_status"
-                        filterable
                         :options="statuses"
                         placeholder="انتخاب کنید"
                       />
@@ -78,6 +77,78 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <div v-if="form.shipments" class="mt-2">
+            <HxTable
+              :table-data="form.shipments"
+              :table-header="shipment_fields"
+              :single-item-index="index"
+              search-placeholder="جستجوی مرسوله"
+              :enable-items-per-page-dropdown="false"
+              :on-current-change="true"
+            >
+              <template #left>
+                <div>مرسوله ها</div>
+              </template>
+              <template v-slot:cell-checkbox="{ row: shipment }">
+                <div
+                  class="form-check form-check-sm form-check-custom form-check-solid"
+                >
+                  <hx-checkbox v-model="checkedData"></hx-checkbox>
+                </div>
+              </template>
+
+              <template v-slot:cell-shipment="{ row: shipment }">
+                <span> {{ shipment?.shipment?.title }}</span>
+              </template>
+              <template v-slot:cell-order_items_cost="{ row: shipment }">
+                <span>
+                  {{ $filters.separate(shipment?.order_items_cost) }}
+                </span>
+              </template>
+
+              <template v-slot:cell-reference_code="{ row: shipment }">
+                <span> {{ shipment?.reference_code }}</span>
+              </template>
+              <template v-slot:cell-date="{ row: shipment }">
+                <span> {{ shipment?.date }}</span>
+              </template>
+
+              <template v-slot:cell-status="{ row: shipment }">
+                <!-- <span> {{ shipment?.status }}</span> -->
+                <div class="w-[160px]">
+                  <hx-select
+                    @change="handleChangeShipmentStatus($event, shipment)"
+                    name="status"
+                    value-key="key"
+                    label="title"
+                    v-model="shipment.status"
+                    :options="statuses"
+                    placeholder="انتخاب کنید"
+                  />
+                </div>
+              </template>
+
+              <!-- <template v-slot:cell-actions="{ row: order, index: index }">
+              <hx-button
+                variant="gray"
+                size="sm"
+                icon
+                :to="{ name: 'orders edit', params: { id: order.id } }"
+              >
+                <hx-icon icon="slider-alt"></hx-icon>
+              </hx-button>
+              <hx-button
+                variant="gray"
+                size="sm"
+                icon
+                @click="handleDelete(order, index)"
+              >
+                <hx-icon icon="trash"></hx-icon>
+              </hx-button>
+            </template> -->
+            </HxTable>
           </div>
 
           <div class="hx-card mt-2">
@@ -114,20 +185,6 @@
             </div>
           </div>
 
-          <!-- <div class="hx-card mt-2">
-            <div class="hx-card__header">
-              <h4 class="text-gray-600 text-xl">پرداخت ها</h4>
-            </div>
-            <div class="hx-card__body">
-              <div class="flex flex-wrap items-center my-6">
-                <div
-                  class="flex flex-col mb-3 ml-2 border rounded-xl"
-                  v-for="(payment_item, i) in form.payments"
-                  :key="i"
-                ></div>
-              </div>
-            </div>
-          </div> -->
           <div v-if="form.payments" class="mt-2">
             <HxTable
               :table-data="form.payments"
@@ -207,6 +264,7 @@ import ApiService from "@/core/services/ApiService";
 import { useRoute, useRouter } from "vue-router";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import HxTable from "@/components/common/widgets/table/Table.vue";
+import { HxMessageBox } from "@/components/base/message-box";
 
 const router = useRouter();
 const route = useRoute();
@@ -217,6 +275,46 @@ const form = ref({
   zone_code: null,
   name: "",
 });
+
+const shipment_fields = ref([
+  {
+    key: "checkbox",
+    sortable: false,
+  },
+
+  {
+    name: "نوع ارسال",
+    key: "shipment",
+    sortable: true,
+  },
+  {
+    name: "مبلغ",
+    key: "order_items_cost",
+    sortable: false,
+  },
+  {
+    name: "تاریخ",
+    key: "date",
+    sortable: false,
+  },
+
+  {
+    name: "شماره سفارش",
+    key: "reference_code",
+    sortable: false,
+  },
+
+  {
+    name: "وضعیت",
+    key: "status",
+    sortable: false,
+  },
+
+  // {
+  //   name: "عملیات",
+  //   key: "actions",
+  // },
+]);
 
 const table_headers = ref([
   {
@@ -269,7 +367,40 @@ const statuses = ref([
 
 const selected_status = ref(null);
 
+const shipping_statuses = ref([]);
+
 const id = ref(null);
+
+const handleChangeShipmentStatus = (val, shipment) => {
+  HxMessageBox.confirm(
+    `آیا از تغییر وضعیت مرسوله اطمینان دارید ؟`,
+    "پیام تایید",
+    {
+      confirmButtonText: "تایید",
+      cancelButtonText: "لغو",
+      type: "warning",
+    }
+  )
+    .then(() => {
+      const formData = {
+        status: val,
+      };
+      ApiService.put(`order/shippings/${shipment.id}`, formData).then(() => {
+        HxNotification.success({
+          title: "عملیات موفقیت آمیز",
+          message: "کاربر موردنظر حذف شد",
+          showClose: true,
+          duration: 4000,
+          position: "bottom-right",
+        });
+      });
+    })
+    .catch(() => {
+      shipment.status = shipping_statuses.value.find(
+        (item, i) => item.id == shipment.id
+      )?.status;
+    });
+};
 
 const fetchData = async () => {
   try {
@@ -279,6 +410,13 @@ const fetchData = async () => {
     selected_status.value = form.value.status;
     formRef.value.setValues({
       ...data.data,
+    });
+    form.value.shipments.map((shipment, index) => {
+      shipping_statuses.value = [];
+      shipping_statuses.value.push({
+        id: shipment.id,
+        status: shipment.status,
+      });
     });
     loading.value = false;
   } catch (e) {

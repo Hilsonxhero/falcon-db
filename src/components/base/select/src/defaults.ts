@@ -1,8 +1,8 @@
-
+import { useTooltipContentProps } from '@/components/base/tooltip'
 import type { Component, PropType } from 'vue'
 import type { ComponentSize } from '@/core/constants'
 import type { OptionType } from './select.types'
-
+import type { Options } from '@/components/base/popper'
 
 export const SelectProps = {
   allowCreate: Boolean,
@@ -14,6 +14,7 @@ export const SelectProps = {
   clearable: Boolean,
   clearIcon: {
     type: [String, Object] as PropType<string | Component>,
+
   },
   effect: {
     type: String as PropType<'light' | 'dark' | string>,
@@ -58,7 +59,7 @@ export const SelectProps = {
   remoteMethod: Function,
   reserveKeyword: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   options: {
     type: Array as PropType<OptionType[]>,
@@ -67,15 +68,23 @@ export const SelectProps = {
   placeholder: {
     type: String,
   },
+  teleported: useTooltipContentProps.teleported,
   persistent: {
     type: Boolean,
     default: true,
   },
-
-
+  popperClass: {
+    type: String,
+    default: '',
+  },
+  popperOptions: {
+    type: Object as PropType<Partial<Options>>,
+    default: () => ({} as Partial<Options>),
+  },
   remote: Boolean,
   size: {
     type: String as PropType<ComponentSize>,
+
   },
   valueKey: {
     type: String,

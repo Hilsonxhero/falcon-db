@@ -5,14 +5,22 @@
         <Form @submit="handleCreate" class="w-full">
           <div class="hx-card">
             <div class="hx-card__header">
-              <h4 class="text-gray-600 text-xl">
-                ایجاد امتیاز
-              </h4>
+              <h4 class="text-gray-600 text-xl">ایجاد امتیاز</h4>
             </div>
             <div class="hx-card__body">
               <hx-form-group>
-                <Field mode="passive" name="title" v-slot="{ field }" rules="required" label="عنوان">
-                  <hx-input v-bind="field" v-model="form.title" placeholder="عنوان"></hx-input>
+                <Field
+                  mode="passive"
+                  name="title"
+                  v-slot="{ field }"
+                  rules="required"
+                  label="عنوان"
+                >
+                  <hx-input
+                    v-bind="field"
+                    v-model="form.title"
+                    placeholder="عنوان"
+                  ></hx-input>
                 </Field>
 
                 <div class="invalid-feedback d-block">
@@ -20,20 +28,40 @@
                 </div>
               </hx-form-group>
               <hx-form-group>
-                <Field mode="passive" name="category" v-slot="{ field }" rules="required" label="دسته بندی">
-                  <hx-select v-bind="field" name="category" value-key="id" label="title" v-model="form.category"
-                    filterable :options="categories" placeholder="انتخاب  دسته بندی" />
+                <Field
+                  mode="passive"
+                  name="category"
+                  v-slot="{ field }"
+                  rules="required"
+                  label="دسته بندی"
+                >
+                  <hx-select
+                    v-bind="field"
+                    name="category"
+                    value-key="id"
+                    label="title"
+                    v-model="form.category"
+                    filterable
+                    :options="categories"
+                    placeholder="انتخاب  دسته بندی"
+                  />
                 </Field>
 
                 <div class="invalid-feedback d-block">
                   <ErrorMessage name="category" />
                 </div>
-
               </hx-form-group>
 
               <hx-form-group>
-                <hx-select name="status" value-key="key" label="title" v-model="form.status" filterable
-                  :options="statuses" placeholder="انتخاب  وضعیت" />
+                <hx-select
+                  name="status"
+                  value-key="key"
+                  label="title"
+                  v-model="form.status"
+                  filterable
+                  :options="statuses"
+                  placeholder="انتخاب  وضعیت"
+                />
               </hx-form-group>
             </div>
           </div>
@@ -76,17 +104,12 @@ const categories = ref<any>([]);
 const statuses = ref([
   { title: "فعال", key: "active" },
   { title: "غیرفعال", key: "inactive" },
-
 ]);
 
-
 onMounted(() => {
-
   ApiService.get(`category/select`).then(({ data }) => {
     categories.value = data.data;
   });
-
-
 });
 
 const handleCreate = async (values, { resetForm }) => {
@@ -95,12 +118,10 @@ const handleCreate = async (values, { resetForm }) => {
     category_id: form.value.category,
     status: form.value.status,
   };
-  console.log("formData", formData);
 
   loader.value = true;
 
   try {
-
     const { data } = await ApiService.post(`score/models`, formData);
 
     HxNotification.success({
@@ -112,9 +133,7 @@ const handleCreate = async (values, { resetForm }) => {
     });
     loader.value = false;
     router.push({ name: "score models index" });
-  } catch (e) { }
+  } catch (e) {}
 };
 </script>
-<style>
-
-</style>
+<style></style>

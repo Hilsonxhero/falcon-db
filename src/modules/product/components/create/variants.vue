@@ -244,7 +244,6 @@ watch(
   () => variants.value,
   (val, oldVal) => {
     if (variants.value.length >= 1) {
-      console.log("val", val);
       default_variant.value = val.find(
         (item, index) => item.default_on == 1
       )?.id;
@@ -275,7 +274,6 @@ watchEffect(() => {
       });
       combinations.value.push(variant.combinations);
     });
-    console.log("variants.value", variants.value);
 
     selectedGroups.value = uniqBy(uniqueSelectedGroups.value, "variant_id");
   }

@@ -1,5 +1,8 @@
 <template>
-  <div :class="[ns.e('dropdown'), ns.is('multiple', multiple)]">
+  <div
+    :class="[ns.e('dropdown'), ns.is('multiple', multiple)]"
+    :style="{ width: `${width}px` }"
+  >
     <div class="p-3" v-if="data.length === 0">
       <p class="text-center text-sm text-gray-400">
         <slot name="empty"></slot>
@@ -48,8 +51,7 @@ const ns = useNamespace("select");
 const cachedHeights = ref<Array<number>>([]);
 const listRef = ref(null);
 
-const load = () => {
-};
+const load = () => {};
 
 // const scrollToItem = (index: number) => {
 //   const list = listRef.value as any

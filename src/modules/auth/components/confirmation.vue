@@ -91,9 +91,7 @@ const handleSubmit = async (e: any) => {
   loader.value = false;
 };
 
-onMounted(() => {
-  console.log("www", inputRef.value);
-});
+onMounted(() => {});
 </script>
 
 <style scoped></style>
