@@ -97,6 +97,21 @@
         </div>
       </div>
 
+      <div class="col-span-12 space-y-4">
+        <div class="hx-card">
+          <div class="hx-card__header">
+            <h4 class="text-gray-600 text-xl">تصویر برای موبایل</h4>
+          </div>
+          <div class="hx-card__body">
+            <hx-upload
+              :max="1"
+              v-model="form.mobile_image"
+              :sources="form.mobile_banner"
+            ></hx-upload>
+          </div>
+        </div>
+      </div>
+
       <div class="col-span-12">
         <div class="w-full flex items-center justify-between my-4">
           <div class="flex items-center space-x-3 space-x-reverse">
@@ -131,6 +146,7 @@ const form = ref({
   page: null,
   status: "enable",
   image: [],
+  mobile_image: [],
 });
 
 const statuses = ref([
@@ -155,7 +171,8 @@ const handleCreate = async (values, { resetForm }) => {
     type: form.value.type,
     position: form.value.position,
     status: form.value.status,
-    image: form.value.image?.base64,
+    banner: form.value.image?.base64,
+    mobile_banner: form.value.mobile_image?.base64,
     page: form.value.page,
   };
 

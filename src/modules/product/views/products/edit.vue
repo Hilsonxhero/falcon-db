@@ -60,22 +60,36 @@ const router = useRouter();
 const route = useRoute();
 const formRef = ref(null);
 const handleUpdate = async (values, { resetForm }) => {
-  let formData = {
-    title_fa: data.value.title_fa,
-    title_en: data.value.title_en,
-    review: data.value.review.content,
-    category_id: data.value.category,
-    delivery: data.value.delivery,
-    brand_id: data.value.brand,
-    warranty_id: data.value.warranty,
-    status: data.value.status,
-    image: JSON.stringify(data.value.image?.base64),
-    variants: JSON.stringify(selectedVariants.value),
-  };
+  const form_data = new FormData();
+
+  form_data.append("title_fa", data.value.title_fa);
+  form_data.append("title_en", data.value.title_en);
+  form_data.append("review", data.value.review.content);
+  form_data.append("delivery", data.value.delivery);
+  form_data.append("brand_id", data.value.brand);
+  form_data.append("category_id", data.value.category);
+  form_data.append("status", data.value.status);
+
+  if (data.value.image && data.value.image.file) {
+    form_data.append("image", data.value.image?.file);
+  }
+
+  // let formData = {
+  //   title_fa: data.value.title_fa,
+  //   title_en: data.value.title_en,
+  //   review: data.value.review.content,
+  //   category_id: data.value.category,
+  //   delivery: data.value.delivery,
+  //   brand_id: data.value.brand,
+  //   warranty_id: data.value.warranty,
+  //   status: data.value.status,
+  //   image: JSON.stringify(data.value.image?.base64),
+  //   variants: JSON.stringify(selectedVariants.value),
+  // };
 
   try {
     loader.value = true;
-    const { data } = await ApiService.put(`products/${id.value}`, formData);
+    const { data } = await ApiService.put(`products/${id.value}`, form_data);
     resetForm();
     HxNotification.success({
       title: "عملیات موفقیت آمیز",
