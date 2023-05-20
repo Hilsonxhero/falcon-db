@@ -20,6 +20,7 @@ export default () => {
       //   'jsnext'
       // ]
     },
+
     define: {
       'process.env': process.env
     }
