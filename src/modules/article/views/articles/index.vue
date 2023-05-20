@@ -76,6 +76,7 @@
 
 <script setup lang="ts">
 // @ts-nocheck
+// @ts-ignore
 import { ref, onMounted, watch } from "vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
 import { HxMessageBox } from "@/components/base/message-box";
