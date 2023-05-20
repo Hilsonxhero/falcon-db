@@ -1,3 +1,6 @@
+
+// @ts-nocheck
+
 import { createVNode, defineComponent, h, renderSlot } from 'vue'
 import { PatchFlags, buildProps, definePropType } from '@/core/utils'
 import { useNamespace, useSameTarget } from '@/core/hooks'
