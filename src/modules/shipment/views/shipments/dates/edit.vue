@@ -108,7 +108,7 @@ const form = ref<any>({
 const types = ref<Array<any>>([]);
 
 const handleUpdate = async (values, { resetForm }) => {
-  let formData = {
+  const formData = {
     shipment_city_id: form.value.type,
     date: form.value.date,
     is_holiday: 0,

@@ -1,5 +1,7 @@
 import Avatar from './src/avatar.vue'
 import { withInstall } from '@/core/utils'
+import type { App } from "vue";
+
 import type { SFCWithInstall } from '@/core/utils'
 
 Avatar.install = (app: App): void => {

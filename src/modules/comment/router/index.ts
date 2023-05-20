@@ -25,11 +25,7 @@ export default {
             name: "comments index",
             component: () => import("@/modules/comment/views/comments/index.vue"),
         },
-        {
-            path: "/comments/create",
-            name: "comments create",
-            component: () => import("@/modules/comment/views/comments/create.vue"),
-        },
+
         {
             path: "/comments/edit/:id",
             name: "comments edit",

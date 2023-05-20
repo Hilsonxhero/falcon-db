@@ -50,7 +50,7 @@ import { EVENT_CODE } from "@/core/constants";
 import { useNamespace } from "@/core/hooks";
 import { messageEmits, messageProps } from "./message";
 import { getLastOffset } from "./instance";
-import type { BadgeProps } from "@/components/base/badge";
+// import type { BadgeProps } from "@/components/base/badge";
 import type { CSSProperties } from "vue";
 
 defineOptions({
@@ -68,9 +68,9 @@ const height = ref(0);
 
 let stopTimer: (() => void) | undefined = undefined;
 
-const badgeType = computed<BadgeProps["type"]>(() =>
-  props.type ? (props.type === "error" ? "danger" : props.type) : "info"
-);
+// const badgeType = computed<BadgeProps["type"]>(() =>
+//   props.type ? (props.type === "error" ? "danger" : props.type) : "info"
+// );
 const typeClass = computed(() => {
   const type = props.type;
   return { [ns.bm("icon", type)]: type && TypeComponentsMap[type] };
