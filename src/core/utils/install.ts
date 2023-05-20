@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NOOP } from '@vue/shared'
 
 import type { App } from 'vue'

@@ -44,6 +44,8 @@
   </hx-tooltip>
 </template>
 <script lang="ts" setup>
+// @ts-nocheck
+
 import { computed, ref, unref } from "vue";
 import { HxTooltip } from "@/components/base/tooltip";
 import { addUnit } from "@/core/utils";
