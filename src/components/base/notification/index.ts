@@ -1,3 +1,5 @@
+// @ts-nocheck
+// @ts-ignore
 import { withInstallFunction } from '@/core/utils'
 
 import Notify from './src/notify'

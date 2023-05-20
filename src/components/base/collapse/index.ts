@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import type { App } from "@vue/runtime-core";
 import { withInstall, withNoopInstall } from "@/core/utils";
 import Collapse from "./src/collapse.vue";

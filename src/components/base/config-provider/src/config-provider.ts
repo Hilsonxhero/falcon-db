@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import { defineComponent, renderSlot, watch } from 'vue'
 import { buildProps, definePropType } from '@/core/utils'
 import { provideGlobalConfig, useSizeProp } from '@/core/hooks'

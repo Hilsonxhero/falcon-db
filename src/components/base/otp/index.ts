@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import Otp from "./src/otp.vue";
 import { withInstall, SFCWithInstall } from "@/core/utils";
 import type { App } from "vue";

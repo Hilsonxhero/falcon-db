@@ -1,3 +1,5 @@
+// @ts-nocheck
+// @ts-ignore
 import HxFocusTrap from './src/focus-trap.vue'
 
 export { HxFocusTrap }

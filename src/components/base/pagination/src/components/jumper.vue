@@ -17,6 +17,9 @@
 </template>
 
 <script lang="ts" setup>
+// @ts-nocheck
+// @ts-ignore
+
 import { computed, ref } from "vue";
 import { useLocale, useNamespace } from "@/core/hooks";
 

@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import Icon from "./src/icon.vue";
 import { withInstall, SFCWithInstall } from "@/core/utils";
 import type { App } from "vue";

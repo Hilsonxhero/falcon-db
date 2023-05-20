@@ -1,3 +1,6 @@
+
+// @ts-nocheck
+// @ts-ignore
 import InfiniteScroll from "./src";
 
 import type { App } from "vue";

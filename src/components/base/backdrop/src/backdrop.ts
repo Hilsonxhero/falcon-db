@@ -1,5 +1,6 @@
 
 // @ts-nocheck
+// @ts-ignore
 
 import { createVNode, defineComponent, h, renderSlot } from 'vue'
 import { PatchFlags, buildProps, definePropType } from '@/core/utils'

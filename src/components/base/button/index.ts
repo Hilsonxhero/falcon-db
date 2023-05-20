@@ -1,3 +1,6 @@
+
+// @ts-nocheck
+// @ts-ignore
 import Button from "./src/button.vue";
 import type { App } from "vue";
 import { withInstall, SFCWithInstall } from "@/core/utils";

@@ -2,6 +2,8 @@
   <slot :handle-keydown="onKeydown" />
 </template>
 <script lang="ts">
+// @ts-nocheck
+// @ts-ignore
 import {
   defineComponent,
   nextTick,

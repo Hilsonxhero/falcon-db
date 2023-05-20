@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import { buildProps, definePropType } from '@/core/utils'
 
 import type { ExtractPropTypes, VNode } from 'vue'

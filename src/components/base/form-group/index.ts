@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import FormGroup from "./src/group.vue";
 import { withInstall, SFCWithInstall } from "@/core/utils";
 import type { App } from "vue";

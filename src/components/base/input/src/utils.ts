@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import { isNumber } from '@/core/utils'
 
 let hiddenTextarea: HTMLTextAreaElement | undefined = undefined

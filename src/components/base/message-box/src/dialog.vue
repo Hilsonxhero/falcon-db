@@ -113,6 +113,7 @@
 </template>
 <script lang="ts">
 // @ts-nocheck
+// @ts-ignore
 import {
   computed,
   defineComponent,

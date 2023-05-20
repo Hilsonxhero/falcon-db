@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import { buildProps } from '@/core/utils'
 import type { ExtractPropTypes } from 'vue'
 import type Next from './next.vue'

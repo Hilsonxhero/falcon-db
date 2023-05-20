@@ -1,4 +1,5 @@
 // @ts-nocheck
+// @ts-ignore
 import { buildProps, definePropType, iconPropType } from '@/core/utils'
 import type { ComponentInternalInstance, ComputedRef } from 'vue'
 import type { Nullable } from '@/core/utils'

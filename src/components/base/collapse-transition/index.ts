@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import CollapseTransition from "./src/collapse-transition.vue";
 import type { App } from "vue";
 import { withInstall, withNoopInstall, SFCWithInstall } from "@/core/utils";

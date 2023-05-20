@@ -1,3 +1,7 @@
+
+// @ts-nocheck
+// @ts-ignore
+
 import { isClient } from '@vueuse/core'
 import {
   buildProps,

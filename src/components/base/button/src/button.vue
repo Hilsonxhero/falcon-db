@@ -50,6 +50,7 @@
 
 <script setup lang="ts">
 // @ts-nocheck
+// @ts-ignore
 import { computed, PropType } from "vue";
 import { useRouter } from "vue-router";
 const props = defineProps({

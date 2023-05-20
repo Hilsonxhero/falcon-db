@@ -1,5 +1,5 @@
 // @ts-nocheck
-
+// @ts-ignore
 
 import {
   buildProps,

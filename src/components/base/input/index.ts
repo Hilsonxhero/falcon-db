@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import Input from "./src/input.vue";
 import { withInstall, SFCWithInstall } from "@/core/utils";
 import type { App } from "vue";

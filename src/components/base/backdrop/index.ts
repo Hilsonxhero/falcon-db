@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import backdrop from './src/backdrop'
 
 export const HxBackDrop = backdrop

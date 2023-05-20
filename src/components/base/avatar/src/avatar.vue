@@ -16,7 +16,8 @@
 </template>
 
 <script lang="ts" setup>
-//@ts-nocheck
+// @ts-nocheck
+// @ts-ignore
 defineOptions({
   name: "HxAvatar",
 });

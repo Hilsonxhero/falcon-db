@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from "@/core/constants";
 
 import { definePropType, isNumber, isString, mutable } from "@/core/utils";

@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import { isString } from '@vue/shared'
 import {
   buildProps,

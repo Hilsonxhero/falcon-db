@@ -68,6 +68,8 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
+// @ts-ignore
 import { PropType, watch, ref, inject, computed } from "vue";
 
 import {

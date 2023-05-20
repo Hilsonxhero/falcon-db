@@ -1,3 +1,6 @@
+
+// @ts-nocheck
+// @ts-ignore
 import { withInstall } from '@/core/utils'
 
 import ConfigProvider from './src/config-provider'

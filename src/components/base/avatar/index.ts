@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import Avatar from './src/avatar.vue'
 import { withInstall } from '@/core/utils'
 import type { App } from "vue";

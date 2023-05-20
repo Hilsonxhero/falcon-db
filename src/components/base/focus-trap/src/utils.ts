@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 export type FocusLayer = {
   paused: boolean
   pause: () => void

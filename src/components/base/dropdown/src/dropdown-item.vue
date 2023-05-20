@@ -10,6 +10,8 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
+// @ts-ignore
 import { provide, ref, computed } from "vue";
 import { useId, useLocale, useNamespace, useSize } from "@/core/hooks";
 

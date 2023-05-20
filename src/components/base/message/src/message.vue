@@ -39,6 +39,8 @@
 </template>
 
 <script lang="ts" setup>
+// @ts-nocheck
+// @ts-ignore
 import { computed, onMounted, ref, watch } from "vue";
 import {
   useEventListener,

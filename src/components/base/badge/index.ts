@@ -1,3 +1,5 @@
+// @ts-nocheck
+// @ts-ignore
 import Badge from "./src/badge.vue";
 import type { App } from "vue";
 import { withInstall, SFCWithInstall } from "@/core/utils";

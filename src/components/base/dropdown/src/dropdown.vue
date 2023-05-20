@@ -15,12 +15,12 @@
         <slot name="dropdown" />
       </ul>
     </transition>
-
   </div>
 </template>
 
 <script setup lang="ts">
-//@ts-nocheck
+// @ts-nocheck
+// @ts-ignore
 import { ref, computed } from "vue";
 import { useLocale, useNamespace } from "@/core/hooks";
 import type { ButtonType } from "@/core/components/button";

@@ -13,7 +13,8 @@
 </template>
 
 <script setup lang="ts">
-//@ts-nocheck
+// @ts-nocheck
+// @ts-ignore
 import { computed, ref, inject } from "vue";
 import { useNamespace } from "@/core/hooks";
 import { DROPDOWN_INJECTION_KEY } from "./tokens";

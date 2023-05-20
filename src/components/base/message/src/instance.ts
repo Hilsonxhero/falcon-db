@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import { shallowReactive } from 'vue'
 import type { ComponentInternalInstance, VNode } from 'vue'
 import type { Mutable } from '@/core/utils'

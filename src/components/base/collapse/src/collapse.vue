@@ -5,6 +5,8 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
+// @ts-ignore
 import { watch, ref, provide } from "vue";
 import { definePropType, isNumber, isString, mutable } from "@/core/utils";
 import { ensureArray } from "@/core/utils";

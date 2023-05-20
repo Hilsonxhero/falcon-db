@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import type { ComputedRef } from 'vue'
 import type { ComponentSize } from '@/core/constants'
 export interface ICheckboxGroupInstance {

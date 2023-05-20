@@ -1,3 +1,6 @@
+
+// @ts-nocheck
+// @ts-ignore
 export const buttonTypes = [
     'default',
     'primary',

@@ -1,4 +1,5 @@
 // @ts-nocheck
+// @ts-ignore
 import { computed, inject, ref } from 'vue'
 import { addClass, generateId } from '@/core/utils'
 import { EVENT_CODE } from '@/core/constants'

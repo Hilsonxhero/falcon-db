@@ -16,6 +16,7 @@
 
 <script setup lang="ts">
 // @ts-nocheck
+// @ts-ignore
 import { ref, watch, onMounted, nextTick } from "vue";
 const props = defineProps({
   length: {

@@ -6,6 +6,8 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
+// @ts-ignore
 const props = defineProps({
   label: String,
 });

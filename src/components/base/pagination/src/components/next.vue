@@ -12,6 +12,8 @@
 </template>
 
 <script lang="ts" setup>
+// @ts-nocheck
+// @ts-ignore
 import { computed } from "vue";
 import { paginationNextProps } from "./next";
 

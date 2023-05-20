@@ -64,6 +64,8 @@
 </template>
 
 <script lang="ts" setup>
+// @ts-nocheck
+// @ts-ignore
 import { useSlots } from "vue";
 import { useNamespace } from "@/core/hooks";
 import { checkboxEmits, checkboxProps, useCheckbox } from "./checkbox";

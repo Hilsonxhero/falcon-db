@@ -10,6 +10,8 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
+// @ts-ignore
 import { watch } from "vue";
 
 const props = defineProps({

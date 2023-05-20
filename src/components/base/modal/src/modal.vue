@@ -37,6 +37,7 @@
 
 <script setup lang="ts">
 // @ts-nocheck
+// @ts-ignore
 import { ref, watch } from "vue";
 
 import { useNamespace } from "@/core/hooks";

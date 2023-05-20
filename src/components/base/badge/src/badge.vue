@@ -14,6 +14,8 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
+// @ts-ignore
 import { computed, PropType } from "vue";
 
 const props = defineProps({

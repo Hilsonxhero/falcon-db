@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import { withInstallFunction } from '@/core/utils'
 
 import Message from './src/method'

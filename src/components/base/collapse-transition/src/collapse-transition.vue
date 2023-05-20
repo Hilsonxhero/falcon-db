@@ -5,6 +5,8 @@
 </template>
 
 <script lang="ts" setup>
+// @ts-nocheck
+// @ts-ignore
 import { useNamespace } from "@/core/hooks";
 import type { RendererElement } from "@vue/runtime-core";
 

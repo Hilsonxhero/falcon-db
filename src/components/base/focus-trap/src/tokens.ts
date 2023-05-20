@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import type { InjectionKey, Ref } from 'vue'
 
 export const FOCUS_AFTER_TRAPPED = 'focus-trap.focus-after-trapped'

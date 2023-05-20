@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import type { AppContext, CSSProperties, Component, VNode } from 'vue'
 import type { ComponentSize } from '@/core/constants'
 

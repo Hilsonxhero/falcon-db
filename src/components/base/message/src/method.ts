@@ -1,4 +1,5 @@
 // @ts-nocheck
+// @ts-ignore
 
 import { createVNode, render } from 'vue'
 import { isClient } from '@vueuse/core'

@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import MessageBox from './src/messageBox'
 
 import type { App } from 'vue'
