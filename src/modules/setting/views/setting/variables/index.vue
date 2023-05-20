@@ -41,7 +41,8 @@
 </template>
 
 <script setup lang="ts">
-//@ts-nocheck
+// @ts-nocheck
+// @ts-ignore
 import { ref, onMounted, watchEffect } from "vue";
 
 import ApiService from "@/core/services/ApiService";

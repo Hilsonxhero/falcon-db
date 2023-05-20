@@ -145,6 +145,7 @@
 
 <script lang="ts" setup>
 // @ts-nocheck
+// @ts-ignore
 import {
   computed,
   ref,

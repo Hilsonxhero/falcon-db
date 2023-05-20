@@ -127,7 +127,8 @@
 </template>
 
 <script setup lang="ts">
-//@ts-nocheck
+// @ts-nocheck
+// @ts-ignore
 import { onMounted, ref } from "vue";
 
 import ApiService from "@/core/services/ApiService";

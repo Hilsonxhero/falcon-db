@@ -160,7 +160,8 @@
 </template>
 
 <script setup lang="ts">
-//@ts-nocheck
+// @ts-nocheck
+// @ts-ignore
 import { onMounted, ref, watchEffect } from "vue";
 import ApiService from "@/core/services/ApiService";
 import { useRoute, useRouter } from "vue-router";

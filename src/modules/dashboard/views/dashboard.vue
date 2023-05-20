@@ -305,6 +305,7 @@
 
 <script setup lang="ts">
 // @ts-nocheck
+// @ts-ignore
 import { ref, onMounted } from "vue";
 import HxDataTable from "@/components/common/datatable/DataTable.vue";
 import StaticArea from "@/components/common/widgets/statistics/Area.vue";

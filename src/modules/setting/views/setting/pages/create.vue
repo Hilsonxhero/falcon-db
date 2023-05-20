@@ -8,7 +8,6 @@
           </div>
           <div class="hx-card__body">
             <div class="grid grid-cols-12 gap-4">
-
               <hx-form-group class="col-span-12 sm:col-span-6 lg:col-span-6">
                 <Field
                   mode="passive"
@@ -71,7 +70,6 @@
                   <ErrorMessage name="title_en" />
                 </div>
               </hx-form-group>
-              
             </div>
           </div>
         </div>
@@ -92,7 +90,8 @@
 </template>
 
 <script setup lang="ts">
-//@ts-nocheck
+// @ts-nocheck
+// @ts-ignore
 import { onMounted, ref } from "vue";
 
 import ApiService from "@/core/services/ApiService";
