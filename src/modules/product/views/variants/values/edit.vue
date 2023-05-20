@@ -70,7 +70,8 @@
 </template>
 
 <script setup lang="ts">
-//@ts-nocheck
+// @ts-nocheck
+// @ts-ignore
 import { ref, onMounted, watch } from "vue";
 
 import { HxMessageBox } from "@/components/base/message-box";

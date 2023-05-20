@@ -17,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+// @ts-nocheck
+// @ts-ignore
 import { onMounted, ref, watch, reactive } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import ApiService from "@/core/services/ApiService";

@@ -104,6 +104,7 @@
 
 <script setup lang="ts">
 // @ts-nocheck
+// @ts-ignore
 import { ref, onMounted, watch } from "vue";
 import { HxNotification } from "@/components/base/notification";
 import ApiService from "@/core/services/ApiService";

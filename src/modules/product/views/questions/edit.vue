@@ -5,17 +5,24 @@
         <Form @submit="handleUpdate" class="w-full" ref="formRef">
           <div class="hx-card">
             <div class="hx-card__header">
-              <h4 class="text-gray-600 text-xl">
-                ویرایش نظر
-              </h4>
+              <h4 class="text-gray-600 text-xl">ویرایش نظر</h4>
             </div>
             <div class="hx-card__body">
-
-
               <hx-form-group>
-                <Field mode="passive" name="content" v-slot="{ field }" rules="required" label="متن">
-                  <hx-input class="h-32" type="textarea" v-bind="field" v-model="form.content"
-                    placeholder="متن پرسش"></hx-input>
+                <Field
+                  mode="passive"
+                  name="content"
+                  v-slot="{ field }"
+                  rules="required"
+                  label="متن"
+                >
+                  <hx-input
+                    class="h-32"
+                    type="textarea"
+                    v-bind="field"
+                    v-model="form.content"
+                    placeholder="متن پرسش"
+                  ></hx-input>
                 </Field>
 
                 <div class="invalid-feedback d-block">
@@ -24,13 +31,24 @@
               </hx-form-group>
 
               <hx-form-group>
-                <Field mode="passive" name="status" v-slot="{ field }" rules="required" label="وضعیت پرسش">
-                  <hx-select name="status" value-key="key" label="title" v-model="form.status" filterable
-                    :options="statuses" placeholder="انتخاب  وضعیت" />
+                <Field
+                  mode="passive"
+                  name="status"
+                  v-slot="{ field }"
+                  rules="required"
+                  label="وضعیت پرسش"
+                >
+                  <hx-select
+                    name="status"
+                    value-key="key"
+                    label="title"
+                    v-model="form.status"
+                    filterable
+                    :options="statuses"
+                    placeholder="انتخاب  وضعیت"
+                  />
                 </Field>
-
               </hx-form-group>
-
             </div>
           </div>
 
@@ -49,7 +67,8 @@
 </template>
 
 <script setup lang="ts">
-//@ts-nocheck
+// @ts-nocheck
+// @ts-ignore
 import { ref, onMounted, watch } from "vue";
 import { HxNotification } from "@/components/base/notification";
 import ApiService from "@/core/services/ApiService";
@@ -73,7 +92,6 @@ const statuses = ref([
 ]);
 
 const id = ref(null);
-
 
 const fetchData = async () => {
   try {
@@ -119,6 +137,4 @@ onMounted(async () => {
   fetchData();
 });
 </script>
-<style>
-
-</style>
+<style></style>

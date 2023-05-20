@@ -198,7 +198,8 @@
 </template>
 
 <script setup lang="ts">
-//@ts-nocheck
+// @ts-nocheck
+// @ts-ignore
 import { onMounted, ref, watch, reactive, watchEffect } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import TiptapEditor from "@/components/common/tiptap/tiptap-editor.vue";
